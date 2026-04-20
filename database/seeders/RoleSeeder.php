@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -10,10 +9,10 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $superadmin = Role::findOrCreate('superadmin', 'sanctum');
-        $adminPusat = Role::findOrCreate('admin_pusat', 'sanctum');
+        $superadmin  = Role::findOrCreate('superadmin', 'sanctum');
+        $adminPusat  = Role::findOrCreate('admin_pusat', 'sanctum');
         $adminOutlet = Role::findOrCreate('admin_outlet', 'sanctum');
-        $owner = Role::findOrCreate('owner', 'sanctum');
+        $owner       = Role::findOrCreate('owner', 'sanctum');
 
         $allPermissions = Permission::query()->pluck('name')->all();
 
@@ -61,6 +60,33 @@ class RoleSeeder extends Seeder
             'promotions.create',
             'promotions.update',
             'promotions.delete',
+            'units.view',
+            'units.create',
+            'units.update',
+            'units.delete',
+
+            'unit_conversions.view',
+            'unit_conversions.create',
+            'unit_conversions.update',
+            'unit_conversions.delete',
+
+            'raw_material_categories.view',
+            'raw_material_categories.create',
+            'raw_material_categories.update',
+            'raw_material_categories.delete',
+
+            'raw_materials.view',
+            'raw_materials.create',
+            'raw_materials.update',
+            'raw_materials.delete',
+
+            'outlet_material_stocks.view',
+            'outlet_material_stocks.update',
+
+            'product_boms.view',
+            'product_boms.create',
+            'product_boms.update',
+            'product_boms.delete',
         ]);
 
         $adminOutlet->syncPermissions([

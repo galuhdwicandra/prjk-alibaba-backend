@@ -1,19 +1,28 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-20 16:56:19_  
+_Dihasilkan otomatis: 2026-04-20 21:17:46_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
 - [Controllers (app/Http/Controllers)](#controllers-app-http-controllers)
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
+  - [app\Http\Controllers\Api\CustomerController.php](#file-apphttpcontrollersapicustomercontrollerphp)
   - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
+  - [app\Http\Controllers\Api\OutletMaterialStockController.php](#file-apphttpcontrollersapioutletmaterialstockcontrollerphp)
   - [app\Http\Controllers\Api\OutletSettingController.php](#file-apphttpcontrollersapioutletsettingcontrollerphp)
   - [app\Http\Controllers\Api\PermissionController.php](#file-apphttpcontrollersapipermissioncontrollerphp)
+  - [app\Http\Controllers\Api\ProductBomController.php](#file-apphttpcontrollersapiproductbomcontrollerphp)
   - [app\Http\Controllers\Api\ProductCategoryController.php](#file-apphttpcontrollersapiproductcategorycontrollerphp)
   - [app\Http\Controllers\Api\ProductController.php](#file-apphttpcontrollersapiproductcontrollerphp)
+  - [app\Http\Controllers\Api\PromotionController.php](#file-apphttpcontrollersapipromotioncontrollerphp)
+  - [app\Http\Controllers\Api\RawMaterialCategoryController.php](#file-apphttpcontrollersapirawmaterialcategorycontrollerphp)
+  - [app\Http\Controllers\Api\RawMaterialController.php](#file-apphttpcontrollersapirawmaterialcontrollerphp)
   - [app\Http\Controllers\Api\RoleController.php](#file-apphttpcontrollersapirolecontrollerphp)
   - [app\Http\Controllers\Api\SystemSettingController.php](#file-apphttpcontrollersapisystemsettingcontrollerphp)
+  - [app\Http\Controllers\Api\UnitController.php](#file-apphttpcontrollersapiunitcontrollerphp)
+  - [app\Http\Controllers\Api\UnitConversionController.php](#file-apphttpcontrollersapiunitconversioncontrollerphp)
   - [app\Http\Controllers\Api\UserController.php](#file-apphttpcontrollersapiusercontrollerphp)
+  - [app\Http\Controllers\Api\VoucherController.php](#file-apphttpcontrollersapivouchercontrollerphp)
   - [app\Http\Controllers\Auth\AuthenticatedSessionController.php](#file-apphttpcontrollersauthauthenticatedsessioncontrollerphp)
   - [app\Http\Controllers\Auth\EmailVerificationNotificationController.php](#file-apphttpcontrollersauthemailverificationnotificationcontrollerphp)
   - [app\Http\Controllers\Auth\NewPasswordController.php](#file-apphttpcontrollersauthnewpasswordcontrollerphp)
@@ -24,6 +33,19 @@ _Dihasilkan otomatis: 2026-04-20 16:56:19_
 - [Form Requests (app/Http/Requests)](#form-requests-app-http-requests)
   - [app\Http\Requests\Api\Auth\ChangePasswordRequest.php](#file-apphttprequestsapiauthchangepasswordrequestphp)
   - [app\Http\Requests\Api\Auth\LoginRequest.php](#file-apphttprequestsapiauthloginrequestphp)
+  - [app\Http\Requests\Api\Customer\StoreCustomerRequest.php](#file-apphttprequestsapicustomerstorecustomerrequestphp)
+  - [app\Http\Requests\Api\Customer\UpdateCustomerRequest.php](#file-apphttprequestsapicustomerupdatecustomerrequestphp)
+  - [app\Http\Requests\Api\Inventory\OutletMaterialStock\UpsertOutletMaterialStockRequest.php](#file-apphttprequestsapiinventoryoutletmaterialstockupsertoutletmaterialstockrequestphp)
+  - [app\Http\Requests\Api\Inventory\ProductBom\StoreProductBomRequest.php](#file-apphttprequestsapiinventoryproductbomstoreproductbomrequestphp)
+  - [app\Http\Requests\Api\Inventory\ProductBom\UpdateProductBomRequest.php](#file-apphttprequestsapiinventoryproductbomupdateproductbomrequestphp)
+  - [app\Http\Requests\Api\Inventory\RawMaterial\StoreRawMaterialRequest.php](#file-apphttprequestsapiinventoryrawmaterialstorerawmaterialrequestphp)
+  - [app\Http\Requests\Api\Inventory\RawMaterial\UpdateRawMaterialRequest.php](#file-apphttprequestsapiinventoryrawmaterialupdaterawmaterialrequestphp)
+  - [app\Http\Requests\Api\Inventory\RawMaterialCategory\StoreRawMaterialCategoryRequest.php](#file-apphttprequestsapiinventoryrawmaterialcategorystorerawmaterialcategoryrequestphp)
+  - [app\Http\Requests\Api\Inventory\RawMaterialCategory\UpdateRawMaterialCategoryRequest.php](#file-apphttprequestsapiinventoryrawmaterialcategoryupdaterawmaterialcategoryrequestphp)
+  - [app\Http\Requests\Api\Inventory\Unit\StoreUnitRequest.php](#file-apphttprequestsapiinventoryunitstoreunitrequestphp)
+  - [app\Http\Requests\Api\Inventory\Unit\UpdateUnitRequest.php](#file-apphttprequestsapiinventoryunitupdateunitrequestphp)
+  - [app\Http\Requests\Api\Inventory\UnitConversion\StoreUnitConversionRequest.php](#file-apphttprequestsapiinventoryunitconversionstoreunitconversionrequestphp)
+  - [app\Http\Requests\Api\Inventory\UnitConversion\UpdateUnitConversionRequest.php](#file-apphttprequestsapiinventoryunitconversionupdateunitconversionrequestphp)
   - [app\Http\Requests\Api\Outlet\StoreOutletRequest.php](#file-apphttprequestsapioutletstoreoutletrequestphp)
   - [app\Http\Requests\Api\Outlet\UpdateOutletRequest.php](#file-apphttprequestsapioutletupdateoutletrequestphp)
   - [app\Http\Requests\Api\Outlet\UpdateOutletSettingRequest.php](#file-apphttprequestsapioutletupdateoutletsettingrequestphp)
@@ -33,15 +55,24 @@ _Dihasilkan otomatis: 2026-04-20 16:56:19_
   - [app\Http\Requests\Api\Product\UpdateProductRequest.php](#file-apphttprequestsapiproductupdateproductrequestphp)
   - [app\Http\Requests\Api\ProductCategory\StoreProductCategoryRequest.php](#file-apphttprequestsapiproductcategorystoreproductcategoryrequestphp)
   - [app\Http\Requests\Api\ProductCategory\UpdateProductCategoryRequest.php](#file-apphttprequestsapiproductcategoryupdateproductcategoryrequestphp)
+  - [app\Http\Requests\Api\Promotion\StorePromotionRequest.php](#file-apphttprequestsapipromotionstorepromotionrequestphp)
+  - [app\Http\Requests\Api\Promotion\UpdatePromotionRequest.php](#file-apphttprequestsapipromotionupdatepromotionrequestphp)
   - [app\Http\Requests\Api\Role\StoreRoleRequest.php](#file-apphttprequestsapirolestorerolerequestphp)
   - [app\Http\Requests\Api\Role\UpdateRoleRequest.php](#file-apphttprequestsapiroleupdaterolerequestphp)
   - [app\Http\Requests\Api\SystemSetting\UpsertSystemSettingRequest.php](#file-apphttprequestsapisystemsettingupsertsystemsettingrequestphp)
   - [app\Http\Requests\Api\User\StoreUserRequest.php](#file-apphttprequestsapiuserstoreuserrequestphp)
   - [app\Http\Requests\Api\User\UpdateUserRequest.php](#file-apphttprequestsapiuserupdateuserrequestphp)
+  - [app\Http\Requests\Api\Voucher\StoreVoucherRequest.php](#file-apphttprequestsapivoucherstorevoucherrequestphp)
+  - [app\Http\Requests\Api\Voucher\UpdateVoucherRequest.php](#file-apphttprequestsapivoucherupdatevoucherrequestphp)
 - [API Resources (app/Http/Resources)](#api-resources-app-http-resources)
+  - [app\Http\Resources\CustomerAddressResource.php](#file-apphttpresourcescustomeraddressresourcephp)
+  - [app\Http\Resources\CustomerResource.php](#file-apphttpresourcescustomerresourcephp)
+  - [app\Http\Resources\OutletMaterialStockResource.php](#file-apphttpresourcesoutletmaterialstockresourcephp)
   - [app\Http\Resources\OutletResource.php](#file-apphttpresourcesoutletresourcephp)
   - [app\Http\Resources\OutletSettingResource.php](#file-apphttpresourcesoutletsettingresourcephp)
   - [app\Http\Resources\PermissionResource.php](#file-apphttpresourcespermissionresourcephp)
+  - [app\Http\Resources\ProductBomItemResource.php](#file-apphttpresourcesproductbomitemresourcephp)
+  - [app\Http\Resources\ProductBomResource.php](#file-apphttpresourcesproductbomresourcephp)
   - [app\Http\Resources\ProductBundleItemResource.php](#file-apphttpresourcesproductbundleitemresourcephp)
   - [app\Http\Resources\ProductCategoryResource.php](#file-apphttpresourcesproductcategoryresourcephp)
   - [app\Http\Resources\ProductModifierGroupResource.php](#file-apphttpresourcesproductmodifiergroupresourcephp)
@@ -51,13 +82,25 @@ _Dihasilkan otomatis: 2026-04-20 16:56:19_
   - [app\Http\Resources\ProductResource.php](#file-apphttpresourcesproductresourcephp)
   - [app\Http\Resources\ProductVariantGroupResource.php](#file-apphttpresourcesproductvariantgroupresourcephp)
   - [app\Http\Resources\ProductVariantOptionResource.php](#file-apphttpresourcesproductvariantoptionresourcephp)
+  - [app\Http\Resources\PromotionResource.php](#file-apphttpresourcespromotionresourcephp)
+  - [app\Http\Resources\PromotionRuleResource.php](#file-apphttpresourcespromotionruleresourcephp)
+  - [app\Http\Resources\RawMaterialCategoryResource.php](#file-apphttpresourcesrawmaterialcategoryresourcephp)
+  - [app\Http\Resources\RawMaterialResource.php](#file-apphttpresourcesrawmaterialresourcephp)
   - [app\Http\Resources\RoleResource.php](#file-apphttpresourcesroleresourcephp)
   - [app\Http\Resources\SystemSettingResource.php](#file-apphttpresourcessystemsettingresourcephp)
+  - [app\Http\Resources\UnitConversionResource.php](#file-apphttpresourcesunitconversionresourcephp)
+  - [app\Http\Resources\UnitResource.php](#file-apphttpresourcesunitresourcephp)
   - [app\Http\Resources\UserResource.php](#file-apphttpresourcesuserresourcephp)
+  - [app\Http\Resources\VoucherResource.php](#file-apphttpresourcesvoucherresourcephp)
 - [Models (app/Models)](#models-app-models)
+  - [app\Models\Customer.php](#file-appmodelscustomerphp)
+  - [app\Models\CustomerAddress.php](#file-appmodelscustomeraddressphp)
   - [app\Models\Outlet.php](#file-appmodelsoutletphp)
+  - [app\Models\OutletMaterialStock.php](#file-appmodelsoutletmaterialstockphp)
   - [app\Models\OutletSetting.php](#file-appmodelsoutletsettingphp)
   - [app\Models\Product.php](#file-appmodelsproductphp)
+  - [app\Models\ProductBom.php](#file-appmodelsproductbomphp)
+  - [app\Models\ProductBomItem.php](#file-appmodelsproductbomitemphp)
   - [app\Models\ProductBundleItem.php](#file-appmodelsproductbundleitemphp)
   - [app\Models\ProductCategory.php](#file-appmodelsproductcategoryphp)
   - [app\Models\ProductModifierGroup.php](#file-appmodelsproductmodifiergroupphp)
@@ -66,17 +109,32 @@ _Dihasilkan otomatis: 2026-04-20 16:56:19_
   - [app\Models\ProductPrice.php](#file-appmodelsproductpricephp)
   - [app\Models\ProductVariantGroup.php](#file-appmodelsproductvariantgroupphp)
   - [app\Models\ProductVariantOption.php](#file-appmodelsproductvariantoptionphp)
+  - [app\Models\Promotion.php](#file-appmodelspromotionphp)
+  - [app\Models\PromotionRule.php](#file-appmodelspromotionrulephp)
+  - [app\Models\RawMaterial.php](#file-appmodelsrawmaterialphp)
+  - [app\Models\RawMaterialCategory.php](#file-appmodelsrawmaterialcategoryphp)
   - [app\Models\SystemSetting.php](#file-appmodelssystemsettingphp)
+  - [app\Models\Unit.php](#file-appmodelsunitphp)
+  - [app\Models\UnitConversion.php](#file-appmodelsunitconversionphp)
   - [app\Models\User.php](#file-appmodelsuserphp)
   - [app\Models\UserOutletAccess.php](#file-appmodelsuseroutletaccessphp)
+  - [app\Models\Voucher.php](#file-appmodelsvoucherphp)
 - [Providers (app/Providers)](#providers-app-providers)
   - [app\Providers\AppServiceProvider.php](#file-appprovidersappserviceproviderphp)
 - [Services (app/Services)](#services-app-services)
   - [app\Services\Auth\AuthService.php](#file-appservicesauthauthservicephp)
   - [app\Services\Catalog\ProductService.php](#file-appservicescatalogproductservicephp)
+  - [app\Services\Customer\CustomerService.php](#file-appservicescustomercustomerservicephp)
+  - [app\Services\Inventory\OutletMaterialStockService.php](#file-appservicesinventoryoutletmaterialstockservicephp)
+  - [app\Services\Inventory\ProductBomService.php](#file-appservicesinventoryproductbomservicephp)
+  - [app\Services\Inventory\RawMaterialService.php](#file-appservicesinventoryrawmaterialservicephp)
+  - [app\Services\Inventory\UnitConversionService.php](#file-appservicesinventoryunitconversionservicephp)
+  - [app\Services\Inventory\UnitService.php](#file-appservicesinventoryunitservicephp)
   - [app\Services\Outlet\OutletService.php](#file-appservicesoutletoutletservicephp)
+  - [app\Services\Promotion\PromotionService.php](#file-appservicespromotionpromotionservicephp)
   - [app\Services\SystemSetting\SystemSettingService.php](#file-appservicessystemsettingsystemsettingservicephp)
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
+  - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
   - [database\seeders\PermissionSeeder.php](#file-databaseseederspermissionseederphp)
@@ -176,6 +234,122 @@ class AuthController extends Controller
     }
 }
 
+```
+</details>
+
+<a id="file-apphttpcontrollersapicustomercontrollerphp"></a>
+### app\Http\Controllers\Api\CustomerController.php
+- SHA: `0041df4b4e21`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `CustomerController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly CustomerService $customerService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreCustomerRequest $request) : *JsonResponse*
+- **show**(Request $request, Customer $customer) : *JsonResponse*
+- **update**(UpdateCustomerRequest $request, Customer $customer) : *JsonResponse*
+- **destroy**(Request $request, Customer $customer) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Customer\StoreCustomerRequest;
+use App\Http\Requests\Api\Customer\UpdateCustomerRequest;
+use App\Http\Resources\CustomerResource;
+use App\Models\Customer;
+use App\Services\Customer\CustomerService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class CustomerController extends Controller
+{
+    public function __construct(
+        private readonly CustomerService $customerService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('customers.view'), 403);
+
+        $customers = Customer::query()
+            ->with('addresses')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('code', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('is_member'), function ($query) use ($request) {
+                $query->where('is_member', filter_var($request->input('is_member'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar customer berhasil diambil.',
+            'data' => CustomerResource::collection($customers),
+            'meta' => [
+                'current_page' => $customers->currentPage(),
+                'last_page' => $customers->lastPage(),
+                'per_page' => $customers->perPage(),
+                'total' => $customers->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreCustomerRequest $request): JsonResponse
+    {
+        $customer = $this->customerService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Customer berhasil dibuat.',
+            'data' => new CustomerResource($customer),
+        ], 201);
+    }
+
+    public function show(Request $request, Customer $customer): JsonResponse
+    {
+        abort_unless($request->user()->can('customers.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail customer berhasil diambil.',
+            'data' => new CustomerResource($customer->load('addresses')),
+        ]);
+    }
+
+    public function update(UpdateCustomerRequest $request, Customer $customer): JsonResponse
+    {
+        $customer = $this->customerService->update($customer, $request->validated());
+
+        return response()->json([
+            'message' => 'Customer berhasil diupdate.',
+            'data' => new CustomerResource($customer),
+        ]);
+    }
+
+    public function destroy(Request $request, Customer $customer): JsonResponse
+    {
+        abort_unless($request->user()->can('customers.delete'), 403);
+
+        $customer->delete();
+
+        return response()->json([
+            'message' => 'Customer berhasil dihapus.',
+        ]);
+    }
+}
 ```
 </details>
 
@@ -289,6 +463,92 @@ class OutletController extends Controller
 
         return response()->json([
             'message' => 'Outlet berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapioutletmaterialstockcontrollerphp"></a>
+### app\Http\Controllers\Api\OutletMaterialStockController.php
+- SHA: `cdad9c78027a`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `OutletMaterialStockController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly OutletMaterialStockService $outletMaterialStockService)
+- **index**(Request $request) : *JsonResponse*
+- **upsert**(UpsertOutletMaterialStockRequest $request) : *JsonResponse*
+- **show**(Request $request, OutletMaterialStock $outletMaterialStock) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\OutletMaterialStock\UpsertOutletMaterialStockRequest;
+use App\Http\Resources\OutletMaterialStockResource;
+use App\Models\OutletMaterialStock;
+use App\Services\Inventory\OutletMaterialStockService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class OutletMaterialStockController extends Controller
+{
+    public function __construct(
+        private readonly OutletMaterialStockService $outletMaterialStockService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('outlet_material_stocks.view'), 403);
+
+        $rows = OutletMaterialStock::query()
+            ->with(['outlet', 'rawMaterial'])
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('raw_material_id'), function ($query) use ($request) {
+                $query->where('raw_material_id', (int) $request->input('raw_material_id'));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar stok bahan per outlet berhasil diambil.',
+            'data' => OutletMaterialStockResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function upsert(UpsertOutletMaterialStockRequest $request): JsonResponse
+    {
+        $row = $this->outletMaterialStockService->upsert($request->validated());
+
+        return response()->json([
+            'message' => 'Stok bahan outlet berhasil disimpan.',
+            'data' => new OutletMaterialStockResource($row),
+        ]);
+    }
+
+    public function show(Request $request, OutletMaterialStock $outletMaterialStock): JsonResponse
+    {
+        abort_unless($request->user()->can('outlet_material_stocks.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail stok bahan outlet berhasil diambil.',
+            'data' => new OutletMaterialStockResource($outletMaterialStock->load(['outlet', 'rawMaterial'])),
         ]);
     }
 }
@@ -464,6 +724,117 @@ class PermissionController extends Controller
 
         return response()->json([
             'message' => 'Permission berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapiproductbomcontrollerphp"></a>
+### app\Http\Controllers\Api\ProductBomController.php
+- SHA: `d3328e84ea76`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `ProductBomController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly ProductBomService $productBomService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreProductBomRequest $request) : *JsonResponse*
+- **show**(Request $request, ProductBom $productBom) : *JsonResponse*
+- **update**(UpdateProductBomRequest $request, ProductBom $productBom) : *JsonResponse*
+- **destroy**(Request $request, ProductBom $productBom) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\ProductBom\StoreProductBomRequest;
+use App\Http\Requests\Api\Inventory\ProductBom\UpdateProductBomRequest;
+use App\Http\Resources\ProductBomResource;
+use App\Models\ProductBom;
+use App\Services\Inventory\ProductBomService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class ProductBomController extends Controller
+{
+    public function __construct(
+        private readonly ProductBomService $productBomService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('product_boms.view'), 403);
+
+        $rows = ProductBom::query()
+            ->with(['product', 'items.rawMaterial', 'items.unit'])
+            ->when($request->filled('product_id'), function ($query) use ($request) {
+                $query->where('product_id', (int) $request->input('product_id'));
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->orderByDesc('version')
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar BOM berhasil diambil.',
+            'data' => ProductBomResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreProductBomRequest $request): JsonResponse
+    {
+        $row = $this->productBomService->create($request->validated());
+
+        return response()->json([
+            'message' => 'BOM berhasil dibuat.',
+            'data' => new ProductBomResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, ProductBom $productBom): JsonResponse
+    {
+        abort_unless($request->user()->can('product_boms.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail BOM berhasil diambil.',
+            'data' => new ProductBomResource($productBom->load(['product', 'items.rawMaterial', 'items.unit'])),
+        ]);
+    }
+
+    public function update(UpdateProductBomRequest $request, ProductBom $productBom): JsonResponse
+    {
+        $row = $this->productBomService->update($productBom, $request->validated());
+
+        return response()->json([
+            'message' => 'BOM berhasil diupdate.',
+            'data' => new ProductBomResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, ProductBom $productBom): JsonResponse
+    {
+        abort_unless($request->user()->can('product_boms.delete'), 403);
+
+        $productBom->delete();
+
+        return response()->json([
+            'message' => 'BOM berhasil dihapus.',
         ]);
     }
 }
@@ -747,6 +1118,356 @@ class ProductController extends Controller
 ```
 </details>
 
+<a id="file-apphttpcontrollersapipromotioncontrollerphp"></a>
+### app\Http\Controllers\Api\PromotionController.php
+- SHA: `3c349b2d6fa9`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `PromotionController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly PromotionService $promotionService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StorePromotionRequest $request) : *JsonResponse*
+- **show**(Request $request, Promotion $promotion) : *JsonResponse*
+- **update**(UpdatePromotionRequest $request, Promotion $promotion) : *JsonResponse*
+- **destroy**(Request $request, Promotion $promotion) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Promotion\StorePromotionRequest;
+use App\Http\Requests\Api\Promotion\UpdatePromotionRequest;
+use App\Http\Resources\PromotionResource;
+use App\Models\Promotion;
+use App\Services\Promotion\PromotionService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class PromotionController extends Controller
+{
+    public function __construct(
+        private readonly PromotionService $promotionService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('promotions.view'), 403);
+
+        $promotions = Promotion::query()
+            ->with('rules')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->when($request->filled('promotion_type'), function ($query) use ($request) {
+                $query->where('promotion_type', $request->string('promotion_type')->toString());
+            })
+            ->orderByDesc('priority')
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar promotion berhasil diambil.',
+            'data' => PromotionResource::collection($promotions),
+            'meta' => [
+                'current_page' => $promotions->currentPage(),
+                'last_page' => $promotions->lastPage(),
+                'per_page' => $promotions->perPage(),
+                'total' => $promotions->total(),
+            ],
+        ]);
+    }
+
+    public function store(StorePromotionRequest $request): JsonResponse
+    {
+        $promotion = $this->promotionService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Promotion berhasil dibuat.',
+            'data' => new PromotionResource($promotion),
+        ], 201);
+    }
+
+    public function show(Request $request, Promotion $promotion): JsonResponse
+    {
+        abort_unless($request->user()->can('promotions.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail promotion berhasil diambil.',
+            'data' => new PromotionResource($promotion->load('rules')),
+        ]);
+    }
+
+    public function update(UpdatePromotionRequest $request, Promotion $promotion): JsonResponse
+    {
+        $promotion = $this->promotionService->update($promotion, $request->validated());
+
+        return response()->json([
+            'message' => 'Promotion berhasil diupdate.',
+            'data' => new PromotionResource($promotion),
+        ]);
+    }
+
+    public function destroy(Request $request, Promotion $promotion): JsonResponse
+    {
+        abort_unless($request->user()->can('promotions.delete'), 403);
+
+        $promotion->delete();
+
+        return response()->json([
+            'message' => 'Promotion berhasil dihapus.',
+        ]);
+    }
+}
+```
+</details>
+
+<a id="file-apphttpcontrollersapirawmaterialcategorycontrollerphp"></a>
+### app\Http\Controllers\Api\RawMaterialCategoryController.php
+- SHA: `a35bbe55eac8`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `RawMaterialCategoryController` extends `Controller`**
+
+Metode Publik:
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreRawMaterialCategoryRequest $request) : *JsonResponse*
+- **show**(Request $request, RawMaterialCategory $rawMaterialCategory) : *JsonResponse*
+- **update**(UpdateRawMaterialCategoryRequest $request, RawMaterialCategory $rawMaterialCategory) : *JsonResponse*
+- **destroy**(Request $request, RawMaterialCategory $rawMaterialCategory) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\RawMaterialCategory\StoreRawMaterialCategoryRequest;
+use App\Http\Requests\Api\Inventory\RawMaterialCategory\UpdateRawMaterialCategoryRequest;
+use App\Http\Resources\RawMaterialCategoryResource;
+use App\Models\RawMaterialCategory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class RawMaterialCategoryController extends Controller
+{
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('raw_material_categories.view'), 403);
+
+        $rows = RawMaterialCategory::query()
+            ->withCount('rawMaterials')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar kategori bahan baku berhasil diambil.',
+            'data' => RawMaterialCategoryResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreRawMaterialCategoryRequest $request): JsonResponse
+    {
+        $row = RawMaterialCategory::create($request->validated());
+
+        return response()->json([
+            'message' => 'Kategori bahan baku berhasil dibuat.',
+            'data' => new RawMaterialCategoryResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, RawMaterialCategory $rawMaterialCategory): JsonResponse
+    {
+        abort_unless($request->user()->can('raw_material_categories.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail kategori bahan baku berhasil diambil.',
+            'data' => new RawMaterialCategoryResource($rawMaterialCategory->loadCount('rawMaterials')),
+        ]);
+    }
+
+    public function update(UpdateRawMaterialCategoryRequest $request, RawMaterialCategory $rawMaterialCategory): JsonResponse
+    {
+        $rawMaterialCategory->update($request->validated());
+
+        return response()->json([
+            'message' => 'Kategori bahan baku berhasil diupdate.',
+            'data' => new RawMaterialCategoryResource($rawMaterialCategory->fresh()->loadCount('rawMaterials')),
+        ]);
+    }
+
+    public function destroy(Request $request, RawMaterialCategory $rawMaterialCategory): JsonResponse
+    {
+        abort_unless($request->user()->can('raw_material_categories.delete'), 403);
+
+        if ($rawMaterialCategory->rawMaterials()->exists()) {
+            return response()->json([
+                'message' => 'Kategori bahan baku tidak bisa dihapus karena masih dipakai.',
+            ], 422);
+        }
+
+        $rawMaterialCategory->delete();
+
+        return response()->json([
+            'message' => 'Kategori bahan baku berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapirawmaterialcontrollerphp"></a>
+### app\Http\Controllers\Api\RawMaterialController.php
+- SHA: `89b3fe24260a`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `RawMaterialController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly RawMaterialService $rawMaterialService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreRawMaterialRequest $request) : *JsonResponse*
+- **show**(Request $request, RawMaterial $rawMaterial) : *JsonResponse*
+- **update**(UpdateRawMaterialRequest $request, RawMaterial $rawMaterial) : *JsonResponse*
+- **destroy**(Request $request, RawMaterial $rawMaterial) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\RawMaterial\StoreRawMaterialRequest;
+use App\Http\Requests\Api\Inventory\RawMaterial\UpdateRawMaterialRequest;
+use App\Http\Resources\RawMaterialResource;
+use App\Models\RawMaterial;
+use App\Services\Inventory\RawMaterialService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class RawMaterialController extends Controller
+{
+    public function __construct(
+        private readonly RawMaterialService $rawMaterialService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('raw_materials.view'), 403);
+
+        $rows = RawMaterial::query()
+            ->with(['category', 'unit', 'outletStocks.outlet'])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('code', 'like', "%{$search}%")
+                        ->orWhere('sku', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('raw_material_category_id'), function ($query) use ($request) {
+                $query->where('raw_material_category_id', (int) $request->input('raw_material_category_id'));
+            })
+            ->when($request->filled('unit_id'), function ($query) use ($request) {
+                $query->where('unit_id', (int) $request->input('unit_id'));
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar bahan baku berhasil diambil.',
+            'data' => RawMaterialResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreRawMaterialRequest $request): JsonResponse
+    {
+        $row = $this->rawMaterialService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Bahan baku berhasil dibuat.',
+            'data' => new RawMaterialResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, RawMaterial $rawMaterial): JsonResponse
+    {
+        abort_unless($request->user()->can('raw_materials.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail bahan baku berhasil diambil.',
+            'data' => new RawMaterialResource($rawMaterial->load(['category', 'unit', 'outletStocks.outlet'])),
+        ]);
+    }
+
+    public function update(UpdateRawMaterialRequest $request, RawMaterial $rawMaterial): JsonResponse
+    {
+        $row = $this->rawMaterialService->update($rawMaterial, $request->validated());
+
+        return response()->json([
+            'message' => 'Bahan baku berhasil diupdate.',
+            'data' => new RawMaterialResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, RawMaterial $rawMaterial): JsonResponse
+    {
+        abort_unless($request->user()->can('raw_materials.delete'), 403);
+
+        if ($rawMaterial->bomItems()->exists()) {
+            return response()->json([
+                'message' => 'Bahan baku tidak bisa dihapus karena sudah dipakai di BOM.',
+            ], 422);
+        }
+
+        $rawMaterial->delete();
+
+        return response()->json([
+            'message' => 'Bahan baku berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpcontrollersapirolecontrollerphp"></a>
 ### app\Http\Controllers\Api\RoleController.php
 - SHA: `97504ea623be`  
@@ -930,6 +1651,227 @@ class SystemSettingController extends Controller
 ```
 </details>
 
+<a id="file-apphttpcontrollersapiunitcontrollerphp"></a>
+### app\Http\Controllers\Api\UnitController.php
+- SHA: `f54f6a5f523b`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `UnitController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly UnitService $unitService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreUnitRequest $request) : *JsonResponse*
+- **show**(Request $request, Unit $unit) : *JsonResponse*
+- **update**(UpdateUnitRequest $request, Unit $unit) : *JsonResponse*
+- **destroy**(Request $request, Unit $unit) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\Unit\StoreUnitRequest;
+use App\Http\Requests\Api\Inventory\Unit\UpdateUnitRequest;
+use App\Http\Resources\UnitResource;
+use App\Models\Unit;
+use App\Services\Inventory\UnitService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class UnitController extends Controller
+{
+    public function __construct(
+        private readonly UnitService $unitService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('units.view'), 403);
+
+        $units = Unit::query()
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('code', 'like', "%{$search}%");
+                });
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar satuan berhasil diambil.',
+            'data' => UnitResource::collection($units),
+            'meta' => [
+                'current_page' => $units->currentPage(),
+                'last_page' => $units->lastPage(),
+                'per_page' => $units->perPage(),
+                'total' => $units->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreUnitRequest $request): JsonResponse
+    {
+        $unit = $this->unitService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Satuan berhasil dibuat.',
+            'data' => new UnitResource($unit),
+        ], 201);
+    }
+
+    public function show(Request $request, Unit $unit): JsonResponse
+    {
+        abort_unless($request->user()->can('units.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail satuan berhasil diambil.',
+            'data' => new UnitResource($unit),
+        ]);
+    }
+
+    public function update(UpdateUnitRequest $request, Unit $unit): JsonResponse
+    {
+        $unit = $this->unitService->update($unit, $request->validated());
+
+        return response()->json([
+            'message' => 'Satuan berhasil diupdate.',
+            'data' => new UnitResource($unit),
+        ]);
+    }
+
+    public function destroy(Request $request, Unit $unit): JsonResponse
+    {
+        abort_unless($request->user()->can('units.delete'), 403);
+
+        if ($unit->rawMaterials()->exists() || $unit->bomItems()->exists()) {
+            return response()->json([
+                'message' => 'Satuan tidak bisa dihapus karena masih dipakai.',
+            ], 422);
+        }
+
+        $unit->delete();
+
+        return response()->json([
+            'message' => 'Satuan berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapiunitconversioncontrollerphp"></a>
+### app\Http\Controllers\Api\UnitConversionController.php
+- SHA: `b5bcce73beea`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `UnitConversionController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly UnitConversionService $unitConversionService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreUnitConversionRequest $request) : *JsonResponse*
+- **show**(Request $request, UnitConversion $unitConversion) : *JsonResponse*
+- **update**(UpdateUnitConversionRequest $request, UnitConversion $unitConversion) : *JsonResponse*
+- **destroy**(Request $request, UnitConversion $unitConversion) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\UnitConversion\StoreUnitConversionRequest;
+use App\Http\Requests\Api\Inventory\UnitConversion\UpdateUnitConversionRequest;
+use App\Http\Resources\UnitConversionResource;
+use App\Models\UnitConversion;
+use App\Services\Inventory\UnitConversionService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class UnitConversionController extends Controller
+{
+    public function __construct(
+        private readonly UnitConversionService $unitConversionService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('unit_conversions.view'), 403);
+
+        $rows = UnitConversion::query()
+            ->with(['fromUnit', 'toUnit'])
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar konversi satuan berhasil diambil.',
+            'data' => UnitConversionResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreUnitConversionRequest $request): JsonResponse
+    {
+        $row = $this->unitConversionService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Konversi satuan berhasil dibuat.',
+            'data' => new UnitConversionResource($row->load(['fromUnit', 'toUnit'])),
+        ], 201);
+    }
+
+    public function show(Request $request, UnitConversion $unitConversion): JsonResponse
+    {
+        abort_unless($request->user()->can('unit_conversions.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail konversi satuan berhasil diambil.',
+            'data' => new UnitConversionResource($unitConversion->load(['fromUnit', 'toUnit'])),
+        ]);
+    }
+
+    public function update(UpdateUnitConversionRequest $request, UnitConversion $unitConversion): JsonResponse
+    {
+        $unitConversion = $this->unitConversionService->update($unitConversion, $request->validated());
+
+        return response()->json([
+            'message' => 'Konversi satuan berhasil diupdate.',
+            'data' => new UnitConversionResource($unitConversion->load(['fromUnit', 'toUnit'])),
+        ]);
+    }
+
+    public function destroy(Request $request, UnitConversion $unitConversion): JsonResponse
+    {
+        abort_unless($request->user()->can('unit_conversions.delete'), 403);
+
+        $unitConversion->delete();
+
+        return response()->json([
+            'message' => 'Konversi satuan berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpcontrollersapiusercontrollerphp"></a>
 ### app\Http\Controllers\Api\UserController.php
 - SHA: `0ded1f7eab8c`  
@@ -1045,6 +1987,122 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User berhasil dinonaktifkan.',
+        ]);
+    }
+}
+```
+</details>
+
+<a id="file-apphttpcontrollersapivouchercontrollerphp"></a>
+### app\Http\Controllers\Api\VoucherController.php
+- SHA: `46bfbf68aa7e`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `VoucherController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly VoucherService $voucherService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreVoucherRequest $request) : *JsonResponse*
+- **show**(Request $request, Voucher $voucher) : *JsonResponse*
+- **update**(UpdateVoucherRequest $request, Voucher $voucher) : *JsonResponse*
+- **destroy**(Request $request, Voucher $voucher) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Voucher\StoreVoucherRequest;
+use App\Http\Requests\Api\Voucher\UpdateVoucherRequest;
+use App\Http\Resources\VoucherResource;
+use App\Models\Voucher;
+use App\Services\Voucher\VoucherService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class VoucherController extends Controller
+{
+    public function __construct(
+        private readonly VoucherService $voucherService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('vouchers.view'), 403);
+
+        $vouchers = Voucher::query()
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('code', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->when($request->filled('discount_type'), function ($query) use ($request) {
+                $query->where('discount_type', $request->string('discount_type')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar voucher berhasil diambil.',
+            'data' => VoucherResource::collection($vouchers),
+            'meta' => [
+                'current_page' => $vouchers->currentPage(),
+                'last_page' => $vouchers->lastPage(),
+                'per_page' => $vouchers->perPage(),
+                'total' => $vouchers->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreVoucherRequest $request): JsonResponse
+    {
+        $voucher = $this->voucherService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Voucher berhasil dibuat.',
+            'data' => new VoucherResource($voucher),
+        ], 201);
+    }
+
+    public function show(Request $request, Voucher $voucher): JsonResponse
+    {
+        abort_unless($request->user()->can('vouchers.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail voucher berhasil diambil.',
+            'data' => new VoucherResource($voucher),
+        ]);
+    }
+
+    public function update(UpdateVoucherRequest $request, Voucher $voucher): JsonResponse
+    {
+        $voucher = $this->voucherService->update($voucher, $request->validated());
+
+        return response()->json([
+            'message' => 'Voucher berhasil diupdate.',
+            'data' => new VoucherResource($voucher),
+        ]);
+    }
+
+    public function destroy(Request $request, Voucher $voucher): JsonResponse
+    {
+        abort_unless($request->user()->can('vouchers.delete'), 403);
+
+        $voucher->delete();
+
+        return response()->json([
+            'message' => 'Voucher berhasil dihapus.',
         ]);
     }
 }
@@ -1480,6 +2538,619 @@ class LoginRequest extends FormRequest
             'login' => ['required', 'string'],
             'password' => ['required', 'string'],
             'device_name' => ['nullable', 'string', 'max:100'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapicustomerstorecustomerrequestphp"></a>
+### app\Http\Requests\Api\Customer\StoreCustomerRequest.php
+- SHA: `ae76a38dc4b9`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Customer`
+
+**Class `StoreCustomerRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Customer;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreCustomerRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('customers.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('customers', 'code')],
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50', Rule::unique('customers', 'phone')],
+            'email' => ['nullable', 'email', 'max:255', Rule::unique('customers', 'email')],
+            'gender' => ['nullable', 'string', 'max:50'],
+            'birth_date' => ['nullable', 'date'],
+            'points' => ['sometimes', 'integer', 'min:0'],
+            'total_spent' => ['sometimes', 'numeric', 'min:0'],
+            'is_member' => ['sometimes', 'boolean'],
+            'notes' => ['nullable', 'string'],
+
+            'addresses' => ['nullable', 'array'],
+            'addresses.*.label' => ['nullable', 'string', 'max:100'],
+            'addresses.*.recipient_name' => ['nullable', 'string', 'max:255'],
+            'addresses.*.recipient_phone' => ['nullable', 'string', 'max:50'],
+            'addresses.*.address' => ['required_with:addresses', 'string'],
+            'addresses.*.city' => ['nullable', 'string', 'max:100'],
+            'addresses.*.province' => ['nullable', 'string', 'max:100'],
+            'addresses.*.postal_code' => ['nullable', 'string', 'max:20'],
+            'addresses.*.latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'addresses.*.longitude' => ['nullable', 'numeric', 'between:-180,180'],
+            'addresses.*.is_default' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttprequestsapicustomerupdatecustomerrequestphp"></a>
+### app\Http\Requests\Api\Customer\UpdateCustomerRequest.php
+- SHA: `eafe9236cbfe`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Customer`
+
+**Class `UpdateCustomerRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Customer;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateCustomerRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('customers.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $customerId = $this->route('customer')->id;
+
+        return [
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('customers', 'code')->ignore($customerId)],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50', Rule::unique('customers', 'phone')->ignore($customerId)],
+            'email' => ['nullable', 'email', 'max:255', Rule::unique('customers', 'email')->ignore($customerId)],
+            'gender' => ['nullable', 'string', 'max:50'],
+            'birth_date' => ['nullable', 'date'],
+            'points' => ['sometimes', 'integer', 'min:0'],
+            'total_spent' => ['sometimes', 'numeric', 'min:0'],
+            'is_member' => ['sometimes', 'boolean'],
+            'notes' => ['nullable', 'string'],
+
+            'addresses' => ['sometimes', 'array'],
+            'addresses.*.label' => ['nullable', 'string', 'max:100'],
+            'addresses.*.recipient_name' => ['nullable', 'string', 'max:255'],
+            'addresses.*.recipient_phone' => ['nullable', 'string', 'max:50'],
+            'addresses.*.address' => ['required_with:addresses', 'string'],
+            'addresses.*.city' => ['nullable', 'string', 'max:100'],
+            'addresses.*.province' => ['nullable', 'string', 'max:100'],
+            'addresses.*.postal_code' => ['nullable', 'string', 'max:20'],
+            'addresses.*.latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'addresses.*.longitude' => ['nullable', 'numeric', 'between:-180,180'],
+            'addresses.*.is_default' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryoutletmaterialstockupsertoutletmaterialstockrequestphp"></a>
+### app\Http\Requests\Api\Inventory\OutletMaterialStock\UpsertOutletMaterialStockRequest.php
+- SHA: `3ecf58a4cd7d`  
+- Ukuran: 717 B  
+- Namespace: `App\Http\Requests\Api\Inventory\OutletMaterialStock`
+
+**Class `UpsertOutletMaterialStockRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\OutletMaterialStock;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpsertOutletMaterialStockRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('outlet_material_stocks.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'raw_material_id' => ['required', 'integer', 'exists:raw_materials,id'],
+            'qty_on_hand' => ['sometimes', 'numeric'],
+            'qty_reserved' => ['sometimes', 'numeric', 'min:0'],
+            'last_movement_at' => ['nullable', 'date'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryproductbomstoreproductbomrequestphp"></a>
+### app\Http\Requests\Api\Inventory\ProductBom\StoreProductBomRequest.php
+- SHA: `6ef341b9b7e2`  
+- Ukuran: 961 B  
+- Namespace: `App\Http\Requests\Api\Inventory\ProductBom`
+
+**Class `StoreProductBomRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\ProductBom;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreProductBomRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('product_boms.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'product_id' => ['required', 'integer', 'exists:products,id'],
+            'version' => ['sometimes', 'integer', 'min:1'],
+            'is_active' => ['sometimes', 'boolean'],
+            'notes' => ['nullable', 'string'],
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required', 'integer', 'exists:raw_materials,id'],
+            'items.*.unit_id' => ['required', 'integer', 'exists:units,id'],
+            'items.*.qty' => ['required', 'numeric', 'gt:0'],
+            'items.*.waste_percent' => ['sometimes', 'numeric', 'min:0', 'max:100'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryproductbomupdateproductbomrequestphp"></a>
+### app\Http\Requests\Api\Inventory\ProductBom\UpdateProductBomRequest.php
+- SHA: `0bdc70eba453`  
+- Ukuran: 1009 B  
+- Namespace: `App\Http\Requests\Api\Inventory\ProductBom`
+
+**Class `UpdateProductBomRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\ProductBom;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateProductBomRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('product_boms.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'product_id' => ['sometimes', 'required', 'integer', 'exists:products,id'],
+            'version' => ['sometimes', 'integer', 'min:1'],
+            'is_active' => ['sometimes', 'boolean'],
+            'notes' => ['nullable', 'string'],
+            'items' => ['sometimes', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required_with:items', 'integer', 'exists:raw_materials,id'],
+            'items.*.unit_id' => ['required_with:items', 'integer', 'exists:units,id'],
+            'items.*.qty' => ['required_with:items', 'numeric', 'gt:0'],
+            'items.*.waste_percent' => ['sometimes', 'numeric', 'min:0', 'max:100'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryrawmaterialstorerawmaterialrequestphp"></a>
+### app\Http\Requests\Api\Inventory\RawMaterial\StoreRawMaterialRequest.php
+- SHA: `da16e38c0db4`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\RawMaterial`
+
+**Class `StoreRawMaterialRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\RawMaterial;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreRawMaterialRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('raw_materials.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'raw_material_category_id' => ['required', 'integer', 'exists:raw_material_categories,id'],
+            'unit_id' => ['required', 'integer', 'exists:units,id'],
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('raw_materials', 'code')],
+            'sku' => ['nullable', 'string', 'max:100', Rule::unique('raw_materials', 'sku')],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'minimum_stock' => ['sometimes', 'numeric', 'min:0'],
+            'last_purchase_price' => ['sometimes', 'numeric', 'min:0'],
+            'average_cost' => ['sometimes', 'numeric', 'min:0'],
+            'is_active' => ['sometimes', 'boolean'],
+
+            'outlet_stocks' => ['nullable', 'array'],
+            'outlet_stocks.*.outlet_id' => ['required_with:outlet_stocks', 'integer', 'exists:outlets,id'],
+            'outlet_stocks.*.qty_on_hand' => ['sometimes', 'numeric', 'min:0'],
+            'outlet_stocks.*.qty_reserved' => ['sometimes', 'numeric', 'min:0'],
+            'outlet_stocks.*.last_movement_at' => ['nullable', 'date'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryrawmaterialupdaterawmaterialrequestphp"></a>
+### app\Http\Requests\Api\Inventory\RawMaterial\UpdateRawMaterialRequest.php
+- SHA: `2a184f75afae`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\RawMaterial`
+
+**Class `UpdateRawMaterialRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\RawMaterial;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateRawMaterialRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('raw_materials.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $id = $this->route('rawMaterial')->id;
+
+        return [
+            'raw_material_category_id' => ['sometimes', 'required', 'integer', 'exists:raw_material_categories,id'],
+            'unit_id' => ['sometimes', 'required', 'integer', 'exists:units,id'],
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('raw_materials', 'code')->ignore($id)],
+            'sku' => ['nullable', 'string', 'max:100', Rule::unique('raw_materials', 'sku')->ignore($id)],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'minimum_stock' => ['sometimes', 'numeric', 'min:0'],
+            'last_purchase_price' => ['sometimes', 'numeric', 'min:0'],
+            'average_cost' => ['sometimes', 'numeric', 'min:0'],
+            'is_active' => ['sometimes', 'boolean'],
+
+            'outlet_stocks' => ['sometimes', 'array'],
+            'outlet_stocks.*.outlet_id' => ['required_with:outlet_stocks', 'integer', 'exists:outlets,id'],
+            'outlet_stocks.*.qty_on_hand' => ['sometimes', 'numeric', 'min:0'],
+            'outlet_stocks.*.qty_reserved' => ['sometimes', 'numeric', 'min:0'],
+            'outlet_stocks.*.last_movement_at' => ['nullable', 'date'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryrawmaterialcategorystorerawmaterialcategoryrequestphp"></a>
+### app\Http\Requests\Api\Inventory\RawMaterialCategory\StoreRawMaterialCategoryRequest.php
+- SHA: `98f70b7c0cc2`  
+- Ukuran: 440 B  
+- Namespace: `App\Http\Requests\Api\Inventory\RawMaterialCategory`
+
+**Class `StoreRawMaterialCategoryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\RawMaterialCategory;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreRawMaterialCategoryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('raw_material_categories.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryrawmaterialcategoryupdaterawmaterialcategoryrequestphp"></a>
+### app\Http\Requests\Api\Inventory\RawMaterialCategory\UpdateRawMaterialCategoryRequest.php
+- SHA: `f9078e315177`  
+- Ukuran: 454 B  
+- Namespace: `App\Http\Requests\Api\Inventory\RawMaterialCategory`
+
+**Class `UpdateRawMaterialCategoryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\RawMaterialCategory;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateRawMaterialCategoryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('raw_material_categories.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryunitstoreunitrequestphp"></a>
+### app\Http\Requests\Api\Inventory\Unit\StoreUnitRequest.php
+- SHA: `b7df1166a5d9`  
+- Ukuran: 511 B  
+- Namespace: `App\Http\Requests\Api\Inventory\Unit`
+
+**Class `StoreUnitRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\Unit;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreUnitRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('units.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'code' => ['required', 'string', 'max:50', Rule::unique('units', 'code')],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryunitupdateunitrequestphp"></a>
+### app\Http\Requests\Api\Inventory\Unit\UpdateUnitRequest.php
+- SHA: `0871e5c8d2f0`  
+- Ukuran: 592 B  
+- Namespace: `App\Http\Requests\Api\Inventory\Unit`
+
+**Class `UpdateUnitRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\Unit;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateUnitRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('units.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $id = $this->route('unit')->id;
+
+        return [
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'code' => ['sometimes', 'required', 'string', 'max:50', Rule::unique('units', 'code')->ignore($id)],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryunitconversionstoreunitconversionrequestphp"></a>
+### app\Http\Requests\Api\Inventory\UnitConversion\StoreUnitConversionRequest.php
+- SHA: `e7b15c89914a`  
+- Ukuran: 833 B  
+- Namespace: `App\Http\Requests\Api\Inventory\UnitConversion`
+
+**Class `StoreUnitConversionRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\UnitConversion;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreUnitConversionRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('unit_conversions.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'from_unit_id' => ['required', 'integer', 'exists:units,id', 'different:to_unit_id'],
+            'to_unit_id' => ['required', 'integer', 'exists:units,id'],
+            'multiplier' => ['required', 'numeric', 'gt:0'],
+            Rule::unique('unit_conversions')->where(fn ($q) => $q
+                ->where('from_unit_id', $this->input('from_unit_id'))
+                ->where('to_unit_id', $this->input('to_unit_id'))),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventoryunitconversionupdateunitconversionrequestphp"></a>
+### app\Http\Requests\Api\Inventory\UnitConversion\UpdateUnitConversionRequest.php
+- SHA: `4a69032005cc`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\UnitConversion`
+
+**Class `UpdateUnitConversionRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\UnitConversion;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateUnitConversionRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('unit_conversions.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $id = $this->route('unitConversion')->id;
+
+        return [
+            'from_unit_id' => ['sometimes', 'required', 'integer', 'exists:units,id', 'different:to_unit_id'],
+            'to_unit_id' => ['sometimes', 'required', 'integer', 'exists:units,id'],
+            'multiplier' => ['sometimes', 'required', 'numeric', 'gt:0'],
+            Rule::unique('unit_conversions')->ignore($id)->where(fn ($q) => $q
+                ->where('from_unit_id', $this->input('from_unit_id', $this->route('unitConversion')->from_unit_id))
+                ->where('to_unit_id', $this->input('to_unit_id', $this->route('unitConversion')->to_unit_id))),
         ];
     }
 }
@@ -2028,6 +3699,104 @@ class UpdateProductCategoryRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapipromotionstorepromotionrequestphp"></a>
+### app\Http\Requests\Api\Promotion\StorePromotionRequest.php
+- SHA: `e9f6d9cfb0ed`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Promotion`
+
+**Class `StorePromotionRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Promotion;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StorePromotionRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('promotions.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'promotion_type' => ['required', Rule::in(['discount', 'bundle', 'buy_x_get_y'])],
+            'starts_at' => ['nullable', 'date'],
+            'ends_at' => ['nullable', 'date'],
+            'priority' => ['sometimes', 'integer'],
+            'is_active' => ['sometimes', 'boolean'],
+
+            'rules' => ['nullable', 'array'],
+            'rules.*.rule_type' => ['required_with:rules', Rule::in(['min_total', 'product', 'category', 'outlet', 'channel', 'time'])],
+            'rules.*.operator' => ['nullable', 'string', 'max:50'],
+            'rules.*.value' => ['nullable'],
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttprequestsapipromotionupdatepromotionrequestphp"></a>
+### app\Http\Requests\Api\Promotion\UpdatePromotionRequest.php
+- SHA: `06d42f7f076d`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Promotion`
+
+**Class `UpdatePromotionRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Promotion;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdatePromotionRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('promotions.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'promotion_type' => ['sometimes', 'required', Rule::in(['discount', 'bundle', 'buy_x_get_y'])],
+            'starts_at' => ['nullable', 'date'],
+            'ends_at' => ['nullable', 'date'],
+            'priority' => ['sometimes', 'integer'],
+            'is_active' => ['sometimes', 'boolean'],
+
+            'rules' => ['sometimes', 'array'],
+            'rules.*.rule_type' => ['required_with:rules', Rule::in(['min_total', 'product', 'category', 'outlet', 'channel', 'time'])],
+            'rules.*.operator' => ['nullable', 'string', 'max:50'],
+            'rules.*.value' => ['nullable'],
+        ];
+    }
+}
+```
+</details>
+
 <a id="file-apphttprequestsapirolestorerolerequestphp"></a>
 ### app\Http\Requests\Api\Role\StoreRoleRequest.php
 - SHA: `56007c9924c8`  
@@ -2258,8 +4027,245 @@ class UpdateUserRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapivoucherstorevoucherrequestphp"></a>
+### app\Http\Requests\Api\Voucher\StoreVoucherRequest.php
+- SHA: `436f2e74d123`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Voucher`
+
+**Class `StoreVoucherRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Voucher;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreVoucherRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('vouchers.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'code' => ['required', 'string', 'max:100', Rule::unique('vouchers', 'code')],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'discount_type' => ['required', Rule::in(['percent', 'fixed'])],
+            'discount_value' => ['required', 'numeric', 'min:0'],
+            'max_discount' => ['nullable', 'numeric', 'min:0'],
+            'min_order_total' => ['sometimes', 'numeric', 'min:0'],
+            'quota' => ['nullable', 'integer', 'min:1'],
+            'used_count' => ['sometimes', 'integer', 'min:0'],
+            'starts_at' => ['nullable', 'date'],
+            'ends_at' => ['nullable', 'date'],
+            'is_active' => ['sometimes', 'boolean'],
+            'applies_to' => ['required', Rule::in(['all', 'specific_products', 'specific_categories'])],
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttprequestsapivoucherupdatevoucherrequestphp"></a>
+### app\Http\Requests\Api\Voucher\UpdateVoucherRequest.php
+- SHA: `035c34e02137`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Voucher`
+
+**Class `UpdateVoucherRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Voucher;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateVoucherRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('vouchers.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $voucherId = $this->route('voucher')->id;
+
+        return [
+            'code' => ['sometimes', 'required', 'string', 'max:100', Rule::unique('vouchers', 'code')->ignore($voucherId)],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'discount_type' => ['sometimes', 'required', Rule::in(['percent', 'fixed'])],
+            'discount_value' => ['sometimes', 'required', 'numeric', 'min:0'],
+            'max_discount' => ['nullable', 'numeric', 'min:0'],
+            'min_order_total' => ['sometimes', 'numeric', 'min:0'],
+            'quota' => ['nullable', 'integer', 'min:1'],
+            'used_count' => ['sometimes', 'integer', 'min:0'],
+            'starts_at' => ['nullable', 'date'],
+            'ends_at' => ['nullable', 'date'],
+            'is_active' => ['sometimes', 'boolean'],
+            'applies_to' => ['sometimes', 'required', Rule::in(['all', 'specific_products', 'specific_categories'])],
+        ];
+    }
+}
+```
+</details>
+
 
 ## API Resources (app/Http/Resources)
+
+<a id="file-apphttpresourcescustomeraddressresourcephp"></a>
+### app\Http\Resources\CustomerAddressResource.php
+- SHA: `dc3eab6a1caa`  
+- Ukuran: 890 B  
+- Namespace: `App\Http\Resources`
+
+**Class `CustomerAddressResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CustomerAddressResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'customer_id' => $this->customer_id,
+            'label' => $this->label,
+            'recipient_name' => $this->recipient_name,
+            'recipient_phone' => $this->recipient_phone,
+            'address' => $this->address,
+            'city' => $this->city,
+            'province' => $this->province,
+            'postal_code' => $this->postal_code,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'is_default' => $this->is_default,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcescustomerresourcephp"></a>
+### app\Http\Resources\CustomerResource.php
+- SHA: `eaaf7c99c9c6`  
+- Ukuran: 942 B  
+- Namespace: `App\Http\Resources`
+
+**Class `CustomerResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CustomerResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'gender' => $this->gender,
+            'birth_date' => $this->birth_date?->toDateString(),
+            'points' => $this->points,
+            'total_spent' => $this->total_spent,
+            'is_member' => $this->is_member,
+            'notes' => $this->notes,
+            'addresses' => CustomerAddressResource::collection($this->whenLoaded('addresses')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesoutletmaterialstockresourcephp"></a>
+### app\Http\Resources\OutletMaterialStockResource.php
+- SHA: `fd9d684bc04c`  
+- Ukuran: 881 B  
+- Namespace: `App\Http\Resources`
+
+**Class `OutletMaterialStockResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OutletMaterialStockResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'outlet_name' => $this->outlet?->name,
+            'outlet_code' => $this->outlet?->code,
+            'raw_material_id' => $this->raw_material_id,
+            'raw_material_name' => $this->rawMaterial?->name,
+            'raw_material_code' => $this->rawMaterial?->code,
+            'qty_on_hand' => $this->qty_on_hand,
+            'qty_reserved' => $this->qty_reserved,
+            'last_movement_at' => $this->last_movement_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
 
 <a id="file-apphttpresourcesoutletresourcephp"></a>
 ### app\Http\Resources\OutletResource.php
@@ -2384,6 +4390,92 @@ class PermissionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'guard_name' => $this->guard_name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesproductbomitemresourcephp"></a>
+### app\Http\Resources\ProductBomItemResource.php
+- SHA: `dd15cc4128c7`  
+- Ukuran: 846 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductBomItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductBomItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_bom_id' => $this->product_bom_id,
+            'raw_material_id' => $this->raw_material_id,
+            'raw_material_name' => $this->rawMaterial?->name,
+            'raw_material_code' => $this->rawMaterial?->code,
+            'unit_id' => $this->unit_id,
+            'unit_name' => $this->unit?->name,
+            'unit_code' => $this->unit?->code,
+            'qty' => $this->qty,
+            'waste_percent' => $this->waste_percent,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesproductbomresourcephp"></a>
+### app\Http\Resources\ProductBomResource.php
+- SHA: `e64e4b039456`  
+- Ukuran: 748 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductBomResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductBomResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'product_name' => $this->product?->name,
+            'product_code' => $this->product?->code,
+            'version' => $this->version,
+            'is_active' => $this->is_active,
+            'notes' => $this->notes,
+            'items' => ProductBomItemResource::collection($this->whenLoaded('items')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -2777,6 +4869,183 @@ class ProductVariantOptionResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcespromotionresourcephp"></a>
+### app\Http\Resources\PromotionResource.php
+- SHA: `dd884d6e207d`  
+- Ukuran: 782 B  
+- Namespace: `App\Http\Resources`
+
+**Class `PromotionResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PromotionResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'promotion_type' => $this->promotion_type,
+            'starts_at' => $this->starts_at,
+            'ends_at' => $this->ends_at,
+            'priority' => $this->priority,
+            'is_active' => $this->is_active,
+            'rules' => PromotionRuleResource::collection($this->whenLoaded('rules')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcespromotionruleresourcephp"></a>
+### app\Http\Resources\PromotionRuleResource.php
+- SHA: `73592a4a0d35`  
+- Ukuran: 563 B  
+- Namespace: `App\Http\Resources`
+
+**Class `PromotionRuleResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PromotionRuleResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'promotion_id' => $this->promotion_id,
+            'rule_type' => $this->rule_type,
+            'operator' => $this->operator,
+            'value' => $this->value,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesrawmaterialcategoryresourcephp"></a>
+### app\Http\Resources\RawMaterialCategoryResource.php
+- SHA: `fc3fa2f0720e`  
+- Ukuran: 502 B  
+- Namespace: `App\Http\Resources`
+
+**Class `RawMaterialCategoryResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class RawMaterialCategoryResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'raw_materials_count' => $this->whenCounted('rawMaterials'),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesrawmaterialresourcephp"></a>
+### app\Http\Resources\RawMaterialResource.php
+- SHA: `c3d512d2b1da`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `RawMaterialResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class RawMaterialResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'raw_material_category_id' => $this->raw_material_category_id,
+            'category' => $this->whenLoaded('category', function () {
+                return [
+                    'id' => $this->category?->id,
+                    'name' => $this->category?->name,
+                ];
+            }),
+            'unit_id' => $this->unit_id,
+            'unit' => $this->whenLoaded('unit', function () {
+                return [
+                    'id' => $this->unit?->id,
+                    'name' => $this->unit?->name,
+                    'code' => $this->unit?->code,
+                ];
+            }),
+            'code' => $this->code,
+            'sku' => $this->sku,
+            'name' => $this->name,
+            'description' => $this->description,
+            'minimum_stock' => $this->minimum_stock,
+            'last_purchase_price' => $this->last_purchase_price,
+            'average_cost' => $this->average_cost,
+            'is_active' => $this->is_active,
+            'outlet_stocks' => OutletMaterialStockResource::collection($this->whenLoaded('outletStocks')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcesroleresourcephp"></a>
 ### app\Http\Resources\RoleResource.php
 - SHA: `e3e1272fe416`  
@@ -2853,6 +5122,85 @@ class SystemSettingResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcesunitconversionresourcephp"></a>
+### app\Http\Resources\UnitConversionResource.php
+- SHA: `4a5183b01741`  
+- Ukuran: 750 B  
+- Namespace: `App\Http\Resources`
+
+**Class `UnitConversionResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class UnitConversionResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'from_unit_id' => $this->from_unit_id,
+            'from_unit_name' => $this->fromUnit?->name,
+            'from_unit_code' => $this->fromUnit?->code,
+            'to_unit_id' => $this->to_unit_id,
+            'to_unit_name' => $this->toUnit?->name,
+            'to_unit_code' => $this->toUnit?->code,
+            'multiplier' => $this->multiplier,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesunitresourcephp"></a>
+### app\Http\Resources\UnitResource.php
+- SHA: `f224b72a69e0`  
+- Ukuran: 449 B  
+- Namespace: `App\Http\Resources`
+
+**Class `UnitResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class UnitResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'code' => $this->code,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcesuserresourcephp"></a>
 ### app\Http\Resources\UserResource.php
 - SHA: `7959fd418c6a`  
@@ -2907,21 +5255,66 @@ class UserResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcesvoucherresourcephp"></a>
+### app\Http\Resources\VoucherResource.php
+- SHA: `4dc15410b28c`  
+- Ukuran: 978 B  
+- Namespace: `App\Http\Resources`
+
+**Class `VoucherResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class VoucherResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'description' => $this->description,
+            'discount_type' => $this->discount_type,
+            'discount_value' => $this->discount_value,
+            'max_discount' => $this->max_discount,
+            'min_order_total' => $this->min_order_total,
+            'quota' => $this->quota,
+            'used_count' => $this->used_count,
+            'starts_at' => $this->starts_at,
+            'ends_at' => $this->ends_at,
+            'is_active' => $this->is_active,
+            'applies_to' => $this->applies_to,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
 
 ## Models (app/Models)
 
-<a id="file-appmodelsoutletphp"></a>
-### app\Models\Outlet.php
-- SHA: `d884c586da69`  
-- Ukuran: 1 KB  
+<a id="file-appmodelscustomerphp"></a>
+### app\Models\Customer.php
+- SHA: `652c7ad531da`  
+- Ukuran: 849 B  
 - Namespace: `App\Models`
 
-**Class `Outlet` extends `Model`**
+**Class `Customer` extends `Model`**
 
 Metode Publik:
-- **setting**() : *HasOne*
-- **userAccesses**() : *HasMany*
-- **users**() : *BelongsToMany*
+- **addresses**() : *HasMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -2931,10 +5324,125 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Customer extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'code',
+        'name',
+        'phone',
+        'email',
+        'gender',
+        'birth_date',
+        'points',
+        'total_spent',
+        'is_member',
+        'notes',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+            'points' => 'integer',
+            'total_spent' => 'decimal:2',
+            'is_member' => 'boolean',
+        ];
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(CustomerAddress::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelscustomeraddressphp"></a>
+### app\Models\CustomerAddress.php
+- SHA: `009a8f5a93d9`  
+- Ukuran: 811 B  
+- Namespace: `App\Models`
+
+**Class `CustomerAddress` extends `Model`**
+
+Metode Publik:
+- **customer**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class CustomerAddress extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'customer_id',
+        'label',
+        'recipient_name',
+        'recipient_phone',
+        'address',
+        'city',
+        'province',
+        'postal_code',
+        'latitude',
+        'longitude',
+        'is_default',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'latitude' => 'decimal:7',
+            'longitude' => 'decimal:7',
+            'is_default' => 'boolean',
+        ];
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsoutletphp"></a>
+### app\Models\Outlet.php
+- SHA: `25b8b4770fe6`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `Outlet` extends `Model`**
+
+Metode Publik:
+- **setting**() : *HasOne*
+- **userAccesses**() : *HasMany*
+- **users**() : *BelongsToMany*
+- **materialStocks**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Outlet extends Model
 {
@@ -2959,7 +5467,7 @@ class Outlet extends Model
     protected function casts(): array
     {
         return [
-            'latitude' => 'decimal:7',
+            'latitude'  => 'decimal:7',
             'longitude' => 'decimal:7',
             'is_active' => 'boolean',
         ];
@@ -2980,6 +5488,68 @@ class Outlet extends Model
         return $this->belongsToMany(User::class, 'user_outlet_accesses')
             ->withPivot('is_default')
             ->withTimestamps();
+    }
+
+    public function materialStocks(): HasMany
+    {
+        return $this->hasMany(OutletMaterialStock::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsoutletmaterialstockphp"></a>
+### app\Models\OutletMaterialStock.php
+- SHA: `bcb36a8588ef`  
+- Ukuran: 825 B  
+- Namespace: `App\Models`
+
+**Class `OutletMaterialStock` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class OutletMaterialStock extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'outlet_id',
+        'raw_material_id',
+        'qty_on_hand',
+        'qty_reserved',
+        'last_movement_at',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'qty_on_hand' => 'decimal:3',
+            'qty_reserved' => 'decimal:3',
+            'last_movement_at' => 'datetime',
+        ];
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
     }
 }
 
@@ -3045,7 +5615,7 @@ class OutletSetting extends Model
 
 <a id="file-appmodelsproductphp"></a>
 ### app\Models\Product.php
-- SHA: `edea345311c2`  
+- SHA: `4497c5f448bf`  
 - Ukuran: 2 KB  
 - Namespace: `App\Models`
 
@@ -3058,11 +5628,11 @@ Metode Publik:
 - **variantGroups**() : *HasMany*
 - **modifierGroups**() : *HasMany*
 - **bundleItems**() : *HasMany*
+- **boms**() : *HasMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -3094,10 +5664,10 @@ class Product extends Model
     protected function casts(): array
     {
         return [
-            'base_price' => 'decimal:2',
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
-            'track_recipe' => 'boolean',
+            'base_price'         => 'decimal:2',
+            'is_active'          => 'boolean',
+            'is_featured'        => 'boolean',
+            'track_recipe'       => 'boolean',
             'track_stock_direct' => 'boolean',
         ];
     }
@@ -3131,7 +5701,131 @@ class Product extends Model
     {
         return $this->hasMany(ProductBundleItem::class);
     }
+
+    public function boms(): HasMany
+    {
+        return $this->hasMany(ProductBom::class)->orderByDesc('version');
+    }
 }
+
+```
+</details>
+
+<a id="file-appmodelsproductbomphp"></a>
+### app\Models\ProductBom.php
+- SHA: `9ee11ae1da9d`  
+- Ukuran: 762 B  
+- Namespace: `App\Models`
+
+**Class `ProductBom` extends `Model`**
+
+Metode Publik:
+- **product**() : *BelongsTo*
+- **items**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class ProductBom extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'version',
+        'is_active',
+        'notes',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'version' => 'integer',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(ProductBomItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsproductbomitemphp"></a>
+### app\Models\ProductBomItem.php
+- SHA: `31ecb6b5e37c`  
+- Ukuran: 872 B  
+- Namespace: `App\Models`
+
+**Class `ProductBomItem` extends `Model`**
+
+Metode Publik:
+- **bom**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+- **unit**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ProductBomItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_bom_id',
+        'raw_material_id',
+        'unit_id',
+        'qty',
+        'waste_percent',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'qty' => 'decimal:3',
+            'waste_percent' => 'decimal:2',
+        ];
+    }
+
+    public function bom(): BelongsTo
+    {
+        return $this->belongsTo(ProductBom::class, 'product_bom_id');
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+}
+
 ```
 </details>
 
@@ -3572,6 +6266,214 @@ class ProductVariantOption extends Model
 ```
 </details>
 
+<a id="file-appmodelspromotionphp"></a>
+### app\Models\Promotion.php
+- SHA: `cf3a5601d276`  
+- Ukuran: 761 B  
+- Namespace: `App\Models`
+
+**Class `Promotion` extends `Model`**
+
+Metode Publik:
+- **rules**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Promotion extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'promotion_type',
+        'starts_at',
+        'ends_at',
+        'priority',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'starts_at' => 'datetime',
+            'ends_at' => 'datetime',
+            'priority' => 'integer',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function rules(): HasMany
+    {
+        return $this->hasMany(PromotionRule::class)->orderBy('id');
+    }
+}
+```
+</details>
+
+<a id="file-appmodelspromotionrulephp"></a>
+### app\Models\PromotionRule.php
+- SHA: `a2ee8a601e15`  
+- Ukuran: 462 B  
+- Namespace: `App\Models`
+
+**Class `PromotionRule` extends `Model`**
+
+Metode Publik:
+- **promotion**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class PromotionRule extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'promotion_id',
+        'rule_type',
+        'operator',
+        'value',
+    ];
+
+    public function promotion(): BelongsTo
+    {
+        return $this->belongsTo(Promotion::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsrawmaterialphp"></a>
+### app\Models\RawMaterial.php
+- SHA: `af93bc40de5d`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `RawMaterial` extends `Model`**
+
+Metode Publik:
+- **category**() : *BelongsTo*
+- **unit**() : *BelongsTo*
+- **outletStocks**() : *HasMany*
+- **bomItems**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class RawMaterial extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'raw_material_category_id',
+        'unit_id',
+        'code',
+        'sku',
+        'name',
+        'description',
+        'minimum_stock',
+        'last_purchase_price',
+        'average_cost',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'minimum_stock' => 'decimal:3',
+            'last_purchase_price' => 'decimal:2',
+            'average_cost' => 'decimal:2',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterialCategory::class, 'raw_material_category_id');
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function outletStocks(): HasMany
+    {
+        return $this->hasMany(OutletMaterialStock::class);
+    }
+
+    public function bomItems(): HasMany
+    {
+        return $this->hasMany(ProductBomItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsrawmaterialcategoryphp"></a>
+### app\Models\RawMaterialCategory.php
+- SHA: `cab31ff78e82`  
+- Ukuran: 402 B  
+- Namespace: `App\Models`
+
+**Class `RawMaterialCategory` extends `Model`**
+
+Metode Publik:
+- **rawMaterials**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class RawMaterialCategory extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public function rawMaterials(): HasMany
+    {
+        return $this->hasMany(RawMaterial::class);
+    }
+}
+
+```
+</details>
+
 <a id="file-appmodelssystemsettingphp"></a>
 ### app\Models\SystemSetting.php
 - SHA: `c7a02089b290`  
@@ -3598,6 +6500,116 @@ class SystemSetting extends Model
         'value',
         'type',
     ];
+}
+
+```
+</details>
+
+<a id="file-appmodelsunitphp"></a>
+### app\Models\Unit.php
+- SHA: `ea8507b9ba00`  
+- Ukuran: 766 B  
+- Namespace: `App\Models`
+
+**Class `Unit` extends `Model`**
+
+Metode Publik:
+- **rawMaterials**() : *HasMany*
+- **fromConversions**() : *HasMany*
+- **toConversions**() : *HasMany*
+- **bomItems**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Unit extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'code',
+    ];
+
+    public function rawMaterials(): HasMany
+    {
+        return $this->hasMany(RawMaterial::class);
+    }
+
+    public function fromConversions(): HasMany
+    {
+        return $this->hasMany(UnitConversion::class, 'from_unit_id');
+    }
+
+    public function toConversions(): HasMany
+    {
+        return $this->hasMany(UnitConversion::class, 'to_unit_id');
+    }
+
+    public function bomItems(): HasMany
+    {
+        return $this->hasMany(ProductBomItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsunitconversionphp"></a>
+### app\Models\UnitConversion.php
+- SHA: `cfcda968cc69`  
+- Ukuran: 693 B  
+- Namespace: `App\Models`
+
+**Class `UnitConversion` extends `Model`**
+
+Metode Publik:
+- **fromUnit**() : *BelongsTo*
+- **toUnit**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class UnitConversion extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'from_unit_id',
+        'to_unit_id',
+        'multiplier',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'multiplier' => 'decimal:6',
+        ];
+    }
+
+    public function fromUnit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class, 'from_unit_id');
+    }
+
+    public function toUnit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class, 'to_unit_id');
+    }
 }
 
 ```
@@ -3728,6 +6740,60 @@ class UserOutletAccess extends Model
     }
 }
 
+```
+</details>
+
+<a id="file-appmodelsvoucherphp"></a>
+### app\Models\Voucher.php
+- SHA: `616b81ddca02`  
+- Ukuran: 892 B  
+- Namespace: `App\Models`
+
+**Class `Voucher` extends `Model`**
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Voucher extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'name',
+        'description',
+        'discount_type',
+        'discount_value',
+        'max_discount',
+        'min_order_total',
+        'quota',
+        'used_count',
+        'starts_at',
+        'ends_at',
+        'is_active',
+        'applies_to',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'discount_value' => 'decimal:2',
+            'max_discount' => 'decimal:2',
+            'min_order_total' => 'decimal:2',
+            'quota' => 'integer',
+            'used_count' => 'integer',
+            'starts_at' => 'datetime',
+            'ends_at' => 'datetime',
+            'is_active' => 'boolean',
+        ];
+    }
+}
 ```
 </details>
 
@@ -4078,6 +7144,384 @@ class ProductService
 ```
 </details>
 
+<a id="file-appservicescustomercustomerservicephp"></a>
+### app\Services\Customer\CustomerService.php
+- SHA: `b780056a06ff`  
+- Ukuran: 2 KB  
+- Namespace: `App\Services\Customer`
+
+**Class `CustomerService`**
+
+Metode Publik:
+- **create**(array $payload) : *Customer*
+- **update**(Customer $customer, array $payload) : *Customer*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Customer;
+
+use App\Models\Customer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class CustomerService
+{
+    public function create(array $payload): Customer
+    {
+        return DB::transaction(function () use ($payload) {
+            $addresses = $payload['addresses'] ?? [];
+            unset($payload['addresses']);
+
+            $customer = Customer::create($payload);
+
+            $this->syncAddresses($customer, $addresses);
+
+            return $customer->fresh()->load('addresses');
+        });
+    }
+
+    public function update(Customer $customer, array $payload): Customer
+    {
+        return DB::transaction(function () use ($customer, $payload) {
+            $hasAddresses = array_key_exists('addresses', $payload);
+            $addresses = $payload['addresses'] ?? [];
+
+            unset($payload['addresses']);
+
+            $customer->update($payload);
+
+            if ($hasAddresses) {
+                $this->syncAddresses($customer, $addresses);
+            }
+
+            return $customer->fresh()->load('addresses');
+        });
+    }
+
+    private function syncAddresses(Customer $customer, array $addresses): void
+    {
+        if (empty($addresses)) {
+            $customer->addresses()->delete();
+            return;
+        }
+
+        $defaultCount = collect($addresses)
+            ->filter(fn ($item) => (bool) ($item['is_default'] ?? false))
+            ->count();
+
+        if ($defaultCount > 1) {
+            throw ValidationException::withMessages([
+                'addresses' => ['Hanya boleh ada satu alamat default.'],
+            ]);
+        }
+
+        if ($defaultCount === 0) {
+            $addresses[0]['is_default'] = true;
+        }
+
+        $customer->addresses()->delete();
+
+        foreach ($addresses as $address) {
+            $customer->addresses()->create([
+                'label' => $address['label'] ?? null,
+                'recipient_name' => $address['recipient_name'] ?? null,
+                'recipient_phone' => $address['recipient_phone'] ?? null,
+                'address' => $address['address'],
+                'city' => $address['city'] ?? null,
+                'province' => $address['province'] ?? null,
+                'postal_code' => $address['postal_code'] ?? null,
+                'latitude' => $address['latitude'] ?? null,
+                'longitude' => $address['longitude'] ?? null,
+                'is_default' => $address['is_default'] ?? false,
+            ]);
+        }
+    }
+}
+```
+</details>
+
+<a id="file-appservicesinventoryoutletmaterialstockservicephp"></a>
+### app\Services\Inventory\OutletMaterialStockService.php
+- SHA: `812f1d318b70`  
+- Ukuran: 713 B  
+- Namespace: `App\Services\Inventory`
+
+**Class `OutletMaterialStockService`**
+
+Metode Publik:
+- **upsert**(array $payload) : *OutletMaterialStock*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\OutletMaterialStock;
+
+class OutletMaterialStockService
+{
+    public function upsert(array $payload): OutletMaterialStock
+    {
+        $stock = OutletMaterialStock::query()->updateOrCreate(
+            [
+                'outlet_id' => $payload['outlet_id'],
+                'raw_material_id' => $payload['raw_material_id'],
+            ],
+            [
+                'qty_on_hand' => $payload['qty_on_hand'] ?? 0,
+                'qty_reserved' => $payload['qty_reserved'] ?? 0,
+                'last_movement_at' => $payload['last_movement_at'] ?? null,
+            ]
+        );
+
+        return $stock->fresh()->load(['outlet', 'rawMaterial']);
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventoryproductbomservicephp"></a>
+### app\Services\Inventory\ProductBomService.php
+- SHA: `089edfab7fa5`  
+- Ukuran: 2 KB  
+- Namespace: `App\Services\Inventory`
+
+**Class `ProductBomService`**
+
+Metode Publik:
+- **create**(array $payload) : *ProductBom*
+- **update**(ProductBom $bom, array $payload) : *ProductBom*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\ProductBom;
+use Illuminate\Support\Facades\DB;
+
+class ProductBomService
+{
+    public function create(array $payload): ProductBom
+    {
+        return DB::transaction(function () use ($payload) {
+            $items = $payload['items'] ?? [];
+            unset($payload['items']);
+
+            if (($payload['is_active'] ?? true) === true) {
+                ProductBom::query()
+                    ->where('product_id', $payload['product_id'])
+                    ->update(['is_active' => false]);
+            }
+
+            $bom = ProductBom::create($payload);
+
+            foreach ($items as $item) {
+                $bom->items()->create([
+                    'raw_material_id' => $item['raw_material_id'],
+                    'unit_id' => $item['unit_id'],
+                    'qty' => $item['qty'],
+                    'waste_percent' => $item['waste_percent'] ?? 0,
+                ]);
+            }
+
+            return $bom->load(['product', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function update(ProductBom $bom, array $payload): ProductBom
+    {
+        return DB::transaction(function () use ($bom, $payload) {
+            $items = $payload['items'] ?? null;
+            unset($payload['items']);
+
+            $targetProductId = $payload['product_id'] ?? $bom->product_id;
+            $targetIsActive = $payload['is_active'] ?? $bom->is_active;
+
+            if ($targetIsActive) {
+                ProductBom::query()
+                    ->where('product_id', $targetProductId)
+                    ->where('id', '!=', $bom->id)
+                    ->update(['is_active' => false]);
+            }
+
+            $bom->update($payload);
+
+            if (is_array($items)) {
+                $bom->items()->delete();
+
+                foreach ($items as $item) {
+                    $bom->items()->create([
+                        'raw_material_id' => $item['raw_material_id'],
+                        'unit_id' => $item['unit_id'],
+                        'qty' => $item['qty'],
+                        'waste_percent' => $item['waste_percent'] ?? 0,
+                    ]);
+                }
+            }
+
+            return $bom->fresh()->load(['product', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventoryrawmaterialservicephp"></a>
+### app\Services\Inventory\RawMaterialService.php
+- SHA: `7c90905f3969`  
+- Ukuran: 2 KB  
+- Namespace: `App\Services\Inventory`
+
+**Class `RawMaterialService`**
+
+Metode Publik:
+- **create**(array $payload) : *RawMaterial*
+- **update**(RawMaterial $rawMaterial, array $payload) : *RawMaterial*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\RawMaterial;
+use Illuminate\Support\Facades\DB;
+
+class RawMaterialService
+{
+    public function create(array $payload): RawMaterial
+    {
+        return DB::transaction(function () use ($payload) {
+            $stocks = $payload['outlet_stocks'] ?? [];
+            unset($payload['outlet_stocks']);
+
+            $rawMaterial = RawMaterial::create($payload);
+
+            foreach ($stocks as $stock) {
+                $rawMaterial->outletStocks()->create([
+                    'outlet_id' => $stock['outlet_id'],
+                    'qty_on_hand' => $stock['qty_on_hand'] ?? 0,
+                    'qty_reserved' => $stock['qty_reserved'] ?? 0,
+                    'last_movement_at' => $stock['last_movement_at'] ?? null,
+                ]);
+            }
+
+            return $rawMaterial->load(['category', 'unit', 'outletStocks.outlet']);
+        });
+    }
+
+    public function update(RawMaterial $rawMaterial, array $payload): RawMaterial
+    {
+        return DB::transaction(function () use ($rawMaterial, $payload) {
+            $stocks = $payload['outlet_stocks'] ?? null;
+            unset($payload['outlet_stocks']);
+
+            $rawMaterial->update($payload);
+
+            if (is_array($stocks)) {
+                $rawMaterial->outletStocks()->delete();
+
+                foreach ($stocks as $stock) {
+                    $rawMaterial->outletStocks()->create([
+                        'outlet_id' => $stock['outlet_id'],
+                        'qty_on_hand' => $stock['qty_on_hand'] ?? 0,
+                        'qty_reserved' => $stock['qty_reserved'] ?? 0,
+                        'last_movement_at' => $stock['last_movement_at'] ?? null,
+                    ]);
+                }
+            }
+
+            return $rawMaterial->fresh()->load(['category', 'unit', 'outletStocks.outlet']);
+        });
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventoryunitconversionservicephp"></a>
+### app\Services\Inventory\UnitConversionService.php
+- SHA: `525119599429`  
+- Ukuran: 415 B  
+- Namespace: `App\Services\Inventory`
+
+**Class `UnitConversionService`**
+
+Metode Publik:
+- **create**(array $payload) : *UnitConversion*
+- **update**(UnitConversion $unitConversion, array $payload) : *UnitConversion*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\UnitConversion;
+
+class UnitConversionService
+{
+    public function create(array $payload): UnitConversion
+    {
+        return UnitConversion::create($payload);
+    }
+
+    public function update(UnitConversion $unitConversion, array $payload): UnitConversion
+    {
+        $unitConversion->update($payload);
+
+        return $unitConversion->fresh();
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventoryunitservicephp"></a>
+### app\Services\Inventory\UnitService.php
+- SHA: `109d5f2b5a3f`  
+- Ukuran: 325 B  
+- Namespace: `App\Services\Inventory`
+
+**Class `UnitService`**
+
+Metode Publik:
+- **create**(array $payload) : *Unit*
+- **update**(Unit $unit, array $payload) : *Unit*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\Unit;
+
+class UnitService
+{
+    public function create(array $payload): Unit
+    {
+        return Unit::create($payload);
+    }
+
+    public function update(Unit $unit, array $payload): Unit
+    {
+        $unit->update($payload);
+
+        return $unit->fresh();
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicesoutletoutletservicephp"></a>
 ### app\Services\Outlet\OutletService.php
 - SHA: `7b229eac14f4`  
@@ -4129,6 +7573,104 @@ class OutletService
     }
 }
 
+```
+</details>
+
+<a id="file-appservicespromotionpromotionservicephp"></a>
+### app\Services\Promotion\PromotionService.php
+- SHA: `627373daf397`  
+- Ukuran: 3 KB  
+- Namespace: `App\Services\Promotion`
+
+**Class `PromotionService`**
+
+Metode Publik:
+- **create**(array $payload) : *Promotion*
+- **update**(Promotion $promotion, array $payload) : *Promotion*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Promotion;
+
+use App\Models\Promotion;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class PromotionService
+{
+    public function create(array $payload): Promotion
+    {
+        return DB::transaction(function () use ($payload) {
+            $rules = $payload['rules'] ?? [];
+            unset($payload['rules']);
+
+            $this->validateBusinessRules($payload);
+
+            $promotion = Promotion::create([
+                'name' => $payload['name'],
+                'description' => $payload['description'] ?? null,
+                'promotion_type' => $payload['promotion_type'],
+                'starts_at' => $payload['starts_at'] ?? null,
+                'ends_at' => $payload['ends_at'] ?? null,
+                'priority' => $payload['priority'] ?? 0,
+                'is_active' => $payload['is_active'] ?? true,
+            ]);
+
+            $this->syncRules($promotion, $rules);
+
+            return $promotion->fresh()->load('rules');
+        });
+    }
+
+    public function update(Promotion $promotion, array $payload): Promotion
+    {
+        return DB::transaction(function () use ($promotion, $payload) {
+            $hasRules = array_key_exists('rules', $payload);
+            $rules = $payload['rules'] ?? [];
+            unset($payload['rules']);
+
+            $merged = array_merge($promotion->toArray(), $payload);
+            $this->validateBusinessRules($merged);
+
+            $promotion->update($payload);
+
+            if ($hasRules) {
+                $this->syncRules($promotion, $rules);
+            }
+
+            return $promotion->fresh()->load('rules');
+        });
+    }
+
+    private function syncRules(Promotion $promotion, array $rules): void
+    {
+        $promotion->rules()->delete();
+
+        foreach ($rules as $rule) {
+            $promotion->rules()->create([
+                'rule_type' => $rule['rule_type'],
+                'operator' => $rule['operator'] ?? null,
+                'value' => is_array($rule['value'] ?? null)
+                    ? json_encode($rule['value'], JSON_UNESCAPED_UNICODE)
+                    : ($rule['value'] ?? null),
+            ]);
+        }
+    }
+
+    private function validateBusinessRules(array $payload): void
+    {
+        $startsAt = $payload['starts_at'] ?? null;
+        $endsAt = $payload['ends_at'] ?? null;
+
+        if ($startsAt && $endsAt && strtotime((string) $endsAt) < strtotime((string) $startsAt)) {
+            throw ValidationException::withMessages([
+                'ends_at' => ['ends_at tidak boleh lebih kecil dari starts_at.'],
+            ]);
+        }
+    }
+}
 ```
 </details>
 
@@ -4305,6 +7847,91 @@ class UserService
 ```
 </details>
 
+<a id="file-appservicesvouchervoucherservicephp"></a>
+### app\Services\Voucher\VoucherService.php
+- SHA: `1239bcad1326`  
+- Ukuran: 2 KB  
+- Namespace: `App\Services\Voucher`
+
+**Class `VoucherService`**
+
+Metode Publik:
+- **create**(array $payload) : *Voucher*
+- **update**(Voucher $voucher, array $payload) : *Voucher*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Voucher;
+
+use App\Models\Voucher;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class VoucherService
+{
+    public function create(array $payload): Voucher
+    {
+        return DB::transaction(function () use ($payload) {
+            $this->validateBusinessRules($payload);
+
+            return Voucher::create([
+                'code' => strtoupper($payload['code']),
+                'name' => $payload['name'],
+                'description' => $payload['description'] ?? null,
+                'discount_type' => $payload['discount_type'],
+                'discount_value' => $payload['discount_value'],
+                'max_discount' => $payload['max_discount'] ?? null,
+                'min_order_total' => $payload['min_order_total'] ?? 0,
+                'quota' => $payload['quota'] ?? null,
+                'used_count' => $payload['used_count'] ?? 0,
+                'starts_at' => $payload['starts_at'] ?? null,
+                'ends_at' => $payload['ends_at'] ?? null,
+                'is_active' => $payload['is_active'] ?? true,
+                'applies_to' => $payload['applies_to'],
+            ]);
+        });
+    }
+
+    public function update(Voucher $voucher, array $payload): Voucher
+    {
+        return DB::transaction(function () use ($voucher, $payload) {
+            $merged = array_merge($voucher->toArray(), $payload);
+
+            $this->validateBusinessRules($merged);
+
+            if (array_key_exists('code', $payload)) {
+                $payload['code'] = strtoupper($payload['code']);
+            }
+
+            $voucher->update($payload);
+
+            return $voucher->fresh();
+        });
+    }
+
+    private function validateBusinessRules(array $payload): void
+    {
+        if (($payload['discount_type'] ?? null) === 'percent' && (float) ($payload['discount_value'] ?? 0) > 100) {
+            throw ValidationException::withMessages([
+                'discount_value' => ['Voucher persen tidak boleh lebih dari 100.'],
+            ]);
+        }
+
+        $startsAt = $payload['starts_at'] ?? null;
+        $endsAt = $payload['ends_at'] ?? null;
+
+        if ($startsAt && $endsAt && strtotime((string) $endsAt) < strtotime((string) $startsAt)) {
+            throw ValidationException::withMessages([
+                'ends_at' => ['ends_at tidak boleh lebih kecil dari starts_at.'],
+            ]);
+        }
+    }
+}
+```
+</details>
+
 
 ## Database Seeders (database/seeders)
 
@@ -4344,8 +7971,8 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `38a4442365d9`  
-- Ukuran: 2 KB  
+- SHA: `0ae49995f78e`  
+- Ukuran: 3 KB  
 - Namespace: `Database\Seeders`
 
 **Class `PermissionSeeder` extends `Seeder`**
@@ -4417,6 +8044,49 @@ class PermissionSeeder extends Seeder
             'product_bundles.create',
             'product_bundles.update',
             'product_bundles.delete',
+
+            'customers.view',
+            'customers.create',
+            'customers.update',
+            'customers.delete',
+
+            'vouchers.view',
+            'vouchers.create',
+            'vouchers.update',
+            'vouchers.delete',
+
+            'promotions.view',
+            'promotions.create',
+            'promotions.update',
+            'promotions.delete',
+
+            'units.view',
+            'units.create',
+            'units.update',
+            'units.delete',
+
+            'unit_conversions.view',
+            'unit_conversions.create',
+            'unit_conversions.update',
+            'unit_conversions.delete',
+
+            'raw_material_categories.view',
+            'raw_material_categories.create',
+            'raw_material_categories.update',
+            'raw_material_categories.delete',
+
+            'raw_materials.view',
+            'raw_materials.create',
+            'raw_materials.update',
+            'raw_materials.delete',
+
+            'outlet_material_stocks.view',
+            'outlet_material_stocks.update',
+
+            'product_boms.view',
+            'product_boms.create',
+            'product_boms.update',
+            'product_boms.delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -4424,13 +8094,14 @@ class PermissionSeeder extends Seeder
         }
     }
 }
+
 ```
 </details>
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `a0b37f724173`  
-- Ukuran: 3 KB  
+- SHA: `2ce14de61fe5`  
+- Ukuran: 4 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -4441,7 +8112,6 @@ Metode Publik:
 
 ```php
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -4452,10 +8122,10 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $superadmin = Role::findOrCreate('superadmin', 'sanctum');
-        $adminPusat = Role::findOrCreate('admin_pusat', 'sanctum');
+        $superadmin  = Role::findOrCreate('superadmin', 'sanctum');
+        $adminPusat  = Role::findOrCreate('admin_pusat', 'sanctum');
         $adminOutlet = Role::findOrCreate('admin_outlet', 'sanctum');
-        $owner = Role::findOrCreate('owner', 'sanctum');
+        $owner       = Role::findOrCreate('owner', 'sanctum');
 
         $allPermissions = Permission::query()->pluck('name')->all();
 
@@ -4491,6 +8161,45 @@ class RoleSeeder extends Seeder
             'product_bundles.view',
             'product_bundles.create',
             'product_bundles.update',
+            'customers.view',
+            'customers.create',
+            'customers.update',
+            'customers.delete',
+            'vouchers.view',
+            'vouchers.create',
+            'vouchers.update',
+            'vouchers.delete',
+            'promotions.view',
+            'promotions.create',
+            'promotions.update',
+            'promotions.delete',
+            'units.view',
+            'units.create',
+            'units.update',
+            'units.delete',
+
+            'unit_conversions.view',
+            'unit_conversions.create',
+            'unit_conversions.update',
+            'unit_conversions.delete',
+
+            'raw_material_categories.view',
+            'raw_material_categories.create',
+            'raw_material_categories.update',
+            'raw_material_categories.delete',
+
+            'raw_materials.view',
+            'raw_materials.create',
+            'raw_materials.update',
+            'raw_materials.delete',
+
+            'outlet_material_stocks.view',
+            'outlet_material_stocks.update',
+
+            'product_boms.view',
+            'product_boms.create',
+            'product_boms.update',
+            'product_boms.delete',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -4511,6 +8220,11 @@ class RoleSeeder extends Seeder
             'product_bundles.view',
             'product_bundles.create',
             'product_bundles.update',
+            'customers.view',
+            'customers.create',
+            'customers.update',
+            'vouchers.view',
+            'promotions.view',
         ]);
 
         $owner->syncPermissions([
@@ -4525,9 +8239,13 @@ class RoleSeeder extends Seeder
             'product_variants.view',
             'product_modifiers.view',
             'product_bundles.view',
+            'customers.view',
+            'vouchers.view',
+            'promotions.view',
         ]);
     }
 }
+
 ```
 </details>
 
@@ -4579,8 +8297,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `57e28c4473ce`  
-- Ukuran: 4 KB  
+- SHA: `82004135f08a`  
+- Ukuran: 8 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -4625,6 +8343,49 @@ class SuperAdminSeeder extends Seeder
 | GET | `/products/{product}` | `ProductController` | `show` |
 | PUT | `/products/{product}` | `ProductController` | `update` |
 | DELETE | `/products/{product}` | `ProductController` | `destroy` |
+| GET | `/customers` | `CustomerController` | `index` |
+| POST | `/customers` | `CustomerController` | `store` |
+| GET | `/customers/{customer}` | `CustomerController` | `show` |
+| PUT | `/customers/{customer}` | `CustomerController` | `update` |
+| DELETE | `/customers/{customer}` | `CustomerController` | `destroy` |
+| GET | `/vouchers` | `VoucherController` | `index` |
+| POST | `/vouchers` | `VoucherController` | `store` |
+| GET | `/vouchers/{voucher}` | `VoucherController` | `show` |
+| PUT | `/vouchers/{voucher}` | `VoucherController` | `update` |
+| DELETE | `/vouchers/{voucher}` | `VoucherController` | `destroy` |
+| GET | `/promotions` | `PromotionController` | `index` |
+| POST | `/promotions` | `PromotionController` | `store` |
+| GET | `/promotions/{promotion}` | `PromotionController` | `show` |
+| PUT | `/promotions/{promotion}` | `PromotionController` | `update` |
+| DELETE | `/promotions/{promotion}` | `PromotionController` | `destroy` |
+| GET | `/units` | `UnitController` | `index` |
+| POST | `/units` | `UnitController` | `store` |
+| GET | `/units/{unit}` | `UnitController` | `show` |
+| PUT | `/units/{unit}` | `UnitController` | `update` |
+| DELETE | `/units/{unit}` | `UnitController` | `destroy` |
+| GET | `/unit-conversions` | `UnitConversionController` | `index` |
+| POST | `/unit-conversions` | `UnitConversionController` | `store` |
+| GET | `/unit-conversions/{unitConversion}` | `UnitConversionController` | `show` |
+| PUT | `/unit-conversions/{unitConversion}` | `UnitConversionController` | `update` |
+| DELETE | `/unit-conversions/{unitConversion}` | `UnitConversionController` | `destroy` |
+| GET | `/raw-material-categories` | `RawMaterialCategoryController` | `index` |
+| POST | `/raw-material-categories` | `RawMaterialCategoryController` | `store` |
+| GET | `/raw-material-categories/{rawMaterialCategory}` | `RawMaterialCategoryController` | `show` |
+| PUT | `/raw-material-categories/{rawMaterialCategory}` | `RawMaterialCategoryController` | `update` |
+| DELETE | `/raw-material-categories/{rawMaterialCategory}` | `RawMaterialCategoryController` | `destroy` |
+| GET | `/raw-materials` | `RawMaterialController` | `index` |
+| POST | `/raw-materials` | `RawMaterialController` | `store` |
+| GET | `/raw-materials/{rawMaterial}` | `RawMaterialController` | `show` |
+| PUT | `/raw-materials/{rawMaterial}` | `RawMaterialController` | `update` |
+| DELETE | `/raw-materials/{rawMaterial}` | `RawMaterialController` | `destroy` |
+| GET | `/outlet-material-stocks` | `OutletMaterialStockController` | `index` |
+| POST | `/outlet-material-stocks/upsert` | `OutletMaterialStockController` | `upsert` |
+| GET | `/outlet-material-stocks/{outletMaterialStock}` | `OutletMaterialStockController` | `show` |
+| GET | `/product-boms` | `ProductBomController` | `index` |
+| POST | `/product-boms` | `ProductBomController` | `store` |
+| GET | `/product-boms/{productBom}` | `ProductBomController` | `show` |
+| PUT | `/product-boms/{productBom}` | `ProductBomController` | `update` |
+| DELETE | `/product-boms/{productBom}` | `ProductBomController` | `destroy` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -4640,6 +8401,15 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\VoucherController;
+use App\Http\Controllers\Api\PromotionController;
+use App\Http\Controllers\Api\OutletMaterialStockController;
+use App\Http\Controllers\Api\ProductBomController;
+use App\Http\Controllers\Api\RawMaterialCategoryController;
+use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\UnitController;
+use App\Http\Controllers\Api\UnitConversionController;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
@@ -4690,8 +8460,61 @@ Route::prefix('v1')->group(function () {
         Route::get('/products/{product}', [ProductController::class, 'show']);
         Route::put('/products/{product}', [ProductController::class, 'update']);
         Route::delete('/products/{product}', [ProductController::class, 'destroy']);
-    });
+
+        Route::get('/customers', [CustomerController::class, 'index']);
+        Route::post('/customers', [CustomerController::class, 'store']);
+        Route::get('/customers/{customer}', [CustomerController::class, 'show']);
+        Route::put('/customers/{customer}', [CustomerController::class, 'update']);
+        Route::delete('/customers/{customer}', [CustomerController::class, 'destroy']);
+
+        Route::get('/vouchers', [VoucherController::class, 'index']);
+        Route::post('/vouchers', [VoucherController::class, 'store']);
+        Route::get('/vouchers/{voucher}', [VoucherController::class, 'show']);
+        Route::put('/vouchers/{voucher}', [VoucherController::class, 'update']);
+        Route::delete('/vouchers/{voucher}', [VoucherController::class, 'destroy']);
+
+        Route::get('/promotions', [PromotionController::class, 'index']);
+        Route::post('/promotions', [PromotionController::class, 'store']);
+        Route::get('/promotions/{promotion}', [PromotionController::class, 'show']);
+        Route::put('/promotions/{promotion}', [PromotionController::class, 'update']);
+        Route::delete('/promotions/{promotion}', [PromotionController::class, 'destroy']);
+            });
+
+        Route::get('/units', [UnitController::class, 'index']);
+        Route::post('/units', [UnitController::class, 'store']);
+        Route::get('/units/{unit}', [UnitController::class, 'show']);
+        Route::put('/units/{unit}', [UnitController::class, 'update']);
+        Route::delete('/units/{unit}', [UnitController::class, 'destroy']);
+
+        Route::get('/unit-conversions', [UnitConversionController::class, 'index']);
+        Route::post('/unit-conversions', [UnitConversionController::class, 'store']);
+        Route::get('/unit-conversions/{unitConversion}', [UnitConversionController::class, 'show']);
+        Route::put('/unit-conversions/{unitConversion}', [UnitConversionController::class, 'update']);
+        Route::delete('/unit-conversions/{unitConversion}', [UnitConversionController::class, 'destroy']);
+
+        Route::get('/raw-material-categories', [RawMaterialCategoryController::class, 'index']);
+        Route::post('/raw-material-categories', [RawMaterialCategoryController::class, 'store']);
+        Route::get('/raw-material-categories/{rawMaterialCategory}', [RawMaterialCategoryController::class, 'show']);
+        Route::put('/raw-material-categories/{rawMaterialCategory}', [RawMaterialCategoryController::class, 'update']);
+        Route::delete('/raw-material-categories/{rawMaterialCategory}', [RawMaterialCategoryController::class, 'destroy']);
+
+        Route::get('/raw-materials', [RawMaterialController::class, 'index']);
+        Route::post('/raw-materials', [RawMaterialController::class, 'store']);
+        Route::get('/raw-materials/{rawMaterial}', [RawMaterialController::class, 'show']);
+        Route::put('/raw-materials/{rawMaterial}', [RawMaterialController::class, 'update']);
+        Route::delete('/raw-materials/{rawMaterial}', [RawMaterialController::class, 'destroy']);
+
+        Route::get('/outlet-material-stocks', [OutletMaterialStockController::class, 'index']);
+        Route::post('/outlet-material-stocks/upsert', [OutletMaterialStockController::class, 'upsert']);
+        Route::get('/outlet-material-stocks/{outletMaterialStock}', [OutletMaterialStockController::class, 'show']);
+
+        Route::get('/product-boms', [ProductBomController::class, 'index']);
+        Route::post('/product-boms', [ProductBomController::class, 'store']);
+        Route::get('/product-boms/{productBom}', [ProductBomController::class, 'show']);
+        Route::put('/product-boms/{productBom}', [ProductBomController::class, 'update']);
+        Route::delete('/product-boms/{productBom}', [ProductBomController::class, 'destroy']);
 });
+
 ```
 </details>
 

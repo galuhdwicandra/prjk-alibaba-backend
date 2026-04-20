@@ -1,13 +1,12 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Outlet extends Model
 {
@@ -32,7 +31,7 @@ class Outlet extends Model
     protected function casts(): array
     {
         return [
-            'latitude' => 'decimal:7',
+            'latitude'  => 'decimal:7',
             'longitude' => 'decimal:7',
             'is_active' => 'boolean',
         ];
@@ -53,5 +52,10 @@ class Outlet extends Model
         return $this->belongsToMany(User::class, 'user_outlet_accesses')
             ->withPivot('is_default')
             ->withTimestamps();
+    }
+
+    public function materialStocks(): HasMany
+    {
+        return $this->hasMany(OutletMaterialStock::class);
     }
 }

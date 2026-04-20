@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,10 +30,10 @@ class Product extends Model
     protected function casts(): array
     {
         return [
-            'base_price' => 'decimal:2',
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
-            'track_recipe' => 'boolean',
+            'base_price'         => 'decimal:2',
+            'is_active'          => 'boolean',
+            'is_featured'        => 'boolean',
+            'track_recipe'       => 'boolean',
             'track_stock_direct' => 'boolean',
         ];
     }
@@ -67,5 +66,10 @@ class Product extends Model
     public function bundleItems(): HasMany
     {
         return $this->hasMany(ProductBundleItem::class);
+    }
+
+    public function boms(): HasMany
+    {
+        return $this->hasMany(ProductBom::class)->orderByDesc('version');
     }
 }
