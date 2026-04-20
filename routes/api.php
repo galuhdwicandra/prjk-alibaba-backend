@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductCategoryController;
+use App\Http\Controllers\Api\ProductController;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
@@ -46,5 +48,17 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/system-settings', [SystemSettingController::class, 'index']);
         Route::put('/system-settings', [SystemSettingController::class, 'upsert']);
+
+        Route::get('/product-categories', [ProductCategoryController::class, 'index']);
+        Route::post('/product-categories', [ProductCategoryController::class, 'store']);
+        Route::get('/product-categories/{productCategory}', [ProductCategoryController::class, 'show']);
+        Route::put('/product-categories/{productCategory}', [ProductCategoryController::class, 'update']);
+        Route::delete('/product-categories/{productCategory}', [ProductCategoryController::class, 'destroy']);
+
+        Route::get('/products', [ProductController::class, 'index']);
+        Route::post('/products', [ProductController::class, 'store']);
+        Route::get('/products/{product}', [ProductController::class, 'show']);
+        Route::put('/products/{product}', [ProductController::class, 'update']);
+        Route::delete('/products/{product}', [ProductController::class, 'destroy']);
     });
 });
