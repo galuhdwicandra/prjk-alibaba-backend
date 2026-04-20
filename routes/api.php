@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OutletController;
+use App\Http\Controllers\Api\OutletSettingController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +34,17 @@ Route::prefix('v1')->group(function () {
         Route::get('/permissions/{permission}', [PermissionController::class, 'show']);
         Route::put('/permissions/{permission}', [PermissionController::class, 'update']);
         Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy']);
+
+        Route::get('/outlets', [OutletController::class, 'index']);
+        Route::post('/outlets', [OutletController::class, 'store']);
+        Route::get('/outlets/{outlet}', [OutletController::class, 'show']);
+        Route::put('/outlets/{outlet}', [OutletController::class, 'update']);
+        Route::delete('/outlets/{outlet}', [OutletController::class, 'destroy']);
+
+        Route::get('/outlets/{outlet}/settings', [OutletSettingController::class, 'show']);
+        Route::patch('/outlets/{outlet}/settings', [OutletSettingController::class, 'update']);
+
+        Route::get('/system-settings', [SystemSettingController::class, 'index']);
+        Route::put('/system-settings', [SystemSettingController::class, 'upsert']);
     });
 });

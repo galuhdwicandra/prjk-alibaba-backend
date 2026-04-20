@@ -27,6 +27,10 @@ class UpdateUserRequest extends FormRequest
             'user_type' => ['nullable', Rule::in(['superadmin', 'staff', 'owner_viewer'])],
             'roles' => ['sometimes', 'array', 'min:1'],
             'roles.*' => ['string', 'exists:roles,name'],
+
+            'outlet_ids' => ['sometimes', 'array'],
+            'outlet_ids.*' => ['integer', 'exists:outlets,id'],
+            'default_outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
         ];
     }
 }

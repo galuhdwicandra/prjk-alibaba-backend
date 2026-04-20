@@ -1,13 +1,16 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-20 11:48:24_  
+_Dihasilkan otomatis: 2026-04-20 14:50:30_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
 - [Controllers (app/Http/Controllers)](#controllers-app-http-controllers)
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
+  - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
+  - [app\Http\Controllers\Api\OutletSettingController.php](#file-apphttpcontrollersapioutletsettingcontrollerphp)
   - [app\Http\Controllers\Api\PermissionController.php](#file-apphttpcontrollersapipermissioncontrollerphp)
   - [app\Http\Controllers\Api\RoleController.php](#file-apphttpcontrollersapirolecontrollerphp)
+  - [app\Http\Controllers\Api\SystemSettingController.php](#file-apphttpcontrollersapisystemsettingcontrollerphp)
   - [app\Http\Controllers\Api\UserController.php](#file-apphttpcontrollersapiusercontrollerphp)
   - [app\Http\Controllers\Auth\AuthenticatedSessionController.php](#file-apphttpcontrollersauthauthenticatedsessioncontrollerphp)
   - [app\Http\Controllers\Auth\EmailVerificationNotificationController.php](#file-apphttpcontrollersauthemailverificationnotificationcontrollerphp)
@@ -19,22 +22,35 @@ _Dihasilkan otomatis: 2026-04-20 11:48:24_
 - [Form Requests (app/Http/Requests)](#form-requests-app-http-requests)
   - [app\Http\Requests\Api\Auth\ChangePasswordRequest.php](#file-apphttprequestsapiauthchangepasswordrequestphp)
   - [app\Http\Requests\Api\Auth\LoginRequest.php](#file-apphttprequestsapiauthloginrequestphp)
+  - [app\Http\Requests\Api\Outlet\StoreOutletRequest.php](#file-apphttprequestsapioutletstoreoutletrequestphp)
+  - [app\Http\Requests\Api\Outlet\UpdateOutletRequest.php](#file-apphttprequestsapioutletupdateoutletrequestphp)
+  - [app\Http\Requests\Api\Outlet\UpdateOutletSettingRequest.php](#file-apphttprequestsapioutletupdateoutletsettingrequestphp)
   - [app\Http\Requests\Api\Permission\StorePermissionRequest.php](#file-apphttprequestsapipermissionstorepermissionrequestphp)
   - [app\Http\Requests\Api\Permission\UpdatePermissionRequest.php](#file-apphttprequestsapipermissionupdatepermissionrequestphp)
   - [app\Http\Requests\Api\Role\StoreRoleRequest.php](#file-apphttprequestsapirolestorerolerequestphp)
   - [app\Http\Requests\Api\Role\UpdateRoleRequest.php](#file-apphttprequestsapiroleupdaterolerequestphp)
+  - [app\Http\Requests\Api\SystemSetting\UpsertSystemSettingRequest.php](#file-apphttprequestsapisystemsettingupsertsystemsettingrequestphp)
   - [app\Http\Requests\Api\User\StoreUserRequest.php](#file-apphttprequestsapiuserstoreuserrequestphp)
   - [app\Http\Requests\Api\User\UpdateUserRequest.php](#file-apphttprequestsapiuserupdateuserrequestphp)
 - [API Resources (app/Http/Resources)](#api-resources-app-http-resources)
+  - [app\Http\Resources\OutletResource.php](#file-apphttpresourcesoutletresourcephp)
+  - [app\Http\Resources\OutletSettingResource.php](#file-apphttpresourcesoutletsettingresourcephp)
   - [app\Http\Resources\PermissionResource.php](#file-apphttpresourcespermissionresourcephp)
   - [app\Http\Resources\RoleResource.php](#file-apphttpresourcesroleresourcephp)
+  - [app\Http\Resources\SystemSettingResource.php](#file-apphttpresourcessystemsettingresourcephp)
   - [app\Http\Resources\UserResource.php](#file-apphttpresourcesuserresourcephp)
 - [Models (app/Models)](#models-app-models)
+  - [app\Models\Outlet.php](#file-appmodelsoutletphp)
+  - [app\Models\OutletSetting.php](#file-appmodelsoutletsettingphp)
+  - [app\Models\SystemSetting.php](#file-appmodelssystemsettingphp)
   - [app\Models\User.php](#file-appmodelsuserphp)
+  - [app\Models\UserOutletAccess.php](#file-appmodelsuseroutletaccessphp)
 - [Providers (app/Providers)](#providers-app-providers)
   - [app\Providers\AppServiceProvider.php](#file-appprovidersappserviceproviderphp)
 - [Services (app/Services)](#services-app-services)
   - [app\Services\Auth\AuthService.php](#file-appservicesauthauthservicephp)
+  - [app\Services\Outlet\OutletService.php](#file-appservicesoutletoutletservicephp)
+  - [app\Services\SystemSetting\SystemSettingService.php](#file-appservicessystemsettingsystemsettingservicephp)
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
@@ -138,9 +154,200 @@ class AuthController extends Controller
 ```
 </details>
 
+<a id="file-apphttpcontrollersapioutletcontrollerphp"></a>
+### app\Http\Controllers\Api\OutletController.php
+- SHA: `1d3439cbf2ee`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `OutletController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly OutletService $outletService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreOutletRequest $request) : *JsonResponse*
+- **show**(Request $request, Outlet $outlet) : *JsonResponse*
+- **update**(UpdateOutletRequest $request, Outlet $outlet) : *JsonResponse*
+- **destroy**(Request $request, Outlet $outlet) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Outlet\StoreOutletRequest;
+use App\Http\Requests\Api\Outlet\UpdateOutletRequest;
+use App\Http\Resources\OutletResource;
+use App\Models\Outlet;
+use App\Services\Outlet\OutletService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class OutletController extends Controller
+{
+    public function __construct(
+        private readonly OutletService $outletService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('outlets.view'), 403);
+
+        $outlets = Outlet::query()
+            ->with('setting')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('code', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%")
+                        ->orWhere('city', 'like', "%{$search}%")
+                        ->orWhere('province', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar outlet berhasil diambil.',
+            'data' => OutletResource::collection($outlets),
+            'meta' => [
+                'current_page' => $outlets->currentPage(),
+                'last_page' => $outlets->lastPage(),
+                'per_page' => $outlets->perPage(),
+                'total' => $outlets->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreOutletRequest $request): JsonResponse
+    {
+        $outlet = $this->outletService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Outlet berhasil dibuat.',
+            'data' => new OutletResource($outlet),
+        ], 201);
+    }
+
+    public function show(Request $request, Outlet $outlet): JsonResponse
+    {
+        abort_unless($request->user()->can('outlets.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail outlet berhasil diambil.',
+            'data' => new OutletResource($outlet->load('setting')),
+        ]);
+    }
+
+    public function update(UpdateOutletRequest $request, Outlet $outlet): JsonResponse
+    {
+        $outlet = $this->outletService->update($outlet, $request->validated());
+
+        return response()->json([
+            'message' => 'Outlet berhasil diupdate.',
+            'data' => new OutletResource($outlet),
+        ]);
+    }
+
+    public function destroy(Request $request, Outlet $outlet): JsonResponse
+    {
+        abort_unless($request->user()->can('outlets.delete'), 403);
+
+        $outlet->delete();
+
+        return response()->json([
+            'message' => 'Outlet berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapioutletsettingcontrollerphp"></a>
+### app\Http\Controllers\Api\OutletSettingController.php
+- SHA: `a9feef83b398`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `OutletSettingController` extends `Controller`**
+
+Metode Publik:
+- **show**(Request $request, Outlet $outlet) : *JsonResponse*
+- **update**(UpdateOutletSettingRequest $request, Outlet $outlet) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Outlet\UpdateOutletSettingRequest;
+use App\Http\Resources\OutletSettingResource;
+use App\Models\Outlet;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class OutletSettingController extends Controller
+{
+    public function show(Request $request, Outlet $outlet): JsonResponse
+    {
+        abort_unless($request->user()->can('outlet_settings.view'), 403);
+
+        $setting = $outlet->setting()->firstOrCreate(
+            ['outlet_id' => $outlet->id],
+            [
+                'tax_percent' => 0,
+                'service_charge_percent' => 0,
+                'currency_code' => 'IDR',
+                'timezone' => 'Asia/Jakarta',
+                'allow_negative_stock' => false,
+                'low_stock_notification_enabled' => true,
+            ]
+        );
+
+        return response()->json([
+            'message' => 'Setting outlet berhasil diambil.',
+            'data' => new OutletSettingResource($setting),
+        ]);
+    }
+
+    public function update(UpdateOutletSettingRequest $request, Outlet $outlet): JsonResponse
+    {
+        $setting = $outlet->setting()->firstOrCreate(
+            ['outlet_id' => $outlet->id],
+            [
+                'tax_percent' => 0,
+                'service_charge_percent' => 0,
+                'currency_code' => 'IDR',
+                'timezone' => 'Asia/Jakarta',
+                'allow_negative_stock' => false,
+                'low_stock_notification_enabled' => true,
+            ]
+        );
+
+        $setting->update($request->validated());
+
+        return response()->json([
+            'message' => 'Setting outlet berhasil diupdate.',
+            'data' => new OutletSettingResource($setting->fresh()),
+        ]);
+    }
+}
+```
+</details>
+
 <a id="file-apphttpcontrollersapipermissioncontrollerphp"></a>
 ### app\Http\Controllers\Api\PermissionController.php
-- SHA: `ea4fdeebf691`  
+- SHA: `1951779b0d55`  
 - Ukuran: 2 KB  
 - Namespace: `App\Http\Controllers\Api`
 
@@ -175,7 +382,7 @@ class PermissionController extends Controller
 
         $permissions = Permission::query()
             ->latest('id')
-            ->paginate((int) $request->get('per_page', 20));
+            ->paginate((int) $request->input('per_page', 20));
 
         return response()->json([
             'message' => 'Daftar permission berhasil diambil.',
@@ -241,7 +448,7 @@ class PermissionController extends Controller
 
 <a id="file-apphttpcontrollersapirolecontrollerphp"></a>
 ### app\Http\Controllers\Api\RoleController.php
-- SHA: `a19b9b6e813a`  
+- SHA: `97504ea623be`  
 - Ukuran: 3 KB  
 - Namespace: `App\Http\Controllers\Api`
 
@@ -277,7 +484,7 @@ class RoleController extends Controller
         $roles = Role::query()
             ->with('permissions')
             ->latest('id')
-            ->paginate((int) $request->get('per_page', 10));
+            ->paginate((int) $request->input('per_page', 10));
 
         return response()->json([
             'message' => 'Daftar role berhasil diambil.',
@@ -351,9 +558,80 @@ class RoleController extends Controller
 ```
 </details>
 
+<a id="file-apphttpcontrollersapisystemsettingcontrollerphp"></a>
+### app\Http\Controllers\Api\SystemSettingController.php
+- SHA: `b56a0cf65370`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `SystemSettingController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly SystemSettingService $systemSettingService)
+- **index**(Request $request) : *JsonResponse*
+- **upsert**(UpsertSystemSettingRequest $request) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\SystemSetting\UpsertSystemSettingRequest;
+use App\Http\Resources\SystemSettingResource;
+use App\Models\SystemSetting;
+use App\Services\SystemSetting\SystemSettingService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class SystemSettingController extends Controller
+{
+    public function __construct(
+        private readonly SystemSettingService $systemSettingService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('system_settings.view'), 403);
+
+        $settings = SystemSetting::query()
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+                $query->where('key', 'like', "%{$search}%");
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 20));
+
+        return response()->json([
+            'message' => 'Daftar system setting berhasil diambil.',
+            'data' => SystemSettingResource::collection($settings),
+            'meta' => [
+                'current_page' => $settings->currentPage(),
+                'last_page' => $settings->lastPage(),
+                'per_page' => $settings->perPage(),
+                'total' => $settings->total(),
+            ],
+        ]);
+    }
+
+    public function upsert(UpsertSystemSettingRequest $request): JsonResponse
+    {
+        $items = $this->systemSettingService->upsertMany($request->validated('settings'));
+
+        return response()->json([
+            'message' => 'System setting berhasil disimpan.',
+            'data' => SystemSettingResource::collection($items),
+        ]);
+    }
+}
+```
+</details>
+
 <a id="file-apphttpcontrollersapiusercontrollerphp"></a>
 ### app\Http\Controllers\Api\UserController.php
-- SHA: `ec7bc03b6f0b`  
+- SHA: `0ded1f7eab8c`  
 - Ukuran: 3 KB  
 - Namespace: `App\Http\Controllers\Api`
 
@@ -394,7 +672,7 @@ class UserController extends Controller
         abort_unless($request->user()->can('users.view'), 403);
 
         $users = User::query()
-            ->with('roles', 'permissions')
+            ->with('roles', 'permissions', 'outletAccesses.outlet')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = $request->string('search')->toString();
 
@@ -406,7 +684,7 @@ class UserController extends Controller
                 });
             })
             ->latest('id')
-            ->paginate((int) $request->get('per_page', 10));
+            ->paginate((int) $request->input('per_page', 10));
 
         return response()->json([
             'message' => 'Daftar user berhasil diambil.',
@@ -426,7 +704,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User berhasil dibuat.',
-            'data' => new UserResource($user->load('roles', 'permissions')),
+            'data' => new UserResource($user),
         ], 201);
     }
 
@@ -436,7 +714,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Detail user berhasil diambil.',
-            'data' => new UserResource($user->load('roles', 'permissions')),
+            'data' => new UserResource($user->load('roles', 'permissions', 'outletAccesses.outlet')),
         ]);
     }
 
@@ -446,7 +724,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User berhasil diupdate.',
-            'data' => new UserResource($user->load('roles', 'permissions')),
+            'data' => new UserResource($user),
         ]);
     }
 
@@ -469,7 +747,6 @@ class UserController extends Controller
         ]);
     }
 }
-
 ```
 </details>
 
@@ -871,48 +1148,31 @@ class ChangePasswordRequest extends FormRequest
 
 <a id="file-apphttprequestsapiauthloginrequestphp"></a>
 ### app\Http\Requests\Api\Auth\LoginRequest.php
-- SHA: `cd770b10c1bc`  
-- Ukuran: 2 KB  
-- Namespace: `App\Http\Requests\Auth`
+- SHA: `c6ce3f5e4836`  
+- Ukuran: 442 B  
+- Namespace: `App\Http\Requests\Api\Auth`
 
 **Class `LoginRequest` extends `FormRequest`**
 
 Metode Publik:
-- **authorize**() : *bool* — Determine if the user is authorized to make this request.
-- **rules**() : *array* — Determine if the user is authorized to make this request.
-- **authenticate**() : *void* — Determine if the user is authorized to make this request.
-- **ensureIsNotRateLimited**() : *void* — Determine if the user is authorized to make this request.
-- **throttleKey**() : *string* — Determine if the user is authorized to make this request.
+- **authorize**() : *bool*
+- **rules**() : *array*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Api\Auth;
 
-use Illuminate\Auth\Events\Lockout;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -921,56 +1181,156 @@ class LoginRequest extends FormRequest
             'device_name' => ['nullable', 'string', 'max:100'],
         ];
     }
+}
 
-    /**
-     * Attempt to authenticate the request's credentials.
-     *
-     * @throws ValidationException
-     */
-    public function authenticate(): void
+```
+</details>
+
+<a id="file-apphttprequestsapioutletstoreoutletrequestphp"></a>
+### app\Http\Requests\Api\Outlet\StoreOutletRequest.php
+- SHA: `71eba2a50f68`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Outlet`
+
+**Class `StoreOutletRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Outlet;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreOutletRequest extends FormRequest
+{
+    public function authorize(): bool
     {
-        $this->ensureIsNotRateLimited();
-
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
-            ]);
-        }
-
-        RateLimiter::clear($this->throttleKey());
+        return $this->user()?->can('outlets.create') ?? false;
     }
 
-    /**
-     * Ensure the login request is not rate limited.
-     *
-     * @throws ValidationException
-     */
-    public function ensureIsNotRateLimited(): void
+    public function rules(): array
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
-            return;
-        }
+        return [
+            'code' => ['required', 'string', 'max:50', Rule::unique('outlets', 'code')],
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'address' => ['nullable', 'string'],
+            'city' => ['nullable', 'string', 'max:100'],
+            'province' => ['nullable', 'string', 'max:100'],
+            'postal_code' => ['nullable', 'string', 'max:20'],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180'],
+            'opening_time' => ['nullable', 'date_format:H:i'],
+            'closing_time' => ['nullable', 'date_format:H:i'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
 
-        event(new Lockout($this));
+```
+</details>
 
-        $seconds = RateLimiter::availableIn($this->throttleKey());
+<a id="file-apphttprequestsapioutletupdateoutletrequestphp"></a>
+### app\Http\Requests\Api\Outlet\UpdateOutletRequest.php
+- SHA: `a80361284ab2`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Outlet`
 
-        throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
-        ]);
+**Class `UpdateOutletRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Outlet;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateOutletRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('outlets.update') ?? false;
     }
 
-    /**
-     * Get the rate limiting throttle key for the request.
-     */
-    public function throttleKey(): string
+    public function rules(): array
     {
-        return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
+        $outletId = $this->route('outlet')->id;
+
+        return [
+            'code' => ['sometimes', 'required', 'string', 'max:50', Rule::unique('outlets', 'code')->ignore($outletId)],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'address' => ['nullable', 'string'],
+            'city' => ['nullable', 'string', 'max:100'],
+            'province' => ['nullable', 'string', 'max:100'],
+            'postal_code' => ['nullable', 'string', 'max:20'],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180'],
+            'opening_time' => ['nullable', 'date_format:H:i'],
+            'closing_time' => ['nullable', 'date_format:H:i'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapioutletupdateoutletsettingrequestphp"></a>
+### app\Http\Requests\Api\Outlet\UpdateOutletSettingRequest.php
+- SHA: `306c3e4912b0`  
+- Ukuran: 995 B  
+- Namespace: `App\Http\Requests\Api\Outlet`
+
+**Class `UpdateOutletSettingRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Outlet;
+
+use Illuminate\Foundation\Http\FormRequest;
+// use Illuminate\Validation\Rule;
+
+class UpdateOutletSettingRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('outlet_settings.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'tax_percent' => ['sometimes', 'numeric', 'min:0', 'max:100'],
+            'service_charge_percent' => ['sometimes', 'numeric', 'min:0', 'max:100'],
+            'currency_code' => ['sometimes', 'string', 'max:10'],
+            'receipt_footer' => ['nullable', 'string'],
+            'invoice_prefix' => ['nullable', 'string', 'max:50'],
+            'order_prefix' => ['nullable', 'string', 'max:50'],
+            'timezone' => ['sometimes', 'string', 'max:100'],
+            'allow_negative_stock' => ['sometimes', 'boolean'],
+            'low_stock_notification_enabled' => ['sometimes', 'boolean'],
+        ];
     }
 }
 
@@ -1141,9 +1501,51 @@ class UpdateRoleRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapisystemsettingupsertsystemsettingrequestphp"></a>
+### app\Http\Requests\Api\SystemSetting\UpsertSystemSettingRequest.php
+- SHA: `362962d56221`  
+- Ukuran: 657 B  
+- Namespace: `App\Http\Requests\Api\SystemSetting`
+
+**Class `UpsertSystemSettingRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\SystemSetting;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpsertSystemSettingRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('system_settings.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'settings' => ['required', 'array', 'min:1'],
+            'settings.*.key' => ['required', 'string', 'max:150'],
+            'settings.*.value' => ['nullable'],
+            'settings.*.type' => ['required', Rule::in(['string', 'number', 'boolean', 'json'])],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapiuserstoreuserrequestphp"></a>
 ### app\Http\Requests\Api\User\StoreUserRequest.php
-- SHA: `3baf01753b8d`  
+- SHA: `f6a1a4ba9a6c`  
 - Ukuran: 1 KB  
 - Namespace: `App\Http\Requests\Api\User`
 
@@ -1182,16 +1584,19 @@ class StoreUserRequest extends FormRequest
             'user_type' => ['nullable', Rule::in(['superadmin', 'staff', 'owner_viewer'])],
             'roles' => ['required', 'array', 'min:1'],
             'roles.*' => ['string', 'exists:roles,name'],
+
+            'outlet_ids' => ['nullable', 'array'],
+            'outlet_ids.*' => ['integer', 'exists:outlets,id'],
+            'default_outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
         ];
     }
 }
-
 ```
 </details>
 
 <a id="file-apphttprequestsapiuserupdateuserrequestphp"></a>
 ### app\Http\Requests\Api\User\UpdateUserRequest.php
-- SHA: `dd6a9a093dcf`  
+- SHA: `2150a6d77c4f`  
 - Ukuran: 1 KB  
 - Namespace: `App\Http\Requests\Api\User`
 
@@ -1232,6 +1637,62 @@ class UpdateUserRequest extends FormRequest
             'user_type' => ['nullable', Rule::in(['superadmin', 'staff', 'owner_viewer'])],
             'roles' => ['sometimes', 'array', 'min:1'],
             'roles.*' => ['string', 'exists:roles,name'],
+
+            'outlet_ids' => ['sometimes', 'array'],
+            'outlet_ids.*' => ['integer', 'exists:outlets,id'],
+            'default_outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
+        ];
+    }
+}
+```
+</details>
+
+
+## API Resources (app/Http/Resources)
+
+<a id="file-apphttpresourcesoutletresourcephp"></a>
+### app\Http\Resources\OutletResource.php
+- SHA: `ee02964067b6`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `OutletResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OutletResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'address' => $this->address,
+            'city' => $this->city,
+            'province' => $this->province,
+            'postal_code' => $this->postal_code,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'opening_time' => $this->opening_time,
+            'closing_time' => $this->closing_time,
+            'is_active' => $this->is_active,
+            'setting' => new OutletSettingResource($this->whenLoaded('setting')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ];
     }
 }
@@ -1239,8 +1700,50 @@ class UpdateUserRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttpresourcesoutletsettingresourcephp"></a>
+### app\Http\Resources\OutletSettingResource.php
+- SHA: `5c352a02e571`  
+- Ukuran: 964 B  
+- Namespace: `App\Http\Resources`
 
-## API Resources (app/Http/Resources)
+**Class `OutletSettingResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OutletSettingResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'tax_percent' => $this->tax_percent,
+            'service_charge_percent' => $this->service_charge_percent,
+            'currency_code' => $this->currency_code,
+            'receipt_footer' => $this->receipt_footer,
+            'invoice_prefix' => $this->invoice_prefix,
+            'order_prefix' => $this->order_prefix,
+            'timezone' => $this->timezone,
+            'allow_negative_stock' => $this->allow_negative_stock,
+            'low_stock_notification_enabled' => $this->low_stock_notification_enabled,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
 
 <a id="file-apphttpresourcespermissionresourcephp"></a>
 ### app\Http\Resources\PermissionResource.php
@@ -1317,10 +1820,48 @@ class RoleResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcessystemsettingresourcephp"></a>
+### app\Http\Resources\SystemSettingResource.php
+- SHA: `ed7c14655129`  
+- Ukuran: 493 B  
+- Namespace: `App\Http\Resources`
+
+**Class `SystemSettingResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class SystemSettingResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'key' => $this->key,
+            'value' => $this->value,
+            'type' => $this->type,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcesuserresourcephp"></a>
 ### app\Http\Resources\UserResource.php
-- SHA: `f350a641d6f5`  
-- Ukuran: 812 B  
+- SHA: `7959fd418c6a`  
+- Ukuran: 1 KB  
 - Namespace: `App\Http\Resources`
 
 **Class `UserResource` extends `JsonResource`**
@@ -1352,25 +1893,203 @@ class UserResource extends JsonResource
             'last_login_at' => $this->last_login_at,
             'roles' => $this->getRoleNames()->values(),
             'permissions' => $this->getAllPermissions()->pluck('name')->values(),
+            'outlet_accesses' => $this->whenLoaded('outletAccesses', function () {
+                return $this->outletAccesses->map(function ($access) {
+                    return [
+                        'id' => $access->id,
+                        'outlet_id' => $access->outlet_id,
+                        'outlet_name' => $access->outlet?->name,
+                        'outlet_code' => $access->outlet?->code,
+                        'is_default' => $access->is_default,
+                    ];
+                })->values();
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }
 }
-
 ```
 </details>
 
 
 ## Models (app/Models)
 
+<a id="file-appmodelsoutletphp"></a>
+### app\Models\Outlet.php
+- SHA: `d884c586da69`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `Outlet` extends `Model`**
+
+Metode Publik:
+- **setting**() : *HasOne*
+- **userAccesses**() : *HasMany*
+- **users**() : *BelongsToMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+class Outlet extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'code',
+        'name',
+        'phone',
+        'email',
+        'address',
+        'city',
+        'province',
+        'postal_code',
+        'latitude',
+        'longitude',
+        'opening_time',
+        'closing_time',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'latitude' => 'decimal:7',
+            'longitude' => 'decimal:7',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function setting(): HasOne
+    {
+        return $this->hasOne(OutletSetting::class);
+    }
+
+    public function userAccesses(): HasMany
+    {
+        return $this->hasMany(UserOutletAccess::class);
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_outlet_accesses')
+            ->withPivot('is_default')
+            ->withTimestamps();
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsoutletsettingphp"></a>
+### app\Models\OutletSetting.php
+- SHA: `699d875583f7`  
+- Ukuran: 930 B  
+- Namespace: `App\Models`
+
+**Class `OutletSetting` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class OutletSetting extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'outlet_id',
+        'tax_percent',
+        'service_charge_percent',
+        'currency_code',
+        'receipt_footer',
+        'invoice_prefix',
+        'order_prefix',
+        'timezone',
+        'allow_negative_stock',
+        'low_stock_notification_enabled',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'tax_percent' => 'decimal:2',
+            'service_charge_percent' => 'decimal:2',
+            'allow_negative_stock' => 'boolean',
+            'low_stock_notification_enabled' => 'boolean',
+        ];
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelssystemsettingphp"></a>
+### app\Models\SystemSetting.php
+- SHA: `c7a02089b290`  
+- Ukuran: 268 B  
+- Namespace: `App\Models`
+
+**Class `SystemSetting` extends `Model`**
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class SystemSetting extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'key',
+        'value',
+        'type',
+    ];
+}
+
+```
+</details>
+
 <a id="file-appmodelsuserphp"></a>
 ### app\Models\User.php
-- SHA: `5e0ba01f2245`  
-- Ukuran: 986 B  
+- SHA: `d8223604cb81`  
+- Ukuran: 1 KB  
 - Namespace: `App\Models`
 
 **Class `User` extends `Authenticatable`**
+
+Metode Publik:
+- **outletAccesses**() : *HasMany*
+- **outlets**() : *BelongsToMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -1384,10 +2103,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $guard_name = 'sanctum';
@@ -1416,6 +2136,71 @@ class User extends Authenticatable
             'is_active' => 'boolean',
             'password' => 'hashed',
         ];
+    }
+
+    public function outletAccesses(): HasMany
+    {
+        return $this->hasMany(UserOutletAccess::class);
+    }
+
+    public function outlets(): BelongsToMany
+    {
+        return $this->belongsToMany(Outlet::class, 'user_outlet_accesses')
+            ->withPivot('is_default')
+            ->withTimestamps();
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsuseroutletaccessphp"></a>
+### app\Models\UserOutletAccess.php
+- SHA: `6094a73890e7`  
+- Ukuran: 655 B  
+- Namespace: `App\Models`
+
+**Class `UserOutletAccess` extends `Model`**
+
+Metode Publik:
+- **user**() : *BelongsTo*
+- **outlet**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class UserOutletAccess extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'outlet_id',
+        'is_default',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_default' => 'boolean',
+        ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
     }
 }
 
@@ -1532,10 +2317,121 @@ class AuthService
 ```
 </details>
 
+<a id="file-appservicesoutletoutletservicephp"></a>
+### app\Services\Outlet\OutletService.php
+- SHA: `7b229eac14f4`  
+- Ukuran: 933 B  
+- Namespace: `App\Services\Outlet`
+
+**Class `OutletService`**
+
+Metode Publik:
+- **create**(array $payload) : *Outlet*
+- **update**(Outlet $outlet, array $payload) : *Outlet*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Outlet;
+
+use App\Models\Outlet;
+use Illuminate\Support\Facades\DB;
+
+class OutletService
+{
+    public function create(array $payload): Outlet
+    {
+        return DB::transaction(function () use ($payload) {
+            $outlet = Outlet::create($payload);
+
+            $outlet->setting()->create([
+                'tax_percent' => 0,
+                'service_charge_percent' => 0,
+                'currency_code' => 'IDR',
+                'timezone' => 'Asia/Jakarta',
+                'allow_negative_stock' => false,
+                'low_stock_notification_enabled' => true,
+            ]);
+
+            return $outlet->load('setting');
+        });
+    }
+
+    public function update(Outlet $outlet, array $payload): Outlet
+    {
+        return DB::transaction(function () use ($outlet, $payload) {
+            $outlet->update($payload);
+
+            return $outlet->load('setting');
+        });
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicessystemsettingsystemsettingservicephp"></a>
+### app\Services\SystemSetting\SystemSettingService.php
+- SHA: `87e179c3a4f9`  
+- Ukuran: 1 KB  
+- Namespace: `App\Services\SystemSetting`
+
+**Class `SystemSettingService`**
+
+Metode Publik:
+- **upsertMany**(array $settings) : *Collection*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\SystemSetting;
+
+use App\Models\SystemSetting;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+
+class SystemSettingService
+{
+    public function upsertMany(array $settings): Collection
+    {
+        return DB::transaction(function () use ($settings) {
+            $items = collect();
+
+            foreach ($settings as $setting) {
+                $items->push(
+                    SystemSetting::updateOrCreate(
+                        ['key' => $setting['key']],
+                        [
+                            'value' => $this->normalizeValue($setting['value'] ?? null, $setting['type']),
+                            'type' => $setting['type'],
+                        ]
+                    )
+                );
+            }
+
+            return $items;
+        });
+    }
+
+    private function normalizeValue(mixed $value, string $type): mixed
+    {
+        return match ($type) {
+            'boolean' => is_null($value) ? null : ($value ? '1' : '0'),
+            'json' => is_null($value) ? null : json_encode($value, JSON_UNESCAPED_UNICODE),
+            default => is_null($value) ? null : (string) $value,
+        };
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicesuseruserservicephp"></a>
 ### app\Services\User\UserService.php
-- SHA: `d6a80f5162ad`  
-- Ukuran: 965 B  
+- SHA: `80d032ca528f`  
+- Ukuran: 3 KB  
 - Namespace: `App\Services\User`
 
 **Class `UserService`**
@@ -1552,6 +2448,7 @@ namespace App\Services\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class UserService
 {
@@ -1559,12 +2456,22 @@ class UserService
     {
         return DB::transaction(function () use ($payload) {
             $roles = $payload['roles'] ?? [];
-            unset($payload['roles']);
+            $outletIds = $payload['outlet_ids'] ?? [];
+            $defaultOutletId = $payload['default_outlet_id'] ?? null;
+
+            unset($payload['roles'], $payload['outlet_ids'], $payload['default_outlet_id']);
 
             $user = User::create($payload);
             $user->syncRoles($roles);
 
-            return $user->fresh();
+            $this->syncOutletAccesses(
+                user: $user,
+                roles: $roles,
+                outletIds: $outletIds,
+                defaultOutletId: $defaultOutletId,
+            );
+
+            return $user->fresh()->load('roles', 'permissions', 'outletAccesses.outlet');
         });
     }
 
@@ -1572,7 +2479,10 @@ class UserService
     {
         return DB::transaction(function () use ($user, $payload) {
             $roles = $payload['roles'] ?? null;
-            unset($payload['roles']);
+            $outletIds = $payload['outlet_ids'] ?? null;
+            $defaultOutletId = $payload['default_outlet_id'] ?? null;
+
+            unset($payload['roles'], $payload['outlet_ids'], $payload['default_outlet_id']);
 
             if (empty($payload['password'])) {
                 unset($payload['password']);
@@ -1584,8 +2494,50 @@ class UserService
                 $user->syncRoles($roles);
             }
 
-            return $user->fresh();
+            if (is_array($outletIds)) {
+                $this->syncOutletAccesses(
+                    user: $user,
+                    roles: is_array($roles) ? $roles : $user->getRoleNames()->all(),
+                    outletIds: $outletIds,
+                    defaultOutletId: $defaultOutletId,
+                );
+            }
+
+            return $user->fresh()->load('roles', 'permissions', 'outletAccesses.outlet');
         });
+    }
+
+    private function syncOutletAccesses(User $user, array $roles, array $outletIds, ?int $defaultOutletId): void
+    {
+        $hasCentralAccess = collect($roles)->intersect(['superadmin', 'admin_pusat'])->isNotEmpty();
+
+        if (! $hasCentralAccess && empty($outletIds)) {
+            throw ValidationException::withMessages([
+                'outlet_ids' => ['User non-pusat wajib memiliki minimal satu akses outlet.'],
+            ]);
+        }
+
+        if (empty($outletIds)) {
+            $user->outletAccesses()->delete();
+            return;
+        }
+
+        if ($defaultOutletId && ! in_array($defaultOutletId, $outletIds, true)) {
+            throw ValidationException::withMessages([
+                'default_outlet_id' => ['Default outlet harus termasuk dalam daftar outlet_ids.'],
+            ]);
+        }
+
+        $defaultOutletId ??= $outletIds[0];
+
+        $syncPayload = [];
+        foreach ($outletIds as $outletId) {
+            $syncPayload[$outletId] = [
+                'is_default' => (int) $outletId === (int) $defaultOutletId,
+            ];
+        }
+
+        $user->outlets()->sync($syncPayload);
     }
 }
 
@@ -1631,8 +2583,8 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `5ef628fc79dd`  
-- Ukuran: 707 B  
+- SHA: `146bd9755dac`  
+- Ukuran: 977 B  
 - Namespace: `Database\Seeders`
 
 **Class `PermissionSeeder` extends `Seeder`**
@@ -1658,14 +2610,27 @@ class PermissionSeeder extends Seeder
             'users.create',
             'users.update',
             'users.delete',
+
             'roles.view',
             'roles.create',
             'roles.update',
             'roles.delete',
+
             'permissions.view',
             'permissions.create',
             'permissions.update',
             'permissions.delete',
+
+            'outlets.view',
+            'outlets.create',
+            'outlets.update',
+            'outlets.delete',
+
+            'outlet_settings.view',
+            'outlet_settings.update',
+
+            'system_settings.view',
+            'system_settings.update',
         ];
 
         foreach ($permissions as $permission) {
@@ -1673,14 +2638,13 @@ class PermissionSeeder extends Seeder
         }
     }
 }
-
 ```
 </details>
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `bfc452a712ad`  
-- Ukuran: 864 B  
+- SHA: `a56758a204c3`  
+- Ukuran: 1 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -1704,26 +2668,45 @@ class RoleSeeder extends Seeder
     {
         $superadmin = Role::findOrCreate('superadmin', 'sanctum');
         $adminPusat = Role::findOrCreate('admin_pusat', 'sanctum');
+        $adminOutlet = Role::findOrCreate('admin_outlet', 'sanctum');
         $owner = Role::findOrCreate('owner', 'sanctum');
 
         $allPermissions = Permission::query()->pluck('name')->all();
 
         $superadmin->syncPermissions($allPermissions);
+
         $adminPusat->syncPermissions([
             'users.view',
             'users.create',
             'users.update',
             'roles.view',
             'permissions.view',
+            'outlets.view',
+            'outlets.create',
+            'outlets.update',
+            'outlet_settings.view',
+            'outlet_settings.update',
+            'system_settings.view',
+            'system_settings.update',
         ]);
+
+        $adminOutlet->syncPermissions([
+            'users.view',
+            'outlets.view',
+            'outlet_settings.view',
+            'outlet_settings.update',
+        ]);
+
         $owner->syncPermissions([
             'users.view',
             'roles.view',
             'permissions.view',
+            'outlets.view',
+            'outlet_settings.view',
+            'system_settings.view',
         ]);
     }
 }
-
 ```
 </details>
 
@@ -1775,8 +2758,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `7087a66ee84c`  
-- Ukuran: 2 KB  
+- SHA: `8327e476e951`  
+- Ukuran: 3 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -1802,14 +2785,26 @@ class SuperAdminSeeder extends Seeder
 | GET | `/permissions/{permission}` | `PermissionController` | `show` |
 | PUT | `/permissions/{permission}` | `PermissionController` | `update` |
 | DELETE | `/permissions/{permission}` | `PermissionController` | `destroy` |
+| GET | `/outlets` | `OutletController` | `index` |
+| POST | `/outlets` | `OutletController` | `store` |
+| GET | `/outlets/{outlet}` | `OutletController` | `show` |
+| PUT | `/outlets/{outlet}` | `OutletController` | `update` |
+| DELETE | `/outlets/{outlet}` | `OutletController` | `destroy` |
+| GET | `/outlets/{outlet}/settings` | `OutletSettingController` | `show` |
+| PATCH | `/outlets/{outlet}/settings` | `OutletSettingController` | `update` |
+| GET | `/system-settings` | `SystemSettingController` | `index` |
+| PUT | `/system-settings` | `SystemSettingController` | `upsert` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OutletController;
+use App\Http\Controllers\Api\OutletSettingController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -1838,9 +2833,20 @@ Route::prefix('v1')->group(function () {
         Route::get('/permissions/{permission}', [PermissionController::class, 'show']);
         Route::put('/permissions/{permission}', [PermissionController::class, 'update']);
         Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy']);
+
+        Route::get('/outlets', [OutletController::class, 'index']);
+        Route::post('/outlets', [OutletController::class, 'store']);
+        Route::get('/outlets/{outlet}', [OutletController::class, 'show']);
+        Route::put('/outlets/{outlet}', [OutletController::class, 'update']);
+        Route::delete('/outlets/{outlet}', [OutletController::class, 'destroy']);
+
+        Route::get('/outlets/{outlet}/settings', [OutletSettingController::class, 'show']);
+        Route::patch('/outlets/{outlet}/settings', [OutletSettingController::class, 'update']);
+
+        Route::get('/system-settings', [SystemSettingController::class, 'index']);
+        Route::put('/system-settings', [SystemSettingController::class, 'upsert']);
     });
 });
-
 ```
 </details>
 

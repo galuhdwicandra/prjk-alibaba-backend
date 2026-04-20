@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class UserService
 {
@@ -11,12 +12,22 @@ class UserService
     {
         return DB::transaction(function () use ($payload) {
             $roles = $payload['roles'] ?? [];
-            unset($payload['roles']);
+            $outletIds = $payload['outlet_ids'] ?? [];
+            $defaultOutletId = $payload['default_outlet_id'] ?? null;
+
+            unset($payload['roles'], $payload['outlet_ids'], $payload['default_outlet_id']);
 
             $user = User::create($payload);
             $user->syncRoles($roles);
 
-            return $user->fresh();
+            $this->syncOutletAccesses(
+                user: $user,
+                roles: $roles,
+                outletIds: $outletIds,
+                defaultOutletId: $defaultOutletId,
+            );
+
+            return $user->fresh()->load('roles', 'permissions', 'outletAccesses.outlet');
         });
     }
 
@@ -24,7 +35,10 @@ class UserService
     {
         return DB::transaction(function () use ($user, $payload) {
             $roles = $payload['roles'] ?? null;
-            unset($payload['roles']);
+            $outletIds = $payload['outlet_ids'] ?? null;
+            $defaultOutletId = $payload['default_outlet_id'] ?? null;
+
+            unset($payload['roles'], $payload['outlet_ids'], $payload['default_outlet_id']);
 
             if (empty($payload['password'])) {
                 unset($payload['password']);
@@ -36,7 +50,49 @@ class UserService
                 $user->syncRoles($roles);
             }
 
-            return $user->fresh();
+            if (is_array($outletIds)) {
+                $this->syncOutletAccesses(
+                    user: $user,
+                    roles: is_array($roles) ? $roles : $user->getRoleNames()->all(),
+                    outletIds: $outletIds,
+                    defaultOutletId: $defaultOutletId,
+                );
+            }
+
+            return $user->fresh()->load('roles', 'permissions', 'outletAccesses.outlet');
         });
+    }
+
+    private function syncOutletAccesses(User $user, array $roles, array $outletIds, ?int $defaultOutletId): void
+    {
+        $hasCentralAccess = collect($roles)->intersect(['superadmin', 'admin_pusat'])->isNotEmpty();
+
+        if (! $hasCentralAccess && empty($outletIds)) {
+            throw ValidationException::withMessages([
+                'outlet_ids' => ['User non-pusat wajib memiliki minimal satu akses outlet.'],
+            ]);
+        }
+
+        if (empty($outletIds)) {
+            $user->outletAccesses()->delete();
+            return;
+        }
+
+        if ($defaultOutletId && ! in_array($defaultOutletId, $outletIds, true)) {
+            throw ValidationException::withMessages([
+                'default_outlet_id' => ['Default outlet harus termasuk dalam daftar outlet_ids.'],
+            ]);
+        }
+
+        $defaultOutletId ??= $outletIds[0];
+
+        $syncPayload = [];
+        foreach ($outletIds as $outletId) {
+            $syncPayload[$outletId] = [
+                'is_default' => (int) $outletId === (int) $defaultOutletId,
+            ];
+        }
+
+        $user->outlets()->sync($syncPayload);
     }
 }

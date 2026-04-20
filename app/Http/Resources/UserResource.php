@@ -20,6 +20,17 @@ class UserResource extends JsonResource
             'last_login_at' => $this->last_login_at,
             'roles' => $this->getRoleNames()->values(),
             'permissions' => $this->getAllPermissions()->pluck('name')->values(),
+            'outlet_accesses' => $this->whenLoaded('outletAccesses', function () {
+                return $this->outletAccesses->map(function ($access) {
+                    return [
+                        'id' => $access->id,
+                        'outlet_id' => $access->outlet_id,
+                        'outlet_name' => $access->outlet?->name,
+                        'outlet_code' => $access->outlet?->code,
+                        'is_default' => $access->is_default,
+                    ];
+                })->values();
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

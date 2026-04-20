@@ -23,7 +23,7 @@ class UserController extends Controller
         abort_unless($request->user()->can('users.view'), 403);
 
         $users = User::query()
-            ->with('roles', 'permissions')
+            ->with('roles', 'permissions', 'outletAccesses.outlet')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = $request->string('search')->toString();
 
@@ -55,7 +55,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User berhasil dibuat.',
-            'data' => new UserResource($user->load('roles', 'permissions')),
+            'data' => new UserResource($user),
         ], 201);
     }
 
@@ -65,7 +65,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Detail user berhasil diambil.',
-            'data' => new UserResource($user->load('roles', 'permissions')),
+            'data' => new UserResource($user->load('roles', 'permissions', 'outletAccesses.outlet')),
         ]);
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User berhasil diupdate.',
-            'data' => new UserResource($user->load('roles', 'permissions')),
+            'data' => new UserResource($user),
         ]);
     }
 
