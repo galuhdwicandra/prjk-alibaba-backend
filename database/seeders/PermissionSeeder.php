@@ -45,6 +45,21 @@ class PermissionSeeder extends Seeder
             'products.create',
             'products.update',
             'products.delete',
+
+            'product_variants.view',
+            'product_variants.create',
+            'product_variants.update',
+            'product_variants.delete',
+
+            'product_modifiers.view',
+            'product_modifiers.create',
+            'product_modifiers.update',
+            'product_modifiers.delete',
+
+            'product_bundles.view',
+            'product_bundles.create',
+            'product_bundles.update',
+            'product_bundles.delete',
         ];
 
         foreach ($permissions as $permission) {

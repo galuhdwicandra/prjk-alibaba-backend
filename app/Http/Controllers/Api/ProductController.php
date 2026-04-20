@@ -24,7 +24,14 @@ class ProductController extends Controller
         abort_unless($request->user()->can('products.view'), 403);
 
         $products = Product::query()
-            ->with(['category', 'prices.outlet', 'outletStatuses.outlet'])
+            ->with([
+                'category',
+                'prices.outlet',
+                'outletStatuses.outlet',
+                'variantGroups.options',
+                'modifierGroups.options',
+                'bundleItems.bundledProduct',
+            ])
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = $request->string('search')->toString();
 
@@ -85,6 +92,9 @@ class ProductController extends Controller
                 'category',
                 'prices.outlet',
                 'outletStatuses.outlet',
+                'variantGroups.options',
+                'modifierGroups.options',
+                'bundleItems.bundledProduct',
             ])),
         ]);
     }

@@ -53,4 +53,19 @@ class Product extends Model
     {
         return $this->hasMany(ProductOutletStatus::class);
     }
+
+    public function variantGroups(): HasMany
+    {
+        return $this->hasMany(ProductVariantGroup::class)->orderBy('sort_order');
+    }
+
+    public function modifierGroups(): HasMany
+    {
+        return $this->hasMany(ProductModifierGroup::class)->orderBy('sort_order');
+    }
+
+    public function bundleItems(): HasMany
+    {
+        return $this->hasMany(ProductBundleItem::class);
+    }
 }

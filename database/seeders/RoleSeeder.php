@@ -40,6 +40,15 @@ class RoleSeeder extends Seeder
             'products.create',
             'products.update',
             'products.delete',
+            'product_variants.view',
+            'product_variants.create',
+            'product_variants.update',
+            'product_modifiers.view',
+            'product_modifiers.create',
+            'product_modifiers.update',
+            'product_bundles.view',
+            'product_bundles.create',
+            'product_bundles.update',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -51,6 +60,15 @@ class RoleSeeder extends Seeder
             'products.view',
             'products.create',
             'products.update',
+            'product_variants.view',
+            'product_variants.create',
+            'product_variants.update',
+            'product_modifiers.view',
+            'product_modifiers.create',
+            'product_modifiers.update',
+            'product_bundles.view',
+            'product_bundles.create',
+            'product_bundles.update',
         ]);
 
         $owner->syncPermissions([
@@ -62,6 +80,9 @@ class RoleSeeder extends Seeder
             'system_settings.view',
             'product_categories.view',
             'products.view',
+            'product_variants.view',
+            'product_modifiers.view',
+            'product_bundles.view',
         ]);
     }
 }

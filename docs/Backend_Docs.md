@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-20 15:09:29_  
+_Dihasilkan otomatis: 2026-04-20 15:36:49_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -9,6 +9,8 @@ _Dihasilkan otomatis: 2026-04-20 15:09:29_
   - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
   - [app\Http\Controllers\Api\OutletSettingController.php](#file-apphttpcontrollersapioutletsettingcontrollerphp)
   - [app\Http\Controllers\Api\PermissionController.php](#file-apphttpcontrollersapipermissioncontrollerphp)
+  - [app\Http\Controllers\Api\ProductCategoryController.php](#file-apphttpcontrollersapiproductcategorycontrollerphp)
+  - [app\Http\Controllers\Api\ProductController.php](#file-apphttpcontrollersapiproductcontrollerphp)
   - [app\Http\Controllers\Api\RoleController.php](#file-apphttpcontrollersapirolecontrollerphp)
   - [app\Http\Controllers\Api\SystemSettingController.php](#file-apphttpcontrollersapisystemsettingcontrollerphp)
   - [app\Http\Controllers\Api\UserController.php](#file-apphttpcontrollersapiusercontrollerphp)
@@ -27,6 +29,10 @@ _Dihasilkan otomatis: 2026-04-20 15:09:29_
   - [app\Http\Requests\Api\Outlet\UpdateOutletSettingRequest.php](#file-apphttprequestsapioutletupdateoutletsettingrequestphp)
   - [app\Http\Requests\Api\Permission\StorePermissionRequest.php](#file-apphttprequestsapipermissionstorepermissionrequestphp)
   - [app\Http\Requests\Api\Permission\UpdatePermissionRequest.php](#file-apphttprequestsapipermissionupdatepermissionrequestphp)
+  - [app\Http\Requests\Api\Product\StoreProductRequest.php](#file-apphttprequestsapiproductstoreproductrequestphp)
+  - [app\Http\Requests\Api\Product\UpdateProductRequest.php](#file-apphttprequestsapiproductupdateproductrequestphp)
+  - [app\Http\Requests\Api\ProductCategory\StoreProductCategoryRequest.php](#file-apphttprequestsapiproductcategorystoreproductcategoryrequestphp)
+  - [app\Http\Requests\Api\ProductCategory\UpdateProductCategoryRequest.php](#file-apphttprequestsapiproductcategoryupdateproductcategoryrequestphp)
   - [app\Http\Requests\Api\Role\StoreRoleRequest.php](#file-apphttprequestsapirolestorerolerequestphp)
   - [app\Http\Requests\Api\Role\UpdateRoleRequest.php](#file-apphttprequestsapiroleupdaterolerequestphp)
   - [app\Http\Requests\Api\SystemSetting\UpsertSystemSettingRequest.php](#file-apphttprequestsapisystemsettingupsertsystemsettingrequestphp)
@@ -36,12 +42,20 @@ _Dihasilkan otomatis: 2026-04-20 15:09:29_
   - [app\Http\Resources\OutletResource.php](#file-apphttpresourcesoutletresourcephp)
   - [app\Http\Resources\OutletSettingResource.php](#file-apphttpresourcesoutletsettingresourcephp)
   - [app\Http\Resources\PermissionResource.php](#file-apphttpresourcespermissionresourcephp)
+  - [app\Http\Resources\ProductCategoryResource.php](#file-apphttpresourcesproductcategoryresourcephp)
+  - [app\Http\Resources\ProductOutletStatusResource.php](#file-apphttpresourcesproductoutletstatusresourcephp)
+  - [app\Http\Resources\ProductPriceResource.php](#file-apphttpresourcesproductpriceresourcephp)
+  - [app\Http\Resources\ProductResource.php](#file-apphttpresourcesproductresourcephp)
   - [app\Http\Resources\RoleResource.php](#file-apphttpresourcesroleresourcephp)
   - [app\Http\Resources\SystemSettingResource.php](#file-apphttpresourcessystemsettingresourcephp)
   - [app\Http\Resources\UserResource.php](#file-apphttpresourcesuserresourcephp)
 - [Models (app/Models)](#models-app-models)
   - [app\Models\Outlet.php](#file-appmodelsoutletphp)
   - [app\Models\OutletSetting.php](#file-appmodelsoutletsettingphp)
+  - [app\Models\Product.php](#file-appmodelsproductphp)
+  - [app\Models\ProductCategory.php](#file-appmodelsproductcategoryphp)
+  - [app\Models\ProductOutletStatus.php](#file-appmodelsproductoutletstatusphp)
+  - [app\Models\ProductPrice.php](#file-appmodelsproductpricephp)
   - [app\Models\SystemSetting.php](#file-appmodelssystemsettingphp)
   - [app\Models\User.php](#file-appmodelsuserphp)
   - [app\Models\UserOutletAccess.php](#file-appmodelsuseroutletaccessphp)
@@ -49,6 +63,7 @@ _Dihasilkan otomatis: 2026-04-20 15:09:29_
   - [app\Providers\AppServiceProvider.php](#file-appprovidersappserviceproviderphp)
 - [Services (app/Services)](#services-app-services)
   - [app\Services\Auth\AuthService.php](#file-appservicesauthauthservicephp)
+  - [app\Services\Catalog\ProductService.php](#file-appservicescatalogproductservicephp)
   - [app\Services\Outlet\OutletService.php](#file-appservicesoutletoutletservicephp)
   - [app\Services\SystemSetting\SystemSettingService.php](#file-appservicessystemsettingsystemsettingservicephp)
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
@@ -443,6 +458,272 @@ class PermissionController extends Controller
     }
 }
 
+```
+</details>
+
+<a id="file-apphttpcontrollersapiproductcategorycontrollerphp"></a>
+### app\Http\Controllers\Api\ProductCategoryController.php
+- SHA: `59363377219b`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `ProductCategoryController` extends `Controller`**
+
+Metode Publik:
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreProductCategoryRequest $request) : *JsonResponse*
+- **show**(Request $request, ProductCategory $productCategory) : *JsonResponse*
+- **update**(UpdateProductCategoryRequest $request, ProductCategory $productCategory) : *JsonResponse*
+- **destroy**(Request $request, ProductCategory $productCategory) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ProductCategory\StoreProductCategoryRequest;
+use App\Http\Requests\Api\ProductCategory\UpdateProductCategoryRequest;
+use App\Http\Resources\ProductCategoryResource;
+use App\Models\ProductCategory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+class ProductCategoryController extends Controller
+{
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('product_categories.view'), 403);
+
+        $categories = ProductCategory::query()
+            ->withCount('products')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('slug', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->orderBy('sort_order')
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar kategori produk berhasil diambil.',
+            'data' => ProductCategoryResource::collection($categories),
+            'meta' => [
+                'current_page' => $categories->currentPage(),
+                'last_page' => $categories->lastPage(),
+                'per_page' => $categories->perPage(),
+                'total' => $categories->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreProductCategoryRequest $request): JsonResponse
+    {
+        $payload = $request->validated();
+
+        if (empty($payload['slug'] ?? null) && !empty($payload['name'])) {
+            $payload['slug'] = Str::slug($payload['name']);
+        }
+
+        $category = ProductCategory::create($payload);
+
+        return response()->json([
+            'message' => 'Kategori produk berhasil dibuat.',
+            'data' => new ProductCategoryResource($category),
+        ], 201);
+    }
+
+    public function show(Request $request, ProductCategory $productCategory): JsonResponse
+    {
+        abort_unless($request->user()->can('product_categories.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail kategori produk berhasil diambil.',
+            'data' => new ProductCategoryResource($productCategory->loadCount('products')),
+        ]);
+    }
+
+    public function update(UpdateProductCategoryRequest $request, ProductCategory $productCategory): JsonResponse
+    {
+        $payload = $request->validated();
+
+        if (array_key_exists('name', $payload) && empty($payload['slug'] ?? null)) {
+            $payload['slug'] = Str::slug($payload['name']);
+        }
+
+        $productCategory->update($payload);
+
+        return response()->json([
+            'message' => 'Kategori produk berhasil diupdate.',
+            'data' => new ProductCategoryResource($productCategory->fresh()->loadCount('products')),
+        ]);
+    }
+
+    public function destroy(Request $request, ProductCategory $productCategory): JsonResponse
+    {
+        abort_unless($request->user()->can('product_categories.delete'), 403);
+
+        if ($productCategory->products()->exists()) {
+            return response()->json([
+                'message' => 'Kategori tidak bisa dihapus karena masih dipakai produk.',
+            ], 422);
+        }
+
+        $productCategory->delete();
+
+        return response()->json([
+            'message' => 'Kategori produk berhasil dihapus.',
+        ]);
+    }
+}
+```
+</details>
+
+<a id="file-apphttpcontrollersapiproductcontrollerphp"></a>
+### app\Http\Controllers\Api\ProductController.php
+- SHA: `87b150df1682`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `ProductController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly ProductService $productService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreProductRequest $request) : *JsonResponse*
+- **show**(Request $request, Product $product) : *JsonResponse*
+- **update**(UpdateProductRequest $request, Product $product) : *JsonResponse*
+- **destroy**(Request $request, Product $product) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Product\StoreProductRequest;
+use App\Http\Requests\Api\Product\UpdateProductRequest;
+use App\Http\Resources\ProductResource;
+use App\Models\Product;
+use App\Services\Catalog\ProductService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+class ProductController extends Controller
+{
+    public function __construct(
+        private readonly ProductService $productService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('products.view'), 403);
+
+        $products = Product::query()
+            ->with(['category', 'prices.outlet', 'outletStatuses.outlet'])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('sku', 'like', "%{$search}%")
+                        ->orWhere('code', 'like', "%{$search}%")
+                        ->orWhere('slug', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('product_category_id'), function ($query) use ($request) {
+                $query->where('product_category_id', (int) $request->input('product_category_id'));
+            })
+            ->when($request->filled('product_type'), function ($query) use ($request) {
+                $query->where('product_type', $request->string('product_type')->toString());
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar produk berhasil diambil.',
+            'data' => ProductResource::collection($products),
+            'meta' => [
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'per_page' => $products->perPage(),
+                'total' => $products->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreProductRequest $request): JsonResponse
+    {
+        $payload = $request->validated();
+
+        if (empty($payload['slug'] ?? null) && !empty($payload['name'])) {
+            $payload['slug'] = Str::slug($payload['name']);
+        }
+
+        $product = $this->productService->create($payload);
+
+        return response()->json([
+            'message' => 'Produk berhasil dibuat.',
+            'data' => new ProductResource($product),
+        ], 201);
+    }
+
+    public function show(Request $request, Product $product): JsonResponse
+    {
+        abort_unless($request->user()->can('products.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail produk berhasil diambil.',
+            'data' => new ProductResource($product->load([
+                'category',
+                'prices.outlet',
+                'outletStatuses.outlet',
+            ])),
+        ]);
+    }
+
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
+    {
+        $payload = $request->validated();
+
+        if (array_key_exists('name', $payload) && empty($payload['slug'] ?? null)) {
+            $payload['slug'] = Str::slug($payload['name']);
+        }
+
+        $product = $this->productService->update($product, $payload);
+
+        return response()->json([
+            'message' => 'Produk berhasil diupdate.',
+            'data' => new ProductResource($product),
+        ]);
+    }
+
+    public function destroy(Request $request, Product $product): JsonResponse
+    {
+        abort_unless($request->user()->can('products.delete'), 403);
+
+        $product->delete();
+
+        return response()->json([
+            'message' => 'Produk berhasil dihapus.',
+        ]);
+    }
+}
 ```
 </details>
 
@@ -1417,6 +1698,226 @@ class UpdatePermissionRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapiproductstoreproductrequestphp"></a>
+### app\Http\Requests\Api\Product\StoreProductRequest.php
+- SHA: `5f42f2579042`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Product`
+
+**Class `StoreProductRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Product;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreProductRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('products.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'product_category_id' => ['required', 'integer', 'exists:product_categories,id'],
+            'sku' => ['nullable', 'string', 'max:100', Rule::unique('products', 'sku')],
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('products', 'code')],
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('products', 'slug')],
+            'description' => ['nullable', 'string'],
+            'image_url' => ['nullable', 'string', 'max:2048'],
+            'base_price' => ['required', 'numeric', 'min:0'],
+            'product_type' => ['required', Rule::in(['single', 'bundle'])],
+            'is_active' => ['sometimes', 'boolean'],
+            'is_featured' => ['sometimes', 'boolean'],
+            'track_recipe' => ['sometimes', 'boolean'],
+            'track_stock_direct' => ['sometimes', 'boolean'],
+
+            'prices' => ['nullable', 'array'],
+            'prices.*.outlet_id' => ['required_with:prices', 'integer', 'exists:outlets,id'],
+            'prices.*.price' => ['required_with:prices', 'numeric', 'min:0'],
+            'prices.*.dine_in_price' => ['nullable', 'numeric', 'min:0'],
+            'prices.*.takeaway_price' => ['nullable', 'numeric', 'min:0'],
+            'prices.*.delivery_price' => ['nullable', 'numeric', 'min:0'],
+            'prices.*.starts_at' => ['nullable', 'date'],
+            'prices.*.ends_at' => ['nullable', 'date', 'after_or_equal:prices.*.starts_at'],
+            'prices.*.is_active' => ['sometimes', 'boolean'],
+
+            'outlet_statuses' => ['nullable', 'array'],
+            'outlet_statuses.*.outlet_id' => ['required_with:outlet_statuses', 'integer', 'exists:outlets,id'],
+            'outlet_statuses.*.is_available' => ['sometimes', 'boolean'],
+            'outlet_statuses.*.is_hidden' => ['sometimes', 'boolean'],
+            'outlet_statuses.*.daily_limit' => ['nullable', 'integer', 'min:0'],
+            'outlet_statuses.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttprequestsapiproductupdateproductrequestphp"></a>
+### app\Http\Requests\Api\Product\UpdateProductRequest.php
+- SHA: `1a24d2fcd590`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Product`
+
+**Class `UpdateProductRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Product;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateProductRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('products.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $productId = $this->route('product')->id;
+
+        return [
+            'product_category_id' => ['sometimes', 'required', 'integer', 'exists:product_categories,id'],
+            'sku' => ['nullable', 'string', 'max:100', Rule::unique('products', 'sku')->ignore($productId)],
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('products', 'code')->ignore($productId)],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('products', 'slug')->ignore($productId)],
+            'description' => ['nullable', 'string'],
+            'image_url' => ['nullable', 'string', 'max:2048'],
+            'base_price' => ['sometimes', 'required', 'numeric', 'min:0'],
+            'product_type' => ['sometimes', 'required', Rule::in(['single', 'bundle'])],
+            'is_active' => ['sometimes', 'boolean'],
+            'is_featured' => ['sometimes', 'boolean'],
+            'track_recipe' => ['sometimes', 'boolean'],
+            'track_stock_direct' => ['sometimes', 'boolean'],
+
+            'prices' => ['sometimes', 'array'],
+            'prices.*.outlet_id' => ['required_with:prices', 'integer', 'exists:outlets,id'],
+            'prices.*.price' => ['required_with:prices', 'numeric', 'min:0'],
+            'prices.*.dine_in_price' => ['nullable', 'numeric', 'min:0'],
+            'prices.*.takeaway_price' => ['nullable', 'numeric', 'min:0'],
+            'prices.*.delivery_price' => ['nullable', 'numeric', 'min:0'],
+            'prices.*.starts_at' => ['nullable', 'date'],
+            'prices.*.ends_at' => ['nullable', 'date', 'after_or_equal:prices.*.starts_at'],
+            'prices.*.is_active' => ['sometimes', 'boolean'],
+
+            'outlet_statuses' => ['sometimes', 'array'],
+            'outlet_statuses.*.outlet_id' => ['required_with:outlet_statuses', 'integer', 'exists:outlets,id'],
+            'outlet_statuses.*.is_available' => ['sometimes', 'boolean'],
+            'outlet_statuses.*.is_hidden' => ['sometimes', 'boolean'],
+            'outlet_statuses.*.daily_limit' => ['nullable', 'integer', 'min:0'],
+            'outlet_statuses.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttprequestsapiproductcategorystoreproductcategoryrequestphp"></a>
+### app\Http\Requests\Api\ProductCategory\StoreProductCategoryRequest.php
+- SHA: `92d80ebeaba4`  
+- Ukuran: 665 B  
+- Namespace: `App\Http\Requests\Api\ProductCategory`
+
+**Class `StoreProductCategoryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\ProductCategory;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreProductCategoryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('product_categories.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('product_categories', 'slug')],
+            'sort_order' => ['sometimes', 'integer', 'min:0'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttprequestsapiproductcategoryupdateproductcategoryrequestphp"></a>
+### app\Http\Requests\Api\ProductCategory\UpdateProductCategoryRequest.php
+- SHA: `22d5a93e4a94`  
+- Ukuran: 760 B  
+- Namespace: `App\Http\Requests\Api\ProductCategory`
+
+**Class `UpdateProductCategoryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\ProductCategory;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateProductCategoryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('product_categories.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $categoryId = $this->route('productCategory')->id;
+
+        return [
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('product_categories', 'slug')->ignore($categoryId)],
+            'sort_order' => ['sometimes', 'integer', 'min:0'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+```
+</details>
+
 <a id="file-apphttprequestsapirolestorerolerequestphp"></a>
 ### app\Http\Requests\Api\Role\StoreRoleRequest.php
 - SHA: `56007c9924c8`  
@@ -1782,6 +2283,188 @@ class PermissionResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcesproductcategoryresourcephp"></a>
+### app\Http\Resources\ProductCategoryResource.php
+- SHA: `e4b8aa020397`  
+- Ukuran: 662 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductCategoryResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductCategoryResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'sort_order' => $this->sort_order,
+            'is_active' => $this->is_active,
+            'products_count' => $this->whenCounted('products'),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesproductoutletstatusresourcephp"></a>
+### app\Http\Resources\ProductOutletStatusResource.php
+- SHA: `7bd88aa5aff6`  
+- Ukuran: 722 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductOutletStatusResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductOutletStatusResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'outlet_name' => $this->outlet?->name,
+            'outlet_code' => $this->outlet?->code,
+            'is_available' => $this->is_available,
+            'is_hidden' => $this->is_hidden,
+            'daily_limit' => $this->daily_limit,
+            'notes' => $this->notes,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesproductpriceresourcephp"></a>
+### app\Http\Resources\ProductPriceResource.php
+- SHA: `92f07786c52b`  
+- Ukuran: 864 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductPriceResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductPriceResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'outlet_name' => $this->outlet?->name,
+            'outlet_code' => $this->outlet?->code,
+            'price' => $this->price,
+            'dine_in_price' => $this->dine_in_price,
+            'takeaway_price' => $this->takeaway_price,
+            'delivery_price' => $this->delivery_price,
+            'starts_at' => $this->starts_at,
+            'ends_at' => $this->ends_at,
+            'is_active' => $this->is_active,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesproductresourcephp"></a>
+### app\Http\Resources\ProductResource.php
+- SHA: `c200833e6906`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_category_id' => $this->product_category_id,
+            'category' => $this->whenLoaded('category', function () {
+                return [
+                    'id' => $this->category?->id,
+                    'name' => $this->category?->name,
+                    'slug' => $this->category?->slug,
+                ];
+            }),
+            'sku' => $this->sku,
+            'code' => $this->code,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'image_url' => $this->image_url,
+            'base_price' => $this->base_price,
+            'product_type' => $this->product_type,
+            'is_active' => $this->is_active,
+            'is_featured' => $this->is_featured,
+            'track_recipe' => $this->track_recipe,
+            'track_stock_direct' => $this->track_stock_direct,
+            'prices' => ProductPriceResource::collection($this->whenLoaded('prices')),
+            'outlet_statuses' => ProductOutletStatusResource::collection($this->whenLoaded('outletStatuses')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+        ];
+    }
+}
+```
+</details>
+
 <a id="file-apphttpresourcesroleresourcephp"></a>
 ### app\Http\Resources\RoleResource.php
 - SHA: `e3e1272fe416`  
@@ -2045,6 +2728,250 @@ class OutletSetting extends Model
     }
 }
 
+```
+</details>
+
+<a id="file-appmodelsproductphp"></a>
+### app\Models\Product.php
+- SHA: `cc2b5e31244b`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `Product` extends `Model`**
+
+Metode Publik:
+- **category**() : *BelongsTo*
+- **prices**() : *HasMany*
+- **outletStatuses**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Product extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'product_category_id',
+        'sku',
+        'code',
+        'name',
+        'slug',
+        'description',
+        'image_url',
+        'base_price',
+        'product_type',
+        'is_active',
+        'is_featured',
+        'track_recipe',
+        'track_stock_direct',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'base_price' => 'decimal:2',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'track_recipe' => 'boolean',
+            'track_stock_direct' => 'boolean',
+        ];
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(ProductPrice::class);
+    }
+
+    public function outletStatuses(): HasMany
+    {
+        return $this->hasMany(ProductOutletStatus::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductcategoryphp"></a>
+### app\Models\ProductCategory.php
+- SHA: `298e808e9cab`  
+- Ukuran: 663 B  
+- Namespace: `App\Models`
+
+**Class `ProductCategory` extends `Model`**
+
+Metode Publik:
+- **products**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class ProductCategory extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'sort_order',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'sort_order' => 'integer',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductoutletstatusphp"></a>
+### app\Models\ProductOutletStatus.php
+- SHA: `39899ec8636f`  
+- Ukuran: 809 B  
+- Namespace: `App\Models`
+
+**Class `ProductOutletStatus` extends `Model`**
+
+Metode Publik:
+- **product**() : *BelongsTo*
+- **outlet**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ProductOutletStatus extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'outlet_id',
+        'is_available',
+        'is_hidden',
+        'daily_limit',
+        'notes',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_available' => 'boolean',
+            'is_hidden' => 'boolean',
+            'daily_limit' => 'integer',
+        ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductpricephp"></a>
+### app\Models\ProductPrice.php
+- SHA: `17eec45a872d`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `ProductPrice` extends `Model`**
+
+Metode Publik:
+- **product**() : *BelongsTo*
+- **outlet**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ProductPrice extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'outlet_id',
+        'price',
+        'dine_in_price',
+        'takeaway_price',
+        'delivery_price',
+        'starts_at',
+        'ends_at',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'price' => 'decimal:2',
+            'dine_in_price' => 'decimal:2',
+            'takeaway_price' => 'decimal:2',
+            'delivery_price' => 'decimal:2',
+            'starts_at' => 'datetime',
+            'ends_at' => 'datetime',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+}
 ```
 </details>
 
@@ -2317,6 +3244,115 @@ class AuthService
 ```
 </details>
 
+<a id="file-appservicescatalogproductservicephp"></a>
+### app\Services\Catalog\ProductService.php
+- SHA: `a46fa44d7f81`  
+- Ukuran: 3 KB  
+- Namespace: `App\Services\Catalog`
+
+**Class `ProductService`**
+
+Metode Publik:
+- **create**(array $payload) : *Product*
+- **update**(Product $product, array $payload) : *Product*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Catalog;
+
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
+
+class ProductService
+{
+    public function create(array $payload): Product
+    {
+        return DB::transaction(function () use ($payload) {
+            $prices = $payload['prices'] ?? [];
+            $outletStatuses = $payload['outlet_statuses'] ?? [];
+
+            unset($payload['prices'], $payload['outlet_statuses']);
+
+            $product = Product::create($payload);
+
+            $this->syncPrices($product, $prices);
+            $this->syncOutletStatuses($product, $outletStatuses);
+
+            return $product->fresh()->load([
+                'category',
+                'prices.outlet',
+                'outletStatuses.outlet',
+            ]);
+        });
+    }
+
+    public function update(Product $product, array $payload): Product
+    {
+        return DB::transaction(function () use ($product, $payload) {
+            $hasPrices = array_key_exists('prices', $payload);
+            $hasStatuses = array_key_exists('outlet_statuses', $payload);
+
+            $prices = $payload['prices'] ?? [];
+            $outletStatuses = $payload['outlet_statuses'] ?? [];
+
+            unset($payload['prices'], $payload['outlet_statuses']);
+
+            $product->update($payload);
+
+            if ($hasPrices) {
+                $this->syncPrices($product, $prices);
+            }
+
+            if ($hasStatuses) {
+                $this->syncOutletStatuses($product, $outletStatuses);
+            }
+
+            return $product->fresh()->load([
+                'category',
+                'prices.outlet',
+                'outletStatuses.outlet',
+            ]);
+        });
+    }
+
+    private function syncPrices(Product $product, array $prices): void
+    {
+        $product->prices()->delete();
+
+        foreach ($prices as $price) {
+            $product->prices()->create([
+                'outlet_id' => $price['outlet_id'],
+                'price' => $price['price'],
+                'dine_in_price' => $price['dine_in_price'] ?? null,
+                'takeaway_price' => $price['takeaway_price'] ?? null,
+                'delivery_price' => $price['delivery_price'] ?? null,
+                'starts_at' => $price['starts_at'] ?? null,
+                'ends_at' => $price['ends_at'] ?? null,
+                'is_active' => $price['is_active'] ?? true,
+            ]);
+        }
+    }
+
+    private function syncOutletStatuses(Product $product, array $outletStatuses): void
+    {
+        $product->outletStatuses()->delete();
+
+        foreach ($outletStatuses as $status) {
+            $product->outletStatuses()->create([
+                'outlet_id' => $status['outlet_id'],
+                'is_available' => $status['is_available'] ?? true,
+                'is_hidden' => $status['is_hidden'] ?? false,
+                'daily_limit' => $status['daily_limit'] ?? null,
+                'notes' => $status['notes'] ?? null,
+            ]);
+        }
+    }
+}
+```
+</details>
+
 <a id="file-appservicesoutletoutletservicephp"></a>
 ### app\Services\Outlet\OutletService.php
 - SHA: `7b229eac14f4`  
@@ -2583,8 +3619,8 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `146bd9755dac`  
-- Ukuran: 977 B  
+- SHA: `81cf9ddeae4c`  
+- Ukuran: 1 KB  
 - Namespace: `Database\Seeders`
 
 **Class `PermissionSeeder` extends `Seeder`**
@@ -2631,6 +3667,16 @@ class PermissionSeeder extends Seeder
 
             'system_settings.view',
             'system_settings.update',
+
+            'product_categories.view',
+            'product_categories.create',
+            'product_categories.update',
+            'product_categories.delete',
+
+            'products.view',
+            'products.create',
+            'products.update',
+            'products.delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -2643,8 +3689,8 @@ class PermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `a56758a204c3`  
-- Ukuran: 1 KB  
+- SHA: `e034d0c339c9`  
+- Ukuran: 2 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -2688,6 +3734,14 @@ class RoleSeeder extends Seeder
             'outlet_settings.update',
             'system_settings.view',
             'system_settings.update',
+            'product_categories.view',
+            'product_categories.create',
+            'product_categories.update',
+            'product_categories.delete',
+            'products.view',
+            'products.create',
+            'products.update',
+            'products.delete',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -2695,6 +3749,10 @@ class RoleSeeder extends Seeder
             'outlets.view',
             'outlet_settings.view',
             'outlet_settings.update',
+            'product_categories.view',
+            'products.view',
+            'products.create',
+            'products.update',
         ]);
 
         $owner->syncPermissions([
@@ -2704,6 +3762,8 @@ class RoleSeeder extends Seeder
             'outlets.view',
             'outlet_settings.view',
             'system_settings.view',
+            'product_categories.view',
+            'products.view',
         ]);
     }
 }
@@ -2758,8 +3818,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `8327e476e951`  
-- Ukuran: 3 KB  
+- SHA: `57e28c4473ce`  
+- Ukuran: 4 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -2794,6 +3854,16 @@ class SuperAdminSeeder extends Seeder
 | PATCH | `/outlets/{outlet}/settings` | `OutletSettingController` | `update` |
 | GET | `/system-settings` | `SystemSettingController` | `index` |
 | PUT | `/system-settings` | `SystemSettingController` | `upsert` |
+| GET | `/product-categories` | `ProductCategoryController` | `index` |
+| POST | `/product-categories` | `ProductCategoryController` | `store` |
+| GET | `/product-categories/{productCategory}` | `ProductCategoryController` | `show` |
+| PUT | `/product-categories/{productCategory}` | `ProductCategoryController` | `update` |
+| DELETE | `/product-categories/{productCategory}` | `ProductCategoryController` | `destroy` |
+| GET | `/products` | `ProductController` | `index` |
+| POST | `/products` | `ProductController` | `store` |
+| GET | `/products/{product}` | `ProductController` | `show` |
+| PUT | `/products/{product}` | `ProductController` | `update` |
+| DELETE | `/products/{product}` | `ProductController` | `destroy` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -2807,6 +3877,8 @@ use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductCategoryController;
+use App\Http\Controllers\Api\ProductController;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
@@ -2845,6 +3917,18 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/system-settings', [SystemSettingController::class, 'index']);
         Route::put('/system-settings', [SystemSettingController::class, 'upsert']);
+
+        Route::get('/product-categories', [ProductCategoryController::class, 'index']);
+        Route::post('/product-categories', [ProductCategoryController::class, 'store']);
+        Route::get('/product-categories/{productCategory}', [ProductCategoryController::class, 'show']);
+        Route::put('/product-categories/{productCategory}', [ProductCategoryController::class, 'update']);
+        Route::delete('/product-categories/{productCategory}', [ProductCategoryController::class, 'destroy']);
+
+        Route::get('/products', [ProductController::class, 'index']);
+        Route::post('/products', [ProductController::class, 'store']);
+        Route::get('/products/{product}', [ProductController::class, 'show']);
+        Route::put('/products/{product}', [ProductController::class, 'update']);
+        Route::delete('/products/{product}', [ProductController::class, 'destroy']);
     });
 });
 ```
