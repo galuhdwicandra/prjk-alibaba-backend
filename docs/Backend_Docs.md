@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-20 15:36:49_  
+_Dihasilkan otomatis: 2026-04-20 16:56:19_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -42,10 +42,15 @@ _Dihasilkan otomatis: 2026-04-20 15:36:49_
   - [app\Http\Resources\OutletResource.php](#file-apphttpresourcesoutletresourcephp)
   - [app\Http\Resources\OutletSettingResource.php](#file-apphttpresourcesoutletsettingresourcephp)
   - [app\Http\Resources\PermissionResource.php](#file-apphttpresourcespermissionresourcephp)
+  - [app\Http\Resources\ProductBundleItemResource.php](#file-apphttpresourcesproductbundleitemresourcephp)
   - [app\Http\Resources\ProductCategoryResource.php](#file-apphttpresourcesproductcategoryresourcephp)
+  - [app\Http\Resources\ProductModifierGroupResource.php](#file-apphttpresourcesproductmodifiergroupresourcephp)
+  - [app\Http\Resources\ProductModifierOptionResource.php](#file-apphttpresourcesproductmodifieroptionresourcephp)
   - [app\Http\Resources\ProductOutletStatusResource.php](#file-apphttpresourcesproductoutletstatusresourcephp)
   - [app\Http\Resources\ProductPriceResource.php](#file-apphttpresourcesproductpriceresourcephp)
   - [app\Http\Resources\ProductResource.php](#file-apphttpresourcesproductresourcephp)
+  - [app\Http\Resources\ProductVariantGroupResource.php](#file-apphttpresourcesproductvariantgroupresourcephp)
+  - [app\Http\Resources\ProductVariantOptionResource.php](#file-apphttpresourcesproductvariantoptionresourcephp)
   - [app\Http\Resources\RoleResource.php](#file-apphttpresourcesroleresourcephp)
   - [app\Http\Resources\SystemSettingResource.php](#file-apphttpresourcessystemsettingresourcephp)
   - [app\Http\Resources\UserResource.php](#file-apphttpresourcesuserresourcephp)
@@ -53,9 +58,14 @@ _Dihasilkan otomatis: 2026-04-20 15:36:49_
   - [app\Models\Outlet.php](#file-appmodelsoutletphp)
   - [app\Models\OutletSetting.php](#file-appmodelsoutletsettingphp)
   - [app\Models\Product.php](#file-appmodelsproductphp)
+  - [app\Models\ProductBundleItem.php](#file-appmodelsproductbundleitemphp)
   - [app\Models\ProductCategory.php](#file-appmodelsproductcategoryphp)
+  - [app\Models\ProductModifierGroup.php](#file-appmodelsproductmodifiergroupphp)
+  - [app\Models\ProductModifierOption.php](#file-appmodelsproductmodifieroptionphp)
   - [app\Models\ProductOutletStatus.php](#file-appmodelsproductoutletstatusphp)
   - [app\Models\ProductPrice.php](#file-appmodelsproductpricephp)
+  - [app\Models\ProductVariantGroup.php](#file-appmodelsproductvariantgroupphp)
+  - [app\Models\ProductVariantOption.php](#file-appmodelsproductvariantoptionphp)
   - [app\Models\SystemSetting.php](#file-appmodelssystemsettingphp)
   - [app\Models\User.php](#file-appmodelsuserphp)
   - [app\Models\UserOutletAccess.php](#file-appmodelsuseroutletaccessphp)
@@ -590,7 +600,7 @@ class ProductCategoryController extends Controller
 
 <a id="file-apphttpcontrollersapiproductcontrollerphp"></a>
 ### app\Http\Controllers\Api\ProductController.php
-- SHA: `87b150df1682`  
+- SHA: `f68e37059d38`  
 - Ukuran: 4 KB  
 - Namespace: `App\Http\Controllers\Api`
 
@@ -632,7 +642,14 @@ class ProductController extends Controller
         abort_unless($request->user()->can('products.view'), 403);
 
         $products = Product::query()
-            ->with(['category', 'prices.outlet', 'outletStatuses.outlet'])
+            ->with([
+                'category',
+                'prices.outlet',
+                'outletStatuses.outlet',
+                'variantGroups.options',
+                'modifierGroups.options',
+                'bundleItems.bundledProduct',
+            ])
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = $request->string('search')->toString();
 
@@ -693,6 +710,9 @@ class ProductController extends Controller
                 'category',
                 'prices.outlet',
                 'outletStatuses.outlet',
+                'variantGroups.options',
+                'modifierGroups.options',
+                'bundleItems.bundledProduct',
             ])),
         ]);
     }
@@ -1700,8 +1720,8 @@ class UpdatePermissionRequest extends FormRequest
 
 <a id="file-apphttprequestsapiproductstoreproductrequestphp"></a>
 ### app\Http\Requests\Api\Product\StoreProductRequest.php
-- SHA: `5f42f2579042`  
-- Ukuran: 2 KB  
+- SHA: `5ffe89a56265`  
+- Ukuran: 5 KB  
 - Namespace: `App\Http\Requests\Api\Product`
 
 **Class `StoreProductRequest` extends `FormRequest`**
@@ -1709,6 +1729,7 @@ class UpdatePermissionRequest extends FormRequest
 Metode Publik:
 - **authorize**() : *bool*
 - **rules**() : *array*
+- **withValidator**($validator) : *void*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -1750,7 +1771,7 @@ class StoreProductRequest extends FormRequest
             'prices.*.takeaway_price' => ['nullable', 'numeric', 'min:0'],
             'prices.*.delivery_price' => ['nullable', 'numeric', 'min:0'],
             'prices.*.starts_at' => ['nullable', 'date'],
-            'prices.*.ends_at' => ['nullable', 'date', 'after_or_equal:prices.*.starts_at'],
+            'prices.*.ends_at' => ['nullable', 'date'],
             'prices.*.is_active' => ['sometimes', 'boolean'],
 
             'outlet_statuses' => ['nullable', 'array'],
@@ -1759,7 +1780,51 @@ class StoreProductRequest extends FormRequest
             'outlet_statuses.*.is_hidden' => ['sometimes', 'boolean'],
             'outlet_statuses.*.daily_limit' => ['nullable', 'integer', 'min:0'],
             'outlet_statuses.*.notes' => ['nullable', 'string'],
+
+            'variant_groups' => ['nullable', 'array'],
+            'variant_groups.*.name' => ['required_with:variant_groups', 'string', 'max:255'],
+            'variant_groups.*.selection_type' => ['required_with:variant_groups', Rule::in(['single', 'multiple'])],
+            'variant_groups.*.is_required' => ['sometimes', 'boolean'],
+            'variant_groups.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+            'variant_groups.*.options' => ['required_with:variant_groups', 'array', 'min:1'],
+            'variant_groups.*.options.*.name' => ['required', 'string', 'max:255'],
+            'variant_groups.*.options.*.price_adjustment' => ['sometimes', 'numeric', 'min:0'],
+            'variant_groups.*.options.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+            'variant_groups.*.options.*.is_active' => ['sometimes', 'boolean'],
+
+            'modifier_groups' => ['nullable', 'array'],
+            'modifier_groups.*.name' => ['required_with:modifier_groups', 'string', 'max:255'],
+            'modifier_groups.*.min_select' => ['sometimes', 'integer', 'min:0'],
+            'modifier_groups.*.max_select' => ['sometimes', 'integer', 'min:0'],
+            'modifier_groups.*.is_required' => ['sometimes', 'boolean'],
+            'modifier_groups.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+            'modifier_groups.*.options' => ['required_with:modifier_groups', 'array', 'min:1'],
+            'modifier_groups.*.options.*.name' => ['required', 'string', 'max:255'],
+            'modifier_groups.*.options.*.price' => ['sometimes', 'numeric', 'min:0'],
+            'modifier_groups.*.options.*.is_active' => ['sometimes', 'boolean'],
+            'modifier_groups.*.options.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+
+            'bundle_items' => ['nullable', 'array'],
+            'bundle_items.*.bundled_product_id' => ['required_with:bundle_items', 'integer', 'exists:products,id'],
+            'bundle_items.*.qty' => ['required_with:bundle_items', 'numeric', 'gt:0'],
         ];
+    }
+
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator) {
+            foreach (($this->input('modifier_groups') ?? []) as $index => $group) {
+                $min = (int) ($group['min_select'] ?? 0);
+                $max = (int) ($group['max_select'] ?? 1);
+
+                if ($max < $min) {
+                    $validator->errors()->add(
+                        "modifier_groups.$index.max_select",
+                        'max_select tidak boleh lebih kecil dari min_select.'
+                    );
+                }
+            }
+        });
     }
 }
 ```
@@ -1767,8 +1832,8 @@ class StoreProductRequest extends FormRequest
 
 <a id="file-apphttprequestsapiproductupdateproductrequestphp"></a>
 ### app\Http\Requests\Api\Product\UpdateProductRequest.php
-- SHA: `1a24d2fcd590`  
-- Ukuran: 2 KB  
+- SHA: `e909f93495d9`  
+- Ukuran: 5 KB  
 - Namespace: `App\Http\Requests\Api\Product`
 
 **Class `UpdateProductRequest` extends `FormRequest`**
@@ -1776,6 +1841,7 @@ class StoreProductRequest extends FormRequest
 Metode Publik:
 - **authorize**() : *bool*
 - **rules**() : *array*
+- **withValidator**($validator) : *void*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -1819,7 +1885,7 @@ class UpdateProductRequest extends FormRequest
             'prices.*.takeaway_price' => ['nullable', 'numeric', 'min:0'],
             'prices.*.delivery_price' => ['nullable', 'numeric', 'min:0'],
             'prices.*.starts_at' => ['nullable', 'date'],
-            'prices.*.ends_at' => ['nullable', 'date', 'after_or_equal:prices.*.starts_at'],
+            'prices.*.ends_at' => ['nullable', 'date'],
             'prices.*.is_active' => ['sometimes', 'boolean'],
 
             'outlet_statuses' => ['sometimes', 'array'],
@@ -1828,7 +1894,51 @@ class UpdateProductRequest extends FormRequest
             'outlet_statuses.*.is_hidden' => ['sometimes', 'boolean'],
             'outlet_statuses.*.daily_limit' => ['nullable', 'integer', 'min:0'],
             'outlet_statuses.*.notes' => ['nullable', 'string'],
+
+            'variant_groups' => ['sometimes', 'array'],
+            'variant_groups.*.name' => ['required_with:variant_groups', 'string', 'max:255'],
+            'variant_groups.*.selection_type' => ['required_with:variant_groups', Rule::in(['single', 'multiple'])],
+            'variant_groups.*.is_required' => ['sometimes', 'boolean'],
+            'variant_groups.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+            'variant_groups.*.options' => ['required_with:variant_groups', 'array', 'min:1'],
+            'variant_groups.*.options.*.name' => ['required', 'string', 'max:255'],
+            'variant_groups.*.options.*.price_adjustment' => ['sometimes', 'numeric', 'min:0'],
+            'variant_groups.*.options.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+            'variant_groups.*.options.*.is_active' => ['sometimes', 'boolean'],
+
+            'modifier_groups' => ['sometimes', 'array'],
+            'modifier_groups.*.name' => ['required_with:modifier_groups', 'string', 'max:255'],
+            'modifier_groups.*.min_select' => ['sometimes', 'integer', 'min:0'],
+            'modifier_groups.*.max_select' => ['sometimes', 'integer', 'min:0'],
+            'modifier_groups.*.is_required' => ['sometimes', 'boolean'],
+            'modifier_groups.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+            'modifier_groups.*.options' => ['required_with:modifier_groups', 'array', 'min:1'],
+            'modifier_groups.*.options.*.name' => ['required', 'string', 'max:255'],
+            'modifier_groups.*.options.*.price' => ['sometimes', 'numeric', 'min:0'],
+            'modifier_groups.*.options.*.is_active' => ['sometimes', 'boolean'],
+            'modifier_groups.*.options.*.sort_order' => ['sometimes', 'integer', 'min:0'],
+
+            'bundle_items' => ['sometimes', 'array'],
+            'bundle_items.*.bundled_product_id' => ['required_with:bundle_items', 'integer', 'exists:products,id'],
+            'bundle_items.*.qty' => ['required_with:bundle_items', 'numeric', 'gt:0'],
         ];
+    }
+
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator) {
+            foreach (($this->input('modifier_groups') ?? []) as $index => $group) {
+                $min = (int) ($group['min_select'] ?? 0);
+                $max = (int) ($group['max_select'] ?? 1);
+
+                if ($max < $min) {
+                    $validator->errors()->add(
+                        "modifier_groups.$index.max_select",
+                        'max_select tidak boleh lebih kecil dari min_select.'
+                    );
+                }
+            }
+        });
     }
 }
 ```
@@ -2283,6 +2393,46 @@ class PermissionResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcesproductbundleitemresourcephp"></a>
+### app\Http\Resources\ProductBundleItemResource.php
+- SHA: `9f89169b71b4`  
+- Ukuran: 671 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductBundleItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductBundleItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'bundled_product_id' => $this->bundled_product_id,
+            'bundled_product_name' => $this->bundledProduct?->name,
+            'bundled_product_code' => $this->bundledProduct?->code,
+            'qty' => $this->qty,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcesproductcategoryresourcephp"></a>
 ### app\Http\Resources\ProductCategoryResource.php
 - SHA: `e4b8aa020397`  
@@ -2317,6 +2467,86 @@ class ProductCategoryResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesproductmodifiergroupresourcephp"></a>
+### app\Http\Resources\ProductModifierGroupResource.php
+- SHA: `250e72393278`  
+- Ukuran: 764 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductModifierGroupResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductModifierGroupResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'name' => $this->name,
+            'min_select' => $this->min_select,
+            'max_select' => $this->max_select,
+            'is_required' => $this->is_required,
+            'sort_order' => $this->sort_order,
+            'options' => ProductModifierOptionResource::collection($this->whenLoaded('options')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesproductmodifieroptionresourcephp"></a>
+### app\Http\Resources\ProductModifierOptionResource.php
+- SHA: `f5ee65fec14c`  
+- Ukuran: 636 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductModifierOptionResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductModifierOptionResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_modifier_group_id' => $this->product_modifier_group_id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'is_active' => $this->is_active,
+            'sort_order' => $this->sort_order,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
@@ -2410,8 +2640,8 @@ class ProductPriceResource extends JsonResource
 
 <a id="file-apphttpresourcesproductresourcephp"></a>
 ### app\Http\Resources\ProductResource.php
-- SHA: `c200833e6906`  
-- Ukuran: 1 KB  
+- SHA: `ea7bb2ff599b`  
+- Ukuran: 2 KB  
 - Namespace: `App\Http\Resources`
 
 **Class `ProductResource` extends `JsonResource`**
@@ -2456,9 +2686,91 @@ class ProductResource extends JsonResource
             'track_stock_direct' => $this->track_stock_direct,
             'prices' => ProductPriceResource::collection($this->whenLoaded('prices')),
             'outlet_statuses' => ProductOutletStatusResource::collection($this->whenLoaded('outletStatuses')),
+            'variant_groups' => ProductVariantGroupResource::collection($this->whenLoaded('variantGroups')),
+            'modifier_groups' => ProductModifierGroupResource::collection($this->whenLoaded('modifierGroups')),
+            'bundle_items' => ProductBundleItemResource::collection($this->whenLoaded('bundleItems')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesproductvariantgroupresourcephp"></a>
+### app\Http\Resources\ProductVariantGroupResource.php
+- SHA: `02cc4b51a358`  
+- Ukuran: 723 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductVariantGroupResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductVariantGroupResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'name' => $this->name,
+            'selection_type' => $this->selection_type,
+            'is_required' => $this->is_required,
+            'sort_order' => $this->sort_order,
+            'options' => ProductVariantOptionResource::collection($this->whenLoaded('options')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+```
+</details>
+
+<a id="file-apphttpresourcesproductvariantoptionresourcephp"></a>
+### app\Http\Resources\ProductVariantOptionResource.php
+- SHA: `c6815e192925`  
+- Ukuran: 655 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ProductVariantOptionResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ProductVariantOptionResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_variant_group_id' => $this->product_variant_group_id,
+            'name' => $this->name,
+            'price_adjustment' => $this->price_adjustment,
+            'sort_order' => $this->sort_order,
+            'is_active' => $this->is_active,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
@@ -2733,8 +3045,8 @@ class OutletSetting extends Model
 
 <a id="file-appmodelsproductphp"></a>
 ### app\Models\Product.php
-- SHA: `cc2b5e31244b`  
-- Ukuran: 1 KB  
+- SHA: `edea345311c2`  
+- Ukuran: 2 KB  
 - Namespace: `App\Models`
 
 **Class `Product` extends `Model`**
@@ -2743,6 +3055,9 @@ Metode Publik:
 - **category**() : *BelongsTo*
 - **prices**() : *HasMany*
 - **outletStatuses**() : *HasMany*
+- **variantGroups**() : *HasMany*
+- **modifierGroups**() : *HasMany*
+- **bundleItems**() : *HasMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -2801,6 +3116,73 @@ class Product extends Model
     {
         return $this->hasMany(ProductOutletStatus::class);
     }
+
+    public function variantGroups(): HasMany
+    {
+        return $this->hasMany(ProductVariantGroup::class)->orderBy('sort_order');
+    }
+
+    public function modifierGroups(): HasMany
+    {
+        return $this->hasMany(ProductModifierGroup::class)->orderBy('sort_order');
+    }
+
+    public function bundleItems(): HasMany
+    {
+        return $this->hasMany(ProductBundleItem::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductbundleitemphp"></a>
+### app\Models\ProductBundleItem.php
+- SHA: `d56fe2680d6d`  
+- Ukuran: 692 B  
+- Namespace: `App\Models`
+
+**Class `ProductBundleItem` extends `Model`**
+
+Metode Publik:
+- **product**() : *BelongsTo*
+- **bundledProduct**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ProductBundleItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'bundled_product_id',
+        'qty',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'qty' => 'decimal:3',
+        ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function bundledProduct(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'bundled_product_id');
+    }
 }
 ```
 </details>
@@ -2849,6 +3231,115 @@ class ProductCategory extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductmodifiergroupphp"></a>
+### app\Models\ProductModifierGroup.php
+- SHA: `5db13c155591`  
+- Ukuran: 934 B  
+- Namespace: `App\Models`
+
+**Class `ProductModifierGroup` extends `Model`**
+
+Metode Publik:
+- **product**() : *BelongsTo*
+- **options**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class ProductModifierGroup extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'name',
+        'min_select',
+        'max_select',
+        'is_required',
+        'sort_order',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'min_select' => 'integer',
+            'max_select' => 'integer',
+            'is_required' => 'boolean',
+            'sort_order' => 'integer',
+        ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function options(): HasMany
+    {
+        return $this->hasMany(ProductModifierOption::class)->orderBy('sort_order');
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductmodifieroptionphp"></a>
+### app\Models\ProductModifierOption.php
+- SHA: `d675b3d2c93e`  
+- Ukuran: 729 B  
+- Namespace: `App\Models`
+
+**Class `ProductModifierOption` extends `Model`**
+
+Metode Publik:
+- **group**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ProductModifierOption extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_modifier_group_id',
+        'name',
+        'price',
+        'is_active',
+        'sort_order',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'price' => 'decimal:2',
+            'is_active' => 'boolean',
+            'sort_order' => 'integer',
+        ];
+    }
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(ProductModifierGroup::class, 'product_modifier_group_id');
     }
 }
 ```
@@ -2970,6 +3461,112 @@ class ProductPrice extends Model
     public function outlet(): BelongsTo
     {
         return $this->belongsTo(Outlet::class);
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductvariantgroupphp"></a>
+### app\Models\ProductVariantGroup.php
+- SHA: `bb0670758ac6`  
+- Ukuran: 836 B  
+- Namespace: `App\Models`
+
+**Class `ProductVariantGroup` extends `Model`**
+
+Metode Publik:
+- **product**() : *BelongsTo*
+- **options**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class ProductVariantGroup extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'name',
+        'selection_type',
+        'is_required',
+        'sort_order',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_required' => 'boolean',
+            'sort_order' => 'integer',
+        ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function options(): HasMany
+    {
+        return $this->hasMany(ProductVariantOption::class)->orderBy('sort_order');
+    }
+}
+```
+</details>
+
+<a id="file-appmodelsproductvariantoptionphp"></a>
+### app\Models\ProductVariantOption.php
+- SHA: `12c603169490`  
+- Ukuran: 747 B  
+- Namespace: `App\Models`
+
+**Class `ProductVariantOption` extends `Model`**
+
+Metode Publik:
+- **group**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ProductVariantOption extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_variant_group_id',
+        'name',
+        'price_adjustment',
+        'sort_order',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'price_adjustment' => 'decimal:2',
+            'sort_order' => 'integer',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(ProductVariantGroup::class, 'product_variant_group_id');
     }
 }
 ```
@@ -3246,8 +3843,8 @@ class AuthService
 
 <a id="file-appservicescatalogproductservicephp"></a>
 ### app\Services\Catalog\ProductService.php
-- SHA: `a46fa44d7f81`  
-- Ukuran: 3 KB  
+- SHA: `dfa157da5777`  
+- Ukuran: 8 KB  
 - Namespace: `App\Services\Catalog`
 
 **Class `ProductService`**
@@ -3264,6 +3861,7 @@ namespace App\Services\Catalog;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class ProductService
 {
@@ -3272,19 +3870,28 @@ class ProductService
         return DB::transaction(function () use ($payload) {
             $prices = $payload['prices'] ?? [];
             $outletStatuses = $payload['outlet_statuses'] ?? [];
+            $variantGroups = $payload['variant_groups'] ?? [];
+            $modifierGroups = $payload['modifier_groups'] ?? [];
+            $bundleItems = $payload['bundle_items'] ?? [];
 
-            unset($payload['prices'], $payload['outlet_statuses']);
+            unset(
+                $payload['prices'],
+                $payload['outlet_statuses'],
+                $payload['variant_groups'],
+                $payload['modifier_groups'],
+                $payload['bundle_items'],
+            );
 
             $product = Product::create($payload);
 
+            $this->validateBundleRules($product, $bundleItems);
             $this->syncPrices($product, $prices);
             $this->syncOutletStatuses($product, $outletStatuses);
+            $this->syncVariantGroups($product, $variantGroups);
+            $this->syncModifierGroups($product, $modifierGroups);
+            $this->syncBundleItems($product, $bundleItems);
 
-            return $product->fresh()->load([
-                'category',
-                'prices.outlet',
-                'outletStatuses.outlet',
-            ]);
+            return $this->loadRelations($product);
         });
     }
 
@@ -3293,13 +3900,29 @@ class ProductService
         return DB::transaction(function () use ($product, $payload) {
             $hasPrices = array_key_exists('prices', $payload);
             $hasStatuses = array_key_exists('outlet_statuses', $payload);
+            $hasVariantGroups = array_key_exists('variant_groups', $payload);
+            $hasModifierGroups = array_key_exists('modifier_groups', $payload);
+            $hasBundleItems = array_key_exists('bundle_items', $payload);
 
             $prices = $payload['prices'] ?? [];
             $outletStatuses = $payload['outlet_statuses'] ?? [];
+            $variantGroups = $payload['variant_groups'] ?? [];
+            $modifierGroups = $payload['modifier_groups'] ?? [];
+            $bundleItems = $payload['bundle_items'] ?? [];
 
-            unset($payload['prices'], $payload['outlet_statuses']);
+            unset(
+                $payload['prices'],
+                $payload['outlet_statuses'],
+                $payload['variant_groups'],
+                $payload['modifier_groups'],
+                $payload['bundle_items'],
+            );
 
             $product->update($payload);
+
+            if ($hasBundleItems || (isset($payload['product_type']) && $product->product_type === 'bundle')) {
+                $this->validateBundleRules($product, $bundleItems);
+            }
 
             if ($hasPrices) {
                 $this->syncPrices($product, $prices);
@@ -3309,11 +3932,19 @@ class ProductService
                 $this->syncOutletStatuses($product, $outletStatuses);
             }
 
-            return $product->fresh()->load([
-                'category',
-                'prices.outlet',
-                'outletStatuses.outlet',
-            ]);
+            if ($hasVariantGroups) {
+                $this->syncVariantGroups($product, $variantGroups);
+            }
+
+            if ($hasModifierGroups) {
+                $this->syncModifierGroups($product, $modifierGroups);
+            }
+
+            if ($hasBundleItems) {
+                $this->syncBundleItems($product, $bundleItems);
+            }
+
+            return $this->loadRelations($product);
         });
     }
 
@@ -3348,6 +3979,100 @@ class ProductService
                 'notes' => $status['notes'] ?? null,
             ]);
         }
+    }
+
+    private function syncVariantGroups(Product $product, array $variantGroups): void
+    {
+        $product->variantGroups()->delete();
+
+        foreach ($variantGroups as $group) {
+            $options = $group['options'] ?? [];
+            unset($group['options']);
+
+            $variantGroup = $product->variantGroups()->create([
+                'name' => $group['name'],
+                'selection_type' => $group['selection_type'],
+                'is_required' => $group['is_required'] ?? true,
+                'sort_order' => $group['sort_order'] ?? 0,
+            ]);
+
+            foreach ($options as $option) {
+                $variantGroup->options()->create([
+                    'name' => $option['name'],
+                    'price_adjustment' => $option['price_adjustment'] ?? 0,
+                    'sort_order' => $option['sort_order'] ?? 0,
+                    'is_active' => $option['is_active'] ?? true,
+                ]);
+            }
+        }
+    }
+
+    private function syncModifierGroups(Product $product, array $modifierGroups): void
+    {
+        $product->modifierGroups()->delete();
+
+        foreach ($modifierGroups as $group) {
+            $options = $group['options'] ?? [];
+            unset($group['options']);
+
+            $modifierGroup = $product->modifierGroups()->create([
+                'name' => $group['name'],
+                'min_select' => $group['min_select'] ?? 0,
+                'max_select' => $group['max_select'] ?? 1,
+                'is_required' => $group['is_required'] ?? false,
+                'sort_order' => $group['sort_order'] ?? 0,
+            ]);
+
+            foreach ($options as $option) {
+                $modifierGroup->options()->create([
+                    'name' => $option['name'],
+                    'price' => $option['price'] ?? 0,
+                    'is_active' => $option['is_active'] ?? true,
+                    'sort_order' => $option['sort_order'] ?? 0,
+                ]);
+            }
+        }
+    }
+
+    private function syncBundleItems(Product $product, array $bundleItems): void
+    {
+        $product->bundleItems()->delete();
+
+        foreach ($bundleItems as $item) {
+            $product->bundleItems()->create([
+                'bundled_product_id' => $item['bundled_product_id'],
+                'qty' => $item['qty'],
+            ]);
+        }
+    }
+
+    private function validateBundleRules(Product $product, array $bundleItems): void
+    {
+        if ($product->product_type === 'bundle' && empty($bundleItems)) {
+            throw ValidationException::withMessages([
+                'bundle_items' => ['Produk bundle wajib memiliki minimal satu bundle item.'],
+            ]);
+        }
+
+        foreach ($bundleItems as $index => $item) {
+            if ((int) $item['bundled_product_id'] === (int) $product->id) {
+                throw ValidationException::withMessages([
+                    "bundle_items.$index.bundled_product_id" => ['Produk bundle tidak boleh membundle dirinya sendiri.'],
+                ]);
+            }
+        }
+    }
+
+    private function loadRelations(Product $product): Product
+    {
+        return $product->fresh()->load([
+            'category',
+            'prices.outlet',
+            'outletStatuses.outlet',
+            'variantGroups.options',
+            'modifierGroups.options',
+            'bundleItems.bundledProduct',
+        ]);
     }
 }
 ```
@@ -3619,8 +4344,8 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `81cf9ddeae4c`  
-- Ukuran: 1 KB  
+- SHA: `38a4442365d9`  
+- Ukuran: 2 KB  
 - Namespace: `Database\Seeders`
 
 **Class `PermissionSeeder` extends `Seeder`**
@@ -3677,6 +4402,21 @@ class PermissionSeeder extends Seeder
             'products.create',
             'products.update',
             'products.delete',
+
+            'product_variants.view',
+            'product_variants.create',
+            'product_variants.update',
+            'product_variants.delete',
+
+            'product_modifiers.view',
+            'product_modifiers.create',
+            'product_modifiers.update',
+            'product_modifiers.delete',
+
+            'product_bundles.view',
+            'product_bundles.create',
+            'product_bundles.update',
+            'product_bundles.delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -3689,8 +4429,8 @@ class PermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `e034d0c339c9`  
-- Ukuran: 2 KB  
+- SHA: `a0b37f724173`  
+- Ukuran: 3 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -3742,6 +4482,15 @@ class RoleSeeder extends Seeder
             'products.create',
             'products.update',
             'products.delete',
+            'product_variants.view',
+            'product_variants.create',
+            'product_variants.update',
+            'product_modifiers.view',
+            'product_modifiers.create',
+            'product_modifiers.update',
+            'product_bundles.view',
+            'product_bundles.create',
+            'product_bundles.update',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -3753,6 +4502,15 @@ class RoleSeeder extends Seeder
             'products.view',
             'products.create',
             'products.update',
+            'product_variants.view',
+            'product_variants.create',
+            'product_variants.update',
+            'product_modifiers.view',
+            'product_modifiers.create',
+            'product_modifiers.update',
+            'product_bundles.view',
+            'product_bundles.create',
+            'product_bundles.update',
         ]);
 
         $owner->syncPermissions([
@@ -3764,6 +4522,9 @@ class RoleSeeder extends Seeder
             'system_settings.view',
             'product_categories.view',
             'products.view',
+            'product_variants.view',
+            'product_modifiers.view',
+            'product_bundles.view',
         ]);
     }
 }

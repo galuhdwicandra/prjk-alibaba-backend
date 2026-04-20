@@ -10,6 +10,9 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\VoucherController;
+use App\Http\Controllers\Api\PromotionController;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
@@ -60,5 +63,23 @@ Route::prefix('v1')->group(function () {
         Route::get('/products/{product}', [ProductController::class, 'show']);
         Route::put('/products/{product}', [ProductController::class, 'update']);
         Route::delete('/products/{product}', [ProductController::class, 'destroy']);
-    });
+
+        Route::get('/customers', [CustomerController::class, 'index']);
+        Route::post('/customers', [CustomerController::class, 'store']);
+        Route::get('/customers/{customer}', [CustomerController::class, 'show']);
+        Route::put('/customers/{customer}', [CustomerController::class, 'update']);
+        Route::delete('/customers/{customer}', [CustomerController::class, 'destroy']);
+
+        Route::get('/vouchers', [VoucherController::class, 'index']);
+        Route::post('/vouchers', [VoucherController::class, 'store']);
+        Route::get('/vouchers/{voucher}', [VoucherController::class, 'show']);
+        Route::put('/vouchers/{voucher}', [VoucherController::class, 'update']);
+        Route::delete('/vouchers/{voucher}', [VoucherController::class, 'destroy']);
+
+        Route::get('/promotions', [PromotionController::class, 'index']);
+        Route::post('/promotions', [PromotionController::class, 'store']);
+        Route::get('/promotions/{promotion}', [PromotionController::class, 'show']);
+        Route::put('/promotions/{promotion}', [PromotionController::class, 'update']);
+        Route::delete('/promotions/{promotion}', [PromotionController::class, 'destroy']);
+            });
 });
