@@ -87,6 +87,25 @@ class RoleSeeder extends Seeder
             'product_boms.create',
             'product_boms.update',
             'product_boms.delete',
+
+            'suppliers.view',
+            'suppliers.create',
+            'suppliers.update',
+            'suppliers.delete',
+
+            'purchase_orders.view',
+            'purchase_orders.create',
+            'purchase_orders.update',
+            'purchase_orders.delete',
+            'purchase_orders.approve',
+            'purchase_orders.cancel',
+
+            'goods_receipts.view',
+            'goods_receipts.create',
+            'goods_receipts.update',
+            'goods_receipts.delete',
+            'goods_receipts.post',
+            'goods_receipts.cancel',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -112,6 +131,17 @@ class RoleSeeder extends Seeder
             'customers.update',
             'vouchers.view',
             'promotions.view',
+
+            'suppliers.view',
+
+            'purchase_orders.view',
+            'purchase_orders.create',
+            'purchase_orders.update',
+
+            'goods_receipts.view',
+            'goods_receipts.create',
+            'goods_receipts.update',
+            'goods_receipts.post',
         ]);
 
         $owner->syncPermissions([
@@ -129,6 +159,9 @@ class RoleSeeder extends Seeder
             'customers.view',
             'vouchers.view',
             'promotions.view',
+            'suppliers.view',
+            'purchase_orders.view',
+            'goods_receipts.view',
         ]);
     }
 }

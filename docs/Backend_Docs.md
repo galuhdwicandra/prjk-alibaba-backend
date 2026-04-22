@@ -1,12 +1,13 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-20 21:17:46_  
+_Dihasilkan otomatis: 2026-04-22 18:28:35_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
 - [Controllers (app/Http/Controllers)](#controllers-app-http-controllers)
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
   - [app\Http\Controllers\Api\CustomerController.php](#file-apphttpcontrollersapicustomercontrollerphp)
+  - [app\Http\Controllers\Api\GoodsReceiptController.php](#file-apphttpcontrollersapigoodsreceiptcontrollerphp)
   - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
   - [app\Http\Controllers\Api\OutletMaterialStockController.php](#file-apphttpcontrollersapioutletmaterialstockcontrollerphp)
   - [app\Http\Controllers\Api\OutletSettingController.php](#file-apphttpcontrollersapioutletsettingcontrollerphp)
@@ -15,9 +16,11 @@ _Dihasilkan otomatis: 2026-04-20 21:17:46_
   - [app\Http\Controllers\Api\ProductCategoryController.php](#file-apphttpcontrollersapiproductcategorycontrollerphp)
   - [app\Http\Controllers\Api\ProductController.php](#file-apphttpcontrollersapiproductcontrollerphp)
   - [app\Http\Controllers\Api\PromotionController.php](#file-apphttpcontrollersapipromotioncontrollerphp)
+  - [app\Http\Controllers\Api\PurchaseOrderController.php](#file-apphttpcontrollersapipurchaseordercontrollerphp)
   - [app\Http\Controllers\Api\RawMaterialCategoryController.php](#file-apphttpcontrollersapirawmaterialcategorycontrollerphp)
   - [app\Http\Controllers\Api\RawMaterialController.php](#file-apphttpcontrollersapirawmaterialcontrollerphp)
   - [app\Http\Controllers\Api\RoleController.php](#file-apphttpcontrollersapirolecontrollerphp)
+  - [app\Http\Controllers\Api\SupplierController.php](#file-apphttpcontrollersapisuppliercontrollerphp)
   - [app\Http\Controllers\Api\SystemSettingController.php](#file-apphttpcontrollersapisystemsettingcontrollerphp)
   - [app\Http\Controllers\Api\UnitController.php](#file-apphttpcontrollersapiunitcontrollerphp)
   - [app\Http\Controllers\Api\UnitConversionController.php](#file-apphttpcontrollersapiunitconversioncontrollerphp)
@@ -57,6 +60,13 @@ _Dihasilkan otomatis: 2026-04-20 21:17:46_
   - [app\Http\Requests\Api\ProductCategory\UpdateProductCategoryRequest.php](#file-apphttprequestsapiproductcategoryupdateproductcategoryrequestphp)
   - [app\Http\Requests\Api\Promotion\StorePromotionRequest.php](#file-apphttprequestsapipromotionstorepromotionrequestphp)
   - [app\Http\Requests\Api\Promotion\UpdatePromotionRequest.php](#file-apphttprequestsapipromotionupdatepromotionrequestphp)
+  - [app\Http\Requests\Api\Purchasing\GoodsReceipt\PostGoodsReceiptRequest.php](#file-apphttprequestsapipurchasinggoodsreceiptpostgoodsreceiptrequestphp)
+  - [app\Http\Requests\Api\Purchasing\GoodsReceipt\StoreGoodsReceiptRequest.php](#file-apphttprequestsapipurchasinggoodsreceiptstoregoodsreceiptrequestphp)
+  - [app\Http\Requests\Api\Purchasing\GoodsReceipt\UpdateGoodsReceiptRequest.php](#file-apphttprequestsapipurchasinggoodsreceiptupdategoodsreceiptrequestphp)
+  - [app\Http\Requests\Api\Purchasing\PurchaseOrder\StorePurchaseOrderRequest.php](#file-apphttprequestsapipurchasingpurchaseorderstorepurchaseorderrequestphp)
+  - [app\Http\Requests\Api\Purchasing\PurchaseOrder\UpdatePurchaseOrderRequest.php](#file-apphttprequestsapipurchasingpurchaseorderupdatepurchaseorderrequestphp)
+  - [app\Http\Requests\Api\Purchasing\Supplier\StoreSupplierRequest.php](#file-apphttprequestsapipurchasingsupplierstoresupplierrequestphp)
+  - [app\Http\Requests\Api\Purchasing\Supplier\UpdateSupplierRequest.php](#file-apphttprequestsapipurchasingsupplierupdatesupplierrequestphp)
   - [app\Http\Requests\Api\Role\StoreRoleRequest.php](#file-apphttprequestsapirolestorerolerequestphp)
   - [app\Http\Requests\Api\Role\UpdateRoleRequest.php](#file-apphttprequestsapiroleupdaterolerequestphp)
   - [app\Http\Requests\Api\SystemSetting\UpsertSystemSettingRequest.php](#file-apphttprequestsapisystemsettingupsertsystemsettingrequestphp)
@@ -67,6 +77,8 @@ _Dihasilkan otomatis: 2026-04-20 21:17:46_
 - [API Resources (app/Http/Resources)](#api-resources-app-http-resources)
   - [app\Http\Resources\CustomerAddressResource.php](#file-apphttpresourcescustomeraddressresourcephp)
   - [app\Http\Resources\CustomerResource.php](#file-apphttpresourcescustomerresourcephp)
+  - [app\Http\Resources\GoodsReceiptItemResource.php](#file-apphttpresourcesgoodsreceiptitemresourcephp)
+  - [app\Http\Resources\GoodsReceiptResource.php](#file-apphttpresourcesgoodsreceiptresourcephp)
   - [app\Http\Resources\OutletMaterialStockResource.php](#file-apphttpresourcesoutletmaterialstockresourcephp)
   - [app\Http\Resources\OutletResource.php](#file-apphttpresourcesoutletresourcephp)
   - [app\Http\Resources\OutletSettingResource.php](#file-apphttpresourcesoutletsettingresourcephp)
@@ -84,9 +96,12 @@ _Dihasilkan otomatis: 2026-04-20 21:17:46_
   - [app\Http\Resources\ProductVariantOptionResource.php](#file-apphttpresourcesproductvariantoptionresourcephp)
   - [app\Http\Resources\PromotionResource.php](#file-apphttpresourcespromotionresourcephp)
   - [app\Http\Resources\PromotionRuleResource.php](#file-apphttpresourcespromotionruleresourcephp)
+  - [app\Http\Resources\PurchaseOrderItemResource.php](#file-apphttpresourcespurchaseorderitemresourcephp)
+  - [app\Http\Resources\PurchaseOrderResource.php](#file-apphttpresourcespurchaseorderresourcephp)
   - [app\Http\Resources\RawMaterialCategoryResource.php](#file-apphttpresourcesrawmaterialcategoryresourcephp)
   - [app\Http\Resources\RawMaterialResource.php](#file-apphttpresourcesrawmaterialresourcephp)
   - [app\Http\Resources\RoleResource.php](#file-apphttpresourcesroleresourcephp)
+  - [app\Http\Resources\SupplierResource.php](#file-apphttpresourcessupplierresourcephp)
   - [app\Http\Resources\SystemSettingResource.php](#file-apphttpresourcessystemsettingresourcephp)
   - [app\Http\Resources\UnitConversionResource.php](#file-apphttpresourcesunitconversionresourcephp)
   - [app\Http\Resources\UnitResource.php](#file-apphttpresourcesunitresourcephp)
@@ -95,6 +110,8 @@ _Dihasilkan otomatis: 2026-04-20 21:17:46_
 - [Models (app/Models)](#models-app-models)
   - [app\Models\Customer.php](#file-appmodelscustomerphp)
   - [app\Models\CustomerAddress.php](#file-appmodelscustomeraddressphp)
+  - [app\Models\GoodsReceipt.php](#file-appmodelsgoodsreceiptphp)
+  - [app\Models\GoodsReceiptItem.php](#file-appmodelsgoodsreceiptitemphp)
   - [app\Models\Outlet.php](#file-appmodelsoutletphp)
   - [app\Models\OutletMaterialStock.php](#file-appmodelsoutletmaterialstockphp)
   - [app\Models\OutletSetting.php](#file-appmodelsoutletsettingphp)
@@ -111,8 +128,13 @@ _Dihasilkan otomatis: 2026-04-20 21:17:46_
   - [app\Models\ProductVariantOption.php](#file-appmodelsproductvariantoptionphp)
   - [app\Models\Promotion.php](#file-appmodelspromotionphp)
   - [app\Models\PromotionRule.php](#file-appmodelspromotionrulephp)
+  - [app\Models\PurchaseOrder.php](#file-appmodelspurchaseorderphp)
+  - [app\Models\PurchaseOrderItem.php](#file-appmodelspurchaseorderitemphp)
   - [app\Models\RawMaterial.php](#file-appmodelsrawmaterialphp)
   - [app\Models\RawMaterialCategory.php](#file-appmodelsrawmaterialcategoryphp)
+  - [app\Models\StockMovement.php](#file-appmodelsstockmovementphp)
+  - [app\Models\StockMovementItem.php](#file-appmodelsstockmovementitemphp)
+  - [app\Models\Supplier.php](#file-appmodelssupplierphp)
   - [app\Models\SystemSetting.php](#file-appmodelssystemsettingphp)
   - [app\Models\Unit.php](#file-appmodelsunitphp)
   - [app\Models\UnitConversion.php](#file-appmodelsunitconversionphp)
@@ -132,6 +154,9 @@ _Dihasilkan otomatis: 2026-04-20 21:17:46_
   - [app\Services\Inventory\UnitService.php](#file-appservicesinventoryunitservicephp)
   - [app\Services\Outlet\OutletService.php](#file-appservicesoutletoutletservicephp)
   - [app\Services\Promotion\PromotionService.php](#file-appservicespromotionpromotionservicephp)
+  - [app\Services\Purchasing\GoodsReceiptService.php](#file-appservicespurchasinggoodsreceiptservicephp)
+  - [app\Services\Purchasing\PurchaseOrderService.php](#file-appservicespurchasingpurchaseorderservicephp)
+  - [app\Services\Purchasing\SupplierService.php](#file-appservicespurchasingsupplierservicephp)
   - [app\Services\SystemSetting\SystemSettingService.php](#file-appservicessystemsettingsystemsettingservicephp)
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
@@ -350,6 +375,173 @@ class CustomerController extends Controller
         ]);
     }
 }
+```
+</details>
+
+<a id="file-apphttpcontrollersapigoodsreceiptcontrollerphp"></a>
+### app\Http\Controllers\Api\GoodsReceiptController.php
+- SHA: `b307732ff28a`  
+- Ukuran: 5 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `GoodsReceiptController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly GoodsReceiptService $goodsReceiptService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreGoodsReceiptRequest $request) : *JsonResponse*
+- **show**(Request $request, GoodsReceipt $goodsReceipt) : *JsonResponse*
+- **update**(UpdateGoodsReceiptRequest $request, GoodsReceipt $goodsReceipt) : *JsonResponse*
+- **post**(PostGoodsReceiptRequest $request, GoodsReceipt $goodsReceipt) : *JsonResponse*
+- **cancel**(Request $request, GoodsReceipt $goodsReceipt) : *JsonResponse*
+- **destroy**(Request $request, GoodsReceipt $goodsReceipt) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Purchasing\GoodsReceipt\PostGoodsReceiptRequest;
+use App\Http\Requests\Api\Purchasing\GoodsReceipt\StoreGoodsReceiptRequest;
+use App\Http\Requests\Api\Purchasing\GoodsReceipt\UpdateGoodsReceiptRequest;
+use App\Http\Resources\GoodsReceiptResource;
+use App\Models\GoodsReceipt;
+use App\Services\Purchasing\GoodsReceiptService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class GoodsReceiptController extends Controller
+{
+    public function __construct(
+        private readonly GoodsReceiptService $goodsReceiptService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('goods_receipts.view'), 403);
+
+        $rows = GoodsReceipt::query()
+            ->with([
+                'purchaseOrder.supplier',
+                'outlet',
+                'receiver',
+                'items.rawMaterial',
+                'items.unit',
+            ])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('receipt_number', 'like', "%{$search}%")
+                        ->orWhereHas('purchaseOrder', fn ($pq) => $pq->where('po_number', 'like', "%{$search}%"));
+                });
+            })
+            ->when($request->filled('purchase_order_id'), function ($query) use ($request) {
+                $query->where('purchase_order_id', (int) $request->input('purchase_order_id'));
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar goods receipt berhasil diambil.',
+            'data' => GoodsReceiptResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreGoodsReceiptRequest $request): JsonResponse
+    {
+        $row = $this->goodsReceiptService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Goods receipt berhasil dibuat.',
+            'data' => new GoodsReceiptResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, GoodsReceipt $goodsReceipt): JsonResponse
+    {
+        abort_unless($request->user()->can('goods_receipts.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail goods receipt berhasil diambil.',
+            'data' => new GoodsReceiptResource($goodsReceipt->load([
+                'purchaseOrder.supplier',
+                'outlet',
+                'receiver',
+                'items.rawMaterial',
+                'items.unit',
+            ])),
+        ]);
+    }
+
+    public function update(UpdateGoodsReceiptRequest $request, GoodsReceipt $goodsReceipt): JsonResponse
+    {
+        $row = $this->goodsReceiptService->update($goodsReceipt, $request->validated());
+
+        return response()->json([
+            'message' => 'Goods receipt berhasil diupdate.',
+            'data' => new GoodsReceiptResource($row),
+        ]);
+    }
+
+    public function post(PostGoodsReceiptRequest $request, GoodsReceipt $goodsReceipt): JsonResponse
+    {
+        $row = $this->goodsReceiptService->post($goodsReceipt, $request->user()->id);
+
+        return response()->json([
+            'message' => 'Goods receipt berhasil dipost.',
+            'data' => new GoodsReceiptResource($row),
+        ]);
+    }
+
+    public function cancel(Request $request, GoodsReceipt $goodsReceipt): JsonResponse
+    {
+        abort_unless($request->user()->can('goods_receipts.cancel'), 403);
+
+        $row = $this->goodsReceiptService->cancel($goodsReceipt);
+
+        return response()->json([
+            'message' => 'Goods receipt berhasil dibatalkan.',
+            'data' => new GoodsReceiptResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, GoodsReceipt $goodsReceipt): JsonResponse
+    {
+        abort_unless($request->user()->can('goods_receipts.delete'), 403);
+
+        if ($goodsReceipt->status !== 'draft') {
+            return response()->json([
+                'message' => 'Hanya goods receipt draft yang boleh dihapus.',
+            ], 422);
+        }
+
+        $goodsReceipt->delete();
+
+        return response()->json([
+            'message' => 'Goods receipt berhasil dihapus.',
+        ]);
+    }
+}
+
 ```
 </details>
 
@@ -971,7 +1163,7 @@ class ProductCategoryController extends Controller
 
 <a id="file-apphttpcontrollersapiproductcontrollerphp"></a>
 ### app\Http\Controllers\Api\ProductController.php
-- SHA: `f68e37059d38`  
+- SHA: `00cbdfa6c312`  
 - Ukuran: 4 KB  
 - Namespace: `App\Http\Controllers\Api`
 
@@ -1115,6 +1307,7 @@ class ProductController extends Controller
         ]);
     }
 }
+
 ```
 </details>
 
@@ -1230,6 +1423,184 @@ class PromotionController extends Controller
         ]);
     }
 }
+```
+</details>
+
+<a id="file-apphttpcontrollersapipurchaseordercontrollerphp"></a>
+### app\Http\Controllers\Api\PurchaseOrderController.php
+- SHA: `ae31ac2584d6`  
+- Ukuran: 5 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `PurchaseOrderController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly PurchaseOrderService $purchaseOrderService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StorePurchaseOrderRequest $request) : *JsonResponse*
+- **show**(Request $request, PurchaseOrder $purchaseOrder) : *JsonResponse*
+- **update**(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder) : *JsonResponse*
+- **approve**(Request $request, PurchaseOrder $purchaseOrder) : *JsonResponse*
+- **cancel**(Request $request, PurchaseOrder $purchaseOrder) : *JsonResponse*
+- **destroy**(Request $request, PurchaseOrder $purchaseOrder) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Purchasing\PurchaseOrder\StorePurchaseOrderRequest;
+use App\Http\Requests\Api\Purchasing\PurchaseOrder\UpdatePurchaseOrderRequest;
+use App\Http\Resources\PurchaseOrderResource;
+use App\Models\PurchaseOrder;
+use App\Services\Purchasing\PurchaseOrderService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class PurchaseOrderController extends Controller
+{
+    public function __construct(
+        private readonly PurchaseOrderService $purchaseOrderService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('purchase_orders.view'), 403);
+
+        $rows = PurchaseOrder::query()
+            ->with([
+                'outlet',
+                'supplier',
+                'approver',
+                'creator',
+                'items.rawMaterial',
+                'items.unit',
+            ])
+            ->withCount('goodsReceipts')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('po_number', 'like', "%{$search}%")
+                        ->orWhereHas('supplier', fn ($sq) => $sq->where('name', 'like', "%{$search}%"))
+                        ->orWhereHas('outlet', fn ($oq) => $oq->where('name', 'like', "%{$search}%"));
+                });
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('supplier_id'), function ($query) use ($request) {
+                $query->where('supplier_id', (int) $request->input('supplier_id'));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar purchase order berhasil diambil.',
+            'data' => PurchaseOrderResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StorePurchaseOrderRequest $request): JsonResponse
+    {
+        $row = $this->purchaseOrderService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Purchase order berhasil dibuat.',
+            'data' => new PurchaseOrderResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, PurchaseOrder $purchaseOrder): JsonResponse
+    {
+        abort_unless($request->user()->can('purchase_orders.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail purchase order berhasil diambil.',
+            'data' => new PurchaseOrderResource($purchaseOrder->load([
+                'outlet',
+                'supplier',
+                'approver',
+                'creator',
+                'items.rawMaterial',
+                'items.unit',
+            ])->loadCount('goodsReceipts')),
+        ]);
+    }
+
+    public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder): JsonResponse
+    {
+        $row = $this->purchaseOrderService->update($purchaseOrder, $request->validated());
+
+        return response()->json([
+            'message' => 'Purchase order berhasil diupdate.',
+            'data' => new PurchaseOrderResource($row),
+        ]);
+    }
+
+    public function approve(Request $request, PurchaseOrder $purchaseOrder): JsonResponse
+    {
+        abort_unless($request->user()->can('purchase_orders.approve'), 403);
+
+        $row = $this->purchaseOrderService->approve($purchaseOrder, $request->user()->id);
+
+        return response()->json([
+            'message' => 'Purchase order berhasil di-approve.',
+            'data' => new PurchaseOrderResource($row),
+        ]);
+    }
+
+    public function cancel(Request $request, PurchaseOrder $purchaseOrder): JsonResponse
+    {
+        abort_unless($request->user()->can('purchase_orders.cancel'), 403);
+
+        $row = $this->purchaseOrderService->cancel($purchaseOrder);
+
+        return response()->json([
+            'message' => 'Purchase order berhasil dibatalkan.',
+            'data' => new PurchaseOrderResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, PurchaseOrder $purchaseOrder): JsonResponse
+    {
+        abort_unless($request->user()->can('purchase_orders.delete'), 403);
+
+        if ($purchaseOrder->goodsReceipts()->exists()) {
+            return response()->json([
+                'message' => 'Purchase order tidak bisa dihapus karena sudah memiliki goods receipt.',
+            ], 422);
+        }
+
+        if ($purchaseOrder->status !== 'draft') {
+            return response()->json([
+                'message' => 'Hanya purchase order draft yang boleh dihapus.',
+            ], 422);
+        }
+
+        $purchaseOrder->delete();
+
+        return response()->json([
+            'message' => 'Purchase order berhasil dihapus.',
+        ]);
+    }
+}
+
 ```
 </details>
 
@@ -1573,6 +1944,131 @@ class RoleController extends Controller
 
         return response()->json([
             'message' => 'Role berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapisuppliercontrollerphp"></a>
+### app\Http\Controllers\Api\SupplierController.php
+- SHA: `681f5d0fd36f`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `SupplierController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly SupplierService $supplierService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreSupplierRequest $request) : *JsonResponse*
+- **show**(Request $request, Supplier $supplier) : *JsonResponse*
+- **update**(UpdateSupplierRequest $request, Supplier $supplier) : *JsonResponse*
+- **destroy**(Request $request, Supplier $supplier) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Purchasing\Supplier\StoreSupplierRequest;
+use App\Http\Requests\Api\Purchasing\Supplier\UpdateSupplierRequest;
+use App\Http\Resources\SupplierResource;
+use App\Models\Supplier;
+use App\Services\Purchasing\SupplierService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class SupplierController extends Controller
+{
+    public function __construct(
+        private readonly SupplierService $supplierService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('suppliers.view'), 403);
+
+        $suppliers = Supplier::query()
+            ->withCount('purchaseOrders')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('code', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('city', 'like', "%{$search}%")
+                        ->orWhere('contact_person', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar supplier berhasil diambil.',
+            'data' => SupplierResource::collection($suppliers),
+            'meta' => [
+                'current_page' => $suppliers->currentPage(),
+                'last_page' => $suppliers->lastPage(),
+                'per_page' => $suppliers->perPage(),
+                'total' => $suppliers->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreSupplierRequest $request): JsonResponse
+    {
+        $supplier = $this->supplierService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Supplier berhasil dibuat.',
+            'data' => new SupplierResource($supplier),
+        ], 201);
+    }
+
+    public function show(Request $request, Supplier $supplier): JsonResponse
+    {
+        abort_unless($request->user()->can('suppliers.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail supplier berhasil diambil.',
+            'data' => new SupplierResource($supplier->loadCount('purchaseOrders')),
+        ]);
+    }
+
+    public function update(UpdateSupplierRequest $request, Supplier $supplier): JsonResponse
+    {
+        $supplier = $this->supplierService->update($supplier, $request->validated());
+
+        return response()->json([
+            'message' => 'Supplier berhasil diupdate.',
+            'data' => new SupplierResource($supplier),
+        ]);
+    }
+
+    public function destroy(Request $request, Supplier $supplier): JsonResponse
+    {
+        abort_unless($request->user()->can('suppliers.delete'), 403);
+
+        if ($supplier->purchaseOrders()->exists()) {
+            return response()->json([
+                'message' => 'Supplier tidak bisa dihapus karena sudah dipakai purchase order.',
+            ], 422);
+        }
+
+        $supplier->delete();
+
+        return response()->json([
+            'message' => 'Supplier berhasil dihapus.',
         ]);
     }
 }
@@ -3391,7 +3887,7 @@ class UpdatePermissionRequest extends FormRequest
 
 <a id="file-apphttprequestsapiproductstoreproductrequestphp"></a>
 ### app\Http\Requests\Api\Product\StoreProductRequest.php
-- SHA: `5ffe89a56265`  
+- SHA: `72f9732bbc64`  
 - Ukuran: 5 KB  
 - Namespace: `App\Http\Requests\Api\Product`
 
@@ -3498,6 +3994,7 @@ class StoreProductRequest extends FormRequest
         });
     }
 }
+
 ```
 </details>
 
@@ -3794,6 +4291,348 @@ class UpdatePromotionRequest extends FormRequest
         ];
     }
 }
+```
+</details>
+
+<a id="file-apphttprequestsapipurchasinggoodsreceiptpostgoodsreceiptrequestphp"></a>
+### app\Http\Requests\Api\Purchasing\GoodsReceipt\PostGoodsReceiptRequest.php
+- SHA: `92dad139158f`  
+- Ukuran: 349 B  
+- Namespace: `App\Http\Requests\Api\Purchasing\GoodsReceipt`
+
+**Class `PostGoodsReceiptRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Purchasing\GoodsReceipt;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PostGoodsReceiptRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('goods_receipts.post') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipurchasinggoodsreceiptstoregoodsreceiptrequestphp"></a>
+### app\Http\Requests\Api\Purchasing\GoodsReceipt\StoreGoodsReceiptRequest.php
+- SHA: `f8dd74858cc7`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Purchasing\GoodsReceipt`
+
+**Class `StoreGoodsReceiptRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Purchasing\GoodsReceipt;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreGoodsReceiptRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('goods_receipts.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'purchase_order_id' => ['required', 'integer', 'exists:purchase_orders,id'],
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'receipt_number' => ['nullable', 'string', 'max:100', Rule::unique('goods_receipts', 'receipt_number')],
+            'received_date' => ['required', 'date'],
+            'status' => ['sometimes', Rule::in(['draft', 'posted', 'cancelled'])],
+            'notes' => ['nullable', 'string'],
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required', 'integer', 'exists:raw_materials,id'],
+            'items.*.unit_id' => ['required', 'integer', 'exists:units,id'],
+            'items.*.qty_received' => ['required', 'numeric', 'gt:0'],
+            'items.*.unit_cost' => ['required', 'numeric', 'min:0'],
+            'items.*.expired_at' => ['nullable', 'date'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipurchasinggoodsreceiptupdategoodsreceiptrequestphp"></a>
+### app\Http\Requests\Api\Purchasing\GoodsReceipt\UpdateGoodsReceiptRequest.php
+- SHA: `d32e9853f2b0`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Purchasing\GoodsReceipt`
+
+**Class `UpdateGoodsReceiptRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Purchasing\GoodsReceipt;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateGoodsReceiptRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('goods_receipts.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $goodsReceiptId = $this->route('goodsReceipt')->id;
+
+        return [
+            'purchase_order_id' => ['sometimes', 'required', 'integer', 'exists:purchase_orders,id'],
+            'outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id'],
+            'receipt_number' => ['nullable', 'string', 'max:100', Rule::unique('goods_receipts', 'receipt_number')->ignore($goodsReceiptId)],
+            'received_date' => ['sometimes', 'required', 'date'],
+            'notes' => ['nullable', 'string'],
+            'items' => ['sometimes', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required_with:items', 'integer', 'exists:raw_materials,id'],
+            'items.*.unit_id' => ['required_with:items', 'integer', 'exists:units,id'],
+            'items.*.qty_received' => ['required_with:items', 'numeric', 'gt:0'],
+            'items.*.unit_cost' => ['required_with:items', 'numeric', 'min:0'],
+            'items.*.expired_at' => ['nullable', 'date'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipurchasingpurchaseorderstorepurchaseorderrequestphp"></a>
+### app\Http\Requests\Api\Purchasing\PurchaseOrder\StorePurchaseOrderRequest.php
+- SHA: `8609c250d3eb`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Purchasing\PurchaseOrder`
+
+**Class `StorePurchaseOrderRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Purchasing\PurchaseOrder;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StorePurchaseOrderRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('purchase_orders.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'supplier_id' => ['required', 'integer', 'exists:suppliers,id'],
+            'po_number' => ['nullable', 'string', 'max:100', Rule::unique('purchase_orders', 'po_number')],
+            'status' => ['sometimes', Rule::in(['draft', 'approved', 'partial_received', 'received', 'cancelled'])],
+            'order_date' => ['required', 'date'],
+            'expected_date' => ['nullable', 'date'],
+            'discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'tax_amount' => ['sometimes', 'numeric', 'min:0'],
+            'notes' => ['nullable', 'string'],
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required', 'integer', 'exists:raw_materials,id'],
+            'items.*.unit_id' => ['required', 'integer', 'exists:units,id'],
+            'items.*.qty_ordered' => ['required', 'numeric', 'gt:0'],
+            'items.*.unit_price' => ['required', 'numeric', 'min:0'],
+            'items.*.discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipurchasingpurchaseorderupdatepurchaseorderrequestphp"></a>
+### app\Http\Requests\Api\Purchasing\PurchaseOrder\UpdatePurchaseOrderRequest.php
+- SHA: `826f1a158346`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Purchasing\PurchaseOrder`
+
+**Class `UpdatePurchaseOrderRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Purchasing\PurchaseOrder;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdatePurchaseOrderRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('purchase_orders.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $purchaseOrderId = $this->route('purchaseOrder')->id;
+
+        return [
+            'outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id'],
+            'supplier_id' => ['sometimes', 'required', 'integer', 'exists:suppliers,id'],
+            'po_number' => ['nullable', 'string', 'max:100', Rule::unique('purchase_orders', 'po_number')->ignore($purchaseOrderId)],
+            'order_date' => ['sometimes', 'required', 'date'],
+            'expected_date' => ['nullable', 'date'],
+            'discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'tax_amount' => ['sometimes', 'numeric', 'min:0'],
+            'notes' => ['nullable', 'string'],
+            'items' => ['sometimes', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required_with:items', 'integer', 'exists:raw_materials,id'],
+            'items.*.unit_id' => ['required_with:items', 'integer', 'exists:units,id'],
+            'items.*.qty_ordered' => ['required_with:items', 'numeric', 'gt:0'],
+            'items.*.unit_price' => ['required_with:items', 'numeric', 'min:0'],
+            'items.*.discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipurchasingsupplierstoresupplierrequestphp"></a>
+### app\Http\Requests\Api\Purchasing\Supplier\StoreSupplierRequest.php
+- SHA: `e66258244705`  
+- Ukuran: 869 B  
+- Namespace: `App\Http\Requests\Api\Purchasing\Supplier`
+
+**Class `StoreSupplierRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Purchasing\Supplier;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreSupplierRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('suppliers.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('suppliers', 'code')],
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'address' => ['nullable', 'string'],
+            'city' => ['nullable', 'string', 'max:100'],
+            'contact_person' => ['nullable', 'string', 'max:255'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipurchasingsupplierupdatesupplierrequestphp"></a>
+### app\Http\Requests\Api\Purchasing\Supplier\UpdateSupplierRequest.php
+- SHA: `cd7752620749`  
+- Ukuran: 957 B  
+- Namespace: `App\Http\Requests\Api\Purchasing\Supplier`
+
+**Class `UpdateSupplierRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Purchasing\Supplier;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateSupplierRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('suppliers.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $supplierId = $this->route('supplier')->id;
+
+        return [
+            'code' => ['nullable', 'string', 'max:100', Rule::unique('suppliers', 'code')->ignore($supplierId)],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'address' => ['nullable', 'string'],
+            'city' => ['nullable', 'string', 'max:100'],
+            'contact_person' => ['nullable', 'string', 'max:255'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
 ```
 </details>
 
@@ -4220,6 +5059,99 @@ class CustomerResource extends JsonResource
         ];
     }
 }
+```
+</details>
+
+<a id="file-apphttpresourcesgoodsreceiptitemresourcephp"></a>
+### app\Http\Resources\GoodsReceiptItemResource.php
+- SHA: `4f041367a324`  
+- Ukuran: 993 B  
+- Namespace: `App\Http\Resources`
+
+**Class `GoodsReceiptItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class GoodsReceiptItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'goods_receipt_id' => $this->goods_receipt_id,
+            'raw_material_id' => $this->raw_material_id,
+            'raw_material_name' => $this->rawMaterial?->name,
+            'raw_material_code' => $this->rawMaterial?->code,
+            'unit_id' => $this->unit_id,
+            'unit_name' => $this->unit?->name,
+            'unit_code' => $this->unit?->code,
+            'qty_received' => $this->qty_received,
+            'unit_cost' => $this->unit_cost,
+            'line_total' => $this->line_total,
+            'expired_at' => $this->expired_at,
+            'notes' => $this->notes,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesgoodsreceiptresourcephp"></a>
+### app\Http\Resources\GoodsReceiptResource.php
+- SHA: `a7840fc18d17`  
+- Ukuran: 997 B  
+- Namespace: `App\Http\Resources`
+
+**Class `GoodsReceiptResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class GoodsReceiptResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'purchase_order_id' => $this->purchase_order_id,
+            'purchase_order_number' => $this->purchaseOrder?->po_number,
+            'outlet_id' => $this->outlet_id,
+            'outlet_name' => $this->outlet?->name,
+            'receipt_number' => $this->receipt_number,
+            'received_date' => $this->received_date,
+            'status' => $this->status,
+            'notes' => $this->notes,
+            'received_by' => $this->received_by,
+            'received_by_name' => $this->receiver?->name,
+            'items' => GoodsReceiptItemResource::collection($this->whenLoaded('items')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
 ```
 </details>
 
@@ -4949,6 +5881,108 @@ class PromotionRuleResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcespurchaseorderitemresourcephp"></a>
+### app\Http\Resources\PurchaseOrderItemResource.php
+- SHA: `2f6a54bf45a7`  
+- Ukuran: 1006 B  
+- Namespace: `App\Http\Resources`
+
+**Class `PurchaseOrderItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PurchaseOrderItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'purchase_order_id' => $this->purchase_order_id,
+            'raw_material_id' => $this->raw_material_id,
+            'raw_material_name' => $this->rawMaterial?->name,
+            'raw_material_code' => $this->rawMaterial?->code,
+            'unit_id' => $this->unit_id,
+            'unit_name' => $this->unit?->name,
+            'unit_code' => $this->unit?->code,
+            'qty_ordered' => $this->qty_ordered,
+            'unit_price' => $this->unit_price,
+            'discount_amount' => $this->discount_amount,
+            'line_total' => $this->line_total,
+            'notes' => $this->notes,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcespurchaseorderresourcephp"></a>
+### app\Http\Resources\PurchaseOrderResource.php
+- SHA: `fc35e9dd3de6`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `PurchaseOrderResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PurchaseOrderResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'outlet_name' => $this->outlet?->name,
+            'supplier_id' => $this->supplier_id,
+            'supplier_name' => $this->supplier?->name,
+            'po_number' => $this->po_number,
+            'status' => $this->status,
+            'order_date' => $this->order_date,
+            'expected_date' => $this->expected_date,
+            'subtotal' => $this->subtotal,
+            'discount_amount' => $this->discount_amount,
+            'tax_amount' => $this->tax_amount,
+            'total_amount' => $this->total_amount,
+            'notes' => $this->notes,
+            'approved_by' => $this->approved_by,
+            'approved_by_name' => $this->approver?->name,
+            'approved_at' => $this->approved_at,
+            'created_by' => $this->created_by,
+            'created_by_name' => $this->creator?->name,
+            'items' => PurchaseOrderItemResource::collection($this->whenLoaded('items')),
+            'goods_receipts_count' => $this->whenCounted('goodsReceipts'),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcesrawmaterialcategoryresourcephp"></a>
 ### app\Http\Resources\RawMaterialCategoryResource.php
 - SHA: `fc3fa2f0720e`  
@@ -5077,6 +6111,51 @@ class RoleResource extends JsonResource
             'permissions' => $this->permissions->pluck('name')->values(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcessupplierresourcephp"></a>
+### app\Http\Resources\SupplierResource.php
+- SHA: `514d021023cf`  
+- Ukuran: 827 B  
+- Namespace: `App\Http\Resources`
+
+**Class `SupplierResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class SupplierResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'address' => $this->address,
+            'city' => $this->city,
+            'contact_person' => $this->contact_person,
+            'is_active' => $this->is_active,
+            'purchase_orders_count' => $this->whenCounted('purchaseOrders'),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ];
     }
 }
@@ -5415,6 +6494,131 @@ class CustomerAddress extends Model
         return $this->belongsTo(Customer::class);
     }
 }
+```
+</details>
+
+<a id="file-appmodelsgoodsreceiptphp"></a>
+### app\Models\GoodsReceipt.php
+- SHA: `371b7de801b9`  
+- Ukuran: 918 B  
+- Namespace: `App\Models`
+
+**Class `GoodsReceipt` extends `Model`**
+
+Metode Publik:
+- **purchaseOrder**() : *BelongsTo*
+- **outlet**() : *BelongsTo*
+- **receiver**() : *BelongsTo*
+- **items**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class GoodsReceipt extends Model
+{
+    protected $fillable = [
+        'purchase_order_id',
+        'outlet_id',
+        'receipt_number',
+        'received_date',
+        'status',
+        'notes',
+        'received_by',
+    ];
+
+    protected $casts = [
+        'received_date' => 'datetime',
+    ];
+
+    public function purchaseOrder(): BelongsTo
+    {
+        return $this->belongsTo(PurchaseOrder::class);
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function receiver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'received_by');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(GoodsReceiptItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsgoodsreceiptitemphp"></a>
+### app\Models\GoodsReceiptItem.php
+- SHA: `52c1a8d6a349`  
+- Ukuran: 879 B  
+- Namespace: `App\Models`
+
+**Class `GoodsReceiptItem` extends `Model`**
+
+Metode Publik:
+- **goodsReceipt**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+- **unit**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class GoodsReceiptItem extends Model
+{
+    protected $fillable = [
+        'goods_receipt_id',
+        'raw_material_id',
+        'unit_id',
+        'qty_received',
+        'unit_cost',
+        'line_total',
+        'expired_at',
+        'notes',
+    ];
+
+    protected $casts = [
+        'qty_received' => 'decimal:3',
+        'unit_cost' => 'decimal:2',
+        'line_total' => 'decimal:2',
+        'expired_at' => 'date',
+    ];
+
+    public function goodsReceipt(): BelongsTo
+    {
+        return $this->belongsTo(GoodsReceipt::class);
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+}
+
 ```
 </details>
 
@@ -6359,6 +7563,156 @@ class PromotionRule extends Model
 ```
 </details>
 
+<a id="file-appmodelspurchaseorderphp"></a>
+### app\Models\PurchaseOrder.php
+- SHA: `02c9189263f2`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `PurchaseOrder` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **supplier**() : *BelongsTo*
+- **approver**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+- **items**() : *HasMany*
+- **goodsReceipts**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class PurchaseOrder extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'supplier_id',
+        'po_number',
+        'status',
+        'order_date',
+        'expected_date',
+        'subtotal',
+        'discount_amount',
+        'tax_amount',
+        'total_amount',
+        'notes',
+        'approved_by',
+        'approved_at',
+        'created_by',
+    ];
+
+    protected $casts = [
+        'order_date' => 'date',
+        'expected_date' => 'date',
+        'approved_at' => 'datetime',
+        'subtotal' => 'decimal:2',
+        'discount_amount' => 'decimal:2',
+        'tax_amount' => 'decimal:2',
+        'total_amount' => 'decimal:2',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function approver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(PurchaseOrderItem::class);
+    }
+
+    public function goodsReceipts(): HasMany
+    {
+        return $this->hasMany(GoodsReceipt::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelspurchaseorderitemphp"></a>
+### app\Models\PurchaseOrderItem.php
+- SHA: `85f3d21e7122`  
+- Ukuran: 898 B  
+- Namespace: `App\Models`
+
+**Class `PurchaseOrderItem` extends `Model`**
+
+Metode Publik:
+- **purchaseOrder**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+- **unit**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class PurchaseOrderItem extends Model
+{
+    protected $fillable = [
+        'purchase_order_id',
+        'raw_material_id',
+        'unit_id',
+        'qty_ordered',
+        'unit_price',
+        'discount_amount',
+        'line_total',
+        'notes',
+    ];
+
+    protected $casts = [
+        'qty_ordered' => 'decimal:3',
+        'unit_price' => 'decimal:2',
+        'discount_amount' => 'decimal:2',
+        'line_total' => 'decimal:2',
+    ];
+
+    public function purchaseOrder(): BelongsTo
+    {
+        return $this->belongsTo(PurchaseOrder::class);
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+}
+
+```
+</details>
+
 <a id="file-appmodelsrawmaterialphp"></a>
 ### app\Models\RawMaterial.php
 - SHA: `af93bc40de5d`  
@@ -6468,6 +7822,165 @@ class RawMaterialCategory extends Model
     public function rawMaterials(): HasMany
     {
         return $this->hasMany(RawMaterial::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsstockmovementphp"></a>
+### app\Models\StockMovement.php
+- SHA: `5e17c6158821`  
+- Ukuran: 804 B  
+- Namespace: `App\Models`
+
+**Class `StockMovement` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+- **items**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class StockMovement extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'movement_type',
+        'reference_type',
+        'reference_id',
+        'movement_date',
+        'notes',
+        'created_by',
+    ];
+
+    protected $casts = [
+        'movement_date' => 'datetime',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(StockMovementItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsstockmovementitemphp"></a>
+### app\Models\StockMovementItem.php
+- SHA: `781655b4c501`  
+- Ukuran: 695 B  
+- Namespace: `App\Models`
+
+**Class `StockMovementItem` extends `Model`**
+
+Metode Publik:
+- **stockMovement**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class StockMovementItem extends Model
+{
+    protected $fillable = [
+        'stock_movement_id',
+        'raw_material_id',
+        'qty_in',
+        'qty_out',
+        'unit_cost',
+        'notes',
+    ];
+
+    protected $casts = [
+        'qty_in' => 'decimal:3',
+        'qty_out' => 'decimal:3',
+        'unit_cost' => 'decimal:2',
+    ];
+
+    public function stockMovement(): BelongsTo
+    {
+        return $this->belongsTo(StockMovement::class);
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelssupplierphp"></a>
+### app\Models\Supplier.php
+- SHA: `a92baf72f8df`  
+- Ukuran: 586 B  
+- Namespace: `App\Models`
+
+**Class `Supplier` extends `Model`**
+
+Metode Publik:
+- **purchaseOrders**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Supplier extends Model
+{
+    use SoftDeletes;
+
+    protected $fillable = [
+        'code',
+        'name',
+        'phone',
+        'email',
+        'address',
+        'city',
+        'contact_person',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function purchaseOrders(): HasMany
+    {
+        return $this->hasMany(PurchaseOrder::class);
     }
 }
 
@@ -7674,6 +9187,595 @@ class PromotionService
 ```
 </details>
 
+<a id="file-appservicespurchasinggoodsreceiptservicephp"></a>
+### app\Services\Purchasing\GoodsReceiptService.php
+- SHA: `0869e6f400b1`  
+- Ukuran: 11 KB  
+- Namespace: `App\Services\Purchasing`
+
+**Class `GoodsReceiptService`**
+
+Metode Publik:
+- **create**(array $payload, ?int $userId = null) : *GoodsReceipt*
+- **update**(GoodsReceipt $goodsReceipt, array $payload) : *GoodsReceipt*
+- **post**(GoodsReceipt $goodsReceipt, int $userId) : *GoodsReceipt*
+- **cancel**(GoodsReceipt $goodsReceipt) : *GoodsReceipt*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Purchasing;
+
+use App\Models\GoodsReceipt;
+use App\Models\OutletMaterialStock;
+use App\Models\PurchaseOrder;
+use App\Models\RawMaterial;
+use App\Models\StockMovement;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class GoodsReceiptService
+{
+    public function create(array $payload, ?int $userId = null): GoodsReceipt
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $items = $payload['items'] ?? [];
+            unset($payload['items']);
+
+            $purchaseOrder = PurchaseOrder::query()
+                ->with(['items', 'goodsReceipts.items'])
+                ->findOrFail($payload['purchase_order_id']);
+
+            $this->ensureReceiptCanBeCreatedForPurchaseOrder($purchaseOrder, (int) $payload['outlet_id']);
+
+            if (empty($payload['receipt_number'])) {
+                $payload['receipt_number'] = $this->generateReceiptNumber((int) $payload['outlet_id']);
+            }
+
+            $payload['status'] = $payload['status'] ?? 'draft';
+            $payload['received_by'] = $payload['received_by'] ?? $userId;
+
+            $normalizedItems = $this->prepareReceiptItems($purchaseOrder, $items, null);
+
+            $goodsReceipt = GoodsReceipt::create($payload);
+
+            foreach ($normalizedItems as $item) {
+                $goodsReceipt->items()->create($item);
+            }
+
+            return $goodsReceipt->load([
+                'purchaseOrder.supplier',
+                'outlet',
+                'receiver',
+                'items.rawMaterial',
+                'items.unit',
+            ]);
+        });
+    }
+
+    public function update(GoodsReceipt $goodsReceipt, array $payload): GoodsReceipt
+    {
+        return DB::transaction(function () use ($goodsReceipt, $payload) {
+            if ($goodsReceipt->status !== 'draft') {
+                throw ValidationException::withMessages([
+                    'status' => ['Hanya goods receipt draft yang bisa diubah.'],
+                ]);
+            }
+
+            $items = $payload['items'] ?? null;
+            unset($payload['items']);
+
+            if (array_key_exists('purchase_order_id', $payload) || array_key_exists('outlet_id', $payload)) {
+                $targetPurchaseOrderId = (int) ($payload['purchase_order_id'] ?? $goodsReceipt->purchase_order_id);
+                $targetOutletId = (int) ($payload['outlet_id'] ?? $goodsReceipt->outlet_id);
+
+                $purchaseOrder = PurchaseOrder::query()
+                    ->with(['items', 'goodsReceipts.items'])
+                    ->findOrFail($targetPurchaseOrderId);
+
+                $this->ensureReceiptCanBeCreatedForPurchaseOrder($purchaseOrder, $targetOutletId);
+            } else {
+                $purchaseOrder = $goodsReceipt->purchaseOrder()->with(['items', 'goodsReceipts.items'])->firstOrFail();
+            }
+
+            if (empty($payload['receipt_number'] ?? null)) {
+                unset($payload['receipt_number']);
+            }
+
+            $goodsReceipt->update($payload);
+
+            if (is_array($items)) {
+                $normalizedItems = $this->prepareReceiptItems($purchaseOrder, $items, $goodsReceipt);
+
+                $goodsReceipt->items()->delete();
+
+                foreach ($normalizedItems as $item) {
+                    $goodsReceipt->items()->create($item);
+                }
+            }
+
+            return $goodsReceipt->fresh()->load([
+                'purchaseOrder.supplier',
+                'outlet',
+                'receiver',
+                'items.rawMaterial',
+                'items.unit',
+            ]);
+        });
+    }
+
+    public function post(GoodsReceipt $goodsReceipt, int $userId): GoodsReceipt
+    {
+        return DB::transaction(function () use ($goodsReceipt, $userId) {
+            if ($goodsReceipt->status !== 'draft') {
+                throw ValidationException::withMessages([
+                    'status' => ['Hanya goods receipt draft yang bisa di-post.'],
+                ]);
+            }
+
+            $goodsReceipt->loadMissing([
+                'purchaseOrder.items',
+                'purchaseOrder.goodsReceipts.items',
+                'items.rawMaterial',
+                'items.unit',
+            ]);
+
+            $this->prepareReceiptItems($goodsReceipt->purchaseOrder, $goodsReceipt->items->toArray(), $goodsReceipt);
+
+            $movement = StockMovement::create([
+                'outlet_id' => $goodsReceipt->outlet_id,
+                'movement_type' => 'purchase',
+                'reference_type' => GoodsReceipt::class,
+                'reference_id' => $goodsReceipt->id,
+                'movement_date' => $goodsReceipt->received_date,
+                'notes' => $goodsReceipt->notes,
+                'created_by' => $userId,
+            ]);
+
+            foreach ($goodsReceipt->items as $item) {
+                $stock = OutletMaterialStock::query()->firstOrCreate(
+                    [
+                        'outlet_id' => $goodsReceipt->outlet_id,
+                        'raw_material_id' => $item->raw_material_id,
+                    ],
+                    [
+                        'qty_on_hand' => 0,
+                        'qty_reserved' => 0,
+                        'last_movement_at' => null,
+                    ]
+                );
+
+                $stock->update([
+                    'qty_on_hand' => (float) $stock->qty_on_hand + (float) $item->qty_received,
+                    'last_movement_at' => $goodsReceipt->received_date,
+                ]);
+
+                RawMaterial::query()
+                    ->whereKey($item->raw_material_id)
+                    ->update([
+                        'last_purchase_price' => $item->unit_cost,
+                    ]);
+
+                $movement->items()->create([
+                    'raw_material_id' => $item->raw_material_id,
+                    'qty_in' => $item->qty_received,
+                    'qty_out' => 0,
+                    'unit_cost' => $item->unit_cost,
+                    'notes' => $item->notes,
+                ]);
+            }
+
+            $goodsReceipt->update([
+                'status' => 'posted',
+                'received_by' => $goodsReceipt->received_by ?: $userId,
+            ]);
+
+            $this->refreshPurchaseOrderStatus($goodsReceipt->purchaseOrder()->with(['items', 'goodsReceipts.items'])->firstOrFail());
+
+            return $goodsReceipt->fresh()->load([
+                'purchaseOrder.supplier',
+                'outlet',
+                'receiver',
+                'items.rawMaterial',
+                'items.unit',
+            ]);
+        });
+    }
+
+    public function cancel(GoodsReceipt $goodsReceipt): GoodsReceipt
+    {
+        if ($goodsReceipt->status === 'posted') {
+            throw ValidationException::withMessages([
+                'status' => ['Goods receipt yang sudah dipost tidak bisa dibatalkan lewat endpoint ini.'],
+            ]);
+        }
+
+        $goodsReceipt->update([
+            'status' => 'cancelled',
+        ]);
+
+        $this->refreshPurchaseOrderStatus($goodsReceipt->purchaseOrder()->with(['items', 'goodsReceipts.items'])->firstOrFail());
+
+        return $goodsReceipt->fresh()->load([
+            'purchaseOrder.supplier',
+            'outlet',
+            'receiver',
+            'items.rawMaterial',
+            'items.unit',
+        ]);
+    }
+
+    private function ensureReceiptCanBeCreatedForPurchaseOrder(PurchaseOrder $purchaseOrder, int $outletId): void
+    {
+        if (!in_array($purchaseOrder->status, ['approved', 'partial_received'], true)) {
+            throw ValidationException::withMessages([
+                'purchase_order_id' => ['Goods receipt hanya bisa dibuat dari purchase order yang approved atau partial_received.'],
+            ]);
+        }
+
+        if ((int) $purchaseOrder->outlet_id !== $outletId) {
+            throw ValidationException::withMessages([
+                'outlet_id' => ['Outlet goods receipt harus sama dengan outlet purchase order.'],
+            ]);
+        }
+    }
+
+    private function prepareReceiptItems(PurchaseOrder $purchaseOrder, array $items, ?GoodsReceipt $currentReceipt = null): array
+    {
+        $poItemsByMaterial = $purchaseOrder->items->keyBy('raw_material_id');
+        $alreadyReceivedMap = $this->getAlreadyReceivedMap($purchaseOrder, $currentReceipt);
+
+        $normalizedItems = [];
+
+        foreach ($items as $item) {
+            $rawMaterialId = (int) $item['raw_material_id'];
+
+            if (!isset($poItemsByMaterial[$rawMaterialId])) {
+                throw ValidationException::withMessages([
+                    'items' => ["Raw material ID {$rawMaterialId} tidak ada di purchase order."],
+                ]);
+            }
+
+            $poItem = $poItemsByMaterial[$rawMaterialId];
+            $newQty = (float) $item['qty_received'];
+            $alreadyReceived = (float) ($alreadyReceivedMap[$rawMaterialId] ?? 0);
+            $allowedMax = (float) $poItem->qty_ordered - $alreadyReceived;
+
+            if ($newQty > $allowedMax) {
+                throw ValidationException::withMessages([
+                    'items' => ["Qty received untuk raw material ID {$rawMaterialId} melebihi sisa qty order."],
+                ]);
+            }
+
+            $lineTotal = (float) $item['unit_cost'] * $newQty;
+
+            $normalizedItems[] = [
+                'raw_material_id' => $rawMaterialId,
+                'unit_id' => $item['unit_id'],
+                'qty_received' => $newQty,
+                'unit_cost' => $item['unit_cost'],
+                'line_total' => $lineTotal,
+                'expired_at' => $item['expired_at'] ?? null,
+                'notes' => $item['notes'] ?? null,
+            ];
+        }
+
+        return $normalizedItems;
+    }
+
+    private function getAlreadyReceivedMap(PurchaseOrder $purchaseOrder, ?GoodsReceipt $currentReceipt = null): array
+    {
+        $map = [];
+
+        $receipts = $purchaseOrder->goodsReceipts
+            ->where('status', 'posted')
+            ->when($currentReceipt !== null, fn (Collection $collection) => $collection->where('id', '!=', $currentReceipt->id));
+
+        foreach ($receipts as $receipt) {
+            foreach ($receipt->items as $item) {
+                $map[$item->raw_material_id] = (float) ($map[$item->raw_material_id] ?? 0) + (float) $item->qty_received;
+            }
+        }
+
+        return $map;
+    }
+
+    private function refreshPurchaseOrderStatus(PurchaseOrder $purchaseOrder): void
+    {
+        if ($purchaseOrder->status === 'cancelled') {
+            return;
+        }
+
+        $receivedMap = $this->getAlreadyReceivedMap($purchaseOrder, null);
+
+        $allReceived = true;
+        $hasAnyReceived = false;
+
+        foreach ($purchaseOrder->items as $item) {
+            $receivedQty = (float) ($receivedMap[$item->raw_material_id] ?? 0);
+
+            if ($receivedQty > 0) {
+                $hasAnyReceived = true;
+            }
+
+            if ($receivedQty < (float) $item->qty_ordered) {
+                $allReceived = false;
+            }
+        }
+
+        $newStatus = 'approved';
+
+        if ($allReceived && $hasAnyReceived) {
+            $newStatus = 'received';
+        } elseif ($hasAnyReceived) {
+            $newStatus = 'partial_received';
+        }
+
+        $purchaseOrder->update([
+            'status' => $newStatus,
+        ]);
+    }
+
+    private function generateReceiptNumber(int $outletId): string
+    {
+        $date = now()->format('Ymd');
+        $latestId = (GoodsReceipt::max('id') ?? 0) + 1;
+
+        return sprintf('GR-%d-%s-%04d', $outletId, $date, $latestId);
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicespurchasingpurchaseorderservicephp"></a>
+### app\Services\Purchasing\PurchaseOrderService.php
+- SHA: `ecc77e2d67bd`  
+- Ukuran: 6 KB  
+- Namespace: `App\Services\Purchasing`
+
+**Class `PurchaseOrderService`**
+
+Metode Publik:
+- **create**(array $payload, ?int $userId = null) : *PurchaseOrder*
+- **update**(PurchaseOrder $purchaseOrder, array $payload) : *PurchaseOrder*
+- **approve**(PurchaseOrder $purchaseOrder, int $userId) : *PurchaseOrder*
+- **cancel**(PurchaseOrder $purchaseOrder) : *PurchaseOrder*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Purchasing;
+
+use App\Models\PurchaseOrder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class PurchaseOrderService
+{
+    public function create(array $payload, ?int $userId = null): PurchaseOrder
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $items = $payload['items'] ?? [];
+            unset($payload['items']);
+
+            $payload['status'] = $payload['status'] ?? 'draft';
+            $payload['created_by'] = $userId;
+
+            if (empty($payload['po_number'])) {
+                $payload['po_number'] = $this->generatePoNumber($payload['outlet_id']);
+            }
+
+            [$subtotal, $discountAmount, $taxAmount, $totalAmount, $normalizedItems] = $this->prepareItemsAndTotals(
+                items: $items,
+                discountAmount: (float) ($payload['discount_amount'] ?? 0),
+                taxAmount: (float) ($payload['tax_amount'] ?? 0),
+            );
+
+            $payload['subtotal'] = $subtotal;
+            $payload['discount_amount'] = $discountAmount;
+            $payload['tax_amount'] = $taxAmount;
+            $payload['total_amount'] = $totalAmount;
+
+            $purchaseOrder = PurchaseOrder::create($payload);
+
+            foreach ($normalizedItems as $item) {
+                $purchaseOrder->items()->create($item);
+            }
+
+            if ($purchaseOrder->status === 'approved') {
+                $purchaseOrder->update([
+                    'approved_by' => $userId,
+                    'approved_at' => now(),
+                ]);
+            }
+
+            return $purchaseOrder->load([
+                'outlet',
+                'supplier',
+                'approver',
+                'creator',
+                'items.rawMaterial',
+                'items.unit',
+            ]);
+        });
+    }
+
+    public function update(PurchaseOrder $purchaseOrder, array $payload): PurchaseOrder
+    {
+        return DB::transaction(function () use ($purchaseOrder, $payload) {
+            if (in_array($purchaseOrder->status, ['partial_received', 'received', 'cancelled'], true)) {
+                throw ValidationException::withMessages([
+                    'status' => ['Purchase order dengan status ini tidak bisa diubah.'],
+                ]);
+            }
+
+            $items = $payload['items'] ?? null;
+            unset($payload['items']);
+
+            if (empty($payload['po_number'] ?? null)) {
+                unset($payload['po_number']);
+            }
+
+            if (is_array($items)) {
+                [$subtotal, $discountAmount, $taxAmount, $totalAmount, $normalizedItems] = $this->prepareItemsAndTotals(
+                    items: $items,
+                    discountAmount: (float) ($payload['discount_amount'] ?? $purchaseOrder->discount_amount),
+                    taxAmount: (float) ($payload['tax_amount'] ?? $purchaseOrder->tax_amount),
+                );
+
+                $payload['subtotal'] = $subtotal;
+                $payload['discount_amount'] = $discountAmount;
+                $payload['tax_amount'] = $taxAmount;
+                $payload['total_amount'] = $totalAmount;
+            }
+
+            $purchaseOrder->update($payload);
+
+            if (is_array($items)) {
+                $purchaseOrder->items()->delete();
+
+                foreach ($normalizedItems as $item) {
+                    $purchaseOrder->items()->create($item);
+                }
+            }
+
+            return $purchaseOrder->fresh()->load([
+                'outlet',
+                'supplier',
+                'approver',
+                'creator',
+                'items.rawMaterial',
+                'items.unit',
+            ]);
+        });
+    }
+
+    public function approve(PurchaseOrder $purchaseOrder, int $userId): PurchaseOrder
+    {
+        if ($purchaseOrder->status !== 'draft') {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya purchase order draft yang bisa di-approve.'],
+            ]);
+        }
+
+        $purchaseOrder->update([
+            'status' => 'approved',
+            'approved_by' => $userId,
+            'approved_at' => now(),
+        ]);
+
+        return $purchaseOrder->fresh()->load([
+            'outlet',
+            'supplier',
+            'approver',
+            'creator',
+            'items.rawMaterial',
+            'items.unit',
+        ]);
+    }
+
+    public function cancel(PurchaseOrder $purchaseOrder): PurchaseOrder
+    {
+        if (in_array($purchaseOrder->status, ['received', 'cancelled'], true)) {
+            throw ValidationException::withMessages([
+                'status' => ['Purchase order dengan status ini tidak bisa dibatalkan.'],
+            ]);
+        }
+
+        $purchaseOrder->update([
+            'status' => 'cancelled',
+        ]);
+
+        return $purchaseOrder->fresh()->load([
+            'outlet',
+            'supplier',
+            'approver',
+            'creator',
+            'items.rawMaterial',
+            'items.unit',
+        ]);
+    }
+
+    private function prepareItemsAndTotals(array $items, float $discountAmount, float $taxAmount): array
+    {
+        $normalizedItems = [];
+        $subtotal = 0;
+
+        foreach ($items as $item) {
+            $lineTotal = ((float) $item['qty_ordered'] * (float) $item['unit_price']) - (float) ($item['discount_amount'] ?? 0);
+
+            $normalizedItems[] = [
+                'raw_material_id' => $item['raw_material_id'],
+                'unit_id' => $item['unit_id'],
+                'qty_ordered' => $item['qty_ordered'],
+                'unit_price' => $item['unit_price'],
+                'discount_amount' => $item['discount_amount'] ?? 0,
+                'line_total' => $lineTotal,
+                'notes' => $item['notes'] ?? null,
+            ];
+
+            $subtotal += $lineTotal;
+        }
+
+        $totalAmount = $subtotal - $discountAmount + $taxAmount;
+
+        return [$subtotal, $discountAmount, $taxAmount, $totalAmount, $normalizedItems];
+    }
+
+    private function generatePoNumber(int $outletId): string
+    {
+        $date = now()->format('Ymd');
+        $latestId = (PurchaseOrder::max('id') ?? 0) + 1;
+
+        return sprintf('PO-%d-%s-%04d', $outletId, $date, $latestId);
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicespurchasingsupplierservicephp"></a>
+### app\Services\Purchasing\SupplierService.php
+- SHA: `887277ef4226`  
+- Ukuran: 362 B  
+- Namespace: `App\Services\Purchasing`
+
+**Class `SupplierService`**
+
+Metode Publik:
+- **create**(array $payload) : *Supplier*
+- **update**(Supplier $supplier, array $payload) : *Supplier*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Purchasing;
+
+use App\Models\Supplier;
+
+class SupplierService
+{
+    public function create(array $payload): Supplier
+    {
+        return Supplier::create($payload);
+    }
+
+    public function update(Supplier $supplier, array $payload): Supplier
+    {
+        $supplier->update($payload);
+
+        return $supplier->fresh();
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicessystemsettingsystemsettingservicephp"></a>
 ### app\Services\SystemSetting\SystemSettingService.php
 - SHA: `87e179c3a4f9`  
@@ -7971,7 +10073,7 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `0ae49995f78e`  
+- SHA: `941002ac92d0`  
 - Ukuran: 3 KB  
 - Namespace: `Database\Seeders`
 
@@ -7983,7 +10085,6 @@ Metode Publik:
 
 ```php
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -8087,6 +10188,25 @@ class PermissionSeeder extends Seeder
             'product_boms.create',
             'product_boms.update',
             'product_boms.delete',
+
+            'suppliers.view',
+            'suppliers.create',
+            'suppliers.update',
+            'suppliers.delete',
+
+            'purchase_orders.view',
+            'purchase_orders.create',
+            'purchase_orders.update',
+            'purchase_orders.delete',
+            'purchase_orders.approve',
+            'purchase_orders.cancel',
+
+            'goods_receipts.view',
+            'goods_receipts.create',
+            'goods_receipts.update',
+            'goods_receipts.delete',
+            'goods_receipts.post',
+            'goods_receipts.cancel',
         ];
 
         foreach ($permissions as $permission) {
@@ -8100,8 +10220,8 @@ class PermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `2ce14de61fe5`  
-- Ukuran: 4 KB  
+- SHA: `d0a429761eb4`  
+- Ukuran: 5 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -8200,6 +10320,25 @@ class RoleSeeder extends Seeder
             'product_boms.create',
             'product_boms.update',
             'product_boms.delete',
+
+            'suppliers.view',
+            'suppliers.create',
+            'suppliers.update',
+            'suppliers.delete',
+
+            'purchase_orders.view',
+            'purchase_orders.create',
+            'purchase_orders.update',
+            'purchase_orders.delete',
+            'purchase_orders.approve',
+            'purchase_orders.cancel',
+
+            'goods_receipts.view',
+            'goods_receipts.create',
+            'goods_receipts.update',
+            'goods_receipts.delete',
+            'goods_receipts.post',
+            'goods_receipts.cancel',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -8225,6 +10364,17 @@ class RoleSeeder extends Seeder
             'customers.update',
             'vouchers.view',
             'promotions.view',
+
+            'suppliers.view',
+
+            'purchase_orders.view',
+            'purchase_orders.create',
+            'purchase_orders.update',
+
+            'goods_receipts.view',
+            'goods_receipts.create',
+            'goods_receipts.update',
+            'goods_receipts.post',
         ]);
 
         $owner->syncPermissions([
@@ -8242,6 +10392,9 @@ class RoleSeeder extends Seeder
             'customers.view',
             'vouchers.view',
             'promotions.view',
+            'suppliers.view',
+            'purchase_orders.view',
+            'goods_receipts.view',
         ]);
     }
 }
@@ -8297,8 +10450,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `82004135f08a`  
-- Ukuran: 8 KB  
+- SHA: `70b299a180d6`  
+- Ukuran: 10 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -8386,30 +10539,52 @@ class SuperAdminSeeder extends Seeder
 | GET | `/product-boms/{productBom}` | `ProductBomController` | `show` |
 | PUT | `/product-boms/{productBom}` | `ProductBomController` | `update` |
 | DELETE | `/product-boms/{productBom}` | `ProductBomController` | `destroy` |
+| GET | `/suppliers` | `SupplierController` | `index` |
+| POST | `/suppliers` | `SupplierController` | `store` |
+| GET | `/suppliers/{supplier}` | `SupplierController` | `show` |
+| PUT | `/suppliers/{supplier}` | `SupplierController` | `update` |
+| DELETE | `/suppliers/{supplier}` | `SupplierController` | `destroy` |
+| GET | `/purchase-orders` | `PurchaseOrderController` | `index` |
+| POST | `/purchase-orders` | `PurchaseOrderController` | `store` |
+| GET | `/purchase-orders/{purchaseOrder}` | `PurchaseOrderController` | `show` |
+| PUT | `/purchase-orders/{purchaseOrder}` | `PurchaseOrderController` | `update` |
+| DELETE | `/purchase-orders/{purchaseOrder}` | `PurchaseOrderController` | `destroy` |
+| POST | `/purchase-orders/{purchaseOrder}/approve` | `PurchaseOrderController` | `approve` |
+| POST | `/purchase-orders/{purchaseOrder}/cancel` | `PurchaseOrderController` | `cancel` |
+| GET | `/goods-receipts` | `GoodsReceiptController` | `index` |
+| POST | `/goods-receipts` | `GoodsReceiptController` | `store` |
+| GET | `/goods-receipts/{goodsReceipt}` | `GoodsReceiptController` | `show` |
+| PUT | `/goods-receipts/{goodsReceipt}` | `GoodsReceiptController` | `update` |
+| DELETE | `/goods-receipts/{goodsReceipt}` | `GoodsReceiptController` | `destroy` |
+| POST | `/goods-receipts/{goodsReceipt}/post` | `GoodsReceiptController` | `post` |
+| POST | `/goods-receipts/{goodsReceipt}/cancel` | `GoodsReceiptController` | `cancel` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\OutletController;
+use App\Http\Controllers\Api\OutletMaterialStockController;
 use App\Http\Controllers\Api\OutletSettingController;
 use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\Api\SystemSettingController;
-use App\Http\Controllers\Api\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductBomController;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\CustomerController;
-use App\Http\Controllers\Api\VoucherController;
 use App\Http\Controllers\Api\PromotionController;
-use App\Http\Controllers\Api\OutletMaterialStockController;
-use App\Http\Controllers\Api\ProductBomController;
+use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\RawMaterialCategoryController;
 use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UnitConversionController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VoucherController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
@@ -8478,7 +10653,6 @@ Route::prefix('v1')->group(function () {
         Route::get('/promotions/{promotion}', [PromotionController::class, 'show']);
         Route::put('/promotions/{promotion}', [PromotionController::class, 'update']);
         Route::delete('/promotions/{promotion}', [PromotionController::class, 'destroy']);
-            });
 
         Route::get('/units', [UnitController::class, 'index']);
         Route::post('/units', [UnitController::class, 'store']);
@@ -8513,6 +10687,29 @@ Route::prefix('v1')->group(function () {
         Route::get('/product-boms/{productBom}', [ProductBomController::class, 'show']);
         Route::put('/product-boms/{productBom}', [ProductBomController::class, 'update']);
         Route::delete('/product-boms/{productBom}', [ProductBomController::class, 'destroy']);
+
+        Route::get('/suppliers', [SupplierController::class, 'index']);
+        Route::post('/suppliers', [SupplierController::class, 'store']);
+        Route::get('/suppliers/{supplier}', [SupplierController::class, 'show']);
+        Route::put('/suppliers/{supplier}', [SupplierController::class, 'update']);
+        Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy']);
+
+        Route::get('/purchase-orders', [PurchaseOrderController::class, 'index']);
+        Route::post('/purchase-orders', [PurchaseOrderController::class, 'store']);
+        Route::get('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'show']);
+        Route::put('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'update']);
+        Route::delete('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'destroy']);
+        Route::post('/purchase-orders/{purchaseOrder}/approve', [PurchaseOrderController::class, 'approve']);
+        Route::post('/purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel']);
+
+        Route::get('/goods-receipts', [GoodsReceiptController::class, 'index']);
+        Route::post('/goods-receipts', [GoodsReceiptController::class, 'store']);
+        Route::get('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'show']);
+        Route::put('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'update']);
+        Route::delete('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'destroy']);
+        Route::post('/goods-receipts/{goodsReceipt}/post', [GoodsReceiptController::class, 'post']);
+        Route::post('/goods-receipts/{goodsReceipt}/cancel', [GoodsReceiptController::class, 'cancel']);
+    });
 });
 
 ```

@@ -1,24 +1,27 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\OutletController;
+use App\Http\Controllers\Api\OutletMaterialStockController;
 use App\Http\Controllers\Api\OutletSettingController;
 use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\Api\SystemSettingController;
-use App\Http\Controllers\Api\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductBomController;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\CustomerController;
-use App\Http\Controllers\Api\VoucherController;
 use App\Http\Controllers\Api\PromotionController;
-use App\Http\Controllers\Api\OutletMaterialStockController;
-use App\Http\Controllers\Api\ProductBomController;
+use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\RawMaterialCategoryController;
 use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UnitConversionController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VoucherController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
@@ -82,7 +85,7 @@ Route::prefix('v1')->group(function () {
         Route::put('/vouchers/{voucher}', [VoucherController::class, 'update']);
         Route::delete('/vouchers/{voucher}', [VoucherController::class, 'destroy']);
 
-                Route::get('/promotions', [PromotionController::class, 'index']);
+        Route::get('/promotions', [PromotionController::class, 'index']);
         Route::post('/promotions', [PromotionController::class, 'store']);
         Route::get('/promotions/{promotion}', [PromotionController::class, 'show']);
         Route::put('/promotions/{promotion}', [PromotionController::class, 'update']);
@@ -121,5 +124,27 @@ Route::prefix('v1')->group(function () {
         Route::get('/product-boms/{productBom}', [ProductBomController::class, 'show']);
         Route::put('/product-boms/{productBom}', [ProductBomController::class, 'update']);
         Route::delete('/product-boms/{productBom}', [ProductBomController::class, 'destroy']);
+
+        Route::get('/suppliers', [SupplierController::class, 'index']);
+        Route::post('/suppliers', [SupplierController::class, 'store']);
+        Route::get('/suppliers/{supplier}', [SupplierController::class, 'show']);
+        Route::put('/suppliers/{supplier}', [SupplierController::class, 'update']);
+        Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy']);
+
+        Route::get('/purchase-orders', [PurchaseOrderController::class, 'index']);
+        Route::post('/purchase-orders', [PurchaseOrderController::class, 'store']);
+        Route::get('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'show']);
+        Route::put('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'update']);
+        Route::delete('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'destroy']);
+        Route::post('/purchase-orders/{purchaseOrder}/approve', [PurchaseOrderController::class, 'approve']);
+        Route::post('/purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel']);
+
+        Route::get('/goods-receipts', [GoodsReceiptController::class, 'index']);
+        Route::post('/goods-receipts', [GoodsReceiptController::class, 'store']);
+        Route::get('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'show']);
+        Route::put('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'update']);
+        Route::delete('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'destroy']);
+        Route::post('/goods-receipts/{goodsReceipt}/post', [GoodsReceiptController::class, 'post']);
+        Route::post('/goods-receipts/{goodsReceipt}/cancel', [GoodsReceiptController::class, 'cancel']);
     });
 });
