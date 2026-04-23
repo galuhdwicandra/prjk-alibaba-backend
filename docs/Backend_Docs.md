@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-23 09:42:59_  
+_Dihasilkan otomatis: 2026-04-23 10:38:01_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -205,7 +205,7 @@ _Dihasilkan otomatis: 2026-04-23 09:42:59_
 
 <a id="file-apphttpcontrollersapiauthcontrollerphp"></a>
 ### app\Http\Controllers\Api\AuthController.php
-- SHA: `bb4e9511d544`  
+- SHA: `514e60f79401`  
 - Ukuran: 2 KB  
 - Namespace: `App\Http\Controllers\Api`
 
@@ -247,16 +247,18 @@ class AuthController extends Controller
             deviceName: $request->string('device_name')->toString() ?: 'api-token',
         );
 
+        $user = $result['user']->load('roles', 'permissions', 'outletAccesses.outlet');
+
         return response()->json([
             'message' => 'Login berhasil.',
             'token' => $result['token'],
-            'data' => new UserResource($result['user']),
+            'data' => new UserResource($user),
         ]);
     }
 
     public function me(Request $request): JsonResponse
     {
-        $user = $request->user()->load('roles', 'permissions');
+        $user = $request->user()->load('roles', 'permissions', 'outletAccesses.outlet');
 
         return response()->json([
             'message' => 'Profil user berhasil diambil.',

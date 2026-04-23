@@ -25,16 +25,18 @@ class AuthController extends Controller
             deviceName: $request->string('device_name')->toString() ?: 'api-token',
         );
 
+        $user = $result['user']->load('roles', 'permissions', 'outletAccesses.outlet');
+
         return response()->json([
             'message' => 'Login berhasil.',
             'token' => $result['token'],
-            'data' => new UserResource($result['user']),
+            'data' => new UserResource($user),
         ]);
     }
 
     public function me(Request $request): JsonResponse
     {
-        $user = $request->user()->load('roles', 'permissions');
+        $user = $request->user()->load('roles', 'permissions', 'outletAccesses.outlet');
 
         return response()->json([
             'message' => 'Profil user berhasil diambil.',
