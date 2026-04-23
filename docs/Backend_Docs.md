@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-22 19:03:14_  
+_Dihasilkan otomatis: 2026-04-23 09:42:59_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -20,6 +20,10 @@ _Dihasilkan otomatis: 2026-04-22 19:03:14_
   - [app\Http\Controllers\Api\RawMaterialCategoryController.php](#file-apphttpcontrollersapirawmaterialcategorycontrollerphp)
   - [app\Http\Controllers\Api\RawMaterialController.php](#file-apphttpcontrollersapirawmaterialcontrollerphp)
   - [app\Http\Controllers\Api\RoleController.php](#file-apphttpcontrollersapirolecontrollerphp)
+  - [app\Http\Controllers\Api\StockAdjustmentController.php](#file-apphttpcontrollersapistockadjustmentcontrollerphp)
+  - [app\Http\Controllers\Api\StockMovementController.php](#file-apphttpcontrollersapistockmovementcontrollerphp)
+  - [app\Http\Controllers\Api\StockOpnameController.php](#file-apphttpcontrollersapistockopnamecontrollerphp)
+  - [app\Http\Controllers\Api\StockTransferController.php](#file-apphttpcontrollersapistocktransfercontrollerphp)
   - [app\Http\Controllers\Api\SupplierController.php](#file-apphttpcontrollersapisuppliercontrollerphp)
   - [app\Http\Controllers\Api\SystemSettingController.php](#file-apphttpcontrollersapisystemsettingcontrollerphp)
   - [app\Http\Controllers\Api\UnitController.php](#file-apphttpcontrollersapiunitcontrollerphp)
@@ -45,6 +49,15 @@ _Dihasilkan otomatis: 2026-04-22 19:03:14_
   - [app\Http\Requests\Api\Inventory\RawMaterial\UpdateRawMaterialRequest.php](#file-apphttprequestsapiinventoryrawmaterialupdaterawmaterialrequestphp)
   - [app\Http\Requests\Api\Inventory\RawMaterialCategory\StoreRawMaterialCategoryRequest.php](#file-apphttprequestsapiinventoryrawmaterialcategorystorerawmaterialcategoryrequestphp)
   - [app\Http\Requests\Api\Inventory\RawMaterialCategory\UpdateRawMaterialCategoryRequest.php](#file-apphttprequestsapiinventoryrawmaterialcategoryupdaterawmaterialcategoryrequestphp)
+  - [app\Http\Requests\Api\Inventory\StockAdjustment\StoreStockAdjustmentRequest.php](#file-apphttprequestsapiinventorystockadjustmentstorestockadjustmentrequestphp)
+  - [app\Http\Requests\Api\Inventory\StockAdjustment\UpdateStockAdjustmentRequest.php](#file-apphttprequestsapiinventorystockadjustmentupdatestockadjustmentrequestphp)
+  - [app\Http\Requests\Api\Inventory\StockOpname\PostStockOpnameRequest.php](#file-apphttprequestsapiinventorystockopnamepoststockopnamerequestphp)
+  - [app\Http\Requests\Api\Inventory\StockOpname\StoreStockOpnameRequest.php](#file-apphttprequestsapiinventorystockopnamestorestockopnamerequestphp)
+  - [app\Http\Requests\Api\Inventory\StockOpname\UpdateStockOpnameRequest.php](#file-apphttprequestsapiinventorystockopnameupdatestockopnamerequestphp)
+  - [app\Http\Requests\Api\Inventory\StockTransfer\ReceiveStockTransferRequest.php](#file-apphttprequestsapiinventorystocktransferreceivestocktransferrequestphp)
+  - [app\Http\Requests\Api\Inventory\StockTransfer\SendStockTransferRequest.php](#file-apphttprequestsapiinventorystocktransfersendstocktransferrequestphp)
+  - [app\Http\Requests\Api\Inventory\StockTransfer\StoreStockTransferRequest.php](#file-apphttprequestsapiinventorystocktransferstorestocktransferrequestphp)
+  - [app\Http\Requests\Api\Inventory\StockTransfer\UpdateStockTransferRequest.php](#file-apphttprequestsapiinventorystocktransferupdatestocktransferrequestphp)
   - [app\Http\Requests\Api\Inventory\Unit\StoreUnitRequest.php](#file-apphttprequestsapiinventoryunitstoreunitrequestphp)
   - [app\Http\Requests\Api\Inventory\Unit\UpdateUnitRequest.php](#file-apphttprequestsapiinventoryunitupdateunitrequestphp)
   - [app\Http\Requests\Api\Inventory\UnitConversion\StoreUnitConversionRequest.php](#file-apphttprequestsapiinventoryunitconversionstoreunitconversionrequestphp)
@@ -101,6 +114,14 @@ _Dihasilkan otomatis: 2026-04-22 19:03:14_
   - [app\Http\Resources\RawMaterialCategoryResource.php](#file-apphttpresourcesrawmaterialcategoryresourcephp)
   - [app\Http\Resources\RawMaterialResource.php](#file-apphttpresourcesrawmaterialresourcephp)
   - [app\Http\Resources\RoleResource.php](#file-apphttpresourcesroleresourcephp)
+  - [app\Http\Resources\StockAdjustmentItemResource.php](#file-apphttpresourcesstockadjustmentitemresourcephp)
+  - [app\Http\Resources\StockAdjustmentResource.php](#file-apphttpresourcesstockadjustmentresourcephp)
+  - [app\Http\Resources\StockMovementItemResource.php](#file-apphttpresourcesstockmovementitemresourcephp)
+  - [app\Http\Resources\StockMovementResource.php](#file-apphttpresourcesstockmovementresourcephp)
+  - [app\Http\Resources\StockOpnameItemResource.php](#file-apphttpresourcesstockopnameitemresourcephp)
+  - [app\Http\Resources\StockOpnameResource.php](#file-apphttpresourcesstockopnameresourcephp)
+  - [app\Http\Resources\StockTransferItemResource.php](#file-apphttpresourcesstocktransferitemresourcephp)
+  - [app\Http\Resources\StockTransferResource.php](#file-apphttpresourcesstocktransferresourcephp)
   - [app\Http\Resources\SupplierResource.php](#file-apphttpresourcessupplierresourcephp)
   - [app\Http\Resources\SystemSettingResource.php](#file-apphttpresourcessystemsettingresourcephp)
   - [app\Http\Resources\UnitConversionResource.php](#file-apphttpresourcesunitconversionresourcephp)
@@ -132,8 +153,14 @@ _Dihasilkan otomatis: 2026-04-22 19:03:14_
   - [app\Models\PurchaseOrderItem.php](#file-appmodelspurchaseorderitemphp)
   - [app\Models\RawMaterial.php](#file-appmodelsrawmaterialphp)
   - [app\Models\RawMaterialCategory.php](#file-appmodelsrawmaterialcategoryphp)
+  - [app\Models\StockAdjustment.php](#file-appmodelsstockadjustmentphp)
+  - [app\Models\StockAdjustmentItem.php](#file-appmodelsstockadjustmentitemphp)
   - [app\Models\StockMovement.php](#file-appmodelsstockmovementphp)
   - [app\Models\StockMovementItem.php](#file-appmodelsstockmovementitemphp)
+  - [app\Models\StockOpname.php](#file-appmodelsstockopnamephp)
+  - [app\Models\StockOpnameItem.php](#file-appmodelsstockopnameitemphp)
+  - [app\Models\StockTransfer.php](#file-appmodelsstocktransferphp)
+  - [app\Models\StockTransferItem.php](#file-appmodelsstocktransferitemphp)
   - [app\Models\Supplier.php](#file-appmodelssupplierphp)
   - [app\Models\SystemSetting.php](#file-appmodelssystemsettingphp)
   - [app\Models\Unit.php](#file-appmodelsunitphp)
@@ -150,6 +177,10 @@ _Dihasilkan otomatis: 2026-04-22 19:03:14_
   - [app\Services\Inventory\OutletMaterialStockService.php](#file-appservicesinventoryoutletmaterialstockservicephp)
   - [app\Services\Inventory\ProductBomService.php](#file-appservicesinventoryproductbomservicephp)
   - [app\Services\Inventory\RawMaterialService.php](#file-appservicesinventoryrawmaterialservicephp)
+  - [app\Services\Inventory\StockAdjustmentService.php](#file-appservicesinventorystockadjustmentservicephp)
+  - [app\Services\Inventory\StockMovementService.php](#file-appservicesinventorystockmovementservicephp)
+  - [app\Services\Inventory\StockOpnameService.php](#file-appservicesinventorystockopnameservicephp)
+  - [app\Services\Inventory\StockTransferService.php](#file-appservicesinventorystocktransferservicephp)
   - [app\Services\Inventory\UnitConversionService.php](#file-appservicesinventoryunitconversionservicephp)
   - [app\Services\Inventory\UnitService.php](#file-appservicesinventoryunitservicephp)
   - [app\Services\Outlet\OutletService.php](#file-appservicesoutletoutletservicephp)
@@ -1951,6 +1982,524 @@ class RoleController extends Controller
 ```
 </details>
 
+<a id="file-apphttpcontrollersapistockadjustmentcontrollerphp"></a>
+### app\Http\Controllers\Api\StockAdjustmentController.php
+- SHA: `0a2b177be6fe`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `StockAdjustmentController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly StockAdjustmentService $stockAdjustmentService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreStockAdjustmentRequest $request) : *JsonResponse*
+- **show**(Request $request, StockAdjustment $stockAdjustment) : *JsonResponse*
+- **update**(UpdateStockAdjustmentRequest $request, StockAdjustment $stockAdjustment) : *JsonResponse*
+- **destroy**(Request $request, StockAdjustment $stockAdjustment) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\StockAdjustment\StoreStockAdjustmentRequest;
+use App\Http\Requests\Api\Inventory\StockAdjustment\UpdateStockAdjustmentRequest;
+use App\Http\Resources\StockAdjustmentResource;
+use App\Models\StockAdjustment;
+use App\Services\Inventory\StockAdjustmentService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class StockAdjustmentController extends Controller
+{
+    public function __construct(
+        private readonly StockAdjustmentService $stockAdjustmentService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_adjustments.view'), 403);
+
+        $rows = StockAdjustment::query()
+            ->with(['outlet', 'creator', 'approver', 'items.rawMaterial', 'items.unit'])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('adjustment_number', 'like', "%{$search}%")
+                        ->orWhere('reason', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('reason'), function ($query) use ($request) {
+                $query->where('reason', $request->string('reason')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar stock adjustment berhasil diambil.',
+            'data' => StockAdjustmentResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreStockAdjustmentRequest $request): JsonResponse
+    {
+        $row = $this->stockAdjustmentService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Stock adjustment berhasil dibuat.',
+            'data' => new StockAdjustmentResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, StockAdjustment $stockAdjustment): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_adjustments.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail stock adjustment berhasil diambil.',
+            'data' => new StockAdjustmentResource($stockAdjustment->load(['outlet', 'creator', 'approver', 'items.rawMaterial', 'items.unit'])),
+        ]);
+    }
+
+    public function update(UpdateStockAdjustmentRequest $request, StockAdjustment $stockAdjustment): JsonResponse
+    {
+        $row = $this->stockAdjustmentService->update($stockAdjustment, $request->validated());
+
+        return response()->json([
+            'message' => 'Stock adjustment berhasil diupdate.',
+            'data' => new StockAdjustmentResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, StockAdjustment $stockAdjustment): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_adjustments.delete'), 403);
+
+        $stockAdjustment->delete();
+
+        return response()->json([
+            'message' => 'Stock adjustment berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapistockmovementcontrollerphp"></a>
+### app\Http\Controllers\Api\StockMovementController.php
+- SHA: `fa75d402be28`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `StockMovementController` extends `Controller`**
+
+Metode Publik:
+- **index**(Request $request) : *JsonResponse*
+- **show**(Request $request, StockMovement $stockMovement) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\StockMovementResource;
+use App\Models\StockMovement;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class StockMovementController extends Controller
+{
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_movements.view'), 403);
+
+        $rows = StockMovement::query()
+            ->with(['outlet', 'creator', 'items.rawMaterial'])
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('movement_type'), function ($query) use ($request) {
+                $query->where('movement_type', $request->string('movement_type')->toString());
+            })
+            ->when($request->filled('reference_type'), function ($query) use ($request) {
+                $query->where('reference_type', $request->string('reference_type')->toString());
+            })
+            ->when($request->filled('reference_id'), function ($query) use ($request) {
+                $query->where('reference_id', (int) $request->input('reference_id'));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar stock movement berhasil diambil.',
+            'data' => StockMovementResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function show(Request $request, StockMovement $stockMovement): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_movements.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail stock movement berhasil diambil.',
+            'data' => new StockMovementResource($stockMovement->load(['outlet', 'creator', 'items.rawMaterial'])),
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapistockopnamecontrollerphp"></a>
+### app\Http\Controllers\Api\StockOpnameController.php
+- SHA: `ada5f7d42edf`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `StockOpnameController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly StockOpnameService $stockOpnameService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreStockOpnameRequest $request) : *JsonResponse*
+- **show**(Request $request, StockOpname $stockOpname) : *JsonResponse*
+- **update**(UpdateStockOpnameRequest $request, StockOpname $stockOpname) : *JsonResponse*
+- **post**(PostStockOpnameRequest $request, StockOpname $stockOpname) : *JsonResponse*
+- **cancel**(Request $request, StockOpname $stockOpname) : *JsonResponse*
+- **destroy**(Request $request, StockOpname $stockOpname) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\StockOpname\PostStockOpnameRequest;
+use App\Http\Requests\Api\Inventory\StockOpname\StoreStockOpnameRequest;
+use App\Http\Requests\Api\Inventory\StockOpname\UpdateStockOpnameRequest;
+use App\Http\Resources\StockOpnameResource;
+use App\Models\StockOpname;
+use App\Services\Inventory\StockOpnameService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class StockOpnameController extends Controller
+{
+    public function __construct(
+        private readonly StockOpnameService $stockOpnameService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_opnames.view'), 403);
+
+        $rows = StockOpname::query()
+            ->with(['outlet', 'creator', 'poster', 'items.rawMaterial', 'items.unit'])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where('opname_number', 'like', "%{$search}%");
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar stock opname berhasil diambil.',
+            'data' => StockOpnameResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreStockOpnameRequest $request): JsonResponse
+    {
+        $row = $this->stockOpnameService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Stock opname berhasil dibuat.',
+            'data' => new StockOpnameResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, StockOpname $stockOpname): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_opnames.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail stock opname berhasil diambil.',
+            'data' => new StockOpnameResource($stockOpname->load(['outlet', 'creator', 'poster', 'items.rawMaterial', 'items.unit'])),
+        ]);
+    }
+
+    public function update(UpdateStockOpnameRequest $request, StockOpname $stockOpname): JsonResponse
+    {
+        $row = $this->stockOpnameService->update($stockOpname, $request->validated());
+
+        return response()->json([
+            'message' => 'Stock opname berhasil diupdate.',
+            'data' => new StockOpnameResource($row),
+        ]);
+    }
+
+    public function post(PostStockOpnameRequest $request, StockOpname $stockOpname): JsonResponse
+    {
+        $row = $this->stockOpnameService->post(
+            opname: $stockOpname->load('items'),
+            userId: $request->user()->id,
+            postedAt: $request->input('posted_at'),
+        );
+
+        return response()->json([
+            'message' => 'Stock opname berhasil dipost.',
+            'data' => new StockOpnameResource($row),
+        ]);
+    }
+
+    public function cancel(Request $request, StockOpname $stockOpname): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_opnames.cancel'), 403);
+
+        $row = $this->stockOpnameService->cancel($stockOpname);
+
+        return response()->json([
+            'message' => 'Stock opname berhasil dibatalkan.',
+            'data' => new StockOpnameResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, StockOpname $stockOpname): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_opnames.delete'), 403);
+
+        if ($stockOpname->status !== 'draft') {
+            return response()->json([
+                'message' => 'Hanya stock opname draft yang boleh dihapus.',
+            ], 422);
+        }
+
+        $stockOpname->delete();
+
+        return response()->json([
+            'message' => 'Stock opname berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapistocktransfercontrollerphp"></a>
+### app\Http\Controllers\Api\StockTransferController.php
+- SHA: `a13da1ec8a06`  
+- Ukuran: 5 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `StockTransferController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly StockTransferService $stockTransferService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreStockTransferRequest $request) : *JsonResponse*
+- **show**(Request $request, StockTransfer $stockTransfer) : *JsonResponse*
+- **update**(UpdateStockTransferRequest $request, StockTransfer $stockTransfer) : *JsonResponse*
+- **send**(SendStockTransferRequest $request, StockTransfer $stockTransfer) : *JsonResponse*
+- **receive**(ReceiveStockTransferRequest $request, StockTransfer $stockTransfer) : *JsonResponse*
+- **cancel**(Request $request, StockTransfer $stockTransfer) : *JsonResponse*
+- **destroy**(Request $request, StockTransfer $stockTransfer) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Inventory\StockTransfer\ReceiveStockTransferRequest;
+use App\Http\Requests\Api\Inventory\StockTransfer\SendStockTransferRequest;
+use App\Http\Requests\Api\Inventory\StockTransfer\StoreStockTransferRequest;
+use App\Http\Requests\Api\Inventory\StockTransfer\UpdateStockTransferRequest;
+use App\Http\Resources\StockTransferResource;
+use App\Models\StockTransfer;
+use App\Services\Inventory\StockTransferService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class StockTransferController extends Controller
+{
+    public function __construct(
+        private readonly StockTransferService $stockTransferService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_transfers.view'), 403);
+
+        $rows = StockTransfer::query()
+            ->with(['sourceOutlet', 'targetOutlet', 'creator', 'receiver', 'items.rawMaterial', 'items.unit'])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where('transfer_number', 'like', "%{$search}%");
+            })
+            ->when($request->filled('source_outlet_id'), function ($query) use ($request) {
+                $query->where('source_outlet_id', (int) $request->input('source_outlet_id'));
+            })
+            ->when($request->filled('target_outlet_id'), function ($query) use ($request) {
+                $query->where('target_outlet_id', (int) $request->input('target_outlet_id'));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar stock transfer berhasil diambil.',
+            'data' => StockTransferResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreStockTransferRequest $request): JsonResponse
+    {
+        $row = $this->stockTransferService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Stock transfer berhasil dibuat.',
+            'data' => new StockTransferResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, StockTransfer $stockTransfer): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_transfers.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail stock transfer berhasil diambil.',
+            'data' => new StockTransferResource($stockTransfer->load(['sourceOutlet', 'targetOutlet', 'creator', 'receiver', 'items.rawMaterial', 'items.unit'])),
+        ]);
+    }
+
+    public function update(UpdateStockTransferRequest $request, StockTransfer $stockTransfer): JsonResponse
+    {
+        $row = $this->stockTransferService->update($stockTransfer, $request->validated());
+
+        return response()->json([
+            'message' => 'Stock transfer berhasil diupdate.',
+            'data' => new StockTransferResource($row),
+        ]);
+    }
+
+    public function send(SendStockTransferRequest $request, StockTransfer $stockTransfer): JsonResponse
+    {
+        $row = $this->stockTransferService->send(
+            transfer: $stockTransfer->load('items'),
+            sentAt: $request->input('sent_at'),
+        );
+
+        return response()->json([
+            'message' => 'Stock transfer berhasil dikirim.',
+            'data' => new StockTransferResource($row),
+        ]);
+    }
+
+    public function receive(ReceiveStockTransferRequest $request, StockTransfer $stockTransfer): JsonResponse
+    {
+        $row = $this->stockTransferService->receive(
+            transfer: $stockTransfer->load('items'),
+            payload: $request->validated(),
+            userId: $request->user()->id,
+        );
+
+        return response()->json([
+            'message' => 'Stock transfer berhasil diterima.',
+            'data' => new StockTransferResource($row),
+        ]);
+    }
+
+    public function cancel(Request $request, StockTransfer $stockTransfer): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_transfers.cancel'), 403);
+
+        $row = $this->stockTransferService->cancel($stockTransfer);
+
+        return response()->json([
+            'message' => 'Stock transfer berhasil dibatalkan.',
+            'data' => new StockTransferResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, StockTransfer $stockTransfer): JsonResponse
+    {
+        abort_unless($request->user()->can('stock_transfers.delete'), 403);
+
+        if ($stockTransfer->status !== 'draft') {
+            return response()->json([
+                'message' => 'Hanya stock transfer draft yang boleh dihapus.',
+            ], 422);
+        }
+
+        $stockTransfer->delete();
+
+        return response()->json([
+            'message' => 'Stock transfer berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpcontrollersapisuppliercontrollerphp"></a>
 ### app\Http\Controllers\Api\SupplierController.php
 - SHA: `681f5d0fd36f`  
@@ -3475,6 +4024,426 @@ class UpdateRawMaterialCategoryRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'required', 'string', 'max:255'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystockadjustmentstorestockadjustmentrequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockAdjustment\StoreStockAdjustmentRequest.php
+- SHA: `d6485fb9da1b`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\StockAdjustment`
+
+**Class `StoreStockAdjustmentRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockAdjustment;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreStockAdjustmentRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_adjustments.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'adjustment_number' => ['nullable', 'string', 'max:255'],
+            'adjustment_date' => ['required', 'date'],
+            'reason' => ['required', Rule::in(['damaged', 'expired', 'lost', 'correction', 'waste', 'other'])],
+            'notes' => ['nullable', 'string'],
+            'approved_by' => ['nullable', 'integer', 'exists:users,id'],
+            'approved_at' => ['nullable', 'date'],
+
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required', 'integer', 'exists:raw_materials,id'],
+            'items.*.qty_difference' => ['required', 'numeric', 'not_in:0'],
+            'items.*.unit_id' => ['required', 'integer', 'exists:units,id'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystockadjustmentupdatestockadjustmentrequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockAdjustment\UpdateStockAdjustmentRequest.php
+- SHA: `0c613407824c`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\StockAdjustment`
+
+**Class `UpdateStockAdjustmentRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockAdjustment;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateStockAdjustmentRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_adjustments.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id'],
+            'adjustment_number' => ['nullable', 'string', 'max:255'],
+            'adjustment_date' => ['sometimes', 'required', 'date'],
+            'reason' => ['sometimes', 'required', Rule::in(['damaged', 'expired', 'lost', 'correction', 'waste', 'other'])],
+            'notes' => ['nullable', 'string'],
+            'approved_by' => ['nullable', 'integer', 'exists:users,id'],
+            'approved_at' => ['nullable', 'date'],
+
+            'items' => ['sometimes', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required_with:items', 'integer', 'exists:raw_materials,id'],
+            'items.*.qty_difference' => ['required_with:items', 'numeric', 'not_in:0'],
+            'items.*.unit_id' => ['required_with:items', 'integer', 'exists:units,id'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystockopnamepoststockopnamerequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockOpname\PostStockOpnameRequest.php
+- SHA: `e677383a6deb`  
+- Ukuran: 403 B  
+- Namespace: `App\Http\Requests\Api\Inventory\StockOpname`
+
+**Class `PostStockOpnameRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockOpname;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PostStockOpnameRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_opnames.post') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'posted_at' => ['nullable', 'date'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystockopnamestorestockopnamerequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockOpname\StoreStockOpnameRequest.php
+- SHA: `d1d728cc9d5d`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\StockOpname`
+
+**Class `StoreStockOpnameRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockOpname;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreStockOpnameRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_opnames.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'opname_number' => ['nullable', 'string', 'max:255'],
+            'opname_date' => ['required', 'date'],
+            'status' => ['sometimes', Rule::in(['draft', 'posted', 'cancelled'])],
+            'notes' => ['nullable', 'string'],
+
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required', 'integer', 'exists:raw_materials,id'],
+            'items.*.system_qty' => ['nullable', 'numeric', 'min:0'],
+            'items.*.actual_qty' => ['required', 'numeric', 'min:0'],
+            'items.*.unit_id' => ['required', 'integer', 'exists:units,id'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystockopnameupdatestockopnamerequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockOpname\UpdateStockOpnameRequest.php
+- SHA: `de9e976594c9`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\StockOpname`
+
+**Class `UpdateStockOpnameRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockOpname;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateStockOpnameRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_opnames.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id'],
+            'opname_number' => ['nullable', 'string', 'max:255'],
+            'opname_date' => ['sometimes', 'required', 'date'],
+            'status' => ['sometimes', Rule::in(['draft', 'posted', 'cancelled'])],
+            'notes' => ['nullable', 'string'],
+
+            'items' => ['sometimes', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required_with:items', 'integer', 'exists:raw_materials,id'],
+            'items.*.system_qty' => ['nullable', 'numeric', 'min:0'],
+            'items.*.actual_qty' => ['required_with:items', 'numeric', 'min:0'],
+            'items.*.unit_id' => ['required_with:items', 'integer', 'exists:units,id'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystocktransferreceivestocktransferrequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockTransfer\ReceiveStockTransferRequest.php
+- SHA: `884f0f3761c6`  
+- Ukuran: 649 B  
+- Namespace: `App\Http\Requests\Api\Inventory\StockTransfer`
+
+**Class `ReceiveStockTransferRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockTransfer;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ReceiveStockTransferRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_transfers.receive') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'received_at' => ['nullable', 'date'],
+            'items' => ['nullable', 'array'],
+            'items.*.raw_material_id' => ['required_with:items', 'integer', 'exists:raw_materials,id'],
+            'items.*.qty_received' => ['required_with:items', 'numeric', 'gt:0'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystocktransfersendstocktransferrequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockTransfer\SendStockTransferRequest.php
+- SHA: `948627421b02`  
+- Ukuran: 407 B  
+- Namespace: `App\Http\Requests\Api\Inventory\StockTransfer`
+
+**Class `SendStockTransferRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockTransfer;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class SendStockTransferRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_transfers.send') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'sent_at' => ['nullable', 'date'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystocktransferstorestocktransferrequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockTransfer\StoreStockTransferRequest.php
+- SHA: `92e8aa6c6b77`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\StockTransfer`
+
+**Class `StoreStockTransferRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockTransfer;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreStockTransferRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_transfers.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'source_outlet_id' => ['required', 'integer', 'exists:outlets,id', 'different:target_outlet_id'],
+            'target_outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'transfer_number' => ['nullable', 'string', 'max:255'],
+            'status' => ['sometimes', Rule::in(['draft', 'sent', 'received', 'cancelled'])],
+            'transfer_date' => ['required', 'date'],
+            'notes' => ['nullable', 'string'],
+
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required', 'integer', 'exists:raw_materials,id'],
+            'items.*.qty_sent' => ['required', 'numeric', 'gt:0'],
+            'items.*.qty_received' => ['nullable', 'numeric', 'gt:0'],
+            'items.*.unit_id' => ['required', 'integer', 'exists:units,id'],
+            'items.*.notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiinventorystocktransferupdatestocktransferrequestphp"></a>
+### app\Http\Requests\Api\Inventory\StockTransfer\UpdateStockTransferRequest.php
+- SHA: `2a1c5a6891b2`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Inventory\StockTransfer`
+
+**Class `UpdateStockTransferRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Inventory\StockTransfer;
+
+use Illuminate\Foundation\Http\FormRequest;
+// use Illuminate\Validation\Rule;
+
+class UpdateStockTransferRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('stock_transfers.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'source_outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id', 'different:target_outlet_id'],
+            'target_outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id'],
+            'transfer_number' => ['nullable', 'string', 'max:255'],
+            'transfer_date' => ['sometimes', 'required', 'date'],
+            'notes' => ['nullable', 'string'],
+
+            'items' => ['sometimes', 'array', 'min:1'],
+            'items.*.raw_material_id' => ['required_with:items', 'integer', 'exists:raw_materials,id'],
+            'items.*.qty_sent' => ['required_with:items', 'numeric', 'gt:0'],
+            'items.*.qty_received' => ['nullable', 'numeric', 'gt:0'],
+            'items.*.unit_id' => ['required_with:items', 'integer', 'exists:units,id'],
+            'items.*.notes' => ['nullable', 'string'],
         ];
     }
 }
@@ -6118,6 +7087,346 @@ class RoleResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcesstockadjustmentitemresourcephp"></a>
+### app\Http\Resources\StockAdjustmentItemResource.php
+- SHA: `ac7491ac27c5`  
+- Ukuran: 646 B  
+- Namespace: `App\Http\Resources`
+
+**Class `StockAdjustmentItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockAdjustmentItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'raw_material_id' => $this->raw_material_id,
+            'qty_difference' => $this->qty_difference,
+            'unit_id' => $this->unit_id,
+            'notes' => $this->notes,
+            'raw_material' => new RawMaterialResource($this->whenLoaded('rawMaterial')),
+            'unit' => new UnitResource($this->whenLoaded('unit')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesstockadjustmentresourcephp"></a>
+### app\Http\Resources\StockAdjustmentResource.php
+- SHA: `1bb63314e92c`  
+- Ukuran: 993 B  
+- Namespace: `App\Http\Resources`
+
+**Class `StockAdjustmentResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockAdjustmentResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'adjustment_number' => $this->adjustment_number,
+            'adjustment_date' => $this->adjustment_date,
+            'reason' => $this->reason,
+            'notes' => $this->notes,
+            'created_by' => $this->created_by,
+            'approved_by' => $this->approved_by,
+            'approved_at' => $this->approved_at,
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+            'creator' => new UserResource($this->whenLoaded('creator')),
+            'approver' => new UserResource($this->whenLoaded('approver')),
+            'items' => StockAdjustmentItemResource::collection($this->whenLoaded('items')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesstockmovementitemresourcephp"></a>
+### app\Http\Resources\StockMovementItemResource.php
+- SHA: `61e3c15870d2`  
+- Ukuran: 606 B  
+- Namespace: `App\Http\Resources`
+
+**Class `StockMovementItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockMovementItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'raw_material_id' => $this->raw_material_id,
+            'qty_in' => $this->qty_in,
+            'qty_out' => $this->qty_out,
+            'unit_cost' => $this->unit_cost,
+            'notes' => $this->notes,
+            'raw_material' => new RawMaterialResource($this->whenLoaded('rawMaterial')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesstockmovementresourcephp"></a>
+### app\Http\Resources\StockMovementResource.php
+- SHA: `4ed63302142a`  
+- Ukuran: 871 B  
+- Namespace: `App\Http\Resources`
+
+**Class `StockMovementResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockMovementResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'movement_type' => $this->movement_type,
+            'reference_type' => $this->reference_type,
+            'reference_id' => $this->reference_id,
+            'movement_date' => $this->movement_date,
+            'notes' => $this->notes,
+            'created_by' => $this->created_by,
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+            'creator' => new UserResource($this->whenLoaded('creator')),
+            'items' => StockMovementItemResource::collection($this->whenLoaded('items')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesstockopnameitemresourcephp"></a>
+### app\Http\Resources\StockOpnameItemResource.php
+- SHA: `9be40eaa7dec`  
+- Ukuran: 736 B  
+- Namespace: `App\Http\Resources`
+
+**Class `StockOpnameItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockOpnameItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'raw_material_id' => $this->raw_material_id,
+            'system_qty' => $this->system_qty,
+            'actual_qty' => $this->actual_qty,
+            'difference_qty' => $this->difference_qty,
+            'unit_id' => $this->unit_id,
+            'notes' => $this->notes,
+            'raw_material' => new RawMaterialResource($this->whenLoaded('rawMaterial')),
+            'unit' => new UnitResource($this->whenLoaded('unit')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesstockopnameresourcephp"></a>
+### app\Http\Resources\StockOpnameResource.php
+- SHA: `75df6a32e740`  
+- Ukuran: 957 B  
+- Namespace: `App\Http\Resources`
+
+**Class `StockOpnameResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockOpnameResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'opname_number' => $this->opname_number,
+            'opname_date' => $this->opname_date,
+            'status' => $this->status,
+            'notes' => $this->notes,
+            'created_by' => $this->created_by,
+            'posted_by' => $this->posted_by,
+            'posted_at' => $this->posted_at,
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+            'creator' => new UserResource($this->whenLoaded('creator')),
+            'poster' => new UserResource($this->whenLoaded('poster')),
+            'items' => StockOpnameItemResource::collection($this->whenLoaded('items')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesstocktransferitemresourcephp"></a>
+### app\Http\Resources\StockTransferItemResource.php
+- SHA: `bcd61fbf07a4`  
+- Ukuran: 683 B  
+- Namespace: `App\Http\Resources`
+
+**Class `StockTransferItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockTransferItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'raw_material_id' => $this->raw_material_id,
+            'qty_sent' => $this->qty_sent,
+            'qty_received' => $this->qty_received,
+            'unit_id' => $this->unit_id,
+            'notes' => $this->notes,
+            'raw_material' => new RawMaterialResource($this->whenLoaded('rawMaterial')),
+            'unit' => new UnitResource($this->whenLoaded('unit')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesstocktransferresourcephp"></a>
+### app\Http\Resources\StockTransferResource.php
+- SHA: `11f39a5ef28a`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `StockTransferResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StockTransferResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'source_outlet_id' => $this->source_outlet_id,
+            'target_outlet_id' => $this->target_outlet_id,
+            'transfer_number' => $this->transfer_number,
+            'status' => $this->status,
+            'transfer_date' => $this->transfer_date,
+            'sent_at' => $this->sent_at,
+            'received_at' => $this->received_at,
+            'notes' => $this->notes,
+            'created_by' => $this->created_by,
+            'received_by' => $this->received_by,
+            'source_outlet' => new OutletResource($this->whenLoaded('sourceOutlet')),
+            'target_outlet' => new OutletResource($this->whenLoaded('targetOutlet')),
+            'creator' => new UserResource($this->whenLoaded('creator')),
+            'receiver' => new UserResource($this->whenLoaded('receiver')),
+            'items' => StockTransferItemResource::collection($this->whenLoaded('items')),
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcessupplierresourcephp"></a>
 ### app\Http\Resources\SupplierResource.php
 - SHA: `514d021023cf`  
@@ -7828,6 +9137,127 @@ class RawMaterialCategory extends Model
 ```
 </details>
 
+<a id="file-appmodelsstockadjustmentphp"></a>
+### app\Models\StockAdjustment.php
+- SHA: `a9968ec74da4`  
+- Ukuran: 983 B  
+- Namespace: `App\Models`
+
+**Class `StockAdjustment` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+- **approver**() : *BelongsTo*
+- **items**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class StockAdjustment extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'adjustment_number',
+        'adjustment_date',
+        'reason',
+        'notes',
+        'created_by',
+        'approved_by',
+        'approved_at',
+    ];
+
+    protected $casts = [
+        'adjustment_date' => 'datetime',
+        'approved_at' => 'datetime',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function approver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(StockAdjustmentItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsstockadjustmentitemphp"></a>
+### app\Models\StockAdjustmentItem.php
+- SHA: `895722a4bd8d`  
+- Ukuran: 725 B  
+- Namespace: `App\Models`
+
+**Class `StockAdjustmentItem` extends `Model`**
+
+Metode Publik:
+- **stockAdjustment**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+- **unit**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class StockAdjustmentItem extends Model
+{
+    protected $fillable = [
+        'stock_adjustment_id',
+        'raw_material_id',
+        'qty_difference',
+        'unit_id',
+        'notes',
+    ];
+
+    protected $casts = [
+        'qty_difference' => 'decimal:3',
+    ];
+
+    public function stockAdjustment(): BelongsTo
+    {
+        return $this->belongsTo(StockAdjustment::class);
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+}
+
+```
+</details>
+
 <a id="file-appmodelsstockmovementphp"></a>
 ### app\Models\StockMovement.php
 - SHA: `5e17c6158821`  
@@ -7932,6 +9362,263 @@ class StockMovementItem extends Model
     public function rawMaterial(): BelongsTo
     {
         return $this->belongsTo(RawMaterial::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsstockopnamephp"></a>
+### app\Models\StockOpname.php
+- SHA: `e1da35deb842`  
+- Ukuran: 949 B  
+- Namespace: `App\Models`
+
+**Class `StockOpname` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+- **poster**() : *BelongsTo*
+- **items**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class StockOpname extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'opname_number',
+        'opname_date',
+        'status',
+        'notes',
+        'created_by',
+        'posted_by',
+        'posted_at',
+    ];
+
+    protected $casts = [
+        'opname_date' => 'date',
+        'posted_at' => 'datetime',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function poster(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'posted_by');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(StockOpnameItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsstockopnameitemphp"></a>
+### app\Models\StockOpnameItem.php
+- SHA: `19fa867b51f1`  
+- Ukuran: 827 B  
+- Namespace: `App\Models`
+
+**Class `StockOpnameItem` extends `Model`**
+
+Metode Publik:
+- **stockOpname**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+- **unit**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class StockOpnameItem extends Model
+{
+    protected $fillable = [
+        'stock_opname_id',
+        'raw_material_id',
+        'system_qty',
+        'actual_qty',
+        'difference_qty',
+        'unit_id',
+        'notes',
+    ];
+
+    protected $casts = [
+        'system_qty' => 'decimal:3',
+        'actual_qty' => 'decimal:3',
+        'difference_qty' => 'decimal:3',
+    ];
+
+    public function stockOpname(): BelongsTo
+    {
+        return $this->belongsTo(StockOpname::class);
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsstocktransferphp"></a>
+### app\Models\StockTransfer.php
+- SHA: `b5c77c38664f`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `StockTransfer` extends `Model`**
+
+Metode Publik:
+- **sourceOutlet**() : *BelongsTo*
+- **targetOutlet**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+- **receiver**() : *BelongsTo*
+- **items**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class StockTransfer extends Model
+{
+    protected $fillable = [
+        'source_outlet_id',
+        'target_outlet_id',
+        'transfer_number',
+        'status',
+        'transfer_date',
+        'sent_at',
+        'received_at',
+        'notes',
+        'created_by',
+        'received_by',
+    ];
+
+    protected $casts = [
+        'transfer_date' => 'datetime',
+        'sent_at' => 'datetime',
+        'received_at' => 'datetime',
+    ];
+
+    public function sourceOutlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class, 'source_outlet_id');
+    }
+
+    public function targetOutlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class, 'target_outlet_id');
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function receiver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'received_by');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(StockTransferItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsstocktransferitemphp"></a>
+### app\Models\StockTransferItem.php
+- SHA: `b06f8fdd91f4`  
+- Ukuran: 768 B  
+- Namespace: `App\Models`
+
+**Class `StockTransferItem` extends `Model`**
+
+Metode Publik:
+- **stockTransfer**() : *BelongsTo*
+- **rawMaterial**() : *BelongsTo*
+- **unit**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class StockTransferItem extends Model
+{
+    protected $fillable = [
+        'stock_transfer_id',
+        'raw_material_id',
+        'qty_sent',
+        'qty_received',
+        'unit_id',
+        'notes',
+    ];
+
+    protected $casts = [
+        'qty_sent' => 'decimal:3',
+        'qty_received' => 'decimal:3',
+    ];
+
+    public function stockTransfer(): BelongsTo
+    {
+        return $this->belongsTo(StockTransfer::class);
+    }
+
+    public function rawMaterial(): BelongsTo
+    {
+        return $this->belongsTo(RawMaterial::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
     }
 }
 
@@ -8953,6 +10640,644 @@ class RawMaterialService
 
             return $rawMaterial->fresh()->load(['category', 'unit', 'outletStocks.outlet']);
         });
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventorystockadjustmentservicephp"></a>
+### app\Services\Inventory\StockAdjustmentService.php
+- SHA: `27561588c5bc`  
+- Ukuran: 4 KB  
+- Namespace: `App\Services\Inventory`
+
+**Class `StockAdjustmentService`**
+
+Metode Publik:
+- **__construct**(private readonly StockMovementService $stockMovementService)
+- **create**(array $payload, ?int $userId = null) : *StockAdjustment*
+- **update**(StockAdjustment $adjustment, array $payload) : *StockAdjustment*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\StockAdjustment;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class StockAdjustmentService
+{
+    public function __construct(
+        private readonly StockMovementService $stockMovementService
+    ) {
+    }
+
+    public function create(array $payload, ?int $userId = null): StockAdjustment
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $items = $payload['items'] ?? [];
+            unset($payload['items']);
+
+            if (empty($payload['adjustment_number'])) {
+                $payload['adjustment_number'] = $this->generateAdjustmentNumber((int) $payload['outlet_id']);
+            }
+
+            $payload['created_by'] = $payload['created_by'] ?? $userId;
+
+            $adjustment = StockAdjustment::create($payload);
+
+            foreach ($items as $item) {
+                $adjustment->items()->create([
+                    'raw_material_id' => $item['raw_material_id'],
+                    'qty_difference' => $item['qty_difference'],
+                    'unit_id' => $item['unit_id'],
+                    'notes' => $item['notes'] ?? null,
+                ]);
+            }
+
+            $this->stockMovementService->create([
+                'outlet_id' => $adjustment->outlet_id,
+                'movement_type' => $payload['reason'] === 'waste' ? 'waste' : 'adjustment',
+                'reference_type' => StockAdjustment::class,
+                'reference_id' => $adjustment->id,
+                'movement_date' => $adjustment->adjustment_date,
+                'notes' => $adjustment->notes,
+                'created_by' => $adjustment->created_by,
+                'items' => collect($items)->map(function (array $item) {
+                    $qtyDifference = (float) $item['qty_difference'];
+
+                    return [
+                        'raw_material_id' => $item['raw_material_id'],
+                        'qty_in' => $qtyDifference > 0 ? $qtyDifference : 0,
+                        'qty_out' => $qtyDifference < 0 ? abs($qtyDifference) : 0,
+                        'unit_cost' => 0,
+                        'notes' => $item['notes'] ?? null,
+                    ];
+                })->all(),
+            ]);
+
+            return $adjustment->fresh()->load(['outlet', 'creator', 'approver', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function update(StockAdjustment $adjustment, array $payload): StockAdjustment
+    {
+        if ($adjustment->approved_at !== null) {
+            throw ValidationException::withMessages([
+                'approved_at' => ['Stock adjustment yang sudah approved tidak boleh diubah.'],
+            ]);
+        }
+
+        return DB::transaction(function () use ($adjustment, $payload) {
+            $items = $payload['items'] ?? null;
+            unset($payload['items']);
+
+            $adjustment->update($payload);
+
+            if (is_array($items)) {
+                $adjustment->items()->delete();
+
+                foreach ($items as $item) {
+                    $adjustment->items()->create([
+                        'raw_material_id' => $item['raw_material_id'],
+                        'qty_difference' => $item['qty_difference'],
+                        'unit_id' => $item['unit_id'],
+                        'notes' => $item['notes'] ?? null,
+                    ]);
+                }
+            }
+
+            return $adjustment->fresh()->load(['outlet', 'creator', 'approver', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    private function generateAdjustmentNumber(int $outletId): string
+    {
+        $count = StockAdjustment::query()
+            ->where('outlet_id', $outletId)
+            ->whereDate('created_at', now()->toDateString())
+            ->count() + 1;
+
+        return 'ADJ-' . $outletId . '-' . now()->format('Ymd') . '-' . str_pad((string) $count, 4, '0', STR_PAD_LEFT);
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventorystockmovementservicephp"></a>
+### app\Services\Inventory\StockMovementService.php
+- SHA: `84fa847b28da`  
+- Ukuran: 2 KB  
+- Namespace: `App\Services\Inventory`
+
+**Class `StockMovementService`**
+
+Metode Publik:
+- **create**(array $payload) : *StockMovement*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\OutletMaterialStock;
+use App\Models\StockMovement;
+use Illuminate\Support\Facades\DB;
+
+class StockMovementService
+{
+    public function create(array $payload): StockMovement
+    {
+        return DB::transaction(function () use ($payload) {
+            $items = $payload['items'] ?? [];
+            unset($payload['items']);
+
+            $movement = StockMovement::create($payload);
+
+            foreach ($items as $item) {
+                $movement->items()->create([
+                    'raw_material_id' => $item['raw_material_id'],
+                    'qty_in' => $item['qty_in'] ?? 0,
+                    'qty_out' => $item['qty_out'] ?? 0,
+                    'unit_cost' => $item['unit_cost'] ?? 0,
+                    'notes' => $item['notes'] ?? null,
+                ]);
+
+                $stock = OutletMaterialStock::query()->firstOrCreate(
+                    [
+                        'outlet_id' => $movement->outlet_id,
+                        'raw_material_id' => $item['raw_material_id'],
+                    ],
+                    [
+                        'qty_on_hand' => 0,
+                        'qty_reserved' => 0,
+                        'last_movement_at' => $movement->movement_date,
+                    ]
+                );
+
+                $stock->update([
+                    'qty_on_hand' => (float) $stock->qty_on_hand + (float) ($item['qty_in'] ?? 0) - (float) ($item['qty_out'] ?? 0),
+                    'last_movement_at' => $movement->movement_date,
+                ]);
+            }
+
+            return $movement->fresh()->load(['outlet', 'creator', 'items.rawMaterial']);
+        });
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventorystockopnameservicephp"></a>
+### app\Services\Inventory\StockOpnameService.php
+- SHA: `2750252d817c`  
+- Ukuran: 7 KB  
+- Namespace: `App\Services\Inventory`
+
+**Class `StockOpnameService`**
+
+Metode Publik:
+- **__construct**(private readonly StockMovementService $stockMovementService)
+- **create**(array $payload, ?int $userId = null) : *StockOpname*
+- **update**(StockOpname $opname, array $payload) : *StockOpname*
+- **post**(StockOpname $opname, int $userId, ?string $postedAt = null) : *StockOpname*
+- **cancel**(StockOpname $opname) : *StockOpname*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\OutletMaterialStock;
+use App\Models\StockOpname;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class StockOpnameService
+{
+    public function __construct(
+        private readonly StockMovementService $stockMovementService
+    ) {
+    }
+
+    public function create(array $payload, ?int $userId = null): StockOpname
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $items = $payload['items'] ?? [];
+            unset($payload['items']);
+
+            if (empty($payload['opname_number'])) {
+                $payload['opname_number'] = $this->generateOpnameNumber((int) $payload['outlet_id']);
+            }
+
+            $payload['created_by'] = $payload['created_by'] ?? $userId;
+            $payload['status'] = $payload['status'] ?? 'draft';
+
+            $opname = StockOpname::create($payload);
+
+            foreach ($items as $item) {
+                $stock = OutletMaterialStock::query()->firstOrCreate(
+                    [
+                        'outlet_id' => $payload['outlet_id'],
+                        'raw_material_id' => $item['raw_material_id'],
+                    ],
+                    [
+                        'qty_on_hand' => 0,
+                        'qty_reserved' => 0,
+                        'last_movement_at' => null,
+                    ]
+                );
+
+                $systemQty = array_key_exists('system_qty', $item)
+                    ? (float) $item['system_qty']
+                    : (float) $stock->qty_on_hand;
+
+                $actualQty = (float) $item['actual_qty'];
+
+                $opname->items()->create([
+                    'raw_material_id' => $item['raw_material_id'],
+                    'system_qty' => $systemQty,
+                    'actual_qty' => $actualQty,
+                    'difference_qty' => $actualQty - $systemQty,
+                    'unit_id' => $item['unit_id'],
+                    'notes' => $item['notes'] ?? null,
+                ]);
+            }
+
+            return $opname->fresh()->load(['outlet', 'creator', 'poster', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function update(StockOpname $opname, array $payload): StockOpname
+    {
+        if ($opname->status !== 'draft') {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya stock opname draft yang boleh diubah.'],
+            ]);
+        }
+
+        return DB::transaction(function () use ($opname, $payload) {
+            $items = $payload['items'] ?? null;
+            unset($payload['items']);
+
+            $opname->update($payload);
+
+            if (is_array($items)) {
+                $opname->items()->delete();
+
+                foreach ($items as $item) {
+                    $stock = OutletMaterialStock::query()->firstOrCreate(
+                        [
+                            'outlet_id' => $opname->outlet_id,
+                            'raw_material_id' => $item['raw_material_id'],
+                        ],
+                        [
+                            'qty_on_hand' => 0,
+                            'qty_reserved' => 0,
+                            'last_movement_at' => null,
+                        ]
+                    );
+
+                    $systemQty = array_key_exists('system_qty', $item)
+                        ? (float) $item['system_qty']
+                        : (float) $stock->qty_on_hand;
+
+                    $actualQty = (float) $item['actual_qty'];
+
+                    $opname->items()->create([
+                        'raw_material_id' => $item['raw_material_id'],
+                        'system_qty' => $systemQty,
+                        'actual_qty' => $actualQty,
+                        'difference_qty' => $actualQty - $systemQty,
+                        'unit_id' => $item['unit_id'],
+                        'notes' => $item['notes'] ?? null,
+                    ]);
+                }
+            }
+
+            return $opname->fresh()->load(['outlet', 'creator', 'poster', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function post(StockOpname $opname, int $userId, ?string $postedAt = null): StockOpname
+    {
+        if ($opname->status !== 'draft') {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya stock opname draft yang bisa dipost.'],
+            ]);
+        }
+
+        return DB::transaction(function () use ($opname, $userId, $postedAt) {
+            $effectivePostedAt = $postedAt ? now()->parse($postedAt) : now();
+
+            $this->stockMovementService->create([
+                'outlet_id' => $opname->outlet_id,
+                'movement_type' => 'opname',
+                'reference_type' => StockOpname::class,
+                'reference_id' => $opname->id,
+                'movement_date' => $effectivePostedAt,
+                'notes' => $opname->notes,
+                'created_by' => $userId,
+                'items' => $opname->items->map(function ($item) {
+                    $differenceQty = (float) $item->difference_qty;
+
+                    return [
+                        'raw_material_id' => $item->raw_material_id,
+                        'qty_in' => $differenceQty > 0 ? $differenceQty : 0,
+                        'qty_out' => $differenceQty < 0 ? abs($differenceQty) : 0,
+                        'unit_cost' => 0,
+                        'notes' => $item->notes,
+                    ];
+                })->all(),
+            ]);
+
+            $opname->update([
+                'status' => 'posted',
+                'posted_by' => $userId,
+                'posted_at' => $effectivePostedAt,
+            ]);
+
+            return $opname->fresh()->load(['outlet', 'creator', 'poster', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function cancel(StockOpname $opname): StockOpname
+    {
+        if ($opname->status === 'posted') {
+            throw ValidationException::withMessages([
+                'status' => ['Stock opname yang sudah posted tidak bisa dibatalkan.'],
+            ]);
+        }
+
+        $opname->update([
+            'status' => 'cancelled',
+        ]);
+
+        return $opname->fresh()->load(['outlet', 'creator', 'poster', 'items.rawMaterial', 'items.unit']);
+    }
+
+    private function generateOpnameNumber(int $outletId): string
+    {
+        $count = StockOpname::query()
+            ->where('outlet_id', $outletId)
+            ->whereDate('created_at', now()->toDateString())
+            ->count() + 1;
+
+        return 'OPN-' . $outletId . '-' . now()->format('Ymd') . '-' . str_pad((string) $count, 4, '0', STR_PAD_LEFT);
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesinventorystocktransferservicephp"></a>
+### app\Services\Inventory\StockTransferService.php
+- SHA: `f9dd017b3fd6`  
+- Ukuran: 8 KB  
+- Namespace: `App\Services\Inventory`
+
+**Class `StockTransferService`**
+
+Metode Publik:
+- **__construct**(private readonly StockMovementService $stockMovementService)
+- **create**(array $payload, ?int $userId = null) : *StockTransfer*
+- **update**(StockTransfer $transfer, array $payload) : *StockTransfer*
+- **send**(StockTransfer $transfer, ?string $sentAt = null) : *StockTransfer*
+- **receive**(StockTransfer $transfer, array $payload, int $userId) : *StockTransfer*
+- **cancel**(StockTransfer $transfer) : *StockTransfer*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Inventory;
+
+use App\Models\OutletMaterialStock;
+use App\Models\StockTransfer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class StockTransferService
+{
+    public function __construct(
+        private readonly StockMovementService $stockMovementService
+    ) {
+    }
+
+    public function create(array $payload, ?int $userId = null): StockTransfer
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $items = $payload['items'] ?? [];
+            unset($payload['items']);
+
+            if (empty($payload['transfer_number'])) {
+                $payload['transfer_number'] = $this->generateTransferNumber((int) $payload['source_outlet_id']);
+            }
+
+            $payload['created_by'] = $payload['created_by'] ?? $userId;
+            $payload['status'] = $payload['status'] ?? 'draft';
+
+            $transfer = StockTransfer::create($payload);
+
+            foreach ($items as $item) {
+                $transfer->items()->create([
+                    'raw_material_id' => $item['raw_material_id'],
+                    'qty_sent' => $item['qty_sent'],
+                    'qty_received' => $item['qty_received'] ?? null,
+                    'unit_id' => $item['unit_id'],
+                    'notes' => $item['notes'] ?? null,
+                ]);
+            }
+
+            return $transfer->fresh()->load(['sourceOutlet', 'targetOutlet', 'creator', 'receiver', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function update(StockTransfer $transfer, array $payload): StockTransfer
+    {
+        if ($transfer->status !== 'draft') {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya stock transfer draft yang boleh diubah.'],
+            ]);
+        }
+
+        return DB::transaction(function () use ($transfer, $payload) {
+            $items = $payload['items'] ?? null;
+            unset($payload['items']);
+
+            $transfer->update($payload);
+
+            if (is_array($items)) {
+                $transfer->items()->delete();
+
+                foreach ($items as $item) {
+                    $transfer->items()->create([
+                        'raw_material_id' => $item['raw_material_id'],
+                        'qty_sent' => $item['qty_sent'],
+                        'qty_received' => $item['qty_received'] ?? null,
+                        'unit_id' => $item['unit_id'],
+                        'notes' => $item['notes'] ?? null,
+                    ]);
+                }
+            }
+
+            return $transfer->fresh()->load(['sourceOutlet', 'targetOutlet', 'creator', 'receiver', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function send(StockTransfer $transfer, ?string $sentAt = null): StockTransfer
+    {
+        if ($transfer->status !== 'draft') {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya stock transfer draft yang bisa dikirim.'],
+            ]);
+        }
+
+        return DB::transaction(function () use ($transfer, $sentAt) {
+            foreach ($transfer->items as $item) {
+                $stock = OutletMaterialStock::query()->firstOrCreate(
+                    [
+                        'outlet_id' => $transfer->source_outlet_id,
+                        'raw_material_id' => $item->raw_material_id,
+                    ],
+                    [
+                        'qty_on_hand' => 0,
+                        'qty_reserved' => 0,
+                        'last_movement_at' => $transfer->transfer_date,
+                    ]
+                );
+
+                if ((float) $stock->qty_on_hand < (float) $item->qty_sent) {
+                    throw ValidationException::withMessages([
+                        'items' => ["Stok bahan {$item->raw_material_id} di outlet sumber tidak mencukupi."],
+                    ]);
+                }
+            }
+
+            $effectiveSentAt = $sentAt ? now()->parse($sentAt) : now();
+
+            $this->stockMovementService->create([
+                'outlet_id' => $transfer->source_outlet_id,
+                'movement_type' => 'transfer_out',
+                'reference_type' => StockTransfer::class,
+                'reference_id' => $transfer->id,
+                'movement_date' => $effectiveSentAt,
+                'notes' => $transfer->notes,
+                'created_by' => $transfer->created_by,
+                'items' => $transfer->items->map(function ($item) {
+                    return [
+                        'raw_material_id' => $item->raw_material_id,
+                        'qty_in' => 0,
+                        'qty_out' => $item->qty_sent,
+                        'unit_cost' => 0,
+                        'notes' => $item->notes,
+                    ];
+                })->all(),
+            ]);
+
+            $transfer->update([
+                'status' => 'sent',
+                'sent_at' => $effectiveSentAt,
+            ]);
+
+            return $transfer->fresh()->load(['sourceOutlet', 'targetOutlet', 'creator', 'receiver', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function receive(StockTransfer $transfer, array $payload, int $userId): StockTransfer
+    {
+        if ($transfer->status !== 'sent') {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya stock transfer sent yang bisa diterima.'],
+            ]);
+        }
+
+        return DB::transaction(function () use ($transfer, $payload, $userId) {
+            $receivedMap = collect($payload['items'] ?? [])
+                ->keyBy(fn (array $item) => (int) $item['raw_material_id']);
+
+            foreach ($transfer->items as $item) {
+                $qtyReceived = (float) ($receivedMap[$item->raw_material_id]['qty_received'] ?? $item->qty_sent);
+
+                if ($qtyReceived <= 0) {
+                    throw ValidationException::withMessages([
+                        'items' => ["qty_received untuk raw material {$item->raw_material_id} harus lebih dari 0."],
+                    ]);
+                }
+
+                if ($qtyReceived > (float) $item->qty_sent) {
+                    throw ValidationException::withMessages([
+                        'items' => ["qty_received untuk raw material {$item->raw_material_id} tidak boleh melebihi qty_sent."],
+                    ]);
+                }
+
+                $item->update([
+                    'qty_received' => $qtyReceived,
+                ]);
+            }
+
+            $effectiveReceivedAt = !empty($payload['received_at']) ? now()->parse($payload['received_at']) : now();
+
+            $this->stockMovementService->create([
+                'outlet_id' => $transfer->target_outlet_id,
+                'movement_type' => 'transfer_in',
+                'reference_type' => StockTransfer::class,
+                'reference_id' => $transfer->id,
+                'movement_date' => $effectiveReceivedAt,
+                'notes' => $transfer->notes,
+                'created_by' => $userId,
+                'items' => $transfer->items->map(function ($item) {
+                    return [
+                        'raw_material_id' => $item->raw_material_id,
+                        'qty_in' => $item->qty_received ?? $item->qty_sent,
+                        'qty_out' => 0,
+                        'unit_cost' => 0,
+                        'notes' => $item->notes,
+                    ];
+                })->all(),
+            ]);
+
+            $transfer->update([
+                'status' => 'received',
+                'received_by' => $userId,
+                'received_at' => $effectiveReceivedAt,
+            ]);
+
+            return $transfer->fresh()->load(['sourceOutlet', 'targetOutlet', 'creator', 'receiver', 'items.rawMaterial', 'items.unit']);
+        });
+    }
+
+    public function cancel(StockTransfer $transfer): StockTransfer
+    {
+        if ($transfer->status === 'received') {
+            throw ValidationException::withMessages([
+                'status' => ['Stock transfer yang sudah received tidak bisa dibatalkan.'],
+            ]);
+        }
+
+        $transfer->update([
+            'status' => 'cancelled',
+        ]);
+
+        return $transfer->fresh()->load(['sourceOutlet', 'targetOutlet', 'creator', 'receiver', 'items.rawMaterial', 'items.unit']);
+    }
+
+    private function generateTransferNumber(int $outletId): string
+    {
+        $count = StockTransfer::query()
+            ->where('source_outlet_id', $outletId)
+            ->whereDate('created_at', now()->toDateString())
+            ->count() + 1;
+
+        return 'TRF-' . $outletId . '-' . now()->format('Ymd') . '-' . str_pad((string) $count, 4, '0', STR_PAD_LEFT);
     }
 }
 
@@ -10073,8 +12398,8 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `941002ac92d0`  
-- Ukuran: 3 KB  
+- SHA: `2eff647082e0`  
+- Ukuran: 4 KB  
 - Namespace: `Database\Seeders`
 
 **Class `PermissionSeeder` extends `Seeder`**
@@ -10207,6 +12532,28 @@ class PermissionSeeder extends Seeder
             'goods_receipts.delete',
             'goods_receipts.post',
             'goods_receipts.cancel',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+            'stock_adjustments.delete',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.delete',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+            'stock_transfers.cancel',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.delete',
+            'stock_opnames.post',
+            'stock_opnames.cancel',
         ];
 
         foreach ($permissions as $permission) {
@@ -10220,8 +12567,8 @@ class PermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `d0a429761eb4`  
-- Ukuran: 5 KB  
+- SHA: `d980f4b1ee71`  
+- Ukuran: 6 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -10297,48 +12644,62 @@ class RoleSeeder extends Seeder
             'units.create',
             'units.update',
             'units.delete',
-
             'unit_conversions.view',
             'unit_conversions.create',
             'unit_conversions.update',
             'unit_conversions.delete',
-
             'raw_material_categories.view',
             'raw_material_categories.create',
             'raw_material_categories.update',
             'raw_material_categories.delete',
-
             'raw_materials.view',
             'raw_materials.create',
             'raw_materials.update',
             'raw_materials.delete',
-
             'outlet_material_stocks.view',
             'outlet_material_stocks.update',
-
             'product_boms.view',
             'product_boms.create',
             'product_boms.update',
             'product_boms.delete',
-
             'suppliers.view',
             'suppliers.create',
             'suppliers.update',
             'suppliers.delete',
-
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
             'purchase_orders.delete',
             'purchase_orders.approve',
             'purchase_orders.cancel',
-
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
             'goods_receipts.delete',
             'goods_receipts.post',
             'goods_receipts.cancel',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+            'stock_adjustments.delete',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.delete',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+            'stock_transfers.cancel',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.delete',
+            'stock_opnames.post',
+            'stock_opnames.cancel',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -10364,17 +12725,31 @@ class RoleSeeder extends Seeder
             'customers.update',
             'vouchers.view',
             'promotions.view',
-
             'suppliers.view',
-
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
-
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
             'goods_receipts.post',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.post',
         ]);
 
         $owner->syncPermissions([
@@ -10395,6 +12770,11 @@ class RoleSeeder extends Seeder
             'suppliers.view',
             'purchase_orders.view',
             'goods_receipts.view',
+
+            'stock_movements.view',
+            'stock_adjustments.view',
+            'stock_transfers.view',
+            'stock_opnames.view',
         ]);
     }
 }
@@ -10450,8 +12830,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `70b299a180d6`  
-- Ukuran: 10 KB  
+- SHA: `de7df3c8345d`  
+- Ukuran: 12 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -10558,6 +12938,28 @@ class SuperAdminSeeder extends Seeder
 | DELETE | `/goods-receipts/{goodsReceipt}` | `GoodsReceiptController` | `destroy` |
 | POST | `/goods-receipts/{goodsReceipt}/post` | `GoodsReceiptController` | `post` |
 | POST | `/goods-receipts/{goodsReceipt}/cancel` | `GoodsReceiptController` | `cancel` |
+| GET | `/stock-movements` | `StockMovementController` | `index` |
+| GET | `/stock-movements/{stockMovement}` | `StockMovementController` | `show` |
+| GET | `/stock-adjustments` | `StockAdjustmentController` | `index` |
+| POST | `/stock-adjustments` | `StockAdjustmentController` | `store` |
+| GET | `/stock-adjustments/{stockAdjustment}` | `StockAdjustmentController` | `show` |
+| PUT | `/stock-adjustments/{stockAdjustment}` | `StockAdjustmentController` | `update` |
+| DELETE | `/stock-adjustments/{stockAdjustment}` | `StockAdjustmentController` | `destroy` |
+| GET | `/stock-transfers` | `StockTransferController` | `index` |
+| POST | `/stock-transfers` | `StockTransferController` | `store` |
+| GET | `/stock-transfers/{stockTransfer}` | `StockTransferController` | `show` |
+| PUT | `/stock-transfers/{stockTransfer}` | `StockTransferController` | `update` |
+| DELETE | `/stock-transfers/{stockTransfer}` | `StockTransferController` | `destroy` |
+| POST | `/stock-transfers/{stockTransfer}/send` | `StockTransferController` | `send` |
+| POST | `/stock-transfers/{stockTransfer}/receive` | `StockTransferController` | `receive` |
+| POST | `/stock-transfers/{stockTransfer}/cancel` | `StockTransferController` | `cancel` |
+| GET | `/stock-opnames` | `StockOpnameController` | `index` |
+| POST | `/stock-opnames` | `StockOpnameController` | `store` |
+| GET | `/stock-opnames/{stockOpname}` | `StockOpnameController` | `show` |
+| PUT | `/stock-opnames/{stockOpname}` | `StockOpnameController` | `update` |
+| DELETE | `/stock-opnames/{stockOpname}` | `StockOpnameController` | `destroy` |
+| POST | `/stock-opnames/{stockOpname}/post` | `StockOpnameController` | `post` |
+| POST | `/stock-opnames/{stockOpname}/cancel` | `StockOpnameController` | `cancel` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -10578,6 +12980,10 @@ use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\RawMaterialCategoryController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\StockAdjustmentController;
+use App\Http\Controllers\Api\StockMovementController;
+use App\Http\Controllers\Api\StockOpnameController;
+use App\Http\Controllers\Api\StockTransferController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UnitController;
@@ -10709,6 +13115,32 @@ Route::prefix('v1')->group(function () {
         Route::delete('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'destroy']);
         Route::post('/goods-receipts/{goodsReceipt}/post', [GoodsReceiptController::class, 'post']);
         Route::post('/goods-receipts/{goodsReceipt}/cancel', [GoodsReceiptController::class, 'cancel']);
+
+        Route::get('/stock-movements', [StockMovementController::class, 'index']);
+        Route::get('/stock-movements/{stockMovement}', [StockMovementController::class, 'show']);
+
+        Route::get('/stock-adjustments', [StockAdjustmentController::class, 'index']);
+        Route::post('/stock-adjustments', [StockAdjustmentController::class, 'store']);
+        Route::get('/stock-adjustments/{stockAdjustment}', [StockAdjustmentController::class, 'show']);
+        Route::put('/stock-adjustments/{stockAdjustment}', [StockAdjustmentController::class, 'update']);
+        Route::delete('/stock-adjustments/{stockAdjustment}', [StockAdjustmentController::class, 'destroy']);
+
+        Route::get('/stock-transfers', [StockTransferController::class, 'index']);
+        Route::post('/stock-transfers', [StockTransferController::class, 'store']);
+        Route::get('/stock-transfers/{stockTransfer}', [StockTransferController::class, 'show']);
+        Route::put('/stock-transfers/{stockTransfer}', [StockTransferController::class, 'update']);
+        Route::delete('/stock-transfers/{stockTransfer}', [StockTransferController::class, 'destroy']);
+        Route::post('/stock-transfers/{stockTransfer}/send', [StockTransferController::class, 'send']);
+        Route::post('/stock-transfers/{stockTransfer}/receive', [StockTransferController::class, 'receive']);
+        Route::post('/stock-transfers/{stockTransfer}/cancel', [StockTransferController::class, 'cancel']);
+
+        Route::get('/stock-opnames', [StockOpnameController::class, 'index']);
+        Route::post('/stock-opnames', [StockOpnameController::class, 'store']);
+        Route::get('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'show']);
+        Route::put('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'update']);
+        Route::delete('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'destroy']);
+        Route::post('/stock-opnames/{stockOpname}/post', [StockOpnameController::class, 'post']);
+        Route::post('/stock-opnames/{stockOpname}/cancel', [StockOpnameController::class, 'cancel']);
     });
 });
 

@@ -15,6 +15,10 @@ use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\RawMaterialCategoryController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\StockAdjustmentController;
+use App\Http\Controllers\Api\StockMovementController;
+use App\Http\Controllers\Api\StockOpnameController;
+use App\Http\Controllers\Api\StockTransferController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\Api\UnitController;
@@ -146,5 +150,31 @@ Route::prefix('v1')->group(function () {
         Route::delete('/goods-receipts/{goodsReceipt}', [GoodsReceiptController::class, 'destroy']);
         Route::post('/goods-receipts/{goodsReceipt}/post', [GoodsReceiptController::class, 'post']);
         Route::post('/goods-receipts/{goodsReceipt}/cancel', [GoodsReceiptController::class, 'cancel']);
+
+        Route::get('/stock-movements', [StockMovementController::class, 'index']);
+        Route::get('/stock-movements/{stockMovement}', [StockMovementController::class, 'show']);
+
+        Route::get('/stock-adjustments', [StockAdjustmentController::class, 'index']);
+        Route::post('/stock-adjustments', [StockAdjustmentController::class, 'store']);
+        Route::get('/stock-adjustments/{stockAdjustment}', [StockAdjustmentController::class, 'show']);
+        Route::put('/stock-adjustments/{stockAdjustment}', [StockAdjustmentController::class, 'update']);
+        Route::delete('/stock-adjustments/{stockAdjustment}', [StockAdjustmentController::class, 'destroy']);
+
+        Route::get('/stock-transfers', [StockTransferController::class, 'index']);
+        Route::post('/stock-transfers', [StockTransferController::class, 'store']);
+        Route::get('/stock-transfers/{stockTransfer}', [StockTransferController::class, 'show']);
+        Route::put('/stock-transfers/{stockTransfer}', [StockTransferController::class, 'update']);
+        Route::delete('/stock-transfers/{stockTransfer}', [StockTransferController::class, 'destroy']);
+        Route::post('/stock-transfers/{stockTransfer}/send', [StockTransferController::class, 'send']);
+        Route::post('/stock-transfers/{stockTransfer}/receive', [StockTransferController::class, 'receive']);
+        Route::post('/stock-transfers/{stockTransfer}/cancel', [StockTransferController::class, 'cancel']);
+
+        Route::get('/stock-opnames', [StockOpnameController::class, 'index']);
+        Route::post('/stock-opnames', [StockOpnameController::class, 'store']);
+        Route::get('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'show']);
+        Route::put('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'update']);
+        Route::delete('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'destroy']);
+        Route::post('/stock-opnames/{stockOpname}/post', [StockOpnameController::class, 'post']);
+        Route::post('/stock-opnames/{stockOpname}/cancel', [StockOpnameController::class, 'cancel']);
     });
 });

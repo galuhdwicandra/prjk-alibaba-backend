@@ -64,48 +64,62 @@ class RoleSeeder extends Seeder
             'units.create',
             'units.update',
             'units.delete',
-
             'unit_conversions.view',
             'unit_conversions.create',
             'unit_conversions.update',
             'unit_conversions.delete',
-
             'raw_material_categories.view',
             'raw_material_categories.create',
             'raw_material_categories.update',
             'raw_material_categories.delete',
-
             'raw_materials.view',
             'raw_materials.create',
             'raw_materials.update',
             'raw_materials.delete',
-
             'outlet_material_stocks.view',
             'outlet_material_stocks.update',
-
             'product_boms.view',
             'product_boms.create',
             'product_boms.update',
             'product_boms.delete',
-
             'suppliers.view',
             'suppliers.create',
             'suppliers.update',
             'suppliers.delete',
-
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
             'purchase_orders.delete',
             'purchase_orders.approve',
             'purchase_orders.cancel',
-
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
             'goods_receipts.delete',
             'goods_receipts.post',
             'goods_receipts.cancel',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+            'stock_adjustments.delete',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.delete',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+            'stock_transfers.cancel',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.delete',
+            'stock_opnames.post',
+            'stock_opnames.cancel',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -131,17 +145,31 @@ class RoleSeeder extends Seeder
             'customers.update',
             'vouchers.view',
             'promotions.view',
-
             'suppliers.view',
-
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
-
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
             'goods_receipts.post',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.post',
         ]);
 
         $owner->syncPermissions([
@@ -162,6 +190,11 @@ class RoleSeeder extends Seeder
             'suppliers.view',
             'purchase_orders.view',
             'goods_receipts.view',
+
+            'stock_movements.view',
+            'stock_adjustments.view',
+            'stock_transfers.view',
+            'stock_opnames.view',
         ]);
     }
 }

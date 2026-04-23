@@ -121,6 +121,28 @@ class PermissionSeeder extends Seeder
             'goods_receipts.delete',
             'goods_receipts.post',
             'goods_receipts.cancel',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+            'stock_adjustments.delete',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.delete',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+            'stock_transfers.cancel',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.delete',
+            'stock_opnames.post',
+            'stock_opnames.cancel',
         ];
 
         foreach ($permissions as $permission) {
