@@ -32,6 +32,8 @@ class OrderController extends Controller
                 'items.product',
                 'items.variants',
                 'items.modifiers',
+                'payments.paymentMethod',
+                'payments.receiver',
                 'statusHistories.changer',
             ])
             ->when($request->filled('search'), function ($query) use ($request) {
@@ -113,6 +115,8 @@ class OrderController extends Controller
                 'items.product',
                 'items.variants',
                 'items.modifiers',
+                'payments.paymentMethod',
+                'payments.receiver',
                 'statusHistories.changer',
             ])),
         ]);

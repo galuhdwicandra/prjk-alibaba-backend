@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CashierShiftController;
+use App\Http\Controllers\Api\CashMovementController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
 use App\Http\Controllers\Api\OutletSettingController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProductBomController;
 use App\Http\Controllers\Api\ProductCategoryController;
@@ -177,6 +181,27 @@ Route::prefix('v1')->group(function () {
         Route::delete('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'destroy']);
         Route::post('/stock-opnames/{stockOpname}/post', [StockOpnameController::class, 'post']);
         Route::post('/stock-opnames/{stockOpname}/cancel', [StockOpnameController::class, 'cancel']);
+
+        Route::get('/payment-methods', [PaymentMethodController::class, 'index']);
+        Route::post('/payment-methods', [PaymentMethodController::class, 'store']);
+        Route::get('/payment-methods/{paymentMethod}', [PaymentMethodController::class, 'show']);
+        Route::put('/payment-methods/{paymentMethod}', [PaymentMethodController::class, 'update']);
+        Route::delete('/payment-methods/{paymentMethod}', [PaymentMethodController::class, 'destroy']);
+
+        Route::get('/cashier-shifts', [CashierShiftController::class, 'index']);
+        Route::post('/cashier-shifts', [CashierShiftController::class, 'store']);
+        Route::get('/cashier-shifts/{cashierShift}', [CashierShiftController::class, 'show']);
+        Route::put('/cashier-shifts/{cashierShift}', [CashierShiftController::class, 'update']);
+        Route::post('/cashier-shifts/{cashierShift}/close', [CashierShiftController::class, 'close']);
+
+        Route::get('/cash-movements', [CashMovementController::class, 'index']);
+        Route::post('/cash-movements', [CashMovementController::class, 'store']);
+        Route::get('/cash-movements/{cashMovement}', [CashMovementController::class, 'show']);
+
+        Route::get('/payments', [PaymentController::class, 'index']);
+        Route::post('/payments', [PaymentController::class, 'store']);
+        Route::get('/payments/{payment}', [PaymentController::class, 'show']);
+        Route::post('/payments/{payment}/cancel', [PaymentController::class, 'cancel']);
 
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/orders', [OrderController::class, 'store']);

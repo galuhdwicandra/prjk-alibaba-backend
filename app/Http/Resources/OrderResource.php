@@ -57,6 +57,7 @@ class OrderResource extends JsonResource
                 'name' => $this->creator?->name,
             ]),
             'items' => OrderItemResource::collection($this->whenLoaded('items')),
+            'payments' => PaymentResource::collection($this->whenLoaded('payments')),
             'status_histories' => $this->whenLoaded('statusHistories', function () {
                 return $this->statusHistories->map(function ($history) {
                     return [

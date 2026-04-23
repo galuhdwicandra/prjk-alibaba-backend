@@ -145,6 +145,23 @@ class PermissionSeeder extends Seeder
             'stock_opnames.post',
             'stock_opnames.cancel',
 
+            'payment_methods.view',
+            'payment_methods.create',
+            'payment_methods.update',
+            'payment_methods.delete',
+
+            'payments.view',
+            'payments.create',
+            'payments.cancel',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
+
             'orders.view',
             'orders.create',
             'orders.update',

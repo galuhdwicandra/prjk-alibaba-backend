@@ -146,6 +146,23 @@ class RoleSeeder extends Seeder
             'stock_opnames.post',
             'stock_opnames.cancel',
 
+            'payment_methods.view',
+            'payment_methods.create',
+            'payment_methods.update',
+            'payment_methods.delete',
+
+            'payments.view',
+            'payments.create',
+            'payments.cancel',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
+
             'orders.view',
             'orders.create',
             'orders.update',
@@ -214,6 +231,19 @@ class RoleSeeder extends Seeder
             'stock_opnames.update',
             'stock_opnames.post',
 
+            'payment_methods.view',
+            'payments.view',
+            'payments.create',
+            'payments.cancel',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
+
             'orders.view',
             'orders.create',
             'orders.update',
@@ -236,6 +266,18 @@ class RoleSeeder extends Seeder
 
             'vouchers.view',
             'promotions.view',
+
+            'payment_methods.view',
+            'payments.view',
+            'payments.create',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
 
             'orders.view',
             'orders.create',
@@ -329,6 +371,11 @@ class RoleSeeder extends Seeder
             'stock_adjustments.view',
             'stock_transfers.view',
             'stock_opnames.view',
+
+            'payment_methods.view',
+            'payments.view',
+            'cashier_shifts.view',
+            'cash_movements.view',
 
             'orders.view',
         ]);

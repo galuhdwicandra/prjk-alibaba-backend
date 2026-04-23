@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,5 +52,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Outlet::class, 'user_outlet_accesses')
             ->withPivot('is_default')
             ->withTimestamps();
+    }
+
+    public function cashierShifts(): HasMany
+    {
+        return $this->hasMany(CashierShift::class);
+    }
+
+    public function receivedPayments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'received_by');
+    }
+
+    public function cashMovements(): HasMany
+    {
+        return $this->hasMany(CashMovement::class, 'created_by');
     }
 }
