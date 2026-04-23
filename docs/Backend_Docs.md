@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-23 10:38:01_  
+_Dihasilkan otomatis: 2026-04-23 11:46:27_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -8,6 +8,7 @@ _Dihasilkan otomatis: 2026-04-23 10:38:01_
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
   - [app\Http\Controllers\Api\CustomerController.php](#file-apphttpcontrollersapicustomercontrollerphp)
   - [app\Http\Controllers\Api\GoodsReceiptController.php](#file-apphttpcontrollersapigoodsreceiptcontrollerphp)
+  - [app\Http\Controllers\Api\OrderController.php](#file-apphttpcontrollersapiordercontrollerphp)
   - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
   - [app\Http\Controllers\Api\OutletMaterialStockController.php](#file-apphttpcontrollersapioutletmaterialstockcontrollerphp)
   - [app\Http\Controllers\Api\OutletSettingController.php](#file-apphttpcontrollersapioutletsettingcontrollerphp)
@@ -62,6 +63,8 @@ _Dihasilkan otomatis: 2026-04-23 10:38:01_
   - [app\Http\Requests\Api\Inventory\Unit\UpdateUnitRequest.php](#file-apphttprequestsapiinventoryunitupdateunitrequestphp)
   - [app\Http\Requests\Api\Inventory\UnitConversion\StoreUnitConversionRequest.php](#file-apphttprequestsapiinventoryunitconversionstoreunitconversionrequestphp)
   - [app\Http\Requests\Api\Inventory\UnitConversion\UpdateUnitConversionRequest.php](#file-apphttprequestsapiinventoryunitconversionupdateunitconversionrequestphp)
+  - [app\Http\Requests\Api\Order\StoreOrderRequest.php](#file-apphttprequestsapiorderstoreorderrequestphp)
+  - [app\Http\Requests\Api\Order\UpdateOrderRequest.php](#file-apphttprequestsapiorderupdateorderrequestphp)
   - [app\Http\Requests\Api\Outlet\StoreOutletRequest.php](#file-apphttprequestsapioutletstoreoutletrequestphp)
   - [app\Http\Requests\Api\Outlet\UpdateOutletRequest.php](#file-apphttprequestsapioutletupdateoutletrequestphp)
   - [app\Http\Requests\Api\Outlet\UpdateOutletSettingRequest.php](#file-apphttprequestsapioutletupdateoutletsettingrequestphp)
@@ -92,6 +95,10 @@ _Dihasilkan otomatis: 2026-04-23 10:38:01_
   - [app\Http\Resources\CustomerResource.php](#file-apphttpresourcescustomerresourcephp)
   - [app\Http\Resources\GoodsReceiptItemResource.php](#file-apphttpresourcesgoodsreceiptitemresourcephp)
   - [app\Http\Resources\GoodsReceiptResource.php](#file-apphttpresourcesgoodsreceiptresourcephp)
+  - [app\Http\Resources\OrderItemModifierResource.php](#file-apphttpresourcesorderitemmodifierresourcephp)
+  - [app\Http\Resources\OrderItemResource.php](#file-apphttpresourcesorderitemresourcephp)
+  - [app\Http\Resources\OrderItemVariantResource.php](#file-apphttpresourcesorderitemvariantresourcephp)
+  - [app\Http\Resources\OrderResource.php](#file-apphttpresourcesorderresourcephp)
   - [app\Http\Resources\OutletMaterialStockResource.php](#file-apphttpresourcesoutletmaterialstockresourcephp)
   - [app\Http\Resources\OutletResource.php](#file-apphttpresourcesoutletresourcephp)
   - [app\Http\Resources\OutletSettingResource.php](#file-apphttpresourcesoutletsettingresourcephp)
@@ -129,10 +136,16 @@ _Dihasilkan otomatis: 2026-04-23 10:38:01_
   - [app\Http\Resources\UserResource.php](#file-apphttpresourcesuserresourcephp)
   - [app\Http\Resources\VoucherResource.php](#file-apphttpresourcesvoucherresourcephp)
 - [Models (app/Models)](#models-app-models)
+  - [app\Models\CashierShift.php](#file-appmodelscashiershiftphp)
   - [app\Models\Customer.php](#file-appmodelscustomerphp)
   - [app\Models\CustomerAddress.php](#file-appmodelscustomeraddressphp)
   - [app\Models\GoodsReceipt.php](#file-appmodelsgoodsreceiptphp)
   - [app\Models\GoodsReceiptItem.php](#file-appmodelsgoodsreceiptitemphp)
+  - [app\Models\Order.php](#file-appmodelsorderphp)
+  - [app\Models\OrderItem.php](#file-appmodelsorderitemphp)
+  - [app\Models\OrderItemModifier.php](#file-appmodelsorderitemmodifierphp)
+  - [app\Models\OrderItemVariant.php](#file-appmodelsorderitemvariantphp)
+  - [app\Models\OrderStatusHistory.php](#file-appmodelsorderstatushistoryphp)
   - [app\Models\Outlet.php](#file-appmodelsoutletphp)
   - [app\Models\OutletMaterialStock.php](#file-appmodelsoutletmaterialstockphp)
   - [app\Models\OutletSetting.php](#file-appmodelsoutletsettingphp)
@@ -188,6 +201,7 @@ _Dihasilkan otomatis: 2026-04-23 10:38:01_
   - [app\Services\Purchasing\GoodsReceiptService.php](#file-appservicespurchasinggoodsreceiptservicephp)
   - [app\Services\Purchasing\PurchaseOrderService.php](#file-appservicespurchasingpurchaseorderservicephp)
   - [app\Services\Purchasing\SupplierService.php](#file-appservicespurchasingsupplierservicephp)
+  - [app\Services\Sales\OrderService.php](#file-appservicessalesorderservicephp)
   - [app\Services\SystemSetting\SystemSettingService.php](#file-appservicessystemsettingsystemsettingservicephp)
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
@@ -571,6 +585,228 @@ class GoodsReceiptController extends Controller
 
         return response()->json([
             'message' => 'Goods receipt berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapiordercontrollerphp"></a>
+### app\Http\Controllers\Api\OrderController.php
+- SHA: `8403c2d08e2d`  
+- Ukuran: 7 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `OrderController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly OrderService $orderService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreOrderRequest $request) : *JsonResponse*
+- **show**(Request $request, Order $order) : *JsonResponse*
+- **update**(UpdateOrderRequest $request, Order $order) : *JsonResponse*
+- **confirm**(Request $request, Order $order) : *JsonResponse*
+- **complete**(Request $request, Order $order) : *JsonResponse*
+- **cancel**(Request $request, Order $order) : *JsonResponse*
+- **destroy**(Request $request, Order $order) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Order\StoreOrderRequest;
+use App\Http\Requests\Api\Order\UpdateOrderRequest;
+use App\Http\Resources\OrderResource;
+use App\Models\Order;
+use App\Services\Sales\OrderService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class OrderController extends Controller
+{
+    public function __construct(
+        private readonly OrderService $orderService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('orders.view'), 403);
+
+        $orders = Order::query()
+            ->with([
+                'outlet',
+                'cashierShift',
+                'customer',
+                'creator',
+                'canceller',
+                'items.product',
+                'items.variants',
+                'items.modifiers',
+                'statusHistories.changer',
+            ])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('order_number', 'like', "%{$search}%")
+                        ->orWhere('queue_number', 'like', "%{$search}%")
+                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                            $customerQuery->where('name', 'like', "%{$search}%")
+                                ->orWhere('phone', 'like', "%{$search}%");
+                        });
+                });
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('cashier_shift_id'), function ($query) use ($request) {
+                $query->where('cashier_shift_id', (int) $request->input('cashier_shift_id'));
+            })
+            ->when($request->filled('customer_id'), function ($query) use ($request) {
+                $query->where('customer_id', (int) $request->input('customer_id'));
+            })
+            ->when($request->filled('order_channel'), function ($query) use ($request) {
+                $query->where('order_channel', $request->string('order_channel')->toString());
+            })
+            ->when($request->filled('order_status'), function ($query) use ($request) {
+                $query->where('order_status', $request->string('order_status')->toString());
+            })
+            ->when($request->filled('payment_status'), function ($query) use ($request) {
+                $query->where('payment_status', $request->string('payment_status')->toString());
+            })
+            ->when($request->filled('ordered_from'), function ($query) use ($request) {
+                $query->where('ordered_at', '>=', $request->input('ordered_from'));
+            })
+            ->when($request->filled('ordered_until'), function ($query) use ($request) {
+                $query->where('ordered_at', '<=', $request->input('ordered_until'));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar order berhasil diambil.',
+            'data' => OrderResource::collection($orders),
+            'meta' => [
+                'current_page' => $orders->currentPage(),
+                'last_page' => $orders->lastPage(),
+                'per_page' => $orders->perPage(),
+                'total' => $orders->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreOrderRequest $request): JsonResponse
+    {
+        $order = $this->orderService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Order berhasil dibuat.',
+            'data' => new OrderResource($order),
+        ], 201);
+    }
+
+    public function show(Request $request, Order $order): JsonResponse
+    {
+        abort_unless($request->user()->can('orders.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail order berhasil diambil.',
+            'data' => new OrderResource($order->load([
+                'outlet',
+                'cashierShift',
+                'customer',
+                'creator',
+                'canceller',
+                'items.product',
+                'items.variants',
+                'items.modifiers',
+                'statusHistories.changer',
+            ])),
+        ]);
+    }
+
+    public function update(UpdateOrderRequest $request, Order $order): JsonResponse
+    {
+        $order = $this->orderService->update($order, $request->validated());
+
+        return response()->json([
+            'message' => 'Order berhasil diupdate.',
+            'data' => new OrderResource($order),
+        ]);
+    }
+
+    public function confirm(Request $request, Order $order): JsonResponse
+    {
+        abort_unless($request->user()->can('orders.update'), 403);
+
+        $order = $this->orderService->changeStatus(
+            order: $order,
+            newStatus: 'confirmed',
+            userId: $request->user()->id,
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Order berhasil dikonfirmasi.',
+            'data' => new OrderResource($order),
+        ]);
+    }
+
+    public function complete(Request $request, Order $order): JsonResponse
+    {
+        abort_unless($request->user()->can('orders.update'), 403);
+
+        $order = $this->orderService->changeStatus(
+            order: $order,
+            newStatus: 'completed',
+            userId: $request->user()->id,
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Order berhasil diselesaikan.',
+            'data' => new OrderResource($order),
+        ]);
+    }
+
+    public function cancel(Request $request, Order $order): JsonResponse
+    {
+        abort_unless($request->user()->can('orders.cancel'), 403);
+
+        $order = $this->orderService->cancel(
+            order: $order,
+            userId: $request->user()->id,
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Order berhasil dibatalkan.',
+            'data' => new OrderResource($order),
+        ]);
+    }
+
+    public function destroy(Request $request, Order $order): JsonResponse
+    {
+        abort_unless($request->user()->can('orders.delete'), 403);
+
+        if ($order->order_status !== 'draft') {
+            return response()->json([
+                'message' => 'Hanya order draft yang boleh dihapus.',
+            ], 422);
+        }
+
+        $order->delete();
+
+        return response()->json([
+            'message' => 'Order berhasil dihapus.',
         ]);
     }
 }
@@ -4625,6 +4861,144 @@ class UpdateUnitConversionRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapiorderstoreorderrequestphp"></a>
+### app\Http\Requests\Api\Order\StoreOrderRequest.php
+- SHA: `234f8fd5d683`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Requests\Api\Order`
+
+**Class `StoreOrderRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Order;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreOrderRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('orders.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'cashier_shift_id' => ['nullable', 'integer', 'exists:cashier_shifts,id'],
+            'customer_id' => ['nullable', 'integer', 'exists:customers,id'],
+            'queue_number' => ['nullable', 'string', 'max:100'],
+            'order_channel' => ['sometimes', 'string', Rule::in(['pos', 'dine_in', 'takeaway', 'pickup', 'delivery', 'website'])],
+            'order_status' => ['sometimes', 'string', Rule::in(['draft', 'pending', 'confirmed'])],
+            'payment_status' => ['sometimes', 'string', Rule::in(['unpaid', 'partial', 'paid', 'refunded', 'cancelled'])],
+            'discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'tax_amount' => ['sometimes', 'numeric', 'min:0'],
+            'service_charge_amount' => ['sometimes', 'numeric', 'min:0'],
+            'paid_total' => ['sometimes', 'numeric', 'min:0'],
+            'change_amount' => ['sometimes', 'numeric', 'min:0'],
+            'notes' => ['nullable', 'string'],
+            'ordered_at' => ['nullable', 'date'],
+
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.product_id' => ['required', 'integer', 'exists:products,id'],
+            'items.*.qty' => ['required', 'numeric', 'gt:0'],
+            'items.*.discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'items.*.notes' => ['nullable', 'string'],
+
+            'items.*.variants' => ['nullable', 'array'],
+            'items.*.variants.*.variant_group_name_snapshot' => ['required_with:items.*.variants', 'string', 'max:255'],
+            'items.*.variants.*.variant_option_name_snapshot' => ['required_with:items.*.variants', 'string', 'max:255'],
+            'items.*.variants.*.price_adjustment' => ['sometimes', 'numeric', 'min:0'],
+
+            'items.*.modifiers' => ['nullable', 'array'],
+            'items.*.modifiers.*.modifier_group_name_snapshot' => ['required_with:items.*.modifiers', 'string', 'max:255'],
+            'items.*.modifiers.*.modifier_option_name_snapshot' => ['required_with:items.*.modifiers', 'string', 'max:255'],
+            'items.*.modifiers.*.qty' => ['sometimes', 'numeric', 'gt:0'],
+            'items.*.modifiers.*.price' => ['sometimes', 'numeric', 'min:0'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiorderupdateorderrequestphp"></a>
+### app\Http\Requests\Api\Order\UpdateOrderRequest.php
+- SHA: `18b33e2cc177`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Requests\Api\Order`
+
+**Class `UpdateOrderRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Order;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateOrderRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('orders.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id'],
+            'cashier_shift_id' => ['nullable', 'integer', 'exists:cashier_shifts,id'],
+            'customer_id' => ['nullable', 'integer', 'exists:customers,id'],
+            'queue_number' => ['nullable', 'string', 'max:100'],
+            'order_channel' => ['sometimes', 'string', Rule::in(['pos', 'dine_in', 'takeaway', 'pickup', 'delivery', 'website'])],
+            'order_status' => ['sometimes', 'string', Rule::in(['draft', 'pending', 'confirmed', 'preparing', 'ready'])],
+            'payment_status' => ['sometimes', 'string', Rule::in(['unpaid', 'partial', 'paid', 'refunded', 'cancelled'])],
+            'discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'tax_amount' => ['sometimes', 'numeric', 'min:0'],
+            'service_charge_amount' => ['sometimes', 'numeric', 'min:0'],
+            'paid_total' => ['sometimes', 'numeric', 'min:0'],
+            'change_amount' => ['sometimes', 'numeric', 'min:0'],
+            'notes' => ['nullable', 'string'],
+            'ordered_at' => ['nullable', 'date'],
+
+            'items' => ['sometimes', 'array', 'min:1'],
+            'items.*.product_id' => ['required_with:items', 'integer', 'exists:products,id'],
+            'items.*.qty' => ['required_with:items', 'numeric', 'gt:0'],
+            'items.*.discount_amount' => ['sometimes', 'numeric', 'min:0'],
+            'items.*.notes' => ['nullable', 'string'],
+
+            'items.*.variants' => ['nullable', 'array'],
+            'items.*.variants.*.variant_group_name_snapshot' => ['required_with:items.*.variants', 'string', 'max:255'],
+            'items.*.variants.*.variant_option_name_snapshot' => ['required_with:items.*.variants', 'string', 'max:255'],
+            'items.*.variants.*.price_adjustment' => ['sometimes', 'numeric', 'min:0'],
+
+            'items.*.modifiers' => ['nullable', 'array'],
+            'items.*.modifiers.*.modifier_group_name_snapshot' => ['required_with:items.*.modifiers', 'string', 'max:255'],
+            'items.*.modifiers.*.modifier_option_name_snapshot' => ['required_with:items.*.modifiers', 'string', 'max:255'],
+            'items.*.modifiers.*.qty' => ['sometimes', 'numeric', 'gt:0'],
+            'items.*.modifiers.*.price' => ['sometimes', 'numeric', 'min:0'],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapioutletstoreoutletrequestphp"></a>
 ### app\Http\Requests\Api\Outlet\StoreOutletRequest.php
 - SHA: `71eba2a50f68`  
@@ -6117,6 +6491,232 @@ class GoodsReceiptResource extends JsonResource
             'received_by' => $this->received_by,
             'received_by_name' => $this->receiver?->name,
             'items' => GoodsReceiptItemResource::collection($this->whenLoaded('items')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesorderitemmodifierresourcephp"></a>
+### app\Http\Resources\OrderItemModifierResource.php
+- SHA: `1ef45a5183cc`  
+- Ukuran: 646 B  
+- Namespace: `App\Http\Resources`
+
+**Class `OrderItemModifierResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OrderItemModifierResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'modifier_group_name_snapshot' => $this->modifier_group_name_snapshot,
+            'modifier_option_name_snapshot' => $this->modifier_option_name_snapshot,
+            'qty' => (float) $this->qty,
+            'price' => (float) $this->price,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesorderitemresourcephp"></a>
+### app\Http\Resources\OrderItemResource.php
+- SHA: `9074a62c2555`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `OrderItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OrderItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'product' => $this->whenLoaded('product', fn () => [
+                'id' => $this->product?->id,
+                'name' => $this->product?->name,
+                'sku' => $this->product?->sku,
+                'code' => $this->product?->code,
+            ]),
+            'product_name_snapshot' => $this->product_name_snapshot,
+            'sku_snapshot' => $this->sku_snapshot,
+            'qty' => (float) $this->qty,
+            'unit_price' => (float) $this->unit_price,
+            'discount_amount' => (float) $this->discount_amount,
+            'line_total' => (float) $this->line_total,
+            'notes' => $this->notes,
+            'variants' => OrderItemVariantResource::collection($this->whenLoaded('variants')),
+            'modifiers' => OrderItemModifierResource::collection($this->whenLoaded('modifiers')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesorderitemvariantresourcephp"></a>
+### app\Http\Resources\OrderItemVariantResource.php
+- SHA: `ebd8e7679993`  
+- Ukuran: 622 B  
+- Namespace: `App\Http\Resources`
+
+**Class `OrderItemVariantResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OrderItemVariantResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'variant_group_name_snapshot' => $this->variant_group_name_snapshot,
+            'variant_option_name_snapshot' => $this->variant_option_name_snapshot,
+            'price_adjustment' => (float) $this->price_adjustment,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesorderresourcephp"></a>
+### app\Http\Resources\OrderResource.php
+- SHA: `86bdd73f085a`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `OrderResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OrderResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'outlet' => $this->whenLoaded('outlet', fn () => [
+                'id' => $this->outlet?->id,
+                'code' => $this->outlet?->code,
+                'name' => $this->outlet?->name,
+            ]),
+            'cashier_shift_id' => $this->cashier_shift_id,
+            'cashier_shift' => $this->whenLoaded('cashierShift', fn () => [
+                'id' => $this->cashierShift?->id,
+                'shift_number' => $this->cashierShift?->shift_number,
+                'status' => $this->cashierShift?->status,
+            ]),
+            'customer_id' => $this->customer_id,
+            'customer' => $this->whenLoaded('customer', fn () => [
+                'id' => $this->customer?->id,
+                'code' => $this->customer?->code,
+                'name' => $this->customer?->name,
+                'phone' => $this->customer?->phone,
+            ]),
+            'order_number' => $this->order_number,
+            'queue_number' => $this->queue_number,
+            'order_channel' => $this->order_channel,
+            'order_status' => $this->order_status,
+            'payment_status' => $this->payment_status,
+            'subtotal' => (float) $this->subtotal,
+            'discount_amount' => (float) $this->discount_amount,
+            'tax_amount' => (float) $this->tax_amount,
+            'service_charge_amount' => (float) $this->service_charge_amount,
+            'grand_total' => (float) $this->grand_total,
+            'paid_total' => (float) $this->paid_total,
+            'change_amount' => (float) $this->change_amount,
+            'notes' => $this->notes,
+            'ordered_at' => $this->ordered_at,
+            'completed_at' => $this->completed_at,
+            'cancelled_at' => $this->cancelled_at,
+            'cancelled_by' => $this->cancelled_by,
+            'canceller' => $this->whenLoaded('canceller', fn () => [
+                'id' => $this->canceller?->id,
+                'name' => $this->canceller?->name,
+            ]),
+            'created_by' => $this->created_by,
+            'creator' => $this->whenLoaded('creator', fn () => [
+                'id' => $this->creator?->id,
+                'name' => $this->creator?->name,
+            ]),
+            'items' => OrderItemResource::collection($this->whenLoaded('items')),
+            'status_histories' => $this->whenLoaded('statusHistories', function () {
+                return $this->statusHistories->map(function ($history) {
+                    return [
+                        'id' => $history->id,
+                        'status' => $history->status,
+                        'changed_by' => $history->changed_by,
+                        'changer' => $history->relationLoaded('changer') ? [
+                            'id' => $history->changer?->id,
+                            'name' => $history->changer?->name,
+                        ] : null,
+                        'notes' => $history->notes,
+                        'changed_at' => $history->changed_at,
+                        'created_at' => $history->created_at,
+                        'updated_at' => $history->updated_at,
+                    ];
+                });
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -7695,6 +8295,73 @@ class VoucherResource extends JsonResource
 
 ## Models (app/Models)
 
+<a id="file-appmodelscashiershiftphp"></a>
+### app\Models\CashierShift.php
+- SHA: `f08831754c03`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `CashierShift` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **user**() : *BelongsTo*
+- **orders**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CashierShift extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'user_id',
+        'shift_number',
+        'opened_at',
+        'closed_at',
+        'opening_cash',
+        'expected_cash',
+        'closing_cash',
+        'cash_difference',
+        'status',
+        'notes',
+    ];
+
+    protected $casts = [
+        'opened_at' => 'datetime',
+        'closed_at' => 'datetime',
+        'opening_cash' => 'decimal:2',
+        'expected_cash' => 'decimal:2',
+        'closing_cash' => 'decimal:2',
+        'cash_difference' => 'decimal:2',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+}
+
+```
+</details>
+
 <a id="file-appmodelscustomerphp"></a>
 ### app\Models\Customer.php
 - SHA: `652c7ad531da`  
@@ -7927,6 +8594,315 @@ class GoodsReceiptItem extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsorderphp"></a>
+### app\Models\Order.php
+- SHA: `c130871afc7d`  
+- Ukuran: 2 KB  
+- Namespace: `App\Models`
+
+**Class `Order` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **cashierShift**() : *BelongsTo*
+- **customer**() : *BelongsTo*
+- **canceller**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+- **items**() : *HasMany*
+- **statusHistories**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Order extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'cashier_shift_id',
+        'customer_id',
+        'order_number',
+        'queue_number',
+        'order_channel',
+        'order_status',
+        'payment_status',
+        'subtotal',
+        'discount_amount',
+        'tax_amount',
+        'service_charge_amount',
+        'grand_total',
+        'paid_total',
+        'change_amount',
+        'notes',
+        'ordered_at',
+        'completed_at',
+        'cancelled_at',
+        'cancelled_by',
+        'created_by',
+    ];
+
+    protected $casts = [
+        'subtotal' => 'decimal:2',
+        'discount_amount' => 'decimal:2',
+        'tax_amount' => 'decimal:2',
+        'service_charge_amount' => 'decimal:2',
+        'grand_total' => 'decimal:2',
+        'paid_total' => 'decimal:2',
+        'change_amount' => 'decimal:2',
+        'ordered_at' => 'datetime',
+        'completed_at' => 'datetime',
+        'cancelled_at' => 'datetime',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function cashierShift(): BelongsTo
+    {
+        return $this->belongsTo(CashierShift::class);
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function canceller(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cancelled_by');
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function statusHistories(): HasMany
+    {
+        return $this->hasMany(OrderStatusHistory::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsorderitemphp"></a>
+### app\Models\OrderItem.php
+- SHA: `964184f5b484`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `OrderItem` extends `Model`**
+
+Metode Publik:
+- **order**() : *BelongsTo*
+- **product**() : *BelongsTo*
+- **variants**() : *HasMany*
+- **modifiers**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class OrderItem extends Model
+{
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'product_name_snapshot',
+        'sku_snapshot',
+        'qty',
+        'unit_price',
+        'discount_amount',
+        'line_total',
+        'notes',
+    ];
+
+    protected $casts = [
+        'qty' => 'decimal:3',
+        'unit_price' => 'decimal:2',
+        'discount_amount' => 'decimal:2',
+        'line_total' => 'decimal:2',
+    ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function variants(): HasMany
+    {
+        return $this->hasMany(OrderItemVariant::class);
+    }
+
+    public function modifiers(): HasMany
+    {
+        return $this->hasMany(OrderItemModifier::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsorderitemmodifierphp"></a>
+### app\Models\OrderItemModifier.php
+- SHA: `3742b7b78685`  
+- Ukuran: 542 B  
+- Namespace: `App\Models`
+
+**Class `OrderItemModifier` extends `Model`**
+
+Metode Publik:
+- **orderItem**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class OrderItemModifier extends Model
+{
+    protected $fillable = [
+        'order_item_id',
+        'modifier_group_name_snapshot',
+        'modifier_option_name_snapshot',
+        'qty',
+        'price',
+    ];
+
+    protected $casts = [
+        'qty' => 'decimal:3',
+        'price' => 'decimal:2',
+    ];
+
+    public function orderItem(): BelongsTo
+    {
+        return $this->belongsTo(OrderItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsorderitemvariantphp"></a>
+### app\Models\OrderItemVariant.php
+- SHA: `357a91c638b7`  
+- Ukuran: 516 B  
+- Namespace: `App\Models`
+
+**Class `OrderItemVariant` extends `Model`**
+
+Metode Publik:
+- **orderItem**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class OrderItemVariant extends Model
+{
+    protected $fillable = [
+        'order_item_id',
+        'variant_group_name_snapshot',
+        'variant_option_name_snapshot',
+        'price_adjustment',
+    ];
+
+    protected $casts = [
+        'price_adjustment' => 'decimal:2',
+    ];
+
+    public function orderItem(): BelongsTo
+    {
+        return $this->belongsTo(OrderItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsorderstatushistoryphp"></a>
+### app\Models\OrderStatusHistory.php
+- SHA: `4597e73d644d`  
+- Ukuran: 584 B  
+- Namespace: `App\Models`
+
+**Class `OrderStatusHistory` extends `Model`**
+
+Metode Publik:
+- **order**() : *BelongsTo*
+- **changer**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class OrderStatusHistory extends Model
+{
+    protected $fillable = [
+        'order_id',
+        'status',
+        'changed_by',
+        'notes',
+        'changed_at',
+    ];
+
+    protected $casts = [
+        'changed_at' => 'datetime',
+    ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function changer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'changed_by');
     }
 }
 
@@ -12103,6 +13079,448 @@ class SupplierService
 ```
 </details>
 
+<a id="file-appservicessalesorderservicephp"></a>
+### app\Services\Sales\OrderService.php
+- SHA: `11927f836698`  
+- Ukuran: 16 KB  
+- Namespace: `App\Services\Sales`
+
+**Class `OrderService`**
+
+Metode Publik:
+- **create**(array $payload, ?int $userId = null) : *Order*
+- **update**(Order $order, array $payload) : *Order*
+- **changeStatus**(Order $order, string $newStatus, int $userId, ?string $notes = null) : *Order*
+- **cancel**(Order $order, int $userId, ?string $notes = null) : *Order*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Sales;
+
+use App\Models\CashierShift;
+use App\Models\Order;
+use App\Models\Product;
+// use App\Models\ProductOutletStatus;
+use App\Models\ProductPrice;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
+class OrderService
+{
+    public function create(array $payload, ?int $userId = null): Order
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $items = $payload['items'];
+            unset($payload['items']);
+
+            $this->validateCashierShift($payload['cashier_shift_id'] ?? null, (int) $payload['outlet_id']);
+            [$subtotal, $normalizedItems] = $this->prepareItemsAndTotals(
+                outletId: (int) $payload['outlet_id'],
+                items: $items,
+            );
+
+            $discountAmount = (float) ($payload['discount_amount'] ?? 0);
+            $taxAmount = (float) ($payload['tax_amount'] ?? 0);
+            $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? 0);
+            $paidTotal = (float) ($payload['paid_total'] ?? 0);
+            $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
+            $changeAmount = (float) ($payload['change_amount'] ?? max(0, $paidTotal - $grandTotal));
+
+            $order = Order::create([
+                'outlet_id' => $payload['outlet_id'],
+                'cashier_shift_id' => $payload['cashier_shift_id'] ?? null,
+                'customer_id' => $payload['customer_id'] ?? null,
+                'order_number' => $payload['order_number'] ?? $this->generateOrderNumber((int) $payload['outlet_id']),
+                'queue_number' => $payload['queue_number'] ?? null,
+                'order_channel' => $payload['order_channel'] ?? 'pos',
+                'order_status' => $payload['order_status'] ?? 'draft',
+                'payment_status' => $payload['payment_status'] ?? 'unpaid',
+                'subtotal' => $subtotal,
+                'discount_amount' => $discountAmount,
+                'tax_amount' => $taxAmount,
+                'service_charge_amount' => $serviceChargeAmount,
+                'grand_total' => $grandTotal,
+                'paid_total' => $paidTotal,
+                'change_amount' => $changeAmount,
+                'notes' => $payload['notes'] ?? null,
+                'ordered_at' => $payload['ordered_at'] ?? now(),
+                'created_by' => $userId,
+            ]);
+
+            foreach ($normalizedItems as $item) {
+                $variants = $item['variants'];
+                $modifiers = $item['modifiers'];
+                unset($item['variants'], $item['modifiers']);
+
+                $orderItem = $order->items()->create($item);
+
+                foreach ($variants as $variant) {
+                    $orderItem->variants()->create($variant);
+                }
+
+                foreach ($modifiers as $modifier) {
+                    $orderItem->modifiers()->create($modifier);
+                }
+            }
+
+            $this->recordStatusHistory(
+                order: $order,
+                status: $order->order_status,
+                userId: $userId,
+                notes: 'Order dibuat.',
+            );
+
+            return $order->fresh()->load($this->defaultRelations());
+        });
+    }
+
+    public function update(Order $order, array $payload): Order
+    {
+        return DB::transaction(function () use ($order, $payload) {
+            if (in_array($order->order_status, ['completed', 'cancelled'], true)) {
+                throw ValidationException::withMessages([
+                    'order_status' => ['Order dengan status ini tidak bisa diubah.'],
+                ]);
+            }
+
+            $items = $payload['items'] ?? null;
+            unset($payload['items']);
+
+            $outletId = (int) ($payload['outlet_id'] ?? $order->outlet_id);
+
+            $this->validateCashierShift(
+                $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
+                $outletId
+            );
+
+            if (is_array($items)) {
+                [$subtotal, $normalizedItems] = $this->prepareItemsAndTotals(
+                    outletId: $outletId,
+                    items: $items,
+                );
+            } else {
+                $subtotal = (float) $order->subtotal;
+                $normalizedItems = null;
+            }
+
+            $discountAmount = (float) ($payload['discount_amount'] ?? $order->discount_amount);
+            $taxAmount = (float) ($payload['tax_amount'] ?? $order->tax_amount);
+            $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? $order->service_charge_amount);
+            $paidTotal = (float) ($payload['paid_total'] ?? $order->paid_total);
+            $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
+            $changeAmount = array_key_exists('change_amount', $payload)
+                ? (float) $payload['change_amount']
+                : max(0, $paidTotal - $grandTotal);
+
+            $oldStatus = $order->order_status;
+
+            $order->update([
+                'outlet_id' => $outletId,
+                'cashier_shift_id' => $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
+                'customer_id' => $payload['customer_id'] ?? $order->customer_id,
+                'queue_number' => $payload['queue_number'] ?? $order->queue_number,
+                'order_channel' => $payload['order_channel'] ?? $order->order_channel,
+                'order_status' => $payload['order_status'] ?? $order->order_status,
+                'payment_status' => $payload['payment_status'] ?? $order->payment_status,
+                'subtotal' => $subtotal,
+                'discount_amount' => $discountAmount,
+                'tax_amount' => $taxAmount,
+                'service_charge_amount' => $serviceChargeAmount,
+                'grand_total' => $grandTotal,
+                'paid_total' => $paidTotal,
+                'change_amount' => $changeAmount,
+                'notes' => array_key_exists('notes', $payload) ? $payload['notes'] : $order->notes,
+                'ordered_at' => $payload['ordered_at'] ?? $order->ordered_at,
+            ]);
+
+            if (is_array($normalizedItems)) {
+                $order->items()->delete();
+
+                foreach ($normalizedItems as $item) {
+                    $variants = $item['variants'];
+                    $modifiers = $item['modifiers'];
+                    unset($item['variants'], $item['modifiers']);
+
+                    $orderItem = $order->items()->create($item);
+
+                    foreach ($variants as $variant) {
+                        $orderItem->variants()->create($variant);
+                    }
+
+                    foreach ($modifiers as $modifier) {
+                        $orderItem->modifiers()->create($modifier);
+                    }
+                }
+            }
+
+            if (($payload['order_status'] ?? $oldStatus) !== $oldStatus) {
+                $this->recordStatusHistory(
+                    order: $order,
+                    status: $order->order_status,
+                    userId: null,
+                    notes: 'Status order diubah lewat update.',
+                );
+            }
+
+            return $order->fresh()->load($this->defaultRelations());
+        });
+    }
+
+    public function changeStatus(Order $order, string $newStatus, int $userId, ?string $notes = null): Order
+    {
+        return DB::transaction(function () use ($order, $newStatus, $userId, $notes) {
+            if ($order->order_status === 'cancelled') {
+                throw ValidationException::withMessages([
+                    'order_status' => ['Order yang sudah dibatalkan tidak bisa diubah statusnya.'],
+                ]);
+            }
+
+            if ($order->order_status === 'completed') {
+                throw ValidationException::withMessages([
+                    'order_status' => ['Order yang sudah selesai tidak bisa diubah statusnya.'],
+                ]);
+            }
+
+            $allowedMap = [
+                'draft' => ['pending', 'confirmed', 'cancelled'],
+                'pending' => ['confirmed', 'cancelled'],
+                'confirmed' => ['preparing', 'ready', 'completed', 'cancelled'],
+                'preparing' => ['ready', 'completed', 'cancelled'],
+                'ready' => ['completed', 'cancelled'],
+            ];
+
+            $currentStatus = $order->order_status;
+            $allowedNextStatuses = $allowedMap[$currentStatus] ?? [];
+
+            if (!in_array($newStatus, $allowedNextStatuses, true)) {
+                throw ValidationException::withMessages([
+                    'order_status' => ["Transisi status dari {$currentStatus} ke {$newStatus} tidak diizinkan."],
+                ]);
+            }
+
+            $updatePayload = [
+                'order_status' => $newStatus,
+            ];
+
+            if ($newStatus === 'completed') {
+                $updatePayload['completed_at'] = now();
+            }
+
+            $order->update($updatePayload);
+
+            $this->recordStatusHistory(
+                order: $order,
+                status: $newStatus,
+                userId: $userId,
+                notes: $notes,
+            );
+
+            return $order->fresh()->load($this->defaultRelations());
+        });
+    }
+
+    public function cancel(Order $order, int $userId, ?string $notes = null): Order
+    {
+        return DB::transaction(function () use ($order, $userId, $notes) {
+            if ($order->order_status === 'completed') {
+                throw ValidationException::withMessages([
+                    'order_status' => ['Order yang sudah completed tidak bisa dibatalkan.'],
+                ]);
+            }
+
+            if ($order->order_status === 'cancelled') {
+                throw ValidationException::withMessages([
+                    'order_status' => ['Order sudah berstatus cancelled.'],
+                ]);
+            }
+
+            $order->update([
+                'order_status' => 'cancelled',
+                'payment_status' => $order->payment_status === 'paid' ? 'refunded' : 'cancelled',
+                'cancelled_at' => now(),
+                'cancelled_by' => $userId,
+            ]);
+
+            $this->recordStatusHistory(
+                order: $order,
+                status: 'cancelled',
+                userId: $userId,
+                notes: $notes,
+            );
+
+            return $order->fresh()->load($this->defaultRelations());
+        });
+    }
+
+    private function prepareItemsAndTotals(int $outletId, array $items): array
+    {
+        $normalizedItems = [];
+        $subtotal = 0;
+
+        foreach ($items as $item) {
+            $product = Product::query()
+                ->with([
+                    'prices' => function ($query) use ($outletId) {
+                        $query->where('outlet_id', $outletId)
+                            ->where('is_active', true)
+                            ->orderByDesc('starts_at')
+                            ->orderByDesc('id');
+                    },
+                    'outletStatuses' => function ($query) use ($outletId) {
+                        $query->where('outlet_id', $outletId);
+                    },
+                ])
+                ->findOrFail((int) $item['product_id']);
+
+            if (!$product->is_active) {
+                throw ValidationException::withMessages([
+                    'items' => ["Produk {$product->name} tidak aktif."],
+                ]);
+            }
+
+            $outletStatus = $product->outletStatuses->first();
+
+            if ($outletStatus && (!$outletStatus->is_available || $outletStatus->is_hidden)) {
+                throw ValidationException::withMessages([
+                    'items' => ["Produk {$product->name} tidak tersedia di outlet ini."],
+                ]);
+            }
+
+            $priceRow = $product->prices->first();
+
+            if (!$priceRow) {
+                $priceRow = ProductPrice::query()
+                    ->where('product_id', $product->id)
+                    ->where('outlet_id', $outletId)
+                    ->where('is_active', true)
+                    ->latest('id')
+                    ->first();
+            }
+
+            $baseUnitPrice = $priceRow?->price ?? $product->base_price;
+
+            $variants = collect($item['variants'] ?? [])->map(function ($variant) {
+                return [
+                    'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'],
+                    'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'],
+                    'price_adjustment' => (float) ($variant['price_adjustment'] ?? 0),
+                ];
+            })->values()->all();
+
+            $modifiers = collect($item['modifiers'] ?? [])->map(function ($modifier) {
+                return [
+                    'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'],
+                    'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'],
+                    'qty' => (float) ($modifier['qty'] ?? 1),
+                    'price' => (float) ($modifier['price'] ?? 0),
+                ];
+            })->values()->all();
+
+            $variantAdjustmentTotal = collect($variants)->sum('price_adjustment');
+            $modifierTotal = collect($modifiers)->sum(function ($modifier) {
+                return ((float) $modifier['qty']) * ((float) $modifier['price']);
+            });
+
+            $qty = (float) $item['qty'];
+            $discountAmount = (float) ($item['discount_amount'] ?? 0);
+            $effectiveUnitPrice = (float) $baseUnitPrice + (float) $variantAdjustmentTotal + (float) $modifierTotal;
+            $lineTotal = ($qty * $effectiveUnitPrice) - $discountAmount;
+
+            if ($lineTotal < 0) {
+                throw ValidationException::withMessages([
+                    'items' => ["Line total produk {$product->name} tidak valid."],
+                ]);
+            }
+
+            $normalizedItems[] = [
+                'product_id' => $product->id,
+                'product_name_snapshot' => $product->name,
+                'sku_snapshot' => $product->sku,
+                'qty' => $qty,
+                'unit_price' => $effectiveUnitPrice,
+                'discount_amount' => $discountAmount,
+                'line_total' => $lineTotal,
+                'notes' => $item['notes'] ?? null,
+                'variants' => $variants,
+                'modifiers' => $modifiers,
+            ];
+
+            $subtotal += $lineTotal;
+        }
+
+        return [$subtotal, $normalizedItems];
+    }
+
+    private function validateCashierShift(?int $cashierShiftId, int $outletId): void
+    {
+        if (!$cashierShiftId) {
+            return;
+        }
+
+        $shift = CashierShift::query()->findOrFail($cashierShiftId);
+
+        if ((int) $shift->outlet_id !== $outletId) {
+            throw ValidationException::withMessages([
+                'cashier_shift_id' => ['Shift kasir harus berasal dari outlet yang sama dengan order.'],
+            ]);
+        }
+
+        if ($shift->status !== 'open') {
+            throw ValidationException::withMessages([
+                'cashier_shift_id' => ['Shift kasir harus dalam status open.'],
+            ]);
+        }
+    }
+
+    private function recordStatusHistory(Order $order, string $status, ?int $userId = null, ?string $notes = null): void
+    {
+        $order->statusHistories()->create([
+            'status' => $status,
+            'changed_by' => $userId,
+            'notes' => $notes,
+            'changed_at' => now(),
+        ]);
+    }
+
+    private function generateOrderNumber(int $outletId): string
+    {
+        $datePart = now()->format('Ymd');
+        $randomPart = strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'));
+
+        do {
+            $orderNumber = "ORD-{$outletId}-{$datePart}-{$randomPart}";
+            $exists = Order::query()->where('order_number', $orderNumber)->exists();
+
+            if (!$exists) {
+                return $orderNumber;
+            }
+
+            $randomPart = strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'));
+        } while (true);
+    }
+
+    private function defaultRelations(): array
+    {
+        return [
+            'outlet',
+            'cashierShift',
+            'customer',
+            'creator',
+            'canceller',
+            'items.product',
+            'items.variants',
+            'items.modifiers',
+            'statusHistories.changer',
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicessystemsettingsystemsettingservicephp"></a>
 ### app\Services\SystemSetting\SystemSettingService.php
 - SHA: `87e179c3a4f9`  
@@ -12400,7 +13818,7 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `2eff647082e0`  
+- SHA: `a559ea938537`  
 - Ukuran: 4 KB  
 - Namespace: `Database\Seeders`
 
@@ -12412,6 +13830,7 @@ Metode Publik:
 
 ```php
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -12556,6 +13975,12 @@ class PermissionSeeder extends Seeder
             'stock_opnames.delete',
             'stock_opnames.post',
             'stock_opnames.cancel',
+
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.delete',
+            'orders.cancel',
         ];
 
         foreach ($permissions as $permission) {
@@ -12569,8 +13994,8 @@ class PermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `d980f4b1ee71`  
-- Ukuran: 6 KB  
+- SHA: `c532d5b67f2d`  
+- Ukuran: 9 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -12581,6 +14006,7 @@ Metode Publik:
 
 ```php
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -12594,6 +14020,9 @@ class RoleSeeder extends Seeder
         $superadmin  = Role::findOrCreate('superadmin', 'sanctum');
         $adminPusat  = Role::findOrCreate('admin_pusat', 'sanctum');
         $adminOutlet = Role::findOrCreate('admin_outlet', 'sanctum');
+        $kasir       = Role::findOrCreate('kasir', 'sanctum');
+        $dapur       = Role::findOrCreate('dapur', 'sanctum');
+        $gudang      = Role::findOrCreate('gudang', 'sanctum');
         $owner       = Role::findOrCreate('owner', 'sanctum');
 
         $allPermissions = Permission::query()->pluck('name')->all();
@@ -12604,76 +14033,97 @@ class RoleSeeder extends Seeder
             'users.view',
             'users.create',
             'users.update',
+
             'roles.view',
             'permissions.view',
+
             'outlets.view',
             'outlets.create',
             'outlets.update',
+
             'outlet_settings.view',
             'outlet_settings.update',
+
             'system_settings.view',
             'system_settings.update',
+
             'product_categories.view',
             'product_categories.create',
             'product_categories.update',
             'product_categories.delete',
+
             'products.view',
             'products.create',
             'products.update',
             'products.delete',
+
             'product_variants.view',
             'product_variants.create',
             'product_variants.update',
+
             'product_modifiers.view',
             'product_modifiers.create',
             'product_modifiers.update',
+
             'product_bundles.view',
             'product_bundles.create',
             'product_bundles.update',
+
             'customers.view',
             'customers.create',
             'customers.update',
             'customers.delete',
+
             'vouchers.view',
             'vouchers.create',
             'vouchers.update',
             'vouchers.delete',
+
             'promotions.view',
             'promotions.create',
             'promotions.update',
             'promotions.delete',
+
             'units.view',
             'units.create',
             'units.update',
             'units.delete',
+
             'unit_conversions.view',
             'unit_conversions.create',
             'unit_conversions.update',
             'unit_conversions.delete',
+
             'raw_material_categories.view',
             'raw_material_categories.create',
             'raw_material_categories.update',
             'raw_material_categories.delete',
+
             'raw_materials.view',
             'raw_materials.create',
             'raw_materials.update',
             'raw_materials.delete',
+
             'outlet_material_stocks.view',
             'outlet_material_stocks.update',
+
             'product_boms.view',
             'product_boms.create',
             'product_boms.update',
             'product_boms.delete',
+
             'suppliers.view',
             'suppliers.create',
             'suppliers.update',
             'suppliers.delete',
+
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
             'purchase_orders.delete',
             'purchase_orders.approve',
             'purchase_orders.cancel',
+
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
@@ -12702,35 +14152,140 @@ class RoleSeeder extends Seeder
             'stock_opnames.delete',
             'stock_opnames.post',
             'stock_opnames.cancel',
+
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.delete',
+            'orders.cancel',
         ]);
 
         $adminOutlet->syncPermissions([
             'users.view',
+
             'outlets.view',
+
             'outlet_settings.view',
             'outlet_settings.update',
+
             'product_categories.view',
+
             'products.view',
             'products.create',
             'products.update',
+
             'product_variants.view',
             'product_variants.create',
             'product_variants.update',
+
             'product_modifiers.view',
             'product_modifiers.create',
             'product_modifiers.update',
+
             'product_bundles.view',
             'product_bundles.create',
             'product_bundles.update',
+
             'customers.view',
             'customers.create',
             'customers.update',
+
             'vouchers.view',
             'promotions.view',
+
             'suppliers.view',
+
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
+
+            'goods_receipts.view',
+            'goods_receipts.create',
+            'goods_receipts.update',
+            'goods_receipts.post',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.post',
+
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.cancel',
+        ]);
+
+        $kasir->syncPermissions([
+            'outlets.view',
+            'outlet_settings.view',
+
+            'product_categories.view',
+            'products.view',
+            'product_variants.view',
+            'product_modifiers.view',
+            'product_bundles.view',
+
+            'customers.view',
+            'customers.create',
+            'customers.update',
+
+            'vouchers.view',
+            'promotions.view',
+
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.cancel',
+        ]);
+
+        $dapur->syncPermissions([
+            'orders.view',
+        ]);
+
+        $gudang->syncPermissions([
+            'units.view',
+            'units.create',
+            'units.update',
+
+            'unit_conversions.view',
+            'unit_conversions.create',
+            'unit_conversions.update',
+
+            'raw_material_categories.view',
+            'raw_material_categories.create',
+            'raw_material_categories.update',
+
+            'raw_materials.view',
+            'raw_materials.create',
+            'raw_materials.update',
+
+            'outlet_material_stocks.view',
+            'outlet_material_stocks.update',
+
+            'product_boms.view',
+            'product_boms.create',
+            'product_boms.update',
+
+            'suppliers.view',
+            'suppliers.create',
+            'suppliers.update',
+
+            'purchase_orders.view',
+            'purchase_orders.create',
+            'purchase_orders.update',
+
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
@@ -12758,17 +14313,21 @@ class RoleSeeder extends Seeder
             'users.view',
             'roles.view',
             'permissions.view',
+
             'outlets.view',
             'outlet_settings.view',
             'system_settings.view',
+
             'product_categories.view',
             'products.view',
             'product_variants.view',
             'product_modifiers.view',
             'product_bundles.view',
+
             'customers.view',
             'vouchers.view',
             'promotions.view',
+
             'suppliers.view',
             'purchase_orders.view',
             'goods_receipts.view',
@@ -12777,6 +14336,8 @@ class RoleSeeder extends Seeder
             'stock_adjustments.view',
             'stock_transfers.view',
             'stock_opnames.view',
+
+            'orders.view',
         ]);
     }
 }
@@ -12832,7 +14393,7 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `de7df3c8345d`  
+- SHA: `296eb515d537`  
 - Ukuran: 12 KB  
 - Namespace: ``
 
@@ -12865,9 +14426,9 @@ class SuperAdminSeeder extends Seeder
 | PUT | `/outlets/{outlet}` | `OutletController` | `update` |
 | DELETE | `/outlets/{outlet}` | `OutletController` | `destroy` |
 | GET | `/outlets/{outlet}/settings` | `OutletSettingController` | `show` |
-| PATCH | `/outlets/{outlet}/settings` | `OutletSettingController` | `update` |
+| PUT | `/outlets/{outlet}/settings` | `OutletSettingController` | `update` |
 | GET | `/system-settings` | `SystemSettingController` | `index` |
-| PUT | `/system-settings` | `SystemSettingController` | `upsert` |
+| POST | `/system-settings/upsert` | `SystemSettingController` | `upsert` |
 | GET | `/product-categories` | `ProductCategoryController` | `index` |
 | POST | `/product-categories` | `ProductCategoryController` | `store` |
 | GET | `/product-categories/{productCategory}` | `ProductCategoryController` | `show` |
@@ -12962,6 +14523,14 @@ class SuperAdminSeeder extends Seeder
 | DELETE | `/stock-opnames/{stockOpname}` | `StockOpnameController` | `destroy` |
 | POST | `/stock-opnames/{stockOpname}/post` | `StockOpnameController` | `post` |
 | POST | `/stock-opnames/{stockOpname}/cancel` | `StockOpnameController` | `cancel` |
+| GET | `/orders` | `OrderController` | `index` |
+| POST | `/orders` | `OrderController` | `store` |
+| GET | `/orders/{order}` | `OrderController` | `show` |
+| PUT | `/orders/{order}` | `OrderController` | `update` |
+| DELETE | `/orders/{order}` | `OrderController` | `destroy` |
+| POST | `/orders/{order}/confirm` | `OrderController` | `confirm` |
+| POST | `/orders/{order}/complete` | `OrderController` | `complete` |
+| POST | `/orders/{order}/cancel` | `OrderController` | `cancel` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -12970,6 +14539,7 @@ class SuperAdminSeeder extends Seeder
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoodsReceiptController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
 use App\Http\Controllers\Api\OutletSettingController;
@@ -13027,10 +14597,10 @@ Route::prefix('v1')->group(function () {
         Route::delete('/outlets/{outlet}', [OutletController::class, 'destroy']);
 
         Route::get('/outlets/{outlet}/settings', [OutletSettingController::class, 'show']);
-        Route::patch('/outlets/{outlet}/settings', [OutletSettingController::class, 'update']);
+        Route::put('/outlets/{outlet}/settings', [OutletSettingController::class, 'update']);
 
         Route::get('/system-settings', [SystemSettingController::class, 'index']);
-        Route::put('/system-settings', [SystemSettingController::class, 'upsert']);
+        Route::post('/system-settings/upsert', [SystemSettingController::class, 'upsert']);
 
         Route::get('/product-categories', [ProductCategoryController::class, 'index']);
         Route::post('/product-categories', [ProductCategoryController::class, 'store']);
@@ -13143,6 +14713,15 @@ Route::prefix('v1')->group(function () {
         Route::delete('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'destroy']);
         Route::post('/stock-opnames/{stockOpname}/post', [StockOpnameController::class, 'post']);
         Route::post('/stock-opnames/{stockOpname}/cancel', [StockOpnameController::class, 'cancel']);
+
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::post('/orders', [OrderController::class, 'store']);
+        Route::get('/orders/{order}', [OrderController::class, 'show']);
+        Route::put('/orders/{order}', [OrderController::class, 'update']);
+        Route::delete('/orders/{order}', [OrderController::class, 'destroy']);
+        Route::post('/orders/{order}/confirm', [OrderController::class, 'confirm']);
+        Route::post('/orders/{order}/complete', [OrderController::class, 'complete']);
+        Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
     });
 });
 

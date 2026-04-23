@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoodsReceiptController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
 use App\Http\Controllers\Api\OutletSettingController;
@@ -60,10 +61,10 @@ Route::prefix('v1')->group(function () {
         Route::delete('/outlets/{outlet}', [OutletController::class, 'destroy']);
 
         Route::get('/outlets/{outlet}/settings', [OutletSettingController::class, 'show']);
-        Route::patch('/outlets/{outlet}/settings', [OutletSettingController::class, 'update']);
+        Route::put('/outlets/{outlet}/settings', [OutletSettingController::class, 'update']);
 
         Route::get('/system-settings', [SystemSettingController::class, 'index']);
-        Route::put('/system-settings', [SystemSettingController::class, 'upsert']);
+        Route::post('/system-settings/upsert', [SystemSettingController::class, 'upsert']);
 
         Route::get('/product-categories', [ProductCategoryController::class, 'index']);
         Route::post('/product-categories', [ProductCategoryController::class, 'store']);
@@ -176,5 +177,14 @@ Route::prefix('v1')->group(function () {
         Route::delete('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'destroy']);
         Route::post('/stock-opnames/{stockOpname}/post', [StockOpnameController::class, 'post']);
         Route::post('/stock-opnames/{stockOpname}/cancel', [StockOpnameController::class, 'cancel']);
+
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::post('/orders', [OrderController::class, 'store']);
+        Route::get('/orders/{order}', [OrderController::class, 'show']);
+        Route::put('/orders/{order}', [OrderController::class, 'update']);
+        Route::delete('/orders/{order}', [OrderController::class, 'destroy']);
+        Route::post('/orders/{order}/confirm', [OrderController::class, 'confirm']);
+        Route::post('/orders/{order}/complete', [OrderController::class, 'complete']);
+        Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
     });
 });

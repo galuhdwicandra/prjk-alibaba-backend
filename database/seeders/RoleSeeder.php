@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -12,6 +13,9 @@ class RoleSeeder extends Seeder
         $superadmin  = Role::findOrCreate('superadmin', 'sanctum');
         $adminPusat  = Role::findOrCreate('admin_pusat', 'sanctum');
         $adminOutlet = Role::findOrCreate('admin_outlet', 'sanctum');
+        $kasir       = Role::findOrCreate('kasir', 'sanctum');
+        $dapur       = Role::findOrCreate('dapur', 'sanctum');
+        $gudang      = Role::findOrCreate('gudang', 'sanctum');
         $owner       = Role::findOrCreate('owner', 'sanctum');
 
         $allPermissions = Permission::query()->pluck('name')->all();
@@ -22,76 +26,97 @@ class RoleSeeder extends Seeder
             'users.view',
             'users.create',
             'users.update',
+
             'roles.view',
             'permissions.view',
+
             'outlets.view',
             'outlets.create',
             'outlets.update',
+
             'outlet_settings.view',
             'outlet_settings.update',
+
             'system_settings.view',
             'system_settings.update',
+
             'product_categories.view',
             'product_categories.create',
             'product_categories.update',
             'product_categories.delete',
+
             'products.view',
             'products.create',
             'products.update',
             'products.delete',
+
             'product_variants.view',
             'product_variants.create',
             'product_variants.update',
+
             'product_modifiers.view',
             'product_modifiers.create',
             'product_modifiers.update',
+
             'product_bundles.view',
             'product_bundles.create',
             'product_bundles.update',
+
             'customers.view',
             'customers.create',
             'customers.update',
             'customers.delete',
+
             'vouchers.view',
             'vouchers.create',
             'vouchers.update',
             'vouchers.delete',
+
             'promotions.view',
             'promotions.create',
             'promotions.update',
             'promotions.delete',
+
             'units.view',
             'units.create',
             'units.update',
             'units.delete',
+
             'unit_conversions.view',
             'unit_conversions.create',
             'unit_conversions.update',
             'unit_conversions.delete',
+
             'raw_material_categories.view',
             'raw_material_categories.create',
             'raw_material_categories.update',
             'raw_material_categories.delete',
+
             'raw_materials.view',
             'raw_materials.create',
             'raw_materials.update',
             'raw_materials.delete',
+
             'outlet_material_stocks.view',
             'outlet_material_stocks.update',
+
             'product_boms.view',
             'product_boms.create',
             'product_boms.update',
             'product_boms.delete',
+
             'suppliers.view',
             'suppliers.create',
             'suppliers.update',
             'suppliers.delete',
+
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
             'purchase_orders.delete',
             'purchase_orders.approve',
             'purchase_orders.cancel',
+
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
@@ -120,35 +145,140 @@ class RoleSeeder extends Seeder
             'stock_opnames.delete',
             'stock_opnames.post',
             'stock_opnames.cancel',
+
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.delete',
+            'orders.cancel',
         ]);
 
         $adminOutlet->syncPermissions([
             'users.view',
+
             'outlets.view',
+
             'outlet_settings.view',
             'outlet_settings.update',
+
             'product_categories.view',
+
             'products.view',
             'products.create',
             'products.update',
+
             'product_variants.view',
             'product_variants.create',
             'product_variants.update',
+
             'product_modifiers.view',
             'product_modifiers.create',
             'product_modifiers.update',
+
             'product_bundles.view',
             'product_bundles.create',
             'product_bundles.update',
+
             'customers.view',
             'customers.create',
             'customers.update',
+
             'vouchers.view',
             'promotions.view',
+
             'suppliers.view',
+
             'purchase_orders.view',
             'purchase_orders.create',
             'purchase_orders.update',
+
+            'goods_receipts.view',
+            'goods_receipts.create',
+            'goods_receipts.update',
+            'goods_receipts.post',
+
+            'stock_movements.view',
+
+            'stock_adjustments.view',
+            'stock_adjustments.create',
+            'stock_adjustments.update',
+
+            'stock_transfers.view',
+            'stock_transfers.create',
+            'stock_transfers.update',
+            'stock_transfers.send',
+            'stock_transfers.receive',
+
+            'stock_opnames.view',
+            'stock_opnames.create',
+            'stock_opnames.update',
+            'stock_opnames.post',
+
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.cancel',
+        ]);
+
+        $kasir->syncPermissions([
+            'outlets.view',
+            'outlet_settings.view',
+
+            'product_categories.view',
+            'products.view',
+            'product_variants.view',
+            'product_modifiers.view',
+            'product_bundles.view',
+
+            'customers.view',
+            'customers.create',
+            'customers.update',
+
+            'vouchers.view',
+            'promotions.view',
+
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.cancel',
+        ]);
+
+        $dapur->syncPermissions([
+            'orders.view',
+        ]);
+
+        $gudang->syncPermissions([
+            'units.view',
+            'units.create',
+            'units.update',
+
+            'unit_conversions.view',
+            'unit_conversions.create',
+            'unit_conversions.update',
+
+            'raw_material_categories.view',
+            'raw_material_categories.create',
+            'raw_material_categories.update',
+
+            'raw_materials.view',
+            'raw_materials.create',
+            'raw_materials.update',
+
+            'outlet_material_stocks.view',
+            'outlet_material_stocks.update',
+
+            'product_boms.view',
+            'product_boms.create',
+            'product_boms.update',
+
+            'suppliers.view',
+            'suppliers.create',
+            'suppliers.update',
+
+            'purchase_orders.view',
+            'purchase_orders.create',
+            'purchase_orders.update',
+
             'goods_receipts.view',
             'goods_receipts.create',
             'goods_receipts.update',
@@ -176,17 +306,21 @@ class RoleSeeder extends Seeder
             'users.view',
             'roles.view',
             'permissions.view',
+
             'outlets.view',
             'outlet_settings.view',
             'system_settings.view',
+
             'product_categories.view',
             'products.view',
             'product_variants.view',
             'product_modifiers.view',
             'product_bundles.view',
+
             'customers.view',
             'vouchers.view',
             'promotions.view',
+
             'suppliers.view',
             'purchase_orders.view',
             'goods_receipts.view',
@@ -195,6 +329,8 @@ class RoleSeeder extends Seeder
             'stock_adjustments.view',
             'stock_transfers.view',
             'stock_opnames.view',
+
+            'orders.view',
         ]);
     }
 }
