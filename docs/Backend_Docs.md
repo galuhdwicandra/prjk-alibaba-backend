@@ -1,17 +1,21 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-23 11:46:27_  
+_Dihasilkan otomatis: 2026-04-23 15:25:58_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
 - [Controllers (app/Http/Controllers)](#controllers-app-http-controllers)
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
+  - [app\Http\Controllers\Api\CashierShiftController.php](#file-apphttpcontrollersapicashiershiftcontrollerphp)
+  - [app\Http\Controllers\Api\CashMovementController.php](#file-apphttpcontrollersapicashmovementcontrollerphp)
   - [app\Http\Controllers\Api\CustomerController.php](#file-apphttpcontrollersapicustomercontrollerphp)
   - [app\Http\Controllers\Api\GoodsReceiptController.php](#file-apphttpcontrollersapigoodsreceiptcontrollerphp)
   - [app\Http\Controllers\Api\OrderController.php](#file-apphttpcontrollersapiordercontrollerphp)
   - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
   - [app\Http\Controllers\Api\OutletMaterialStockController.php](#file-apphttpcontrollersapioutletmaterialstockcontrollerphp)
   - [app\Http\Controllers\Api\OutletSettingController.php](#file-apphttpcontrollersapioutletsettingcontrollerphp)
+  - [app\Http\Controllers\Api\PaymentController.php](#file-apphttpcontrollersapipaymentcontrollerphp)
+  - [app\Http\Controllers\Api\PaymentMethodController.php](#file-apphttpcontrollersapipaymentmethodcontrollerphp)
   - [app\Http\Controllers\Api\PermissionController.php](#file-apphttpcontrollersapipermissioncontrollerphp)
   - [app\Http\Controllers\Api\ProductBomController.php](#file-apphttpcontrollersapiproductbomcontrollerphp)
   - [app\Http\Controllers\Api\ProductCategoryController.php](#file-apphttpcontrollersapiproductcategorycontrollerphp)
@@ -41,6 +45,10 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
 - [Form Requests (app/Http/Requests)](#form-requests-app-http-requests)
   - [app\Http\Requests\Api\Auth\ChangePasswordRequest.php](#file-apphttprequestsapiauthchangepasswordrequestphp)
   - [app\Http\Requests\Api\Auth\LoginRequest.php](#file-apphttprequestsapiauthloginrequestphp)
+  - [app\Http\Requests\Api\CashierShift\CloseCashierShiftRequest.php](#file-apphttprequestsapicashiershiftclosecashiershiftrequestphp)
+  - [app\Http\Requests\Api\CashierShift\StoreCashierShiftRequest.php](#file-apphttprequestsapicashiershiftstorecashiershiftrequestphp)
+  - [app\Http\Requests\Api\CashierShift\UpdateCashierShiftRequest.php](#file-apphttprequestsapicashiershiftupdatecashiershiftrequestphp)
+  - [app\Http\Requests\Api\CashMovement\StoreCashMovementRequest.php](#file-apphttprequestsapicashmovementstorecashmovementrequestphp)
   - [app\Http\Requests\Api\Customer\StoreCustomerRequest.php](#file-apphttprequestsapicustomerstorecustomerrequestphp)
   - [app\Http\Requests\Api\Customer\UpdateCustomerRequest.php](#file-apphttprequestsapicustomerupdatecustomerrequestphp)
   - [app\Http\Requests\Api\Inventory\OutletMaterialStock\UpsertOutletMaterialStockRequest.php](#file-apphttprequestsapiinventoryoutletmaterialstockupsertoutletmaterialstockrequestphp)
@@ -68,6 +76,10 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
   - [app\Http\Requests\Api\Outlet\StoreOutletRequest.php](#file-apphttprequestsapioutletstoreoutletrequestphp)
   - [app\Http\Requests\Api\Outlet\UpdateOutletRequest.php](#file-apphttprequestsapioutletupdateoutletrequestphp)
   - [app\Http\Requests\Api\Outlet\UpdateOutletSettingRequest.php](#file-apphttprequestsapioutletupdateoutletsettingrequestphp)
+  - [app\Http\Requests\Api\Payment\CancelPaymentRequest.php](#file-apphttprequestsapipaymentcancelpaymentrequestphp)
+  - [app\Http\Requests\Api\Payment\StorePaymentRequest.php](#file-apphttprequestsapipaymentstorepaymentrequestphp)
+  - [app\Http\Requests\Api\PaymentMethod\StorePaymentMethodRequest.php](#file-apphttprequestsapipaymentmethodstorepaymentmethodrequestphp)
+  - [app\Http\Requests\Api\PaymentMethod\UpdatePaymentMethodRequest.php](#file-apphttprequestsapipaymentmethodupdatepaymentmethodrequestphp)
   - [app\Http\Requests\Api\Permission\StorePermissionRequest.php](#file-apphttprequestsapipermissionstorepermissionrequestphp)
   - [app\Http\Requests\Api\Permission\UpdatePermissionRequest.php](#file-apphttprequestsapipermissionupdatepermissionrequestphp)
   - [app\Http\Requests\Api\Product\StoreProductRequest.php](#file-apphttprequestsapiproductstoreproductrequestphp)
@@ -91,6 +103,8 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
   - [app\Http\Requests\Api\Voucher\StoreVoucherRequest.php](#file-apphttprequestsapivoucherstorevoucherrequestphp)
   - [app\Http\Requests\Api\Voucher\UpdateVoucherRequest.php](#file-apphttprequestsapivoucherupdatevoucherrequestphp)
 - [API Resources (app/Http/Resources)](#api-resources-app-http-resources)
+  - [app\Http\Resources\CashierShiftResource.php](#file-apphttpresourcescashiershiftresourcephp)
+  - [app\Http\Resources\CashMovementResource.php](#file-apphttpresourcescashmovementresourcephp)
   - [app\Http\Resources\CustomerAddressResource.php](#file-apphttpresourcescustomeraddressresourcephp)
   - [app\Http\Resources\CustomerResource.php](#file-apphttpresourcescustomerresourcephp)
   - [app\Http\Resources\GoodsReceiptItemResource.php](#file-apphttpresourcesgoodsreceiptitemresourcephp)
@@ -102,6 +116,8 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
   - [app\Http\Resources\OutletMaterialStockResource.php](#file-apphttpresourcesoutletmaterialstockresourcephp)
   - [app\Http\Resources\OutletResource.php](#file-apphttpresourcesoutletresourcephp)
   - [app\Http\Resources\OutletSettingResource.php](#file-apphttpresourcesoutletsettingresourcephp)
+  - [app\Http\Resources\PaymentMethodResource.php](#file-apphttpresourcespaymentmethodresourcephp)
+  - [app\Http\Resources\PaymentResource.php](#file-apphttpresourcespaymentresourcephp)
   - [app\Http\Resources\PermissionResource.php](#file-apphttpresourcespermissionresourcephp)
   - [app\Http\Resources\ProductBomItemResource.php](#file-apphttpresourcesproductbomitemresourcephp)
   - [app\Http\Resources\ProductBomResource.php](#file-apphttpresourcesproductbomresourcephp)
@@ -137,6 +153,7 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
   - [app\Http\Resources\VoucherResource.php](#file-apphttpresourcesvoucherresourcephp)
 - [Models (app/Models)](#models-app-models)
   - [app\Models\CashierShift.php](#file-appmodelscashiershiftphp)
+  - [app\Models\CashMovement.php](#file-appmodelscashmovementphp)
   - [app\Models\Customer.php](#file-appmodelscustomerphp)
   - [app\Models\CustomerAddress.php](#file-appmodelscustomeraddressphp)
   - [app\Models\GoodsReceipt.php](#file-appmodelsgoodsreceiptphp)
@@ -149,6 +166,8 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
   - [app\Models\Outlet.php](#file-appmodelsoutletphp)
   - [app\Models\OutletMaterialStock.php](#file-appmodelsoutletmaterialstockphp)
   - [app\Models\OutletSetting.php](#file-appmodelsoutletsettingphp)
+  - [app\Models\Payment.php](#file-appmodelspaymentphp)
+  - [app\Models\PaymentMethod.php](#file-appmodelspaymentmethodphp)
   - [app\Models\Product.php](#file-appmodelsproductphp)
   - [app\Models\ProductBom.php](#file-appmodelsproductbomphp)
   - [app\Models\ProductBomItem.php](#file-appmodelsproductbomitemphp)
@@ -185,6 +204,8 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
   - [app\Providers\AppServiceProvider.php](#file-appprovidersappserviceproviderphp)
 - [Services (app/Services)](#services-app-services)
   - [app\Services\Auth\AuthService.php](#file-appservicesauthauthservicephp)
+  - [app\Services\Cashier\CashierShiftService.php](#file-appservicescashiercashiershiftservicephp)
+  - [app\Services\Cashier\CashMovementService.php](#file-appservicescashiercashmovementservicephp)
   - [app\Services\Catalog\ProductService.php](#file-appservicescatalogproductservicephp)
   - [app\Services\Customer\CustomerService.php](#file-appservicescustomercustomerservicephp)
   - [app\Services\Inventory\OutletMaterialStockService.php](#file-appservicesinventoryoutletmaterialstockservicephp)
@@ -202,11 +223,13 @@ _Dihasilkan otomatis: 2026-04-23 11:46:27_
   - [app\Services\Purchasing\PurchaseOrderService.php](#file-appservicespurchasingpurchaseorderservicephp)
   - [app\Services\Purchasing\SupplierService.php](#file-appservicespurchasingsupplierservicephp)
   - [app\Services\Sales\OrderService.php](#file-appservicessalesorderservicephp)
+  - [app\Services\Sales\PaymentService.php](#file-appservicessalespaymentservicephp)
   - [app\Services\SystemSetting\SystemSettingService.php](#file-appservicessystemsettingsystemsettingservicephp)
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
+  - [database\seeders\PaymentMethodSeeder.php](#file-databaseseederspaymentmethodseederphp)
   - [database\seeders\PermissionSeeder.php](#file-databaseseederspermissionseederphp)
   - [database\seeders\RoleSeeder.php](#file-databaseseedersroleseederphp)
   - [database\seeders\SuperAdminSeeder.php](#file-databaseseederssuperadminseederphp)
@@ -302,6 +325,245 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Password berhasil diubah.',
             'token' => $token,
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapicashiershiftcontrollerphp"></a>
+### app\Http\Controllers\Api\CashierShiftController.php
+- SHA: `aef2d6727c68`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `CashierShiftController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly CashierShiftService $cashierShiftService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreCashierShiftRequest $request) : *JsonResponse*
+- **show**(Request $request, CashierShift $cashierShift) : *JsonResponse*
+- **update**(UpdateCashierShiftRequest $request, CashierShift $cashierShift) : *JsonResponse*
+- **close**(CloseCashierShiftRequest $request, CashierShift $cashierShift) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\CashierShift\CloseCashierShiftRequest;
+use App\Http\Requests\Api\CashierShift\StoreCashierShiftRequest;
+use App\Http\Requests\Api\CashierShift\UpdateCashierShiftRequest;
+use App\Http\Resources\CashierShiftResource;
+use App\Models\CashierShift;
+use App\Services\Cashier\CashierShiftService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class CashierShiftController extends Controller
+{
+    public function __construct(
+        private readonly CashierShiftService $cashierShiftService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('cashier_shifts.view'), 403);
+
+        $rows = CashierShift::query()
+            ->with([
+                'outlet',
+                'user',
+                'cashMovements.creator',
+                'orders.payments.paymentMethod',
+            ])
+            ->withCount('orders')
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('user_id'), function ($query) use ($request) {
+                $query->where('user_id', (int) $request->input('user_id'));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->when($request->filled('opened_from'), function ($query) use ($request) {
+                $query->where('opened_at', '>=', $request->input('opened_from'));
+            })
+            ->when($request->filled('opened_until'), function ($query) use ($request) {
+                $query->where('opened_at', '<=', $request->input('opened_until'));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar cashier shift berhasil diambil.',
+            'data' => CashierShiftResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreCashierShiftRequest $request): JsonResponse
+    {
+        $row = $this->cashierShiftService->open(
+            payload: $request->validated(),
+            userId: $request->user()->id,
+        );
+
+        return response()->json([
+            'message' => 'Shift kasir berhasil dibuka.',
+            'data' => new CashierShiftResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, CashierShift $cashierShift): JsonResponse
+    {
+        abort_unless($request->user()->can('cashier_shifts.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail cashier shift berhasil diambil.',
+            'data' => new CashierShiftResource($cashierShift->load([
+                'outlet',
+                'user',
+                'cashMovements.creator',
+                'orders.payments.paymentMethod',
+            ])->loadCount('orders')),
+        ]);
+    }
+
+    public function update(UpdateCashierShiftRequest $request, CashierShift $cashierShift): JsonResponse
+    {
+        $row = $this->cashierShiftService->update($cashierShift, $request->validated());
+
+        return response()->json([
+            'message' => 'Shift kasir berhasil diupdate.',
+            'data' => new CashierShiftResource($row),
+        ]);
+    }
+
+    public function close(CloseCashierShiftRequest $request, CashierShift $cashierShift): JsonResponse
+    {
+        $row = $this->cashierShiftService->close(
+            shift: $cashierShift,
+            payload: $request->validated(),
+            userId: $request->user()->id,
+        );
+
+        return response()->json([
+            'message' => 'Shift kasir berhasil ditutup.',
+            'data' => new CashierShiftResource($row),
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapicashmovementcontrollerphp"></a>
+### app\Http\Controllers\Api\CashMovementController.php
+- SHA: `2d2c7c988d0d`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `CashMovementController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly CashMovementService $cashMovementService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreCashMovementRequest $request) : *JsonResponse*
+- **show**(Request $request, CashMovement $cashMovement) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\CashMovement\StoreCashMovementRequest;
+use App\Http\Resources\CashMovementResource;
+use App\Models\CashMovement;
+use App\Services\Cashier\CashMovementService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class CashMovementController extends Controller
+{
+    public function __construct(
+        private readonly CashMovementService $cashMovementService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('cash_movements.view'), 403);
+
+        $rows = CashMovement::query()
+            ->with([
+                'cashierShift.outlet',
+                'cashierShift.user',
+                'creator',
+            ])
+            ->when($request->filled('cashier_shift_id'), function ($query) use ($request) {
+                $query->where('cashier_shift_id', (int) $request->input('cashier_shift_id'));
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->whereHas('cashierShift', function ($shiftQuery) use ($request) {
+                    $shiftQuery->where('outlet_id', (int) $request->input('outlet_id'));
+                });
+            })
+            ->when($request->filled('movement_type'), function ($query) use ($request) {
+                $query->where('movement_type', $request->string('movement_type')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar cash movement berhasil diambil.',
+            'data' => CashMovementResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreCashMovementRequest $request): JsonResponse
+    {
+        $row = $this->cashMovementService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Cash movement berhasil dibuat.',
+            'data' => new CashMovementResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, CashMovement $cashMovement): JsonResponse
+    {
+        abort_unless($request->user()->can('cash_movements.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail cash movement berhasil diambil.',
+            'data' => new CashMovementResource($cashMovement->load([
+                'cashierShift.outlet',
+                'cashierShift.user',
+                'creator',
+            ])),
         ]);
     }
 }
@@ -594,7 +856,7 @@ class GoodsReceiptController extends Controller
 
 <a id="file-apphttpcontrollersapiordercontrollerphp"></a>
 ### app\Http\Controllers\Api\OrderController.php
-- SHA: `8403c2d08e2d`  
+- SHA: `09ea563130a2`  
 - Ukuran: 7 KB  
 - Namespace: `App\Http\Controllers\Api`
 
@@ -647,6 +909,8 @@ class OrderController extends Controller
                 'items.product',
                 'items.variants',
                 'items.modifiers',
+                'payments.paymentMethod',
+                'payments.receiver',
                 'statusHistories.changer',
             ])
             ->when($request->filled('search'), function ($query) use ($request) {
@@ -728,6 +992,8 @@ class OrderController extends Controller
                 'items.product',
                 'items.variants',
                 'items.modifiers',
+                'payments.paymentMethod',
+                'payments.receiver',
                 'statusHistories.changer',
             ])),
         ]);
@@ -1088,6 +1354,251 @@ class OutletSettingController extends Controller
         ]);
     }
 }
+```
+</details>
+
+<a id="file-apphttpcontrollersapipaymentcontrollerphp"></a>
+### app\Http\Controllers\Api\PaymentController.php
+- SHA: `bc9f8cba3b8c`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `PaymentController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly PaymentService $paymentService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StorePaymentRequest $request) : *JsonResponse*
+- **show**(Request $request, Payment $payment) : *JsonResponse*
+- **cancel**(CancelPaymentRequest $request, Payment $payment) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Payment\CancelPaymentRequest;
+use App\Http\Requests\Api\Payment\StorePaymentRequest;
+use App\Http\Resources\PaymentResource;
+use App\Models\Payment;
+use App\Services\Sales\PaymentService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class PaymentController extends Controller
+{
+    public function __construct(
+        private readonly PaymentService $paymentService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('payments.view'), 403);
+
+        $rows = Payment::query()
+            ->with([
+                'order.outlet',
+                'order.cashierShift',
+                'paymentMethod',
+                'receiver',
+            ])
+            ->when($request->filled('order_id'), function ($query) use ($request) {
+                $query->where('order_id', (int) $request->input('order_id'));
+            })
+            ->when($request->filled('payment_method_id'), function ($query) use ($request) {
+                $query->where('payment_method_id', (int) $request->input('payment_method_id'));
+            })
+            ->when($request->filled('cashier_shift_id'), function ($query) use ($request) {
+                $query->whereHas('order', function ($orderQuery) use ($request) {
+                    $orderQuery->where('cashier_shift_id', (int) $request->input('cashier_shift_id'));
+                });
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->whereHas('order', function ($orderQuery) use ($request) {
+                    $orderQuery->where('outlet_id', (int) $request->input('outlet_id'));
+                });
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar payment berhasil diambil.',
+            'data' => PaymentResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StorePaymentRequest $request): JsonResponse
+    {
+        $row = $this->paymentService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Payment berhasil dibuat.',
+            'data' => new PaymentResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, Payment $payment): JsonResponse
+    {
+        abort_unless($request->user()->can('payments.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail payment berhasil diambil.',
+            'data' => new PaymentResource($payment->load([
+                'order.outlet',
+                'order.cashierShift',
+                'paymentMethod',
+                'receiver',
+            ])),
+        ]);
+    }
+
+    public function cancel(CancelPaymentRequest $request, Payment $payment): JsonResponse
+    {
+        $row = $this->paymentService->cancel(
+            payment: $payment,
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Payment berhasil dibatalkan.',
+            'data' => new PaymentResource($row),
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapipaymentmethodcontrollerphp"></a>
+### app\Http\Controllers\Api\PaymentMethodController.php
+- SHA: `9c0849d7a38e`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `PaymentMethodController` extends `Controller`**
+
+Metode Publik:
+- **index**(Request $request) : *JsonResponse*
+- **store**(StorePaymentMethodRequest $request) : *JsonResponse*
+- **show**(Request $request, PaymentMethod $paymentMethod) : *JsonResponse*
+- **update**(UpdatePaymentMethodRequest $request, PaymentMethod $paymentMethod) : *JsonResponse*
+- **destroy**(Request $request, PaymentMethod $paymentMethod) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\PaymentMethod\StorePaymentMethodRequest;
+use App\Http\Requests\Api\PaymentMethod\UpdatePaymentMethodRequest;
+use App\Http\Resources\PaymentMethodResource;
+use App\Models\PaymentMethod;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class PaymentMethodController extends Controller
+{
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('payment_methods.view'), 403);
+
+        $rows = PaymentMethod::query()
+            ->withCount('payments')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('code', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%")
+                        ->orWhere('type', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('type'), function ($query) use ($request) {
+                $query->where('type', $request->string('type')->toString());
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar metode pembayaran berhasil diambil.',
+            'data' => PaymentMethodResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StorePaymentMethodRequest $request): JsonResponse
+    {
+        $row = PaymentMethod::create($request->validated());
+
+        return response()->json([
+            'message' => 'Metode pembayaran berhasil dibuat.',
+            'data' => new PaymentMethodResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, PaymentMethod $paymentMethod): JsonResponse
+    {
+        abort_unless($request->user()->can('payment_methods.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail metode pembayaran berhasil diambil.',
+            'data' => new PaymentMethodResource($paymentMethod->loadCount('payments')),
+        ]);
+    }
+
+    public function update(UpdatePaymentMethodRequest $request, PaymentMethod $paymentMethod): JsonResponse
+    {
+        $paymentMethod->update($request->validated());
+
+        return response()->json([
+            'message' => 'Metode pembayaran berhasil diupdate.',
+            'data' => new PaymentMethodResource($paymentMethod->fresh()->loadCount('payments')),
+        ]);
+    }
+
+    public function destroy(Request $request, PaymentMethod $paymentMethod): JsonResponse
+    {
+        abort_unless($request->user()->can('payment_methods.delete'), 403);
+
+        if ($paymentMethod->payments()->exists()) {
+            return response()->json([
+                'message' => 'Metode pembayaran tidak bisa dihapus karena sudah dipakai transaksi.',
+            ], 422);
+        }
+
+        $paymentMethod->delete();
+
+        return response()->json([
+            'message' => 'Metode pembayaran berhasil dihapus.',
+        ]);
+    }
+}
+
 ```
 </details>
 
@@ -3828,6 +4339,168 @@ class LoginRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapicashiershiftclosecashiershiftrequestphp"></a>
+### app\Http\Requests\Api\CashierShift\CloseCashierShiftRequest.php
+- SHA: `48b7f66006fc`  
+- Ukuran: 509 B  
+- Namespace: `App\Http\Requests\Api\CashierShift`
+
+**Class `CloseCashierShiftRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\CashierShift;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CloseCashierShiftRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('cashier_shifts.close') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'closing_cash' => ['required', 'numeric', 'min:0'],
+            'closed_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapicashiershiftstorecashiershiftrequestphp"></a>
+### app\Http\Requests\Api\CashierShift\StoreCashierShiftRequest.php
+- SHA: `73ff920dd7b5`  
+- Ukuran: 584 B  
+- Namespace: `App\Http\Requests\Api\CashierShift`
+
+**Class `StoreCashierShiftRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\CashierShift;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreCashierShiftRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('cashier_shifts.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'opening_cash' => ['sometimes', 'numeric', 'min:0'],
+            'opened_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapicashiershiftupdatecashiershiftrequestphp"></a>
+### app\Http\Requests\Api\CashierShift\UpdateCashierShiftRequest.php
+- SHA: `76e23384d6e7`  
+- Ukuran: 398 B  
+- Namespace: `App\Http\Requests\Api\CashierShift`
+
+**Class `UpdateCashierShiftRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\CashierShift;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateCashierShiftRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('cashier_shifts.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapicashmovementstorecashmovementrequestphp"></a>
+### app\Http\Requests\Api\CashMovement\StoreCashMovementRequest.php
+- SHA: `afd320870c07`  
+- Ukuran: 712 B  
+- Namespace: `App\Http\Requests\Api\CashMovement`
+
+**Class `StoreCashMovementRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\CashMovement;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreCashMovementRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('cash_movements.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'cashier_shift_id' => ['required', 'integer', 'exists:cashier_shifts,id'],
+            'movement_type' => ['required', Rule::in(['cash_in', 'cash_out'])],
+            'amount' => ['required', 'numeric', 'gt:0'],
+            'reason' => ['nullable', 'string', 'max:255'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapicustomerstorecustomerrequestphp"></a>
 ### app\Http\Requests\Api\Customer\StoreCustomerRequest.php
 - SHA: `ae76a38dc4b9`  
@@ -5150,6 +5823,175 @@ class UpdateOutletSettingRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapipaymentcancelpaymentrequestphp"></a>
+### app\Http\Requests\Api\Payment\CancelPaymentRequest.php
+- SHA: `bf7837e18b22`  
+- Ukuran: 382 B  
+- Namespace: `App\Http\Requests\Api\Payment`
+
+**Class `CancelPaymentRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Payment;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CancelPaymentRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('payments.cancel') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipaymentstorepaymentrequestphp"></a>
+### app\Http\Requests\Api\Payment\StorePaymentRequest.php
+- SHA: `dd9c35cc68cd`  
+- Ukuran: 851 B  
+- Namespace: `App\Http\Requests\Api\Payment`
+
+**Class `StorePaymentRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Payment;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StorePaymentRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('payments.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'order_id' => ['required', 'integer', 'exists:orders,id'],
+            'payment_method_id' => ['required', 'integer', 'exists:payment_methods,id'],
+            'amount' => ['required', 'numeric', 'gt:0'],
+            'reference_number' => ['nullable', 'string', 'max:255'],
+            'paid_at' => ['nullable', 'date'],
+            'status' => ['sometimes', Rule::in(['pending', 'paid', 'failed', 'cancelled', 'refunded'])],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipaymentmethodstorepaymentmethodrequestphp"></a>
+### app\Http\Requests\Api\PaymentMethod\StorePaymentMethodRequest.php
+- SHA: `08d07e4c5e05`  
+- Ukuran: 689 B  
+- Namespace: `App\Http\Requests\Api\PaymentMethod`
+
+**Class `StorePaymentMethodRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\PaymentMethod;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StorePaymentMethodRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('payment_methods.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'code' => ['required', 'string', 'max:100', Rule::unique('payment_methods', 'code')],
+            'name' => ['required', 'string', 'max:255'],
+            'type' => ['required', Rule::in(['cash', 'qris', 'transfer', 'ewallet', 'other'])],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapipaymentmethodupdatepaymentmethodrequestphp"></a>
+### app\Http\Requests\Api\PaymentMethod\UpdatePaymentMethodRequest.php
+- SHA: `60c7d54372e0`  
+- Ukuran: 818 B  
+- Namespace: `App\Http\Requests\Api\PaymentMethod`
+
+**Class `UpdatePaymentMethodRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\PaymentMethod;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdatePaymentMethodRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('payment_methods.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        $paymentMethodId = $this->route('paymentMethod')->id;
+
+        return [
+            'code' => ['sometimes', 'required', 'string', 'max:100', Rule::unique('payment_methods', 'code')->ignore($paymentMethodId)],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'type' => ['sometimes', 'required', Rule::in(['cash', 'qris', 'transfer', 'ewallet', 'other'])],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapipermissionstorepermissionrequestphp"></a>
 ### app\Http\Requests\Api\Permission\StorePermissionRequest.php
 - SHA: `4a647a9c8b71`  
@@ -6316,6 +7158,146 @@ class UpdateVoucherRequest extends FormRequest
 
 ## API Resources (app/Http/Resources)
 
+<a id="file-apphttpresourcescashiershiftresourcephp"></a>
+### app\Http\Resources\CashierShiftResource.php
+- SHA: `f9427b914876`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `CashierShiftResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CashierShiftResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        $orders = $this->whenLoaded('orders', fn () => $this->orders);
+        $cashMovements = $this->whenLoaded('cashMovements', fn () => $this->cashMovements);
+
+        $cashSalesTotal = $this->relationLoaded('orders')
+            ? (float) $this->orders->flatMap(fn ($order) => $order->relationLoaded('payments') ? $order->payments : collect())
+                ->filter(fn ($payment) => $payment->status === 'paid' && $payment->relationLoaded('paymentMethod') && $payment->paymentMethod?->type === 'cash')
+                ->sum('amount')
+            : null;
+
+        $cashInTotal = $this->relationLoaded('cashMovements')
+            ? (float) $this->cashMovements->where('movement_type', 'cash_in')->sum('amount')
+            : null;
+
+        $cashOutTotal = $this->relationLoaded('cashMovements')
+            ? (float) $this->cashMovements->where('movement_type', 'cash_out')->sum('amount')
+            : null;
+
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'outlet' => $this->whenLoaded('outlet', fn () => [
+                'id' => $this->outlet?->id,
+                'code' => $this->outlet?->code,
+                'name' => $this->outlet?->name,
+            ]),
+            'user_id' => $this->user_id,
+            'user' => $this->whenLoaded('user', fn () => [
+                'id' => $this->user?->id,
+                'name' => $this->user?->name,
+                'username' => $this->user?->username,
+            ]),
+            'shift_number' => $this->shift_number,
+            'opened_at' => $this->opened_at,
+            'closed_at' => $this->closed_at,
+            'opening_cash' => (float) $this->opening_cash,
+            'expected_cash' => (float) $this->expected_cash,
+            'closing_cash' => (float) $this->closing_cash,
+            'cash_difference' => (float) $this->cash_difference,
+            'status' => $this->status,
+            'notes' => $this->notes,
+            'orders_count' => $this->whenCounted('orders'),
+            'cash_sales_total' => $cashSalesTotal,
+            'cash_in_total' => $cashInTotal,
+            'cash_out_total' => $cashOutTotal,
+            'cash_movements' => CashMovementResource::collection($cashMovements ?? []),
+            'orders' => $this->whenLoaded('orders', function () {
+                return $this->orders->map(function ($order) {
+                    return [
+                        'id' => $order->id,
+                        'order_number' => $order->order_number,
+                        'grand_total' => (float) $order->grand_total,
+                        'paid_total' => (float) $order->paid_total,
+                        'payment_status' => $order->payment_status,
+                    ];
+                });
+            }),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcescashmovementresourcephp"></a>
+### app\Http\Resources\CashMovementResource.php
+- SHA: `7d20f87bdfec`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `CashMovementResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CashMovementResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'cashier_shift_id' => $this->cashier_shift_id,
+            'cashier_shift' => $this->whenLoaded('cashierShift', fn () => [
+                'id' => $this->cashierShift?->id,
+                'shift_number' => $this->cashierShift?->shift_number,
+                'status' => $this->cashierShift?->status,
+                'outlet_id' => $this->cashierShift?->outlet_id,
+            ]),
+            'movement_type' => $this->movement_type,
+            'amount' => (float) $this->amount,
+            'reason' => $this->reason,
+            'notes' => $this->notes,
+            'created_by' => $this->created_by,
+            'creator' => $this->whenLoaded('creator', fn () => [
+                'id' => $this->creator?->id,
+                'name' => $this->creator?->name,
+            ]),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcescustomeraddressresourcephp"></a>
 ### app\Http\Resources\CustomerAddressResource.php
 - SHA: `dc3eab6a1caa`  
@@ -6630,7 +7612,7 @@ class OrderItemVariantResource extends JsonResource
 
 <a id="file-apphttpresourcesorderresourcephp"></a>
 ### app\Http\Resources\OrderResource.php
-- SHA: `86bdd73f085a`  
+- SHA: `84eba7439b96`  
 - Ukuran: 4 KB  
 - Namespace: `App\Http\Resources`
 
@@ -6700,6 +7682,7 @@ class OrderResource extends JsonResource
                 'name' => $this->creator?->name,
             ]),
             'items' => OrderItemResource::collection($this->whenLoaded('items')),
+            'payments' => PaymentResource::collection($this->whenLoaded('payments')),
             'status_histories' => $this->whenLoaded('statusHistories', function () {
                 return $this->statusHistories->map(function ($history) {
                     return [
@@ -6856,6 +7839,108 @@ class OutletSettingResource extends JsonResource
             'timezone' => $this->timezone,
             'allow_negative_stock' => $this->allow_negative_stock,
             'low_stock_notification_enabled' => $this->low_stock_notification_enabled,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcespaymentmethodresourcephp"></a>
+### app\Http\Resources\PaymentMethodResource.php
+- SHA: `f74963b7f2dd`  
+- Ukuran: 602 B  
+- Namespace: `App\Http\Resources`
+
+**Class `PaymentMethodResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PaymentMethodResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'type' => $this->type,
+            'is_active' => $this->is_active,
+            'payments_count' => $this->whenCounted('payments'),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcespaymentresourcephp"></a>
+### app\Http\Resources\PaymentResource.php
+- SHA: `f2b0e40876bc`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `PaymentResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PaymentResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'order_id' => $this->order_id,
+            'order' => $this->whenLoaded('order', fn () => [
+                'id' => $this->order?->id,
+                'order_number' => $this->order?->order_number,
+                'outlet_id' => $this->order?->outlet_id,
+                'cashier_shift_id' => $this->order?->cashier_shift_id,
+                'grand_total' => (float) ($this->order?->grand_total ?? 0),
+                'paid_total' => (float) ($this->order?->paid_total ?? 0),
+                'payment_status' => $this->order?->payment_status,
+            ]),
+            'payment_method_id' => $this->payment_method_id,
+            'payment_method' => $this->whenLoaded('paymentMethod', fn () => [
+                'id' => $this->paymentMethod?->id,
+                'code' => $this->paymentMethod?->code,
+                'name' => $this->paymentMethod?->name,
+                'type' => $this->paymentMethod?->type,
+            ]),
+            'amount' => (float) $this->amount,
+            'reference_number' => $this->reference_number,
+            'paid_at' => $this->paid_at,
+            'status' => $this->status,
+            'notes' => $this->notes,
+            'received_by' => $this->received_by,
+            'receiver' => $this->whenLoaded('receiver', fn () => [
+                'id' => $this->receiver?->id,
+                'name' => $this->receiver?->name,
+            ]),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -8297,7 +9382,7 @@ class VoucherResource extends JsonResource
 
 <a id="file-appmodelscashiershiftphp"></a>
 ### app\Models\CashierShift.php
-- SHA: `f08831754c03`  
+- SHA: `8520b849de9f`  
 - Ukuran: 1 KB  
 - Namespace: `App\Models`
 
@@ -8307,6 +9392,7 @@ Metode Publik:
 - **outlet**() : *BelongsTo*
 - **user**() : *BelongsTo*
 - **orders**() : *HasMany*
+- **cashMovements**() : *HasMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -8356,6 +9442,61 @@ class CashierShift extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function cashMovements(): HasMany
+    {
+        return $this->hasMany(CashMovement::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelscashmovementphp"></a>
+### app\Models\CashMovement.php
+- SHA: `caa4778c0f6d`  
+- Ukuran: 618 B  
+- Namespace: `App\Models`
+
+**Class `CashMovement` extends `Model`**
+
+Metode Publik:
+- **cashierShift**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class CashMovement extends Model
+{
+    protected $fillable = [
+        'cashier_shift_id',
+        'movement_type',
+        'amount',
+        'reason',
+        'notes',
+        'created_by',
+    ];
+
+    protected $casts = [
+        'amount' => 'decimal:2',
+    ];
+
+    public function cashierShift(): BelongsTo
+    {
+        return $this->belongsTo(CashierShift::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }
 
@@ -8602,7 +9743,7 @@ class GoodsReceiptItem extends Model
 
 <a id="file-appmodelsorderphp"></a>
 ### app\Models\Order.php
-- SHA: `c130871afc7d`  
+- SHA: `6631613a8f7c`  
 - Ukuran: 2 KB  
 - Namespace: `App\Models`
 
@@ -8616,6 +9757,7 @@ Metode Publik:
 - **creator**() : *BelongsTo*
 - **items**() : *HasMany*
 - **statusHistories**() : *HasMany*
+- **payments**() : *HasMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -8699,6 +9841,11 @@ class Order extends Model
     public function statusHistories(): HasMany
     {
         return $this->hasMany(OrderStatusHistory::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }
 
@@ -9098,6 +10245,107 @@ class OutletSetting extends Model
     public function outlet(): BelongsTo
     {
         return $this->belongsTo(Outlet::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelspaymentphp"></a>
+### app\Models\Payment.php
+- SHA: `af1c320ac83c`  
+- Ukuran: 793 B  
+- Namespace: `App\Models`
+
+**Class `Payment` extends `Model`**
+
+Metode Publik:
+- **order**() : *BelongsTo*
+- **paymentMethod**() : *BelongsTo*
+- **receiver**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Payment extends Model
+{
+    protected $fillable = [
+        'order_id',
+        'payment_method_id',
+        'amount',
+        'reference_number',
+        'paid_at',
+        'status',
+        'notes',
+        'received_by',
+    ];
+
+    protected $casts = [
+        'amount' => 'decimal:2',
+        'paid_at' => 'datetime',
+    ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function paymentMethod(): BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function receiver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'received_by');
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelspaymentmethodphp"></a>
+### app\Models\PaymentMethod.php
+- SHA: `f4f5c8ec0621`  
+- Ukuran: 432 B  
+- Namespace: `App\Models`
+
+**Class `PaymentMethod` extends `Model`**
+
+Metode Publik:
+- **payments**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class PaymentMethod extends Model
+{
+    protected $fillable = [
+        'code',
+        'name',
+        'type',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }
 
@@ -10795,8 +12043,8 @@ class UnitConversion extends Model
 
 <a id="file-appmodelsuserphp"></a>
 ### app\Models\User.php
-- SHA: `d8223604cb81`  
-- Ukuran: 1 KB  
+- SHA: `bc4b0b9171d6`  
+- Ukuran: 2 KB  
 - Namespace: `App\Models`
 
 **Class `User` extends `Authenticatable`**
@@ -10804,6 +12052,9 @@ class UnitConversion extends Model
 Metode Publik:
 - **outletAccesses**() : *HasMany*
 - **outlets**() : *BelongsToMany*
+- **cashierShifts**() : *HasMany*
+- **receivedPayments**() : *HasMany*
+- **cashMovements**() : *HasMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -10811,7 +12062,6 @@ Metode Publik:
 
 namespace App\Models;
 
-// use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10862,6 +12112,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Outlet::class, 'user_outlet_accesses')
             ->withPivot('is_default')
             ->withTimestamps();
+    }
+
+    public function cashierShifts(): HasMany
+    {
+        return $this->hasMany(CashierShift::class);
+    }
+
+    public function receivedPayments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'received_by');
+    }
+
+    public function cashMovements(): HasMany
+    {
+        return $this->hasMany(CashMovement::class, 'created_by');
     }
 }
 
@@ -11079,6 +12344,270 @@ class AuthService
             'token' => $token,
             'user' => $user->load('roles', 'permissions'),
         ];
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicescashiercashiershiftservicephp"></a>
+### app\Services\Cashier\CashierShiftService.php
+- SHA: `b5690c8586bf`  
+- Ukuran: 6 KB  
+- Namespace: `App\Services\Cashier`
+
+**Class `CashierShiftService`**
+
+Metode Publik:
+- **open**(array $payload, int $userId) : *CashierShift*
+- **update**(CashierShift $shift, array $payload) : *CashierShift*
+- **close**(CashierShift $shift, array $payload, int $userId) : *CashierShift*
+- **refreshExpectedCash**(CashierShift $shift) : *CashierShift*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Cashier;
+
+use App\Models\CashierShift;
+use App\Models\Payment;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
+class CashierShiftService
+{
+    public function open(array $payload, int $userId): CashierShift
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $this->ensureUserCanAccessOutlet($userId, (int) $payload['outlet_id']);
+
+            $hasOpenShift = CashierShift::query()
+                ->where('outlet_id', (int) $payload['outlet_id'])
+                ->where('user_id', $userId)
+                ->where('status', 'open')
+                ->exists();
+
+            if ($hasOpenShift) {
+                throw ValidationException::withMessages([
+                    'outlet_id' => ['User ini masih memiliki shift open pada outlet tersebut.'],
+                ]);
+            }
+
+            $openingCash = (float) ($payload['opening_cash'] ?? 0);
+
+            $shift = CashierShift::create([
+                'outlet_id' => $payload['outlet_id'],
+                'user_id' => $userId,
+                'shift_number' => $this->generateShiftNumber((int) $payload['outlet_id']),
+                'opened_at' => $payload['opened_at'] ?? now(),
+                'opening_cash' => $openingCash,
+                'expected_cash' => $openingCash,
+                'closing_cash' => 0,
+                'cash_difference' => 0,
+                'status' => 'open',
+                'notes' => $payload['notes'] ?? null,
+            ]);
+
+            $shift->cashMovements()->create([
+                'movement_type' => 'opening',
+                'amount' => $openingCash,
+                'reason' => 'Opening cash',
+                'notes' => 'Modal awal shift',
+                'created_by' => $userId,
+            ]);
+
+            return $shift->fresh()->load([
+                'outlet',
+                'user',
+                'cashMovements.creator',
+                'orders.payments.paymentMethod',
+            ]);
+        });
+    }
+
+    public function update(CashierShift $shift, array $payload): CashierShift
+    {
+        $shift->update([
+            'notes' => array_key_exists('notes', $payload) ? $payload['notes'] : $shift->notes,
+        ]);
+
+        return $shift->fresh()->load([
+            'outlet',
+            'user',
+            'cashMovements.creator',
+            'orders.payments.paymentMethod',
+        ]);
+    }
+
+    public function close(CashierShift $shift, array $payload, int $userId): CashierShift
+    {
+        return DB::transaction(function () use ($shift, $payload, $userId) {
+            if ($shift->status !== 'open') {
+                throw ValidationException::withMessages([
+                    'status' => ['Shift kasir ini sudah ditutup.'],
+                ]);
+            }
+
+            $expectedCash = $this->calculateExpectedCash($shift);
+            $closingCash = (float) $payload['closing_cash'];
+            $cashDifference = $closingCash - $expectedCash;
+
+            $shift->update([
+                'closed_at' => $payload['closed_at'] ?? now(),
+                'expected_cash' => $expectedCash,
+                'closing_cash' => $closingCash,
+                'cash_difference' => $cashDifference,
+                'status' => 'closed',
+                'notes' => array_key_exists('notes', $payload)
+                    ? $payload['notes']
+                    : $shift->notes,
+            ]);
+
+            if ((float) $cashDifference !== 0.0) {
+                $shift->cashMovements()->create([
+                    'movement_type' => 'closing_adjustment',
+                    'amount' => abs($cashDifference),
+                    'reason' => $cashDifference > 0 ? 'Closing overage' : 'Closing shortage',
+                    'notes' => 'Selisih saat tutup shift',
+                    'created_by' => $userId,
+                ]);
+            }
+
+            return $shift->fresh()->load([
+                'outlet',
+                'user',
+                'cashMovements.creator',
+                'orders.payments.paymentMethod',
+            ]);
+        });
+    }
+
+    public function refreshExpectedCash(CashierShift $shift): CashierShift
+    {
+        $shift->update([
+            'expected_cash' => $this->calculateExpectedCash($shift),
+        ]);
+
+        return $shift->fresh()->load([
+            'outlet',
+            'user',
+            'cashMovements.creator',
+            'orders.payments.paymentMethod',
+        ]);
+    }
+
+    private function calculateExpectedCash(CashierShift $shift): float
+    {
+        $cashSalesTotal = (float) Payment::query()
+            ->where('status', 'paid')
+            ->whereHas('paymentMethod', fn ($query) => $query->where('type', 'cash'))
+            ->whereHas('order', fn ($query) => $query->where('cashier_shift_id', $shift->id))
+            ->sum('amount');
+
+        $cashInTotal = (float) $shift->cashMovements()
+            ->where('movement_type', 'cash_in')
+            ->sum('amount');
+
+        $cashOutTotal = (float) $shift->cashMovements()
+            ->where('movement_type', 'cash_out')
+            ->sum('amount');
+
+        return (float) $shift->opening_cash + $cashSalesTotal + $cashInTotal - $cashOutTotal;
+    }
+
+    private function generateShiftNumber(int $outletId): string
+    {
+        $datePart = now()->format('Ymd');
+        $randomPart = strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'));
+
+        return 'SHIFT-' . $outletId . '-' . $datePart . '-' . $randomPart;
+    }
+
+    private function ensureUserCanAccessOutlet(int $userId, int $outletId): void
+    {
+        $user = User::query()
+            ->with('roles', 'outletAccesses')
+            ->findOrFail($userId);
+
+        if ($user->hasRole('superadmin') || $user->hasRole('admin_pusat')) {
+            return;
+        }
+
+        $hasAccess = $user->outletAccesses
+            ->contains(fn ($access) => (int) $access->outlet_id === $outletId);
+
+        if (!$hasAccess) {
+            throw ValidationException::withMessages([
+                'outlet_id' => ['User tidak memiliki akses ke outlet ini.'],
+            ]);
+        }
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicescashiercashmovementservicephp"></a>
+### app\Services\Cashier\CashMovementService.php
+- SHA: `3b80d31c4203`  
+- Ukuran: 1 KB  
+- Namespace: `App\Services\Cashier`
+
+**Class `CashMovementService`**
+
+Metode Publik:
+- **__construct**(private readonly CashierShiftService $cashierShiftService)
+- **create**(array $payload, ?int $userId = null) : *CashMovement*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Cashier;
+
+use App\Models\CashMovement;
+use App\Models\CashierShift;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class CashMovementService
+{
+    public function __construct(
+        private readonly CashierShiftService $cashierShiftService
+    ) {
+    }
+
+    public function create(array $payload, ?int $userId = null): CashMovement
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $shift = CashierShift::query()->findOrFail($payload['cashier_shift_id']);
+
+            if ($shift->status !== 'open') {
+                throw ValidationException::withMessages([
+                    'cashier_shift_id' => ['Cash movement hanya bisa dibuat pada shift open.'],
+                ]);
+            }
+
+            $movement = CashMovement::create([
+                'cashier_shift_id' => $shift->id,
+                'movement_type' => $payload['movement_type'],
+                'amount' => $payload['amount'],
+                'reason' => $payload['reason'] ?? null,
+                'notes' => $payload['notes'] ?? null,
+                'created_by' => $userId,
+            ]);
+
+            $this->cashierShiftService->refreshExpectedCash($shift);
+
+            return $movement->fresh()->load([
+                'cashierShift.outlet',
+                'cashierShift.user',
+                'creator',
+            ]);
+        });
     }
 }
 
@@ -13521,6 +15050,188 @@ class OrderService
 ```
 </details>
 
+<a id="file-appservicessalespaymentservicephp"></a>
+### app\Services\Sales\PaymentService.php
+- SHA: `db616eb59e9d`  
+- Ukuran: 6 KB  
+- Namespace: `App\Services\Sales`
+
+**Class `PaymentService`**
+
+Metode Publik:
+- **create**(array $payload, ?int $userId = null) : *Payment*
+- **cancel**(Payment $payment, ?string $notes = null) : *Payment*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Sales;
+
+use App\Models\CashierShift;
+use App\Models\Order;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class PaymentService
+{
+    public function create(array $payload, ?int $userId = null): Payment
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $order = Order::query()
+                ->with('cashierShift')
+                ->findOrFail($payload['order_id']);
+
+            if ($order->order_status === 'cancelled') {
+                throw ValidationException::withMessages([
+                    'order_id' => ['Order yang dibatalkan tidak bisa dibayar.'],
+                ]);
+            }
+
+            $paymentMethod = PaymentMethod::query()
+                ->whereKey($payload['payment_method_id'])
+                ->where('is_active', true)
+                ->first();
+
+            if (!$paymentMethod) {
+                throw ValidationException::withMessages([
+                    'payment_method_id' => ['Metode pembayaran tidak ditemukan atau tidak aktif.'],
+                ]);
+            }
+
+            if ((float) $payload['amount'] <= 0) {
+                throw ValidationException::withMessages([
+                    'amount' => ['Nominal pembayaran harus lebih dari 0.'],
+                ]);
+            }
+
+            if ($paymentMethod->type === 'cash' && $order->cashier_shift_id) {
+                $this->ensureOpenShift($order->cashierShift);
+            }
+
+            $payment = Payment::create([
+                'order_id' => $order->id,
+                'payment_method_id' => $paymentMethod->id,
+                'amount' => $payload['amount'],
+                'reference_number' => $payload['reference_number'] ?? null,
+                'paid_at' => $payload['paid_at'] ?? now(),
+                'status' => $payload['status'] ?? 'paid',
+                'notes' => $payload['notes'] ?? null,
+                'received_by' => $userId,
+            ]);
+
+            $this->syncOrderPaymentSummary($order->fresh());
+
+            if ($paymentMethod->type === 'cash' && $order->cashier_shift_id) {
+                $this->refreshShiftExpectedCash((int) $order->cashier_shift_id);
+            }
+
+            return $payment->fresh()->load([
+                'order.outlet',
+                'order.cashierShift',
+                'paymentMethod',
+                'receiver',
+            ]);
+        });
+    }
+
+    public function cancel(Payment $payment, ?string $notes = null): Payment
+    {
+        return DB::transaction(function () use ($payment, $notes) {
+            if (in_array($payment->status, ['cancelled', 'refunded'], true)) {
+                throw ValidationException::withMessages([
+                    'status' => ['Payment ini sudah tidak aktif.'],
+                ]);
+            }
+
+            $order = $payment->order()->with('cashierShift')->firstOrFail();
+            $paymentMethod = $payment->paymentMethod()->first();
+
+            $payment->update([
+                'status' => 'cancelled',
+                'notes' => $notes ?: $payment->notes,
+            ]);
+
+            $this->syncOrderPaymentSummary($order->fresh());
+
+            if ($paymentMethod && $paymentMethod->type === 'cash' && $order->cashier_shift_id) {
+                $this->refreshShiftExpectedCash((int) $order->cashier_shift_id);
+            }
+
+            return $payment->fresh()->load([
+                'order.outlet',
+                'order.cashierShift',
+                'paymentMethod',
+                'receiver',
+            ]);
+        });
+    }
+
+    private function syncOrderPaymentSummary(Order $order): void
+    {
+        $paidTotal = (float) $order->payments()
+            ->where('status', 'paid')
+            ->sum('amount');
+
+        $paymentStatus = 'unpaid';
+
+        if ($paidTotal > 0 && $paidTotal < (float) $order->grand_total) {
+            $paymentStatus = 'partial';
+        } elseif ($paidTotal >= (float) $order->grand_total && (float) $order->grand_total > 0) {
+            $paymentStatus = 'paid';
+        }
+
+        $order->update([
+            'paid_total' => $paidTotal,
+            'payment_status' => $paymentStatus,
+            'change_amount' => max(0, $paidTotal - (float) $order->grand_total),
+        ]);
+    }
+
+    private function ensureOpenShift(?CashierShift $shift): void
+    {
+        if (!$shift) {
+            throw ValidationException::withMessages([
+                'order_id' => ['Order cash wajib terhubung ke shift kasir.'],
+            ]);
+        }
+
+        if ($shift->status !== 'open') {
+            throw ValidationException::withMessages([
+                'order_id' => ['Shift kasir untuk order ini harus dalam status open.'],
+            ]);
+        }
+    }
+
+    private function refreshShiftExpectedCash(int $shiftId): void
+    {
+        $shift = CashierShift::query()->findOrFail($shiftId);
+
+        $cashSalesTotal = (float) Payment::query()
+            ->where('status', 'paid')
+            ->whereHas('paymentMethod', fn ($query) => $query->where('type', 'cash'))
+            ->whereHas('order', fn ($query) => $query->where('cashier_shift_id', $shift->id))
+            ->sum('amount');
+
+        $cashInTotal = (float) $shift->cashMovements()
+            ->where('movement_type', 'cash_in')
+            ->sum('amount');
+
+        $cashOutTotal = (float) $shift->cashMovements()
+            ->where('movement_type', 'cash_out')
+            ->sum('amount');
+
+        $shift->update([
+            'expected_cash' => (float) $shift->opening_cash + $cashSalesTotal + $cashInTotal - $cashOutTotal,
+        ]);
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicessystemsettingsystemsettingservicephp"></a>
 ### app\Services\SystemSetting\SystemSettingService.php
 - SHA: `87e179c3a4f9`  
@@ -13784,8 +15495,8 @@ class VoucherService
 
 <a id="file-databaseseedersdatabaseseederphp"></a>
 ### database\seeders\DatabaseSeeder.php
-- SHA: `8807bdbe704c`  
-- Ukuran: 292 B  
+- SHA: `9139944c0df7`  
+- Ukuran: 332 B  
 - Namespace: `Database\Seeders`
 
 **Class `DatabaseSeeder` extends `Seeder`**
@@ -13809,7 +15520,65 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             SuperAdminSeeder::class,
+            PaymentMethodSeeder::class,
         ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-databaseseederspaymentmethodseederphp"></a>
+### database\seeders\PaymentMethodSeeder.php
+- SHA: `4b8039c83587`  
+- Ukuran: 914 B  
+- Namespace: `Database\Seeders`
+
+**Class `PaymentMethodSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\PaymentMethod;
+use Illuminate\Database\Seeder;
+
+class PaymentMethodSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $rows = [
+            [
+                'code' => 'cash',
+                'name' => 'Tunai',
+                'type' => 'cash',
+                'is_active' => true,
+            ],
+            [
+                'code' => 'qris',
+                'name' => 'QRIS',
+                'type' => 'qris',
+                'is_active' => true,
+            ],
+            [
+                'code' => 'transfer',
+                'name' => 'Transfer Bank',
+                'type' => 'transfer',
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($rows as $row) {
+            PaymentMethod::query()->updateOrCreate(
+                ['code' => $row['code']],
+                $row
+            );
+        }
     }
 }
 
@@ -13818,8 +15587,8 @@ class DatabaseSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `a559ea938537`  
-- Ukuran: 4 KB  
+- SHA: `529f3c98a5fb`  
+- Ukuran: 5 KB  
 - Namespace: `Database\Seeders`
 
 **Class `PermissionSeeder` extends `Seeder`**
@@ -13976,6 +15745,23 @@ class PermissionSeeder extends Seeder
             'stock_opnames.post',
             'stock_opnames.cancel',
 
+            'payment_methods.view',
+            'payment_methods.create',
+            'payment_methods.update',
+            'payment_methods.delete',
+
+            'payments.view',
+            'payments.create',
+            'payments.cancel',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
+
             'orders.view',
             'orders.create',
             'orders.update',
@@ -13994,8 +15780,8 @@ class PermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `c532d5b67f2d`  
-- Ukuran: 9 KB  
+- SHA: `2fb62a87ba53`  
+- Ukuran: 10 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -14153,6 +15939,23 @@ class RoleSeeder extends Seeder
             'stock_opnames.post',
             'stock_opnames.cancel',
 
+            'payment_methods.view',
+            'payment_methods.create',
+            'payment_methods.update',
+            'payment_methods.delete',
+
+            'payments.view',
+            'payments.create',
+            'payments.cancel',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
+
             'orders.view',
             'orders.create',
             'orders.update',
@@ -14221,6 +16024,19 @@ class RoleSeeder extends Seeder
             'stock_opnames.update',
             'stock_opnames.post',
 
+            'payment_methods.view',
+            'payments.view',
+            'payments.create',
+            'payments.cancel',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
+
             'orders.view',
             'orders.create',
             'orders.update',
@@ -14243,6 +16059,18 @@ class RoleSeeder extends Seeder
 
             'vouchers.view',
             'promotions.view',
+
+            'payment_methods.view',
+            'payments.view',
+            'payments.create',
+
+            'cashier_shifts.view',
+            'cashier_shifts.create',
+            'cashier_shifts.update',
+            'cashier_shifts.close',
+
+            'cash_movements.view',
+            'cash_movements.create',
 
             'orders.view',
             'orders.create',
@@ -14337,6 +16165,11 @@ class RoleSeeder extends Seeder
             'stock_transfers.view',
             'stock_opnames.view',
 
+            'payment_methods.view',
+            'payments.view',
+            'cashier_shifts.view',
+            'cash_movements.view',
+
             'orders.view',
         ]);
     }
@@ -14393,8 +16226,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `296eb515d537`  
-- Ukuran: 12 KB  
+- SHA: `27066eaf5590`  
+- Ukuran: 14 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -14523,6 +16356,23 @@ class SuperAdminSeeder extends Seeder
 | DELETE | `/stock-opnames/{stockOpname}` | `StockOpnameController` | `destroy` |
 | POST | `/stock-opnames/{stockOpname}/post` | `StockOpnameController` | `post` |
 | POST | `/stock-opnames/{stockOpname}/cancel` | `StockOpnameController` | `cancel` |
+| GET | `/payment-methods` | `PaymentMethodController` | `index` |
+| POST | `/payment-methods` | `PaymentMethodController` | `store` |
+| GET | `/payment-methods/{paymentMethod}` | `PaymentMethodController` | `show` |
+| PUT | `/payment-methods/{paymentMethod}` | `PaymentMethodController` | `update` |
+| DELETE | `/payment-methods/{paymentMethod}` | `PaymentMethodController` | `destroy` |
+| GET | `/cashier-shifts` | `CashierShiftController` | `index` |
+| POST | `/cashier-shifts` | `CashierShiftController` | `store` |
+| GET | `/cashier-shifts/{cashierShift}` | `CashierShiftController` | `show` |
+| PUT | `/cashier-shifts/{cashierShift}` | `CashierShiftController` | `update` |
+| POST | `/cashier-shifts/{cashierShift}/close` | `CashierShiftController` | `close` |
+| GET | `/cash-movements` | `CashMovementController` | `index` |
+| POST | `/cash-movements` | `CashMovementController` | `store` |
+| GET | `/cash-movements/{cashMovement}` | `CashMovementController` | `show` |
+| GET | `/payments` | `PaymentController` | `index` |
+| POST | `/payments` | `PaymentController` | `store` |
+| GET | `/payments/{payment}` | `PaymentController` | `show` |
+| POST | `/payments/{payment}/cancel` | `PaymentController` | `cancel` |
 | GET | `/orders` | `OrderController` | `index` |
 | POST | `/orders` | `OrderController` | `store` |
 | GET | `/orders/{order}` | `OrderController` | `show` |
@@ -14537,12 +16387,16 @@ class SuperAdminSeeder extends Seeder
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CashierShiftController;
+use App\Http\Controllers\Api\CashMovementController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
 use App\Http\Controllers\Api\OutletSettingController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProductBomController;
 use App\Http\Controllers\Api\ProductCategoryController;
@@ -14713,6 +16567,27 @@ Route::prefix('v1')->group(function () {
         Route::delete('/stock-opnames/{stockOpname}', [StockOpnameController::class, 'destroy']);
         Route::post('/stock-opnames/{stockOpname}/post', [StockOpnameController::class, 'post']);
         Route::post('/stock-opnames/{stockOpname}/cancel', [StockOpnameController::class, 'cancel']);
+
+        Route::get('/payment-methods', [PaymentMethodController::class, 'index']);
+        Route::post('/payment-methods', [PaymentMethodController::class, 'store']);
+        Route::get('/payment-methods/{paymentMethod}', [PaymentMethodController::class, 'show']);
+        Route::put('/payment-methods/{paymentMethod}', [PaymentMethodController::class, 'update']);
+        Route::delete('/payment-methods/{paymentMethod}', [PaymentMethodController::class, 'destroy']);
+
+        Route::get('/cashier-shifts', [CashierShiftController::class, 'index']);
+        Route::post('/cashier-shifts', [CashierShiftController::class, 'store']);
+        Route::get('/cashier-shifts/{cashierShift}', [CashierShiftController::class, 'show']);
+        Route::put('/cashier-shifts/{cashierShift}', [CashierShiftController::class, 'update']);
+        Route::post('/cashier-shifts/{cashierShift}/close', [CashierShiftController::class, 'close']);
+
+        Route::get('/cash-movements', [CashMovementController::class, 'index']);
+        Route::post('/cash-movements', [CashMovementController::class, 'store']);
+        Route::get('/cash-movements/{cashMovement}', [CashMovementController::class, 'show']);
+
+        Route::get('/payments', [PaymentController::class, 'index']);
+        Route::post('/payments', [PaymentController::class, 'store']);
+        Route::get('/payments/{payment}', [PaymentController::class, 'show']);
+        Route::post('/payments/{payment}/cancel', [PaymentController::class, 'cancel']);
 
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/orders', [OrderController::class, 'store']);
