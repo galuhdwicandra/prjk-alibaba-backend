@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-23 15:25:58_  
+_Dihasilkan otomatis: 2026-04-25 12:35:13_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -10,6 +10,7 @@ _Dihasilkan otomatis: 2026-04-23 15:25:58_
   - [app\Http\Controllers\Api\CashMovementController.php](#file-apphttpcontrollersapicashmovementcontrollerphp)
   - [app\Http\Controllers\Api\CustomerController.php](#file-apphttpcontrollersapicustomercontrollerphp)
   - [app\Http\Controllers\Api\GoodsReceiptController.php](#file-apphttpcontrollersapigoodsreceiptcontrollerphp)
+  - [app\Http\Controllers\Api\KitchenTicketController.php](#file-apphttpcontrollersapikitchenticketcontrollerphp)
   - [app\Http\Controllers\Api\OrderController.php](#file-apphttpcontrollersapiordercontrollerphp)
   - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
   - [app\Http\Controllers\Api\OutletMaterialStockController.php](#file-apphttpcontrollersapioutletmaterialstockcontrollerphp)
@@ -71,6 +72,12 @@ _Dihasilkan otomatis: 2026-04-23 15:25:58_
   - [app\Http\Requests\Api\Inventory\Unit\UpdateUnitRequest.php](#file-apphttprequestsapiinventoryunitupdateunitrequestphp)
   - [app\Http\Requests\Api\Inventory\UnitConversion\StoreUnitConversionRequest.php](#file-apphttprequestsapiinventoryunitconversionstoreunitconversionrequestphp)
   - [app\Http\Requests\Api\Inventory\UnitConversion\UpdateUnitConversionRequest.php](#file-apphttprequestsapiinventoryunitconversionupdateunitconversionrequestphp)
+  - [app\Http\Requests\Api\Kitchen\CancelKitchenTicketRequest.php](#file-apphttprequestsapikitchencancelkitchenticketrequestphp)
+  - [app\Http\Requests\Api\Kitchen\PrintKitchenTicketRequest.php](#file-apphttprequestsapikitchenprintkitchenticketrequestphp)
+  - [app\Http\Requests\Api\Kitchen\ReadyKitchenTicketRequest.php](#file-apphttprequestsapikitchenreadykitchenticketrequestphp)
+  - [app\Http\Requests\Api\Kitchen\ServeKitchenTicketRequest.php](#file-apphttprequestsapikitchenservekitchenticketrequestphp)
+  - [app\Http\Requests\Api\Kitchen\StartPreparingKitchenTicketRequest.php](#file-apphttprequestsapikitchenstartpreparingkitchenticketrequestphp)
+  - [app\Http\Requests\Api\Kitchen\StoreKitchenTicketRequest.php](#file-apphttprequestsapikitchenstorekitchenticketrequestphp)
   - [app\Http\Requests\Api\Order\StoreOrderRequest.php](#file-apphttprequestsapiorderstoreorderrequestphp)
   - [app\Http\Requests\Api\Order\UpdateOrderRequest.php](#file-apphttprequestsapiorderupdateorderrequestphp)
   - [app\Http\Requests\Api\Outlet\StoreOutletRequest.php](#file-apphttprequestsapioutletstoreoutletrequestphp)
@@ -109,6 +116,8 @@ _Dihasilkan otomatis: 2026-04-23 15:25:58_
   - [app\Http\Resources\CustomerResource.php](#file-apphttpresourcescustomerresourcephp)
   - [app\Http\Resources\GoodsReceiptItemResource.php](#file-apphttpresourcesgoodsreceiptitemresourcephp)
   - [app\Http\Resources\GoodsReceiptResource.php](#file-apphttpresourcesgoodsreceiptresourcephp)
+  - [app\Http\Resources\KitchenTicketItemResource.php](#file-apphttpresourceskitchenticketitemresourcephp)
+  - [app\Http\Resources\KitchenTicketResource.php](#file-apphttpresourceskitchenticketresourcephp)
   - [app\Http\Resources\OrderItemModifierResource.php](#file-apphttpresourcesorderitemmodifierresourcephp)
   - [app\Http\Resources\OrderItemResource.php](#file-apphttpresourcesorderitemresourcephp)
   - [app\Http\Resources\OrderItemVariantResource.php](#file-apphttpresourcesorderitemvariantresourcephp)
@@ -158,6 +167,8 @@ _Dihasilkan otomatis: 2026-04-23 15:25:58_
   - [app\Models\CustomerAddress.php](#file-appmodelscustomeraddressphp)
   - [app\Models\GoodsReceipt.php](#file-appmodelsgoodsreceiptphp)
   - [app\Models\GoodsReceiptItem.php](#file-appmodelsgoodsreceiptitemphp)
+  - [app\Models\KitchenTicket.php](#file-appmodelskitchenticketphp)
+  - [app\Models\KitchenTicketItem.php](#file-appmodelskitchenticketitemphp)
   - [app\Models\Order.php](#file-appmodelsorderphp)
   - [app\Models\OrderItem.php](#file-appmodelsorderitemphp)
   - [app\Models\OrderItemModifier.php](#file-appmodelsorderitemmodifierphp)
@@ -217,6 +228,7 @@ _Dihasilkan otomatis: 2026-04-23 15:25:58_
   - [app\Services\Inventory\StockTransferService.php](#file-appservicesinventorystocktransferservicephp)
   - [app\Services\Inventory\UnitConversionService.php](#file-appservicesinventoryunitconversionservicephp)
   - [app\Services\Inventory\UnitService.php](#file-appservicesinventoryunitservicephp)
+  - [app\Services\Kitchen\KitchenTicketService.php](#file-appserviceskitchenkitchenticketservicephp)
   - [app\Services\Outlet\OutletService.php](#file-appservicesoutletoutletservicephp)
   - [app\Services\Promotion\PromotionService.php](#file-appservicespromotionpromotionservicephp)
   - [app\Services\Purchasing\GoodsReceiptService.php](#file-appservicespurchasinggoodsreceiptservicephp)
@@ -229,6 +241,8 @@ _Dihasilkan otomatis: 2026-04-23 15:25:58_
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
+  - [database\seeders\KitchenPermissionSeeder.php](#file-databaseseederskitchenpermissionseederphp)
+  - [database\seeders\KitchenRolePermissionSeeder.php](#file-databaseseederskitchenrolepermissionseederphp)
   - [database\seeders\PaymentMethodSeeder.php](#file-databaseseederspaymentmethodseederphp)
   - [database\seeders\PermissionSeeder.php](#file-databaseseederspermissionseederphp)
   - [database\seeders\RoleSeeder.php](#file-databaseseedersroleseederphp)
@@ -847,6 +861,233 @@ class GoodsReceiptController extends Controller
 
         return response()->json([
             'message' => 'Goods receipt berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapikitchenticketcontrollerphp"></a>
+### app\Http\Controllers\Api\KitchenTicketController.php
+- SHA: `066525246175`  
+- Ukuran: 7 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `KitchenTicketController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly KitchenTicketService $kitchenTicketService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreKitchenTicketRequest $request) : *JsonResponse*
+- **show**(Request $request, KitchenTicket $kitchenTicket) : *JsonResponse*
+- **print**(PrintKitchenTicketRequest $request, KitchenTicket $kitchenTicket) : *JsonResponse*
+- **startPreparing**(StartPreparingKitchenTicketRequest $request, KitchenTicket $kitchenTicket) : *JsonResponse*
+- **markReady**(ReadyKitchenTicketRequest $request, KitchenTicket $kitchenTicket) : *JsonResponse*
+- **serve**(ServeKitchenTicketRequest $request, KitchenTicket $kitchenTicket) : *JsonResponse*
+- **cancel**(CancelKitchenTicketRequest $request, KitchenTicket $kitchenTicket) : *JsonResponse*
+- **destroy**(Request $request, KitchenTicket $kitchenTicket) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Kitchen\CancelKitchenTicketRequest;
+use App\Http\Requests\Api\Kitchen\PrintKitchenTicketRequest;
+use App\Http\Requests\Api\Kitchen\ReadyKitchenTicketRequest;
+use App\Http\Requests\Api\Kitchen\ServeKitchenTicketRequest;
+use App\Http\Requests\Api\Kitchen\StartPreparingKitchenTicketRequest;
+use App\Http\Requests\Api\Kitchen\StoreKitchenTicketRequest;
+use App\Http\Resources\KitchenTicketResource;
+use App\Models\KitchenTicket;
+use App\Services\Kitchen\KitchenTicketService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class KitchenTicketController extends Controller
+{
+    public function __construct(
+        private readonly KitchenTicketService $kitchenTicketService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.view'), 403);
+
+        $rows = KitchenTicket::query()
+            ->with([
+                'order.outlet',
+                'order.customer',
+                'items.orderItem.variants',
+                'items.orderItem.modifiers',
+            ])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('ticket_number', 'like', "%{$search}%")
+                        ->orWhereHas('order', function ($orderQuery) use ($search) {
+                            $orderQuery->where('order_number', 'like', "%{$search}%")
+                                ->orWhere('queue_number', 'like', "%{$search}%");
+                        });
+                });
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->whereHas('order', function ($orderQuery) use ($request) {
+                    $orderQuery->where('outlet_id', (int) $request->input('outlet_id'));
+                });
+            })
+            ->when($request->filled('order_id'), function ($query) use ($request) {
+                $query->where('order_id', (int) $request->input('order_id'));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar kitchen ticket berhasil diambil.',
+            'data' => KitchenTicketResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreKitchenTicketRequest $request): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.create'), 403);
+
+        $row = $this->kitchenTicketService->createFromOrderId(
+            orderId: (int) $request->validated('order_id'),
+        );
+
+        return response()->json([
+            'message' => 'Kitchen ticket berhasil dibuat.',
+            'data' => new KitchenTicketResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, KitchenTicket $kitchenTicket): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail kitchen ticket berhasil diambil.',
+            'data' => new KitchenTicketResource($kitchenTicket->load([
+                'order.outlet',
+                'order.customer',
+                'items.orderItem.variants',
+                'items.orderItem.modifiers',
+            ])),
+        ]);
+    }
+
+    public function print(PrintKitchenTicketRequest $request, KitchenTicket $kitchenTicket): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.print'), 403);
+
+        $row = $this->kitchenTicketService->markPrinted(
+            ticket: $kitchenTicket,
+            printedAt: $request->input('printed_at'),
+        );
+
+        return response()->json([
+            'message' => 'Kitchen ticket berhasil ditandai sudah dicetak.',
+            'data' => new KitchenTicketResource($row),
+        ]);
+    }
+
+    public function startPreparing(StartPreparingKitchenTicketRequest $request, KitchenTicket $kitchenTicket): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.start_preparing'), 403);
+
+        $row = $this->kitchenTicketService->startPreparing(
+            ticket: $kitchenTicket,
+            userId: $request->user()->id,
+            preparedAt: $request->input('prepared_at'),
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Kitchen ticket berhasil diubah ke preparing.',
+            'data' => new KitchenTicketResource($row),
+        ]);
+    }
+
+    public function markReady(ReadyKitchenTicketRequest $request, KitchenTicket $kitchenTicket): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.mark_ready'), 403);
+
+        $row = $this->kitchenTicketService->markReady(
+            ticket: $kitchenTicket,
+            userId: $request->user()->id,
+            readyAt: $request->input('ready_at'),
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Kitchen ticket berhasil diubah ke ready.',
+            'data' => new KitchenTicketResource($row),
+        ]);
+    }
+
+    public function serve(ServeKitchenTicketRequest $request, KitchenTicket $kitchenTicket): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.serve'), 403);
+
+        $row = $this->kitchenTicketService->serve(
+            ticket: $kitchenTicket,
+            userId: $request->user()->id,
+            completedAt: $request->input('completed_at'),
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Kitchen ticket berhasil di-serve / diselesaikan.',
+            'data' => new KitchenTicketResource($row),
+        ]);
+    }
+
+    public function cancel(CancelKitchenTicketRequest $request, KitchenTicket $kitchenTicket): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.cancel'), 403);
+
+        $row = $this->kitchenTicketService->cancel(
+            ticket: $kitchenTicket,
+            userId: $request->user()->id,
+            cancelledAt: $request->input('cancelled_at'),
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Kitchen ticket berhasil dibatalkan.',
+            'data' => new KitchenTicketResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, KitchenTicket $kitchenTicket): JsonResponse
+    {
+        abort_unless($request->user()->can('kitchen_tickets.delete'), 403);
+
+        if (!in_array($kitchenTicket->status, ['pending', 'cancelled'], true)) {
+            return response()->json([
+                'message' => 'Hanya kitchen ticket pending atau cancelled yang boleh dihapus.',
+            ], 422);
+        }
+
+        $kitchenTicket->delete();
+
+        return response()->json([
+            'message' => 'Kitchen ticket berhasil dihapus.',
         ]);
     }
 }
@@ -5534,6 +5775,239 @@ class UpdateUnitConversionRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapikitchencancelkitchenticketrequestphp"></a>
+### app\Http\Requests\Api\Kitchen\CancelKitchenTicketRequest.php
+- SHA: `b7a3494b8173`  
+- Ukuran: 397 B  
+- Namespace: `App\Http\Requests\Api\Kitchen`
+
+**Class `CancelKitchenTicketRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Kitchen;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CancelKitchenTicketRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'cancelled_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapikitchenprintkitchenticketrequestphp"></a>
+### app\Http\Requests\Api\Kitchen\PrintKitchenTicketRequest.php
+- SHA: `a71484bc0821`  
+- Ukuran: 394 B  
+- Namespace: `App\Http\Requests\Api\Kitchen`
+
+**Class `PrintKitchenTicketRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Kitchen;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PrintKitchenTicketRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'printed_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapikitchenreadykitchenticketrequestphp"></a>
+### app\Http\Requests\Api\Kitchen\ReadyKitchenTicketRequest.php
+- SHA: `2475868b4e90`  
+- Ukuran: 392 B  
+- Namespace: `App\Http\Requests\Api\Kitchen`
+
+**Class `ReadyKitchenTicketRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Kitchen;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ReadyKitchenTicketRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'ready_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapikitchenservekitchenticketrequestphp"></a>
+### app\Http\Requests\Api\Kitchen\ServeKitchenTicketRequest.php
+- SHA: `b9274c7daf57`  
+- Ukuran: 396 B  
+- Namespace: `App\Http\Requests\Api\Kitchen`
+
+**Class `ServeKitchenTicketRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Kitchen;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ServeKitchenTicketRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'completed_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapikitchenstartpreparingkitchenticketrequestphp"></a>
+### app\Http\Requests\Api\Kitchen\StartPreparingKitchenTicketRequest.php
+- SHA: `08de2ca63976`  
+- Ukuran: 404 B  
+- Namespace: `App\Http\Requests\Api\Kitchen`
+
+**Class `StartPreparingKitchenTicketRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Kitchen;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StartPreparingKitchenTicketRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'prepared_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapikitchenstorekitchenticketrequestphp"></a>
+### app\Http\Requests\Api\Kitchen\StoreKitchenTicketRequest.php
+- SHA: `3c20119d3fba`  
+- Ukuran: 368 B  
+- Namespace: `App\Http\Requests\Api\Kitchen`
+
+**Class `StoreKitchenTicketRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Kitchen;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreKitchenTicketRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'order_id' => ['required', 'integer', 'exists:orders,id'],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapiorderstoreorderrequestphp"></a>
 ### app\Http\Requests\Api\Order\StoreOrderRequest.php
 - SHA: `234f8fd5d683`  
@@ -7473,6 +7947,125 @@ class GoodsReceiptResource extends JsonResource
             'received_by' => $this->received_by,
             'received_by_name' => $this->receiver?->name,
             'items' => GoodsReceiptItemResource::collection($this->whenLoaded('items')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourceskitchenticketitemresourcephp"></a>
+### app\Http\Resources\KitchenTicketItemResource.php
+- SHA: `a513949de5c4`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `KitchenTicketItemResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class KitchenTicketItemResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'kitchen_ticket_id' => $this->kitchen_ticket_id,
+            'order_item_id' => $this->order_item_id,
+            'item_name_snapshot' => $this->item_name_snapshot,
+            'qty' => $this->qty,
+            'notes' => $this->notes,
+            'order_item' => $this->whenLoaded('orderItem', function () {
+                return [
+                    'id' => $this->orderItem?->id,
+                    'product_id' => $this->orderItem?->product_id,
+                    'product_name_snapshot' => $this->orderItem?->product_name_snapshot,
+                    'sku_snapshot' => $this->orderItem?->sku_snapshot,
+                    'qty' => $this->orderItem?->qty,
+                    'unit_price' => $this->orderItem?->unit_price,
+                    'discount_amount' => $this->orderItem?->discount_amount,
+                    'line_total' => $this->orderItem?->line_total,
+                    'notes' => $this->orderItem?->notes,
+                ];
+            }),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourceskitchenticketresourcephp"></a>
+### app\Http\Resources\KitchenTicketResource.php
+- SHA: `941a3704b6c5`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `KitchenTicketResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class KitchenTicketResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'order_id' => $this->order_id,
+            'ticket_number' => $this->ticket_number,
+            'status' => $this->status,
+            'printed_at' => $this->printed_at,
+            'prepared_at' => $this->prepared_at,
+            'ready_at' => $this->ready_at,
+            'order' => $this->whenLoaded('order', function () {
+                return [
+                    'id' => $this->order?->id,
+                    'order_number' => $this->order?->order_number,
+                    'queue_number' => $this->order?->queue_number,
+                    'order_channel' => $this->order?->order_channel,
+                    'order_status' => $this->order?->order_status,
+                    'payment_status' => $this->order?->payment_status,
+                    'outlet_id' => $this->order?->outlet_id,
+                    'outlet' => $this->order?->relationLoaded('outlet') ? [
+                        'id' => $this->order?->outlet?->id,
+                        'code' => $this->order?->outlet?->code,
+                        'name' => $this->order?->outlet?->name,
+                    ] : null,
+                    'customer' => $this->order?->relationLoaded('customer') ? [
+                        'id' => $this->order?->customer?->id,
+                        'code' => $this->order?->customer?->code,
+                        'name' => $this->order?->customer?->name,
+                        'phone' => $this->order?->customer?->phone,
+                    ] : null,
+                    'ordered_at' => $this->order?->ordered_at,
+                    'notes' => $this->order?->notes,
+                ];
+            }),
+            'items' => KitchenTicketItemResource::collection($this->whenLoaded('items')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -9741,23 +10334,17 @@ class GoodsReceiptItem extends Model
 ```
 </details>
 
-<a id="file-appmodelsorderphp"></a>
-### app\Models\Order.php
-- SHA: `6631613a8f7c`  
-- Ukuran: 2 KB  
+<a id="file-appmodelskitchenticketphp"></a>
+### app\Models\KitchenTicket.php
+- SHA: `0fc21a718422`  
+- Ukuran: 674 B  
 - Namespace: `App\Models`
 
-**Class `Order` extends `Model`**
+**Class `KitchenTicket` extends `Model`**
 
 Metode Publik:
-- **outlet**() : *BelongsTo*
-- **cashierShift**() : *BelongsTo*
-- **customer**() : *BelongsTo*
-- **canceller**() : *BelongsTo*
-- **creator**() : *BelongsTo*
-- **items**() : *HasMany*
-- **statusHistories**() : *HasMany*
-- **payments**() : *HasMany*
+- **order**()
+- **items**()
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -9765,12 +10352,125 @@ Metode Publik:
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class KitchenTicket extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'order_id',
+        'ticket_number',
+        'status',
+        'printed_at',
+        'prepared_at',
+        'ready_at',
+    ];
+
+    protected $casts = [
+        'printed_at' => 'datetime',
+        'prepared_at' => 'datetime',
+        'ready_at' => 'datetime',
+    ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(KitchenTicketItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelskitchenticketitemphp"></a>
+### app\Models\KitchenTicketItem.php
+- SHA: `504c3c4b641c`  
+- Ukuran: 603 B  
+- Namespace: `App\Models`
+
+**Class `KitchenTicketItem` extends `Model`**
+
+Metode Publik:
+- **kitchenTicket**()
+- **orderItem**()
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class KitchenTicketItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'kitchen_ticket_id',
+        'order_item_id',
+        'item_name_snapshot',
+        'qty',
+        'notes',
+    ];
+
+    protected $casts = [
+        'qty' => 'decimal:3',
+    ];
+
+    public function kitchenTicket()
+    {
+        return $this->belongsTo(KitchenTicket::class);
+    }
+
+    public function orderItem()
+    {
+        return $this->belongsTo(OrderItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsorderphp"></a>
+### app\Models\Order.php
+- SHA: `d44b63b5e2aa`  
+- Ukuran: 2 KB  
+- Namespace: `App\Models`
+
+**Class `Order` extends `Model`**
+
+Metode Publik:
+- **outlet**()
+- **cashierShift**()
+- **customer**()
+- **creator**()
+- **canceller**()
+- **items**()
+- **payments**()
+- **statusHistories**()
+- **kitchenTickets**()
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'outlet_id',
         'cashier_shift_id',
@@ -9808,44 +10508,49 @@ class Order extends Model
         'cancelled_at' => 'datetime',
     ];
 
-    public function outlet(): BelongsTo
+    public function outlet()
     {
         return $this->belongsTo(Outlet::class);
     }
 
-    public function cashierShift(): BelongsTo
+    public function cashierShift()
     {
         return $this->belongsTo(CashierShift::class);
     }
 
-    public function customer(): BelongsTo
+    public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
 
-    public function canceller(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'cancelled_by');
-    }
-
-    public function creator(): BelongsTo
+    public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function items(): HasMany
+    public function canceller()
+    {
+        return $this->belongsTo(User::class, 'cancelled_by');
+    }
+
+    public function items()
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function statusHistories(): HasMany
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function statusHistories()
     {
         return $this->hasMany(OrderStatusHistory::class);
     }
 
-    public function payments(): HasMany
+    public function kitchenTickets()
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(KitchenTicket::class);
     }
 }
 
@@ -9854,17 +10559,18 @@ class Order extends Model
 
 <a id="file-appmodelsorderitemphp"></a>
 ### app\Models\OrderItem.php
-- SHA: `964184f5b484`  
+- SHA: `35b3b37de401`  
 - Ukuran: 1 KB  
 - Namespace: `App\Models`
 
 **Class `OrderItem` extends `Model`**
 
 Metode Publik:
-- **order**() : *BelongsTo*
-- **product**() : *BelongsTo*
-- **variants**() : *HasMany*
-- **modifiers**() : *HasMany*
+- **order**()
+- **product**()
+- **variants**()
+- **modifiers**()
+- **kitchenTicketItems**()
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -9872,12 +10578,13 @@ Metode Publik:
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrderItem extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'order_id',
         'product_id',
@@ -9897,24 +10604,29 @@ class OrderItem extends Model
         'line_total' => 'decimal:2',
     ];
 
-    public function order(): BelongsTo
+    public function order()
     {
         return $this->belongsTo(Order::class);
     }
 
-    public function product(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function variants(): HasMany
+    public function variants()
     {
         return $this->hasMany(OrderItemVariant::class);
     }
 
-    public function modifiers(): HasMany
+    public function modifiers()
     {
         return $this->hasMany(OrderItemModifier::class);
+    }
+
+    public function kitchenTicketItems()
+    {
+        return $this->hasMany(KitchenTicketItem::class);
     }
 }
 
@@ -13867,6 +14579,348 @@ class UnitService
 ```
 </details>
 
+<a id="file-appserviceskitchenkitchenticketservicephp"></a>
+### app\Services\Kitchen\KitchenTicketService.php
+- SHA: `cb82accb6aa3`  
+- Ukuran: 10 KB  
+- Namespace: `App\Services\Kitchen`
+
+**Class `KitchenTicketService`**
+
+Metode Publik:
+- **createFromOrderId**(int $orderId) : *KitchenTicket*
+- **createFromOrder**(Order $order) : *KitchenTicket*
+- **syncFromOrder**(Order $order) : *?KitchenTicket*
+- **syncCancelledFromOrder**(Order $order) : *?KitchenTicket*
+- **markPrinted**(KitchenTicket $ticket, ?string $printedAt = null) : *KitchenTicket*
+- **startPreparing**(KitchenTicket $ticket, int $userId, ?string $preparedAt = null, ?string $notes = null) : *KitchenTicket*
+- **markReady**(KitchenTicket $ticket, int $userId, ?string $readyAt = null, ?string $notes = null) : *KitchenTicket*
+- **serve**(KitchenTicket $ticket, int $userId, ?string $completedAt = null, ?string $notes = null) : *KitchenTicket*
+- **cancel**(KitchenTicket $ticket, int $userId, ?string $cancelledAt = null, ?string $notes = null) : *KitchenTicket*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Kitchen;
+
+use App\Models\KitchenTicket;
+use App\Models\Order;
+use App\Models\OrderStatusHistory;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
+class KitchenTicketService
+{
+    public function createFromOrderId(int $orderId): KitchenTicket
+    {
+        $order = Order::query()
+            ->with($this->orderRelations())
+            ->findOrFail($orderId);
+
+        return $this->createFromOrder($order);
+    }
+
+    public function createFromOrder(Order $order): KitchenTicket
+    {
+        return DB::transaction(function () use ($order) {
+            $order->loadMissing($this->orderRelations());
+
+            if (in_array($order->order_status, ['draft', 'pending', 'cancelled'], true)) {
+                throw ValidationException::withMessages([
+                    'order_id' => ['Order belum siap dibuatkan kitchen ticket.'],
+                ]);
+            }
+
+            $existing = KitchenTicket::query()
+                ->where('order_id', $order->id)
+                ->first();
+
+            if ($existing) {
+                return $existing->load($this->ticketRelations());
+            }
+
+            $ticket = KitchenTicket::create([
+                'order_id' => $order->id,
+                'ticket_number' => $this->generateTicketNumber((int) $order->outlet_id),
+                'status' => $this->mapOrderStatusToTicketStatus($order->order_status),
+                'prepared_at' => $order->order_status === 'preparing' ? now() : null,
+                'ready_at' => $order->order_status === 'ready' ? now() : null,
+            ]);
+
+            foreach ($order->items as $item) {
+                $ticket->items()->create([
+                    'order_item_id' => $item->id,
+                    'item_name_snapshot' => $item->product_name_snapshot,
+                    'qty' => $item->qty,
+                    'notes' => $item->notes,
+                ]);
+            }
+
+            return $ticket->fresh()->load($this->ticketRelations());
+        });
+    }
+
+    public function syncFromOrder(Order $order): ?KitchenTicket
+    {
+        $order->loadMissing($this->orderRelations());
+
+        if (in_array($order->order_status, ['draft', 'pending'], true)) {
+            return null;
+        }
+
+        if ($order->order_status === 'cancelled') {
+            return $this->syncCancelledFromOrder($order);
+        }
+
+        $ticket = KitchenTicket::query()->where('order_id', $order->id)->first();
+
+        if (!$ticket) {
+            return $this->createFromOrder($order);
+        }
+
+        $ticketStatus = $this->mapOrderStatusToTicketStatus($order->order_status);
+
+        $payload = [
+            'status' => $ticketStatus,
+        ];
+
+        if ($ticketStatus === 'preparing' && !$ticket->prepared_at) {
+            $payload['prepared_at'] = now();
+        }
+
+        if ($ticketStatus === 'ready' && !$ticket->ready_at) {
+            $payload['ready_at'] = now();
+        }
+
+        $ticket->update($payload);
+
+        return $ticket->fresh()->load($this->ticketRelations());
+    }
+
+    public function syncCancelledFromOrder(Order $order): ?KitchenTicket
+    {
+        $ticket = KitchenTicket::query()->where('order_id', $order->id)->first();
+
+        if (!$ticket) {
+            return null;
+        }
+
+        $ticket->update([
+            'status' => 'cancelled',
+        ]);
+
+        return $ticket->fresh()->load($this->ticketRelations());
+    }
+
+    public function markPrinted(KitchenTicket $ticket, ?string $printedAt = null): KitchenTicket
+    {
+        $ticket->update([
+            'printed_at' => $printedAt ?: now(),
+        ]);
+
+        return $ticket->fresh()->load($this->ticketRelations());
+    }
+
+    public function startPreparing(KitchenTicket $ticket, int $userId, ?string $preparedAt = null, ?string $notes = null): KitchenTicket
+    {
+        return DB::transaction(function () use ($ticket, $userId, $preparedAt, $notes) {
+            if (in_array($ticket->status, ['served', 'cancelled'], true)) {
+                throw ValidationException::withMessages([
+                    'status' => ['Kitchen ticket yang sudah served atau cancelled tidak bisa diproses lagi.'],
+                ]);
+            }
+
+            $ticket->update([
+                'status' => 'preparing',
+                'prepared_at' => $preparedAt ?: now(),
+            ]);
+
+            $this->syncOrderStatus(
+                order: $ticket->order()->firstOrFail(),
+                status: 'preparing',
+                userId: $userId,
+                notes: $notes ?: 'Pesanan mulai diproses dapur.',
+                completedAt: null,
+                cancelledAt: null,
+            );
+
+            return $ticket->fresh()->load($this->ticketRelations());
+        });
+    }
+
+    public function markReady(KitchenTicket $ticket, int $userId, ?string $readyAt = null, ?string $notes = null): KitchenTicket
+    {
+        return DB::transaction(function () use ($ticket, $userId, $readyAt, $notes) {
+            if (in_array($ticket->status, ['served', 'cancelled'], true)) {
+                throw ValidationException::withMessages([
+                    'status' => ['Kitchen ticket yang sudah served atau cancelled tidak bisa diubah ke ready.'],
+                ]);
+            }
+
+            $ticket->update([
+                'status' => 'ready',
+                'ready_at' => $readyAt ?: now(),
+                'prepared_at' => $ticket->prepared_at ?: now(),
+            ]);
+
+            $this->syncOrderStatus(
+                order: $ticket->order()->firstOrFail(),
+                status: 'ready',
+                userId: $userId,
+                notes: $notes ?: 'Pesanan sudah siap di-pickup / disajikan.',
+                completedAt: null,
+                cancelledAt: null,
+            );
+
+            return $ticket->fresh()->load($this->ticketRelations());
+        });
+    }
+
+    public function serve(KitchenTicket $ticket, int $userId, ?string $completedAt = null, ?string $notes = null): KitchenTicket
+    {
+        return DB::transaction(function () use ($ticket, $userId, $completedAt, $notes) {
+            if ($ticket->status === 'cancelled') {
+                throw ValidationException::withMessages([
+                    'status' => ['Kitchen ticket yang cancelled tidak bisa di-serve.'],
+                ]);
+            }
+
+            $ticket->update([
+                'status' => 'served',
+                'prepared_at' => $ticket->prepared_at ?: now(),
+                'ready_at' => $ticket->ready_at ?: now(),
+            ]);
+
+            $this->syncOrderStatus(
+                order: $ticket->order()->firstOrFail(),
+                status: 'completed',
+                userId: $userId,
+                notes: $notes ?: 'Pesanan selesai dari dapur.',
+                completedAt: $completedAt ?: now(),
+                cancelledAt: null,
+            );
+
+            return $ticket->fresh()->load($this->ticketRelations());
+        });
+    }
+
+    public function cancel(KitchenTicket $ticket, int $userId, ?string $cancelledAt = null, ?string $notes = null): KitchenTicket
+    {
+        return DB::transaction(function () use ($ticket, $userId, $cancelledAt, $notes) {
+            if ($ticket->status === 'served') {
+                throw ValidationException::withMessages([
+                    'status' => ['Kitchen ticket yang sudah served tidak bisa dibatalkan.'],
+                ]);
+            }
+
+            $ticket->update([
+                'status' => 'cancelled',
+            ]);
+
+            $this->syncOrderStatus(
+                order: $ticket->order()->firstOrFail(),
+                status: 'cancelled',
+                userId: $userId,
+                notes: $notes ?: 'Pesanan dibatalkan dari proses dapur.',
+                completedAt: null,
+                cancelledAt: $cancelledAt ?: now(),
+            );
+
+            return $ticket->fresh()->load($this->ticketRelations());
+        });
+    }
+
+    private function syncOrderStatus(
+        Order $order,
+        string $status,
+        int $userId,
+        ?string $notes = null,
+        ?string $completedAt = null,
+        ?string $cancelledAt = null,
+    ): void {
+        $updatePayload = [
+            'order_status' => $status,
+        ];
+
+        if ($status === 'completed') {
+            $updatePayload['completed_at'] = $completedAt ?: now();
+        }
+
+        if ($status === 'cancelled') {
+            $updatePayload['cancelled_at'] = $cancelledAt ?: now();
+            $updatePayload['cancelled_by'] = $userId;
+            $updatePayload['payment_status'] = $order->payment_status === 'paid' ? $order->payment_status : 'cancelled';
+        }
+
+        $order->update($updatePayload);
+
+        $latestHistory = $order->statusHistories()->latest('id')->first();
+
+        if (!$latestHistory || $latestHistory->status !== $status) {
+            OrderStatusHistory::query()->create([
+                'order_id' => $order->id,
+                'status' => $status,
+                'changed_by' => $userId,
+                'notes' => $notes,
+                'changed_at' => now(),
+            ]);
+        }
+    }
+
+    private function generateTicketNumber(int $outletId): string
+    {
+        do {
+            $ticketNumber = sprintf(
+                'KDS-%d-%s-%s',
+                $outletId,
+                now()->format('Ymd'),
+                strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'))
+            );
+
+            $exists = KitchenTicket::query()->where('ticket_number', $ticketNumber)->exists();
+        } while ($exists);
+
+        return $ticketNumber;
+    }
+
+    private function mapOrderStatusToTicketStatus(string $orderStatus): string
+    {
+        return match ($orderStatus) {
+            'preparing' => 'preparing',
+            'ready' => 'ready',
+            'completed' => 'served',
+            'cancelled' => 'cancelled',
+            default => 'pending',
+        };
+    }
+
+    private function ticketRelations(): array
+    {
+        return [
+            'order.outlet',
+            'order.customer',
+            'items.orderItem.variants',
+            'items.orderItem.modifiers',
+        ];
+    }
+
+    private function orderRelations(): array
+    {
+        return [
+            'outlet',
+            'customer',
+            'items.variants',
+            'items.modifiers',
+            'statusHistories',
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicesoutletoutletservicephp"></a>
 ### app\Services\Outlet\OutletService.php
 - SHA: `7b229eac14f4`  
@@ -14610,7 +15664,7 @@ class SupplierService
 
 <a id="file-appservicessalesorderservicephp"></a>
 ### app\Services\Sales\OrderService.php
-- SHA: `11927f836698`  
+- SHA: `6fff2b5e4ac4`  
 - Ukuran: 16 KB  
 - Namespace: `App\Services\Sales`
 
@@ -14630,9 +15684,10 @@ namespace App\Services\Sales;
 
 use App\Models\CashierShift;
 use App\Models\Order;
+use App\Models\OrderStatusHistory;
 use App\Models\Product;
-// use App\Models\ProductOutletStatus;
 use App\Models\ProductPrice;
+use App\Services\Kitchen\KitchenTicketService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -14645,24 +15700,28 @@ class OrderService
             $items = $payload['items'];
             unset($payload['items']);
 
-            $this->validateCashierShift($payload['cashier_shift_id'] ?? null, (int) $payload['outlet_id']);
+            $outletId = (int) $payload['outlet_id'];
+
+            $this->validateCashierShift(
+                cashierShiftId: $payload['cashier_shift_id'] ?? null,
+                outletId: $outletId,
+            );
+
             [$subtotal, $normalizedItems] = $this->prepareItemsAndTotals(
-                outletId: (int) $payload['outlet_id'],
+                outletId: $outletId,
                 items: $items,
             );
 
             $discountAmount = (float) ($payload['discount_amount'] ?? 0);
             $taxAmount = (float) ($payload['tax_amount'] ?? 0);
             $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? 0);
-            $paidTotal = (float) ($payload['paid_total'] ?? 0);
             $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
-            $changeAmount = (float) ($payload['change_amount'] ?? max(0, $paidTotal - $grandTotal));
 
-            $order = Order::create([
-                'outlet_id' => $payload['outlet_id'],
+            $order = Order::query()->create([
+                'outlet_id' => $outletId,
                 'cashier_shift_id' => $payload['cashier_shift_id'] ?? null,
                 'customer_id' => $payload['customer_id'] ?? null,
-                'order_number' => $payload['order_number'] ?? $this->generateOrderNumber((int) $payload['outlet_id']),
+                'order_number' => $this->generateOrderNumber($outletId),
                 'queue_number' => $payload['queue_number'] ?? null,
                 'order_channel' => $payload['order_channel'] ?? 'pos',
                 'order_status' => $payload['order_status'] ?? 'draft',
@@ -14672,35 +15731,53 @@ class OrderService
                 'tax_amount' => $taxAmount,
                 'service_charge_amount' => $serviceChargeAmount,
                 'grand_total' => $grandTotal,
-                'paid_total' => $paidTotal,
-                'change_amount' => $changeAmount,
+                'paid_total' => 0,
+                'change_amount' => 0,
                 'notes' => $payload['notes'] ?? null,
                 'ordered_at' => $payload['ordered_at'] ?? now(),
                 'created_by' => $userId,
             ]);
 
             foreach ($normalizedItems as $item) {
-                $variants = $item['variants'];
-                $modifiers = $item['modifiers'];
-                unset($item['variants'], $item['modifiers']);
+                $orderItem = $order->items()->create([
+                    'product_id' => $item['product_id'],
+                    'product_name_snapshot' => $item['product_name_snapshot'],
+                    'sku_snapshot' => $item['sku_snapshot'],
+                    'qty' => $item['qty'],
+                    'unit_price' => $item['unit_price'],
+                    'discount_amount' => $item['discount_amount'],
+                    'line_total' => $item['line_total'],
+                    'notes' => $item['notes'],
+                ]);
 
-                $orderItem = $order->items()->create($item);
-
-                foreach ($variants as $variant) {
-                    $orderItem->variants()->create($variant);
+                foreach ($item['variants'] as $variant) {
+                    $orderItem->variants()->create([
+                        'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'],
+                        'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'],
+                        'price_adjustment' => $variant['price_adjustment'],
+                    ]);
                 }
 
-                foreach ($modifiers as $modifier) {
-                    $orderItem->modifiers()->create($modifier);
+                foreach ($item['modifiers'] as $modifier) {
+                    $orderItem->modifiers()->create([
+                        'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'],
+                        'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'],
+                        'qty' => $modifier['qty'],
+                        'price' => $modifier['price'],
+                    ]);
                 }
             }
 
-            $this->recordStatusHistory(
-                order: $order,
+            $this->createStatusHistory(
+                orderId: $order->id,
                 status: $order->order_status,
                 userId: $userId,
                 notes: 'Order dibuat.',
             );
+
+            $order = $order->fresh()->load($this->defaultRelations());
+
+            $this->syncKitchenTicketByOrderStatus($order);
 
             return $order->fresh()->load($this->defaultRelations());
         });
@@ -14709,9 +15786,9 @@ class OrderService
     public function update(Order $order, array $payload): Order
     {
         return DB::transaction(function () use ($order, $payload) {
-            if (in_array($order->order_status, ['completed', 'cancelled'], true)) {
+            if ($order->order_status !== 'draft') {
                 throw ValidationException::withMessages([
-                    'order_status' => ['Order dengan status ini tidak bisa diubah.'],
+                    'order_status' => ['Hanya order draft yang boleh diupdate.'],
                 ]);
             }
 
@@ -14721,78 +15798,58 @@ class OrderService
             $outletId = (int) ($payload['outlet_id'] ?? $order->outlet_id);
 
             $this->validateCashierShift(
-                $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
-                $outletId
+                cashierShiftId: $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
+                outletId: $outletId,
             );
 
-            if (is_array($items)) {
+            if ($items !== null) {
                 [$subtotal, $normalizedItems] = $this->prepareItemsAndTotals(
                     outletId: $outletId,
                     items: $items,
                 );
-            } else {
-                $subtotal = (float) $order->subtotal;
-                $normalizedItems = null;
-            }
 
-            $discountAmount = (float) ($payload['discount_amount'] ?? $order->discount_amount);
-            $taxAmount = (float) ($payload['tax_amount'] ?? $order->tax_amount);
-            $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? $order->service_charge_amount);
-            $paidTotal = (float) ($payload['paid_total'] ?? $order->paid_total);
-            $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
-            $changeAmount = array_key_exists('change_amount', $payload)
-                ? (float) $payload['change_amount']
-                : max(0, $paidTotal - $grandTotal);
+                $discountAmount = (float) ($payload['discount_amount'] ?? $order->discount_amount);
+                $taxAmount = (float) ($payload['tax_amount'] ?? $order->tax_amount);
+                $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? $order->service_charge_amount);
+                $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
 
-            $oldStatus = $order->order_status;
-
-            $order->update([
-                'outlet_id' => $outletId,
-                'cashier_shift_id' => $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
-                'customer_id' => $payload['customer_id'] ?? $order->customer_id,
-                'queue_number' => $payload['queue_number'] ?? $order->queue_number,
-                'order_channel' => $payload['order_channel'] ?? $order->order_channel,
-                'order_status' => $payload['order_status'] ?? $order->order_status,
-                'payment_status' => $payload['payment_status'] ?? $order->payment_status,
-                'subtotal' => $subtotal,
-                'discount_amount' => $discountAmount,
-                'tax_amount' => $taxAmount,
-                'service_charge_amount' => $serviceChargeAmount,
-                'grand_total' => $grandTotal,
-                'paid_total' => $paidTotal,
-                'change_amount' => $changeAmount,
-                'notes' => array_key_exists('notes', $payload) ? $payload['notes'] : $order->notes,
-                'ordered_at' => $payload['ordered_at'] ?? $order->ordered_at,
-            ]);
-
-            if (is_array($normalizedItems)) {
                 $order->items()->delete();
 
                 foreach ($normalizedItems as $item) {
-                    $variants = $item['variants'];
-                    $modifiers = $item['modifiers'];
-                    unset($item['variants'], $item['modifiers']);
+                    $orderItem = $order->items()->create([
+                        'product_id' => $item['product_id'],
+                        'product_name_snapshot' => $item['product_name_snapshot'],
+                        'sku_snapshot' => $item['sku_snapshot'],
+                        'qty' => $item['qty'],
+                        'unit_price' => $item['unit_price'],
+                        'discount_amount' => $item['discount_amount'],
+                        'line_total' => $item['line_total'],
+                        'notes' => $item['notes'],
+                    ]);
 
-                    $orderItem = $order->items()->create($item);
-
-                    foreach ($variants as $variant) {
-                        $orderItem->variants()->create($variant);
+                    foreach ($item['variants'] as $variant) {
+                        $orderItem->variants()->create([
+                            'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'],
+                            'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'],
+                            'price_adjustment' => $variant['price_adjustment'],
+                        ]);
                     }
 
-                    foreach ($modifiers as $modifier) {
-                        $orderItem->modifiers()->create($modifier);
+                    foreach ($item['modifiers'] as $modifier) {
+                        $orderItem->modifiers()->create([
+                            'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'],
+                            'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'],
+                            'qty' => $modifier['qty'],
+                            'price' => $modifier['price'],
+                        ]);
                     }
                 }
+
+                $payload['subtotal'] = $subtotal;
+                $payload['grand_total'] = $grandTotal;
             }
 
-            if (($payload['order_status'] ?? $oldStatus) !== $oldStatus) {
-                $this->recordStatusHistory(
-                    order: $order,
-                    status: $order->order_status,
-                    userId: null,
-                    notes: 'Status order diubah lewat update.',
-                );
-            }
+            $order->update($payload);
 
             return $order->fresh()->load($this->defaultRelations());
         });
@@ -14801,32 +15858,17 @@ class OrderService
     public function changeStatus(Order $order, string $newStatus, int $userId, ?string $notes = null): Order
     {
         return DB::transaction(function () use ($order, $newStatus, $userId, $notes) {
+            $allowedStatuses = ['draft', 'pending', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
+
+            if (!in_array($newStatus, $allowedStatuses, true)) {
+                throw ValidationException::withMessages([
+                    'status' => ['Status order tidak valid.'],
+                ]);
+            }
+
             if ($order->order_status === 'cancelled') {
                 throw ValidationException::withMessages([
-                    'order_status' => ['Order yang sudah dibatalkan tidak bisa diubah statusnya.'],
-                ]);
-            }
-
-            if ($order->order_status === 'completed') {
-                throw ValidationException::withMessages([
-                    'order_status' => ['Order yang sudah selesai tidak bisa diubah statusnya.'],
-                ]);
-            }
-
-            $allowedMap = [
-                'draft' => ['pending', 'confirmed', 'cancelled'],
-                'pending' => ['confirmed', 'cancelled'],
-                'confirmed' => ['preparing', 'ready', 'completed', 'cancelled'],
-                'preparing' => ['ready', 'completed', 'cancelled'],
-                'ready' => ['completed', 'cancelled'],
-            ];
-
-            $currentStatus = $order->order_status;
-            $allowedNextStatuses = $allowedMap[$currentStatus] ?? [];
-
-            if (!in_array($newStatus, $allowedNextStatuses, true)) {
-                throw ValidationException::withMessages([
-                    'order_status' => ["Transisi status dari {$currentStatus} ke {$newStatus} tidak diizinkan."],
+                    'status' => ['Order yang sudah cancelled tidak bisa diubah lagi.'],
                 ]);
             }
 
@@ -14840,12 +15882,16 @@ class OrderService
 
             $order->update($updatePayload);
 
-            $this->recordStatusHistory(
-                order: $order,
+            $this->createStatusHistory(
+                orderId: $order->id,
                 status: $newStatus,
                 userId: $userId,
                 notes: $notes,
             );
+
+            $order = $order->fresh()->load($this->defaultRelations());
+
+            $this->syncKitchenTicketByOrderStatus($order);
 
             return $order->fresh()->load($this->defaultRelations());
         });
@@ -14860,107 +15906,133 @@ class OrderService
                 ]);
             }
 
-            if ($order->order_status === 'cancelled') {
-                throw ValidationException::withMessages([
-                    'order_status' => ['Order sudah berstatus cancelled.'],
-                ]);
-            }
-
             $order->update([
                 'order_status' => 'cancelled',
-                'payment_status' => $order->payment_status === 'paid' ? 'refunded' : 'cancelled',
+                'payment_status' => $order->payment_status === 'paid' ? $order->payment_status : 'cancelled',
                 'cancelled_at' => now(),
                 'cancelled_by' => $userId,
             ]);
 
-            $this->recordStatusHistory(
-                order: $order,
+            $this->createStatusHistory(
+                orderId: $order->id,
                 status: 'cancelled',
                 userId: $userId,
                 notes: $notes,
             );
 
+            $order = $order->fresh()->load($this->defaultRelations());
+
+            $this->syncKitchenTicketByOrderStatus($order);
+
             return $order->fresh()->load($this->defaultRelations());
         });
     }
 
+    private function validateCashierShift(?int $cashierShiftId, int $outletId): void
+    {
+        if (!$cashierShiftId) {
+            return;
+        }
+
+        $cashierShift = CashierShift::query()
+            ->whereKey($cashierShiftId)
+            ->where('outlet_id', $outletId)
+            ->first();
+
+        if (!$cashierShift) {
+            throw ValidationException::withMessages([
+                'cashier_shift_id' => ['Shift kasir tidak ditemukan untuk outlet tersebut.'],
+            ]);
+        }
+
+        if ($cashierShift->status !== 'open') {
+            throw ValidationException::withMessages([
+                'cashier_shift_id' => ['Shift kasir harus dalam status open.'],
+            ]);
+        }
+    }
+
     private function prepareItemsAndTotals(int $outletId, array $items): array
     {
-        $normalizedItems = [];
+        if (empty($items)) {
+            throw ValidationException::withMessages([
+                'items' => ['Minimal harus ada 1 item order.'],
+            ]);
+        }
+
         $subtotal = 0;
+        $normalizedItems = [];
 
-        foreach ($items as $item) {
+        foreach ($items as $index => $item) {
+            $productId = (int) ($item['product_id'] ?? 0);
+            $qty = (float) ($item['qty'] ?? 0);
+
+            if ($productId <= 0 || $qty <= 0) {
+                throw ValidationException::withMessages([
+                    "items.{$index}.product_id" => ['Produk item tidak valid.'],
+                    "items.{$index}.qty" => ['Qty item harus lebih dari 0.'],
+                ]);
+            }
+
             $product = Product::query()
-                ->with([
-                    'prices' => function ($query) use ($outletId) {
-                        $query->where('outlet_id', $outletId)
-                            ->where('is_active', true)
-                            ->orderByDesc('starts_at')
-                            ->orderByDesc('id');
-                    },
-                    'outletStatuses' => function ($query) use ($outletId) {
-                        $query->where('outlet_id', $outletId);
-                    },
-                ])
-                ->findOrFail((int) $item['product_id']);
+                ->whereKey($productId)
+                ->where('is_active', true)
+                ->first();
 
-            if (!$product->is_active) {
+            if (!$product) {
                 throw ValidationException::withMessages([
-                    'items' => ["Produk {$product->name} tidak aktif."],
+                    "items.{$index}.product_id" => ['Produk tidak ditemukan atau tidak aktif.'],
                 ]);
             }
 
-            $outletStatus = $product->outletStatuses->first();
+            $productPrice = ProductPrice::query()
+                ->where('product_id', $productId)
+                ->where('outlet_id', $outletId)
+                ->where('is_active', true)
+                ->latest('id')
+                ->first();
 
-            if ($outletStatus && (!$outletStatus->is_available || $outletStatus->is_hidden)) {
-                throw ValidationException::withMessages([
-                    'items' => ["Produk {$product->name} tidak tersedia di outlet ini."],
-                ]);
+            $baseUnitPrice = (float) ($productPrice?->price ?? $product->base_price);
+
+            $variants = [];
+            $variantAdjustmentTotal = 0;
+
+            foreach (($item['variants'] ?? []) as $variant) {
+                $adjustment = (float) ($variant['price_adjustment'] ?? 0);
+
+                $variants[] = [
+                    'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'] ?? ($variant['group_name'] ?? '-'),
+                    'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'] ?? ($variant['option_name'] ?? '-'),
+                    'price_adjustment' => $adjustment,
+                ];
+
+                $variantAdjustmentTotal += $adjustment;
             }
 
-            $priceRow = $product->prices->first();
+            $modifiers = [];
+            $modifierTotalPerUnit = 0;
 
-            if (!$priceRow) {
-                $priceRow = ProductPrice::query()
-                    ->where('product_id', $product->id)
-                    ->where('outlet_id', $outletId)
-                    ->where('is_active', true)
-                    ->latest('id')
-                    ->first();
+            foreach (($item['modifiers'] ?? []) as $modifier) {
+                $modifierQty = (float) ($modifier['qty'] ?? 1);
+                $modifierPrice = (float) ($modifier['price'] ?? 0);
+
+                $modifiers[] = [
+                    'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'] ?? ($modifier['group_name'] ?? '-'),
+                    'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'] ?? ($modifier['option_name'] ?? '-'),
+                    'qty' => $modifierQty,
+                    'price' => $modifierPrice,
+                ];
+
+                $modifierTotalPerUnit += ($modifierQty * $modifierPrice);
             }
 
-            $baseUnitPrice = $priceRow?->price ?? $product->base_price;
-
-            $variants = collect($item['variants'] ?? [])->map(function ($variant) {
-                return [
-                    'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'],
-                    'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'],
-                    'price_adjustment' => (float) ($variant['price_adjustment'] ?? 0),
-                ];
-            })->values()->all();
-
-            $modifiers = collect($item['modifiers'] ?? [])->map(function ($modifier) {
-                return [
-                    'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'],
-                    'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'],
-                    'qty' => (float) ($modifier['qty'] ?? 1),
-                    'price' => (float) ($modifier['price'] ?? 0),
-                ];
-            })->values()->all();
-
-            $variantAdjustmentTotal = collect($variants)->sum('price_adjustment');
-            $modifierTotal = collect($modifiers)->sum(function ($modifier) {
-                return ((float) $modifier['qty']) * ((float) $modifier['price']);
-            });
-
-            $qty = (float) $item['qty'];
             $discountAmount = (float) ($item['discount_amount'] ?? 0);
-            $effectiveUnitPrice = (float) $baseUnitPrice + (float) $variantAdjustmentTotal + (float) $modifierTotal;
-            $lineTotal = ($qty * $effectiveUnitPrice) - $discountAmount;
+            $unitPrice = $baseUnitPrice + $variantAdjustmentTotal + $modifierTotalPerUnit;
+            $lineTotal = ($unitPrice * $qty) - $discountAmount;
 
             if ($lineTotal < 0) {
                 throw ValidationException::withMessages([
-                    'items' => ["Line total produk {$product->name} tidak valid."],
+                    "items.{$index}.discount_amount" => ['Discount item tidak boleh melebihi total item.'],
                 ]);
             }
 
@@ -14969,7 +16041,7 @@ class OrderService
                 'product_name_snapshot' => $product->name,
                 'sku_snapshot' => $product->sku,
                 'qty' => $qty,
-                'unit_price' => $effectiveUnitPrice,
+                'unit_price' => $unitPrice,
                 'discount_amount' => $discountAmount,
                 'line_total' => $lineTotal,
                 'notes' => $item['notes'] ?? null,
@@ -14983,30 +16055,10 @@ class OrderService
         return [$subtotal, $normalizedItems];
     }
 
-    private function validateCashierShift(?int $cashierShiftId, int $outletId): void
+    private function createStatusHistory(int $orderId, string $status, ?int $userId = null, ?string $notes = null): void
     {
-        if (!$cashierShiftId) {
-            return;
-        }
-
-        $shift = CashierShift::query()->findOrFail($cashierShiftId);
-
-        if ((int) $shift->outlet_id !== $outletId) {
-            throw ValidationException::withMessages([
-                'cashier_shift_id' => ['Shift kasir harus berasal dari outlet yang sama dengan order.'],
-            ]);
-        }
-
-        if ($shift->status !== 'open') {
-            throw ValidationException::withMessages([
-                'cashier_shift_id' => ['Shift kasir harus dalam status open.'],
-            ]);
-        }
-    }
-
-    private function recordStatusHistory(Order $order, string $status, ?int $userId = null, ?string $notes = null): void
-    {
-        $order->statusHistories()->create([
+        OrderStatusHistory::query()->create([
+            'order_id' => $orderId,
             'status' => $status,
             'changed_by' => $userId,
             'notes' => $notes,
@@ -15016,19 +16068,30 @@ class OrderService
 
     private function generateOrderNumber(int $outletId): string
     {
-        $datePart = now()->format('Ymd');
-        $randomPart = strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'));
-
         do {
-            $orderNumber = "ORD-{$outletId}-{$datePart}-{$randomPart}";
+            $orderNumber = sprintf(
+                'ORD-%d-%s-%s',
+                $outletId,
+                now()->format('Ymd'),
+                strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'))
+            );
+
             $exists = Order::query()->where('order_number', $orderNumber)->exists();
 
             if (!$exists) {
                 return $orderNumber;
             }
-
-            $randomPart = strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'));
         } while (true);
+    }
+
+    private function syncKitchenTicketByOrderStatus(Order $order): void
+    {
+        /** @var KitchenTicketService $kitchenTicketService */
+        $kitchenTicketService = app(KitchenTicketService::class);
+
+        if (in_array($order->order_status, ['confirmed', 'preparing', 'ready', 'completed', 'cancelled'], true)) {
+            $kitchenTicketService->syncFromOrder($order);
+        }
     }
 
     private function defaultRelations(): array
@@ -15043,6 +16106,7 @@ class OrderService
             'items.variants',
             'items.modifiers',
             'statusHistories.changer',
+            'kitchenTickets.items.orderItem',
         ];
     }
 }
@@ -15495,8 +16559,8 @@ class VoucherService
 
 <a id="file-databaseseedersdatabaseseederphp"></a>
 ### database\seeders\DatabaseSeeder.php
-- SHA: `9139944c0df7`  
-- Ukuran: 332 B  
+- SHA: `2d0e8450d471`  
+- Ukuran: 424 B  
 - Namespace: `Database\Seeders`
 
 **Class `DatabaseSeeder` extends `Seeder`**
@@ -15521,7 +16585,104 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SuperAdminSeeder::class,
             PaymentMethodSeeder::class,
+            KitchenPermissionSeeder::class,
+            KitchenRolePermissionSeeder::class,
         ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-databaseseederskitchenpermissionseederphp"></a>
+### database\seeders\KitchenPermissionSeeder.php
+- SHA: `ab1af0f13254`  
+- Ukuran: 711 B  
+- Namespace: `Database\Seeders`
+
+**Class `KitchenPermissionSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+
+class KitchenPermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $permissions = [
+            'kitchen_tickets.view',
+            'kitchen_tickets.create',
+            'kitchen_tickets.update',
+            'kitchen_tickets.delete',
+            'kitchen_tickets.print',
+            'kitchen_tickets.start_preparing',
+            'kitchen_tickets.mark_ready',
+            'kitchen_tickets.serve',
+            'kitchen_tickets.cancel',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::findOrCreate($permission, 'sanctum');
+        }
+    }
+}
+
+```
+</details>
+
+<a id="file-databaseseederskitchenrolepermissionseederphp"></a>
+### database\seeders\KitchenRolePermissionSeeder.php
+- SHA: `47c5d7130349`  
+- Ukuran: 948 B  
+- Namespace: `Database\Seeders`
+
+**Class `KitchenRolePermissionSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+
+class KitchenRolePermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $kitchenPermissions = [
+            'kitchen_tickets.view',
+            'kitchen_tickets.create',
+            'kitchen_tickets.update',
+            'kitchen_tickets.print',
+            'kitchen_tickets.start_preparing',
+            'kitchen_tickets.mark_ready',
+            'kitchen_tickets.serve',
+            'kitchen_tickets.cancel',
+        ];
+
+        $dapur = Role::findByName('dapur', 'sanctum');
+        $dapur->givePermissionTo($kitchenPermissions);
+
+        foreach (['superadmin', 'admin_pusat', 'admin_outlet'] as $roleName) {
+            $role = Role::findByName($roleName, 'sanctum');
+            $role->givePermissionTo(array_merge($kitchenPermissions, [
+                'kitchen_tickets.delete',
+            ]));
+        }
     }
 }
 
@@ -16226,8 +17387,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `27066eaf5590`  
-- Ukuran: 14 KB  
+- SHA: `5c7d1bc2ff9a`  
+- Ukuran: 15 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -16381,6 +17542,15 @@ class SuperAdminSeeder extends Seeder
 | POST | `/orders/{order}/confirm` | `OrderController` | `confirm` |
 | POST | `/orders/{order}/complete` | `OrderController` | `complete` |
 | POST | `/orders/{order}/cancel` | `OrderController` | `cancel` |
+| GET | `kitchen-tickets` | `KitchenTicketController` | `index` |
+| POST | `kitchen-tickets` | `KitchenTicketController` | `store` |
+| GET | `kitchen-tickets/{kitchenTicket}` | `KitchenTicketController` | `show` |
+| POST | `kitchen-tickets/{kitchenTicket}/print` | `KitchenTicketController` | `print` |
+| POST | `kitchen-tickets/{kitchenTicket}/start-preparing` | `KitchenTicketController` | `startPreparing` |
+| POST | `kitchen-tickets/{kitchenTicket}/ready` | `KitchenTicketController` | `markReady` |
+| POST | `kitchen-tickets/{kitchenTicket}/serve` | `KitchenTicketController` | `serve` |
+| POST | `kitchen-tickets/{kitchenTicket}/cancel` | `KitchenTicketController` | `cancel` |
+| DELETE | `kitchen-tickets/{kitchenTicket}` | `KitchenTicketController` | `destroy` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -16391,6 +17561,7 @@ use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoodsReceiptController;
+use App\Http\Controllers\Api\KitchenTicketController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
@@ -16597,6 +17768,16 @@ Route::prefix('v1')->group(function () {
         Route::post('/orders/{order}/confirm', [OrderController::class, 'confirm']);
         Route::post('/orders/{order}/complete', [OrderController::class, 'complete']);
         Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
+
+        Route::get('kitchen-tickets', [KitchenTicketController::class, 'index']);
+        Route::post('kitchen-tickets', [KitchenTicketController::class, 'store']);
+        Route::get('kitchen-tickets/{kitchenTicket}', [KitchenTicketController::class, 'show']);
+        Route::post('kitchen-tickets/{kitchenTicket}/print', [KitchenTicketController::class, 'print']);
+        Route::post('kitchen-tickets/{kitchenTicket}/start-preparing', [KitchenTicketController::class, 'startPreparing']);
+        Route::post('kitchen-tickets/{kitchenTicket}/ready', [KitchenTicketController::class, 'markReady']);
+        Route::post('kitchen-tickets/{kitchenTicket}/serve', [KitchenTicketController::class, 'serve']);
+        Route::post('kitchen-tickets/{kitchenTicket}/cancel', [KitchenTicketController::class, 'cancel']);
+        Route::delete('kitchen-tickets/{kitchenTicket}', [KitchenTicketController::class, 'destroy']);
     });
 });
 
