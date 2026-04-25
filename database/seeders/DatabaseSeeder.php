@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ExpensePermissionSeeder::class,
             ExpenseCategorySeeder::class,
             ReportPermissionSeeder::class,
+            DashboardPermissionSeeder::class,
         ]);
     }
 }

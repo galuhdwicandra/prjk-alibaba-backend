@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
 use App\Http\Controllers\Api\CourierController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DeliveryController;
 use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
@@ -272,5 +273,15 @@ Route::prefix('v1')->group(function () {
         Route::get('/reports/expenses', [ReportController::class, 'expenses']);
         Route::get('/reports/shift-summary', [ReportController::class, 'shiftSummary']);
         Route::get('/reports/order-details', [ReportController::class, 'orderDetails']);
+
+        Route::get('/dashboard/overview', [DashboardController::class, 'overview']);
+        Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
+        Route::get('/dashboard/sales-trend', [DashboardController::class, 'salesTrend']);
+        Route::get('/dashboard/top-products', [DashboardController::class, 'topProducts']);
+        Route::get('/dashboard/best-outlets', [DashboardController::class, 'bestOutlets']);
+        Route::get('/dashboard/critical-stocks', [DashboardController::class, 'criticalStocks']);
+        Route::get('/dashboard/pending-orders', [DashboardController::class, 'pendingOrders']);
+        Route::get('/dashboard/overdue-orders', [DashboardController::class, 'overdueOrders']);
+        Route::get('/dashboard/cash-discrepancies', [DashboardController::class, 'cashDiscrepancies']);
     });
 });

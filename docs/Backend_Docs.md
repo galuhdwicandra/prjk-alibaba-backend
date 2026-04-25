@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-25 14:19:52_  
+_Dihasilkan otomatis: 2026-04-25 14:36:29_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -10,6 +10,7 @@ _Dihasilkan otomatis: 2026-04-25 14:19:52_
   - [app\Http\Controllers\Api\CashMovementController.php](#file-apphttpcontrollersapicashmovementcontrollerphp)
   - [app\Http\Controllers\Api\CourierController.php](#file-apphttpcontrollersapicouriercontrollerphp)
   - [app\Http\Controllers\Api\CustomerController.php](#file-apphttpcontrollersapicustomercontrollerphp)
+  - [app\Http\Controllers\Api\DashboardController.php](#file-apphttpcontrollersapidashboardcontrollerphp)
   - [app\Http\Controllers\Api\DeliveryController.php](#file-apphttpcontrollersapideliverycontrollerphp)
   - [app\Http\Controllers\Api\ExpenseCategoryController.php](#file-apphttpcontrollersapiexpensecategorycontrollerphp)
   - [app\Http\Controllers\Api\ExpenseController.php](#file-apphttpcontrollersapiexpensecontrollerphp)
@@ -59,6 +60,7 @@ _Dihasilkan otomatis: 2026-04-25 14:19:52_
   - [app\Http\Requests\Api\Courier\UpdateCourierRequest.php](#file-apphttprequestsapicourierupdatecourierrequestphp)
   - [app\Http\Requests\Api\Customer\StoreCustomerRequest.php](#file-apphttprequestsapicustomerstorecustomerrequestphp)
   - [app\Http\Requests\Api\Customer\UpdateCustomerRequest.php](#file-apphttprequestsapicustomerupdatecustomerrequestphp)
+  - [app\Http\Requests\Api\Dashboard\DashboardFilterRequest.php](#file-apphttprequestsapidashboarddashboardfilterrequestphp)
   - [app\Http\Requests\Api\Delivery\AssignCourierRequest.php](#file-apphttprequestsapideliveryassigncourierrequestphp)
   - [app\Http\Requests\Api\Delivery\StoreDeliveryRequest.php](#file-apphttprequestsapideliverystoredeliveryrequestphp)
   - [app\Http\Requests\Api\Delivery\UpdateDeliveryRequest.php](#file-apphttprequestsapideliveryupdatedeliveryrequestphp)
@@ -248,6 +250,7 @@ _Dihasilkan otomatis: 2026-04-25 14:19:52_
   - [app\Services\Cashier\CashMovementService.php](#file-appservicescashiercashmovementservicephp)
   - [app\Services\Catalog\ProductService.php](#file-appservicescatalogproductservicephp)
   - [app\Services\Customer\CustomerService.php](#file-appservicescustomercustomerservicephp)
+  - [app\Services\Dashboard\DashboardService.php](#file-appservicesdashboarddashboardservicephp)
   - [app\Services\Delivery\DeliveryService.php](#file-appservicesdeliverydeliveryservicephp)
   - [app\Services\Expense\ExpenseService.php](#file-appservicesexpenseexpenseservicephp)
   - [app\Services\Inventory\OutletMaterialStockService.php](#file-appservicesinventoryoutletmaterialstockservicephp)
@@ -272,6 +275,7 @@ _Dihasilkan otomatis: 2026-04-25 14:19:52_
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
+  - [database\seeders\DashboardPermissionSeeder.php](#file-databaseseedersdashboardpermissionseederphp)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
   - [database\seeders\DeliveryPermissionSeeder.php](#file-databaseseedersdeliverypermissionseederphp)
   - [database\seeders\ExpenseCategorySeeder.php](#file-databaseseedersexpensecategoryseederphp)
@@ -849,6 +853,154 @@ class CustomerController extends Controller
         ]);
     }
 }
+```
+</details>
+
+<a id="file-apphttpcontrollersapidashboardcontrollerphp"></a>
+### app\Http\Controllers\Api\DashboardController.php
+- SHA: `c50817b8672f`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `DashboardController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly DashboardService $dashboardService)
+- **overview**(DashboardFilterRequest $request) : *JsonResponse*
+- **summary**(DashboardFilterRequest $request) : *JsonResponse*
+- **salesTrend**(DashboardFilterRequest $request) : *JsonResponse*
+- **topProducts**(DashboardFilterRequest $request) : *JsonResponse*
+- **bestOutlets**(DashboardFilterRequest $request) : *JsonResponse*
+- **criticalStocks**(DashboardFilterRequest $request) : *JsonResponse*
+- **pendingOrders**(DashboardFilterRequest $request) : *JsonResponse*
+- **overdueOrders**(DashboardFilterRequest $request) : *JsonResponse*
+- **cashDiscrepancies**(DashboardFilterRequest $request) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Dashboard\DashboardFilterRequest;
+use App\Services\Dashboard\DashboardService;
+use Illuminate\Http\JsonResponse;
+
+class DashboardController extends Controller
+{
+    public function __construct(
+        private readonly DashboardService $dashboardService
+    ) {
+    }
+
+    public function overview(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Ringkasan dashboard berhasil diambil.',
+            'data' => $this->dashboardService->overview(
+                filters: $request->validated(),
+                user: $request->user(),
+            ),
+        ]);
+    }
+
+    public function summary(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Summary dashboard berhasil diambil.',
+            'data' => $this->dashboardService->summary(
+                filters: $request->validated(),
+                user: $request->user(),
+            ),
+        ]);
+    }
+
+    public function salesTrend(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Tren penjualan dashboard berhasil diambil.',
+            'data' => $this->dashboardService->salesTrend(
+                filters: $request->validated(),
+                user: $request->user(),
+            ),
+        ]);
+    }
+
+    public function topProducts(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Top produk dashboard berhasil diambil.',
+            'data' => $this->dashboardService->topProducts(
+                filters: $request->validated(),
+                user: $request->user(),
+                limit: (int) $request->input('limit', 5),
+            ),
+        ]);
+    }
+
+    public function bestOutlets(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Outlet terbaik dashboard berhasil diambil.',
+            'data' => $this->dashboardService->bestOutlets(
+                filters: $request->validated(),
+                user: $request->user(),
+                limit: (int) $request->input('limit', 5),
+            ),
+        ]);
+    }
+
+    public function criticalStocks(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Stok kritis dashboard berhasil diambil.',
+            'data' => $this->dashboardService->criticalStocks(
+                filters: $request->validated(),
+                user: $request->user(),
+                limit: (int) $request->input('limit', 10),
+            ),
+        ]);
+    }
+
+    public function pendingOrders(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Pending order dashboard berhasil diambil.',
+            'data' => $this->dashboardService->pendingOrders(
+                filters: $request->validated(),
+                user: $request->user(),
+                limit: (int) $request->input('limit', 10),
+            ),
+        ]);
+    }
+
+    public function overdueOrders(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Order terlambat dashboard berhasil diambil.',
+            'data' => $this->dashboardService->overdueOrders(
+                filters: $request->validated(),
+                user: $request->user(),
+                limit: (int) $request->input('limit', 10),
+                overdueMinutes: (int) $request->input('overdue_minutes', 30),
+            ),
+        ]);
+    }
+
+    public function cashDiscrepancies(DashboardFilterRequest $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Cash discrepancy dashboard berhasil diambil.',
+            'data' => $this->dashboardService->cashDiscrepancies(
+                filters: $request->validated(),
+                user: $request->user(),
+                limit: (int) $request->input('limit', 10),
+            ),
+        ]);
+    }
+}
+
 ```
 </details>
 
@@ -5755,6 +5907,48 @@ class UpdateCustomerRequest extends FormRequest
             'addresses.*.latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'addresses.*.longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'addresses.*.is_default' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapidashboarddashboardfilterrequestphp"></a>
+### app\Http\Requests\Api\Dashboard\DashboardFilterRequest.php
+- SHA: `5a9870722ac0`  
+- Ukuran: 682 B  
+- Namespace: `App\Http\Requests\Api\Dashboard`
+
+**Class `DashboardFilterRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Dashboard;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class DashboardFilterRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('reports.view') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
+            'date_from' => ['nullable', 'date'],
+            'date_until' => ['nullable', 'date', 'after_or_equal:date_from'],
+            'overdue_minutes' => ['nullable', 'integer', 'min:5', 'max:1440'],
+            'limit' => ['nullable', 'integer', 'min:1', 'max:20'],
         ];
     }
 }
@@ -15558,6 +15752,425 @@ class CustomerService
 ```
 </details>
 
+<a id="file-appservicesdashboarddashboardservicephp"></a>
+### app\Services\Dashboard\DashboardService.php
+- SHA: `d2464be69d66`  
+- Ukuran: 16 KB  
+- Namespace: `App\Services\Dashboard`
+
+**Class `DashboardService`**
+
+Metode Publik:
+- **overview**(array $filters, User $user) : *array*
+- **summary**(array $filters, User $user) : *array*
+- **salesTrend**(array $filters, User $user) : *array*
+- **topProducts**(array $filters, User $user, int $limit = 5) : *array*
+- **bestOutlets**(array $filters, User $user, int $limit = 5) : *array*
+- **criticalStocks**(array $filters, User $user, int $limit = 10) : *array*
+- **pendingOrders**(array $filters, User $user, int $limit = 10) : *array*
+- **overdueOrders**(array $filters, User $user, int $limit = 10, int $overdueMinutes = 30) : *array*
+- **cashDiscrepancies**(array $filters, User $user, int $limit = 10) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Dashboard;
+
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
+class DashboardService
+{
+    public function overview(array $filters, User $user): array
+    {
+        $limit = (int) ($filters['limit'] ?? 5);
+        $overdueMinutes = (int) ($filters['overdue_minutes'] ?? 30);
+
+        return [
+            'summary' => $this->summary($filters, $user),
+            'top_products' => $this->topProducts($filters, $user, $limit),
+            'best_outlets' => $this->bestOutlets($filters, $user, $limit),
+            'critical_stocks' => $this->criticalStocks($filters, $user, $limit),
+            'pending_orders' => $this->pendingOrders($filters, $user, $limit),
+            'overdue_orders' => $this->overdueOrders($filters, $user, $limit, $overdueMinutes),
+            'cash_discrepancies' => $this->cashDiscrepancies($filters, $user, $limit),
+            'meta' => [
+                'filters' => [
+                    'outlet_id' => $filters['outlet_id'] ?? null,
+                    'date_from' => $filters['date_from'] ?? null,
+                    'date_until' => $filters['date_until'] ?? null,
+                    'overdue_minutes' => $overdueMinutes,
+                    'limit' => $limit,
+                ],
+                'generated_at' => now()->toISOString(),
+            ],
+        ];
+    }
+
+    public function summary(array $filters, User $user): array
+    {
+        $today = Carbon::today();
+        $monthStart = Carbon::now()->startOfMonth();
+
+        $todaySalesQuery = DB::table('orders')
+            ->whereDate('ordered_at', $today)
+            ->where('order_status', 'completed')
+            ->where('payment_status', 'paid');
+
+        $this->applyOutletScope($todaySalesQuery, $filters, $user, 'orders.outlet_id');
+
+        $monthSalesQuery = DB::table('orders')
+            ->where('ordered_at', '>=', $monthStart)
+            ->where('order_status', 'completed')
+            ->where('payment_status', 'paid');
+
+        $this->applyOutletScope($monthSalesQuery, $filters, $user, 'orders.outlet_id');
+
+        $pendingOrdersQuery = DB::table('orders')
+            ->whereIn('order_status', ['pending', 'confirmed', 'preparing', 'ready'])
+            ->whereNotIn('payment_status', ['cancelled', 'refunded']);
+
+        $this->applyOutletScope($pendingOrdersQuery, $filters, $user, 'orders.outlet_id');
+
+        $overdueOrdersQuery = DB::table('orders')
+            ->whereIn('order_status', ['pending', 'confirmed', 'preparing'])
+            ->where('ordered_at', '<=', now()->subMinutes((int) ($filters['overdue_minutes'] ?? 30)));
+
+        $this->applyOutletScope($overdueOrdersQuery, $filters, $user, 'orders.outlet_id');
+
+        $criticalStocksQuery = DB::table('outlet_material_stocks')
+            ->join('raw_materials', 'raw_materials.id', '=', 'outlet_material_stocks.raw_material_id')
+            ->whereColumn('outlet_material_stocks.qty_on_hand', '<=', 'raw_materials.minimum_stock')
+            ->where('raw_materials.is_active', true);
+
+        $this->applyOutletScope($criticalStocksQuery, $filters, $user, 'outlet_material_stocks.outlet_id');
+
+        $cashDiscrepancyQuery = DB::table('cashier_shifts')
+            ->where('status', 'closed')
+            ->where('cash_difference', '!=', 0);
+
+        $this->applyDateRange($cashDiscrepancyQuery, $filters, 'closed_at');
+        $this->applyOutletScope($cashDiscrepancyQuery, $filters, $user, 'cashier_shifts.outlet_id');
+
+        return [
+            'today_revenue' => (float) $todaySalesQuery->sum('grand_total'),
+            'today_orders' => (int) $todaySalesQuery->count(),
+            'month_revenue' => (float) $monthSalesQuery->sum('grand_total'),
+            'month_orders' => (int) $monthSalesQuery->count(),
+            'pending_orders_count' => (int) $pendingOrdersQuery->count(),
+            'overdue_orders_count' => (int) $overdueOrdersQuery->count(),
+            'critical_stocks_count' => (int) $criticalStocksQuery->count(),
+            'cash_discrepancies_count' => (int) $cashDiscrepancyQuery->count(),
+            'cash_discrepancies_total' => (float) $cashDiscrepancyQuery->sum('cash_difference'),
+        ];
+    }
+
+    public function salesTrend(array $filters, User $user): array
+    {
+        $query = DB::table('orders')
+            ->selectRaw('DATE(ordered_at) as sales_date')
+            ->selectRaw('COUNT(*) as total_orders')
+            ->selectRaw('COALESCE(SUM(grand_total), 0) as total_revenue')
+            ->where('order_status', 'completed')
+            ->where('payment_status', 'paid');
+
+        $this->applyDateRange($query, $filters, 'orders.ordered_at');
+        $this->applyOutletScope($query, $filters, $user, 'orders.outlet_id');
+
+        return $query
+            ->groupByRaw('DATE(ordered_at)')
+            ->orderByRaw('DATE(ordered_at)')
+            ->get()
+            ->map(fn ($row) => [
+                'sales_date' => $row->sales_date,
+                'total_orders' => (int) $row->total_orders,
+                'total_revenue' => (float) $row->total_revenue,
+            ])
+            ->all();
+    }
+
+    public function topProducts(array $filters, User $user, int $limit = 5): array
+    {
+        $query = DB::table('order_items')
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->select('order_items.product_id', 'order_items.product_name_snapshot')
+            ->selectRaw('COALESCE(SUM(order_items.qty), 0) as total_qty')
+            ->selectRaw('COALESCE(SUM(order_items.line_total), 0) as total_sales')
+            ->where('orders.order_status', 'completed')
+            ->where('orders.payment_status', 'paid');
+
+        $this->applyDateRange($query, $filters, 'orders.ordered_at');
+        $this->applyOutletScope($query, $filters, $user, 'orders.outlet_id');
+
+        return $query
+            ->groupBy('order_items.product_id', 'order_items.product_name_snapshot')
+            ->orderByDesc('total_qty')
+            ->limit($limit)
+            ->get()
+            ->map(fn ($row) => [
+                'product_id' => $row->product_id ? (int) $row->product_id : null,
+                'product_name' => $row->product_name_snapshot,
+                'total_qty' => (float) $row->total_qty,
+                'total_sales' => (float) $row->total_sales,
+            ])
+            ->all();
+    }
+
+    public function bestOutlets(array $filters, User $user, int $limit = 5): array
+    {
+        $query = DB::table('orders')
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('outlets.id', 'outlets.code', 'outlets.name')
+            ->selectRaw('COUNT(orders.id) as total_orders')
+            ->selectRaw('COALESCE(SUM(orders.grand_total), 0) as total_revenue')
+            ->where('orders.order_status', 'completed')
+            ->where('orders.payment_status', 'paid');
+
+        $this->applyDateRange($query, $filters, 'orders.ordered_at');
+        $this->applyOutletScope($query, $filters, $user, 'orders.outlet_id');
+
+        return $query
+            ->groupBy('outlets.id', 'outlets.code', 'outlets.name')
+            ->orderByDesc('total_revenue')
+            ->limit($limit)
+            ->get()
+            ->map(fn ($row) => [
+                'outlet_id' => (int) $row->id,
+                'outlet_code' => $row->code,
+                'outlet_name' => $row->name,
+                'total_orders' => (int) $row->total_orders,
+                'total_revenue' => (float) $row->total_revenue,
+            ])
+            ->all();
+    }
+
+    public function criticalStocks(array $filters, User $user, int $limit = 10): array
+    {
+        $query = DB::table('outlet_material_stocks')
+            ->join('outlets', 'outlets.id', '=', 'outlet_material_stocks.outlet_id')
+            ->join('raw_materials', 'raw_materials.id', '=', 'outlet_material_stocks.raw_material_id')
+            ->leftJoin('units', 'units.id', '=', 'raw_materials.unit_id')
+            ->select(
+                'outlets.id as outlet_id',
+                'outlets.code as outlet_code',
+                'outlets.name as outlet_name',
+                'raw_materials.id as raw_material_id',
+                'raw_materials.name as raw_material_name',
+                'raw_materials.minimum_stock',
+                'outlet_material_stocks.qty_on_hand',
+                'outlet_material_stocks.qty_reserved',
+                'units.code as unit_code'
+            )
+            ->where('raw_materials.is_active', true)
+            ->whereColumn('outlet_material_stocks.qty_on_hand', '<=', 'raw_materials.minimum_stock');
+
+        $this->applyOutletScope($query, $filters, $user, 'outlet_material_stocks.outlet_id');
+
+        return $query
+            ->orderBy('outlet_material_stocks.qty_on_hand')
+            ->limit($limit)
+            ->get()
+            ->map(fn ($row) => [
+                'outlet_id' => (int) $row->outlet_id,
+                'outlet_code' => $row->outlet_code,
+                'outlet_name' => $row->outlet_name,
+                'raw_material_id' => (int) $row->raw_material_id,
+                'raw_material_name' => $row->raw_material_name,
+                'qty_on_hand' => (float) $row->qty_on_hand,
+                'qty_reserved' => (float) $row->qty_reserved,
+                'minimum_stock' => (float) $row->minimum_stock,
+                'unit_code' => $row->unit_code,
+            ])
+            ->all();
+    }
+
+    public function pendingOrders(array $filters, User $user, int $limit = 10): array
+    {
+        $query = DB::table('orders')
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->leftJoin('users', 'users.id', '=', 'orders.created_by')
+            ->select(
+                'orders.id',
+                'orders.order_number',
+                'orders.queue_number',
+                'orders.order_channel',
+                'orders.order_status',
+                'orders.payment_status',
+                'orders.grand_total',
+                'orders.ordered_at',
+                'outlets.id as outlet_id',
+                'outlets.code as outlet_code',
+                'outlets.name as outlet_name',
+                'users.name as cashier_name'
+            )
+            ->whereIn('orders.order_status', ['pending', 'confirmed', 'preparing', 'ready'])
+            ->whereNotIn('orders.payment_status', ['cancelled', 'refunded']);
+
+        $this->applyDateRange($query, $filters, 'orders.ordered_at');
+        $this->applyOutletScope($query, $filters, $user, 'orders.outlet_id');
+
+        return $query
+            ->orderBy('orders.ordered_at')
+            ->limit($limit)
+            ->get()
+            ->map(fn ($row) => $this->formatOrderRow($row))
+            ->all();
+    }
+
+    public function overdueOrders(array $filters, User $user, int $limit = 10, int $overdueMinutes = 30): array
+    {
+        $query = DB::table('orders')
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->leftJoin('users', 'users.id', '=', 'orders.created_by')
+            ->select(
+                'orders.id',
+                'orders.order_number',
+                'orders.queue_number',
+                'orders.order_channel',
+                'orders.order_status',
+                'orders.payment_status',
+                'orders.grand_total',
+                'orders.ordered_at',
+                'outlets.id as outlet_id',
+                'outlets.code as outlet_code',
+                'outlets.name as outlet_name',
+                'users.name as cashier_name'
+            )
+            ->whereIn('orders.order_status', ['pending', 'confirmed', 'preparing'])
+            ->where('orders.ordered_at', '<=', now()->subMinutes($overdueMinutes));
+
+        $this->applyDateRange($query, $filters, 'orders.ordered_at');
+        $this->applyOutletScope($query, $filters, $user, 'orders.outlet_id');
+
+        return $query
+            ->orderBy('orders.ordered_at')
+            ->limit($limit)
+            ->get()
+            ->map(fn ($row) => $this->formatOrderRow($row))
+            ->all();
+    }
+
+    public function cashDiscrepancies(array $filters, User $user, int $limit = 10): array
+    {
+        $query = DB::table('cashier_shifts')
+            ->join('outlets', 'outlets.id', '=', 'cashier_shifts.outlet_id')
+            ->join('users', 'users.id', '=', 'cashier_shifts.user_id')
+            ->select(
+                'cashier_shifts.id',
+                'cashier_shifts.shift_number',
+                'cashier_shifts.opened_at',
+                'cashier_shifts.closed_at',
+                'cashier_shifts.expected_cash',
+                'cashier_shifts.closing_cash',
+                'cashier_shifts.cash_difference',
+                'outlets.id as outlet_id',
+                'outlets.code as outlet_code',
+                'outlets.name as outlet_name',
+                'users.name as cashier_name'
+            )
+            ->where('cashier_shifts.status', 'closed')
+            ->where('cashier_shifts.cash_difference', '!=', 0);
+
+        $this->applyDateRange($query, $filters, 'cashier_shifts.closed_at');
+        $this->applyOutletScope($query, $filters, $user, 'cashier_shifts.outlet_id');
+
+        return $query
+            ->orderByDesc('cashier_shifts.closed_at')
+            ->limit($limit)
+            ->get()
+            ->map(fn ($row) => [
+                'cashier_shift_id' => (int) $row->id,
+                'shift_number' => $row->shift_number,
+                'outlet_id' => (int) $row->outlet_id,
+                'outlet_code' => $row->outlet_code,
+                'outlet_name' => $row->outlet_name,
+                'cashier_name' => $row->cashier_name,
+                'opened_at' => $row->opened_at,
+                'closed_at' => $row->closed_at,
+                'expected_cash' => (float) $row->expected_cash,
+                'closing_cash' => (float) $row->closing_cash,
+                'cash_difference' => (float) $row->cash_difference,
+            ])
+            ->all();
+    }
+
+    private function formatOrderRow(object $row): array
+    {
+        return [
+            'order_id' => (int) $row->id,
+            'order_number' => $row->order_number,
+            'queue_number' => $row->queue_number,
+            'order_channel' => $row->order_channel,
+            'order_status' => $row->order_status,
+            'payment_status' => $row->payment_status,
+            'grand_total' => (float) $row->grand_total,
+            'ordered_at' => $row->ordered_at,
+            'outlet_id' => (int) $row->outlet_id,
+            'outlet_code' => $row->outlet_code,
+            'outlet_name' => $row->outlet_name,
+            'cashier_name' => $row->cashier_name,
+        ];
+    }
+
+    private function applyDateRange(Builder $query, array $filters, string $column): void
+    {
+        if (!empty($filters['date_from'])) {
+            $query->where($column, '>=', Carbon::parse($filters['date_from'])->startOfDay());
+        }
+
+        if (!empty($filters['date_until'])) {
+            $query->where($column, '<=', Carbon::parse($filters['date_until'])->endOfDay());
+        }
+    }
+
+    private function applyOutletScope(Builder $query, array $filters, User $user, string $column): void
+    {
+        $allowedOutletIds = $this->allowedOutletIds($user);
+
+        if (!empty($filters['outlet_id'])) {
+            $requestedOutletId = (int) $filters['outlet_id'];
+
+            if ($allowedOutletIds !== null && !in_array($requestedOutletId, $allowedOutletIds, true)) {
+                throw new HttpException(403, 'Anda tidak memiliki akses ke outlet ini.');
+            }
+
+            $query->where($column, $requestedOutletId);
+
+            return;
+        }
+
+        if ($allowedOutletIds !== null) {
+            if ($allowedOutletIds === []) {
+                $query->whereRaw('1 = 0');
+
+                return;
+            }
+
+            $query->whereIn($column, $allowedOutletIds);
+        }
+    }
+
+    private function allowedOutletIds(User $user): ?array
+    {
+        if ($user->hasAnyRole(['superadmin', 'admin_pusat', 'owner'])) {
+            return null;
+        }
+
+        return DB::table('user_outlet_accesses')
+            ->where('user_id', $user->id)
+            ->pluck('outlet_id')
+            ->map(fn ($id) => (int) $id)
+            ->all();
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicesdeliverydeliveryservicephp"></a>
 ### app\Services\Delivery\DeliveryService.php
 - SHA: `11b3bddc8720`  
@@ -19550,10 +20163,52 @@ class VoucherService
 
 ## Database Seeders (database/seeders)
 
+<a id="file-databaseseedersdashboardpermissionseederphp"></a>
+### database\seeders\DashboardPermissionSeeder.php
+- SHA: `192a487659df`  
+- Ukuran: 612 B  
+- Namespace: `Database\Seeders`
+
+**Class `DashboardPermissionSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class DashboardPermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $permissions = [
+            'dashboard.view',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::findOrCreate($permission, 'sanctum');
+        }
+
+        foreach (['superadmin', 'admin_pusat', 'admin_outlet', 'owner'] as $roleName) {
+            Role::findOrCreate($roleName, 'sanctum')->givePermissionTo($permissions);
+        }
+    }
+}
+
+```
+</details>
+
 <a id="file-databaseseedersdatabaseseederphp"></a>
 ### database\seeders\DatabaseSeeder.php
-- SHA: `d627c8a70178`  
-- Ukuran: 597 B  
+- SHA: `8f854e77d3c5`  
+- Ukuran: 643 B  
 - Namespace: `Database\Seeders`
 
 **Class `DatabaseSeeder` extends `Seeder`**
@@ -19583,6 +20238,7 @@ class DatabaseSeeder extends Seeder
             ExpensePermissionSeeder::class,
             ExpenseCategorySeeder::class,
             ReportPermissionSeeder::class,
+            DashboardPermissionSeeder::class,
         ]);
     }
 }
@@ -19910,7 +20566,7 @@ class PaymentMethodSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `c2b56e33366f`  
+- SHA: `ffe222ffe6f9`  
 - Ukuran: 5 KB  
 - Namespace: `Database\Seeders`
 
@@ -20092,6 +20748,8 @@ class PermissionSeeder extends Seeder
 
             'reports.view',
             'reports.export',
+
+            'dashboard.view',
         ];
 
         foreach ($permissions as $permission) {
@@ -20148,7 +20806,7 @@ class ReportPermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `2b7fd3d69e64`  
+- SHA: `f0557698acda`  
 - Ukuran: 12 KB  
 - Namespace: `Database\Seeders`
 
@@ -20355,6 +21013,8 @@ class RoleSeeder extends Seeder
 
             'reports.view',
             'reports.export',
+
+            'dashboard.view',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -20455,6 +21115,8 @@ class RoleSeeder extends Seeder
             'expenses.submit',
 
             'reports.view',
+
+            'dashboard.view',
         ]);
 
         $kasir->syncPermissions([
@@ -20609,6 +21271,8 @@ class RoleSeeder extends Seeder
 
             'reports.view',
             'reports.export',
+            
+            'dashboard.view',
         ]);
     }
 }
@@ -20664,8 +21328,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `86da06ff4733`  
-- Ukuran: 19 KB  
+- SHA: `4be3f890f934`  
+- Ukuran: 20 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -20868,6 +21532,15 @@ class SuperAdminSeeder extends Seeder
 | GET | `/reports/expenses` | `ReportController` | `expenses` |
 | GET | `/reports/shift-summary` | `ReportController` | `shiftSummary` |
 | GET | `/reports/order-details` | `ReportController` | `orderDetails` |
+| GET | `/dashboard/overview` | `DashboardController` | `overview` |
+| GET | `/dashboard/summary` | `DashboardController` | `summary` |
+| GET | `/dashboard/sales-trend` | `DashboardController` | `salesTrend` |
+| GET | `/dashboard/top-products` | `DashboardController` | `topProducts` |
+| GET | `/dashboard/best-outlets` | `DashboardController` | `bestOutlets` |
+| GET | `/dashboard/critical-stocks` | `DashboardController` | `criticalStocks` |
+| GET | `/dashboard/pending-orders` | `DashboardController` | `pendingOrders` |
+| GET | `/dashboard/overdue-orders` | `DashboardController` | `overdueOrders` |
+| GET | `/dashboard/cash-discrepancies` | `DashboardController` | `cashDiscrepancies` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -20878,6 +21551,7 @@ use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
 use App\Http\Controllers\Api\CourierController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DeliveryController;
 use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
@@ -21145,6 +21819,16 @@ Route::prefix('v1')->group(function () {
         Route::get('/reports/expenses', [ReportController::class, 'expenses']);
         Route::get('/reports/shift-summary', [ReportController::class, 'shiftSummary']);
         Route::get('/reports/order-details', [ReportController::class, 'orderDetails']);
+
+        Route::get('/dashboard/overview', [DashboardController::class, 'overview']);
+        Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
+        Route::get('/dashboard/sales-trend', [DashboardController::class, 'salesTrend']);
+        Route::get('/dashboard/top-products', [DashboardController::class, 'topProducts']);
+        Route::get('/dashboard/best-outlets', [DashboardController::class, 'bestOutlets']);
+        Route::get('/dashboard/critical-stocks', [DashboardController::class, 'criticalStocks']);
+        Route::get('/dashboard/pending-orders', [DashboardController::class, 'pendingOrders']);
+        Route::get('/dashboard/overdue-orders', [DashboardController::class, 'overdueOrders']);
+        Route::get('/dashboard/cash-discrepancies', [DashboardController::class, 'cashDiscrepancies']);
     });
 });
 

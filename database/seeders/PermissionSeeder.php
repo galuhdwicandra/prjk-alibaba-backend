@@ -169,6 +169,8 @@ class PermissionSeeder extends Seeder
 
             'reports.view',
             'reports.export',
+
+            'dashboard.view',
         ];
 
         foreach ($permissions as $permission) {

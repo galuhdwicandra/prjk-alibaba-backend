@@ -194,6 +194,8 @@ class RoleSeeder extends Seeder
 
             'reports.view',
             'reports.export',
+
+            'dashboard.view',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -294,6 +296,8 @@ class RoleSeeder extends Seeder
             'expenses.submit',
 
             'reports.view',
+
+            'dashboard.view',
         ]);
 
         $kasir->syncPermissions([
@@ -448,6 +452,8 @@ class RoleSeeder extends Seeder
 
             'reports.view',
             'reports.export',
+            
+            'dashboard.view',
         ]);
     }
 }
