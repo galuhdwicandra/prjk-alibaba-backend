@@ -3,14 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Report\ReportExportRequest;
 use App\Http\Requests\Api\Report\ReportFilterRequest;
+use App\Services\Audit\ActivityLogService;
+use App\Services\Report\ReportExportService;
 use App\Services\Report\ReportingService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportController extends Controller
 {
     public function __construct(
-        private readonly ReportingService $reportingService
+        private readonly ReportingService $reportingService,
+        private readonly ReportExportService $reportExportService,
+        private readonly ActivityLogService $activityLogService
     ) {
     }
 
@@ -124,5 +131,28 @@ class ReportController extends Controller
                 'total' => $rows->total(),
             ],
         ]);
+    }
+
+    public function export(ReportExportRequest $request, string $report): Response|StreamedResponse
+    {
+        $filters = $request->validated();
+
+        $this->activityLogService->record([
+            'user_id' => $request->user()?->id,
+            'outlet_id' => $filters['outlet_id'] ?? null,
+            'action' => 'export_report',
+            'module' => 'reports',
+            'reference_type' => null,
+            'reference_id' => null,
+            'description' => 'User melakukan export report.',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metadata' => [
+                'report' => $report,
+                'filters' => $filters,
+            ],
+        ]);
+
+        return $this->reportExportService->export($report, $filters);
     }
 }

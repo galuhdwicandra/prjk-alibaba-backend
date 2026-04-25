@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityLogController;
 use App\Http\Controllers\Api\AlertRuleController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashierShiftController;
@@ -39,7 +40,7 @@ use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UnitConversionController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoucherController;
-use App\Http\Controllers\Api\ActivityLogController;
+use App\Http\Controllers\Api\ReceiptPrintController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -216,6 +217,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/orders', [OrderController::class, 'store']);
         Route::get('/orders/{order}', [OrderController::class, 'show']);
+        Route::get('/orders/{order}/receipt/print', [ReceiptPrintController::class, 'print']);
+        Route::get('/orders/{order}/receipt/pdf', [ReceiptPrintController::class, 'pdf']);
+        Route::post('/orders/{order}/receipt/reprint', [ReceiptPrintController::class, 'reprint']);
         Route::put('/orders/{order}', [OrderController::class, 'update']);
         Route::delete('/orders/{order}', [OrderController::class, 'destroy']);
         Route::post('/orders/{order}/confirm', [OrderController::class, 'confirm']);
@@ -275,7 +279,22 @@ Route::prefix('v1')->group(function () {
         Route::get('/reports/purchase-materials', [ReportController::class, 'purchaseMaterials']);
         Route::get('/reports/expenses', [ReportController::class, 'expenses']);
         Route::get('/reports/shift-summary', [ReportController::class, 'shiftSummary']);
-        Route::get('/reports/order-details', [ReportController::class, 'orderDetails']);
+        Route::get('/reports/{report}/export', [ReportController::class, 'export'])
+            ->whereIn('report', [
+                'sales-summary',
+                'sales-trend',
+                'sales-by-outlet',
+                'sales-by-cashier',
+                'top-products',
+                'payment-summary',
+                'promo-usage',
+                'void-refund',
+                'low-stocks',
+                'purchase-materials',
+                'expenses',
+                'shift-summary',
+                'order-details',
+            ]);
 
         Route::get('/dashboard/overview', [DashboardController::class, 'overview']);
         Route::get('/dashboard/summary', [DashboardController::class, 'summary']);

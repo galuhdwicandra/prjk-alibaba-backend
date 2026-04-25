@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-25 16:11:19_  
+_Dihasilkan otomatis: 2026-04-25 16:35:30_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -33,6 +33,7 @@ _Dihasilkan otomatis: 2026-04-25 16:11:19_
   - [app\Http\Controllers\Api\PurchaseOrderController.php](#file-apphttpcontrollersapipurchaseordercontrollerphp)
   - [app\Http\Controllers\Api\RawMaterialCategoryController.php](#file-apphttpcontrollersapirawmaterialcategorycontrollerphp)
   - [app\Http\Controllers\Api\RawMaterialController.php](#file-apphttpcontrollersapirawmaterialcontrollerphp)
+  - [app\Http\Controllers\Api\ReceiptPrintController.php](#file-apphttpcontrollersapireceiptprintcontrollerphp)
   - [app\Http\Controllers\Api\ReportController.php](#file-apphttpcontrollersapireportcontrollerphp)
   - [app\Http\Controllers\Api\RoleController.php](#file-apphttpcontrollersapirolecontrollerphp)
   - [app\Http\Controllers\Api\StockAdjustmentController.php](#file-apphttpcontrollersapistockadjustmentcontrollerphp)
@@ -129,6 +130,7 @@ _Dihasilkan otomatis: 2026-04-25 16:11:19_
   - [app\Http\Requests\Api\Purchasing\PurchaseOrder\UpdatePurchaseOrderRequest.php](#file-apphttprequestsapipurchasingpurchaseorderupdatepurchaseorderrequestphp)
   - [app\Http\Requests\Api\Purchasing\Supplier\StoreSupplierRequest.php](#file-apphttprequestsapipurchasingsupplierstoresupplierrequestphp)
   - [app\Http\Requests\Api\Purchasing\Supplier\UpdateSupplierRequest.php](#file-apphttprequestsapipurchasingsupplierupdatesupplierrequestphp)
+  - [app\Http\Requests\Api\Report\ReportExportRequest.php](#file-apphttprequestsapireportreportexportrequestphp)
   - [app\Http\Requests\Api\Report\ReportFilterRequest.php](#file-apphttprequestsapireportreportfilterrequestphp)
   - [app\Http\Requests\Api\Role\StoreRoleRequest.php](#file-apphttprequestsapirolestorerolerequestphp)
   - [app\Http\Requests\Api\Role\UpdateRoleRequest.php](#file-apphttprequestsapiroleupdaterolerequestphp)
@@ -286,9 +288,11 @@ _Dihasilkan otomatis: 2026-04-25 16:11:19_
   - [app\Services\Purchasing\GoodsReceiptService.php](#file-appservicespurchasinggoodsreceiptservicephp)
   - [app\Services\Purchasing\PurchaseOrderService.php](#file-appservicespurchasingpurchaseorderservicephp)
   - [app\Services\Purchasing\SupplierService.php](#file-appservicespurchasingsupplierservicephp)
+  - [app\Services\Report\ReportExportService.php](#file-appservicesreportreportexportservicephp)
   - [app\Services\Report\ReportingService.php](#file-appservicesreportreportingservicephp)
   - [app\Services\Sales\OrderService.php](#file-appservicessalesorderservicephp)
   - [app\Services\Sales\PaymentService.php](#file-appservicessalespaymentservicephp)
+  - [app\Services\Sales\ReceiptPrintService.php](#file-appservicessalesreceiptprintservicephp)
   - [app\Services\SystemSetting\SystemSettingService.php](#file-appservicessystemsettingsystemsettingservicephp)
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
@@ -4089,16 +4093,111 @@ class RawMaterialController extends Controller
 ```
 </details>
 
+<a id="file-apphttpcontrollersapireceiptprintcontrollerphp"></a>
+### app\Http\Controllers\Api\ReceiptPrintController.php
+- SHA: `52e24cef1d17`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `ReceiptPrintController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly ReceiptPrintService $receiptPrintService, private readonly ActivityLogService $activityLogService)
+- **print**(Request $request, Order $order) : *Response*
+- **pdf**(Request $request, Order $order) : *Response*
+- **reprint**(Request $request, Order $order) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Services\Audit\ActivityLogService;
+use App\Services\Sales\ReceiptPrintService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class ReceiptPrintController extends Controller
+{
+    public function __construct(
+        private readonly ReceiptPrintService $receiptPrintService,
+        private readonly ActivityLogService $activityLogService
+    ) {
+    }
+
+    public function print(Request $request, Order $order): Response
+    {
+        abort_unless($request->user()->can('orders.view'), 403);
+
+        $html = $this->receiptPrintService->printableHtml($order);
+
+        return response($html, 200, [
+            'Content-Type' => 'text/html; charset=UTF-8',
+            'Cache-Control' => 'no-store, no-cache, must-revalidate',
+            'Pragma' => 'no-cache',
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
+    public function pdf(Request $request, Order $order): Response
+    {
+        abort_unless($request->user()->can('orders.view'), 403);
+
+        return $this->receiptPrintService->pdf($order);
+    }
+
+    public function reprint(Request $request, Order $order): JsonResponse
+    {
+        abort_unless($request->user()->can('orders.view'), 403);
+
+        $this->receiptPrintService->validateReprint($order);
+
+        $this->activityLogService->record([
+            'user_id' => $request->user()?->id,
+            'outlet_id' => $order->outlet_id,
+            'action' => 'reprint_receipt',
+            'module' => 'orders',
+            'reference_type' => $order::class,
+            'reference_id' => $order->id,
+            'description' => 'User mencetak ulang receipt order.',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metadata' => [
+                'order_number' => $order->order_number,
+                'payment_status' => $order->payment_status,
+                'order_status' => $order->order_status,
+            ],
+        ]);
+
+        return response()->json([
+            'message' => 'Receipt boleh dicetak ulang.',
+            'data' => [
+                'order_id' => $order->id,
+                'order_number' => $order->order_number,
+                'print_url' => url("/api/v1/orders/{$order->id}/receipt/print"),
+                'pdf_url' => url("/api/v1/orders/{$order->id}/receipt/pdf"),
+            ],
+        ]);
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpcontrollersapireportcontrollerphp"></a>
 ### app\Http\Controllers\Api\ReportController.php
-- SHA: `414a6cb6e41e`  
-- Ukuran: 4 KB  
+- SHA: `edb55ed766ec`  
+- Ukuran: 5 KB  
 - Namespace: `App\Http\Controllers\Api`
 
 **Class `ReportController` extends `Controller`**
 
 Metode Publik:
-- **__construct**(private readonly ReportingService $reportingService)
+- **__construct**(private readonly ReportingService $reportingService, private readonly ReportExportService $reportExportService, private readonly ActivityLogService $activityLogService)
 - **salesSummary**(ReportFilterRequest $request) : *JsonResponse*
 - **salesTrend**(ReportFilterRequest $request) : *JsonResponse*
 - **salesByOutlet**(ReportFilterRequest $request) : *JsonResponse*
@@ -4112,6 +4211,7 @@ Metode Publik:
 - **expenses**(ReportFilterRequest $request) : *JsonResponse*
 - **shiftSummary**(ReportFilterRequest $request) : *JsonResponse*
 - **orderDetails**(ReportFilterRequest $request) : *JsonResponse*
+- **export**(ReportExportRequest $request, string $report) : *Response|StreamedResponse*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -4120,14 +4220,21 @@ Metode Publik:
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Report\ReportExportRequest;
 use App\Http\Requests\Api\Report\ReportFilterRequest;
+use App\Services\Audit\ActivityLogService;
+use App\Services\Report\ReportExportService;
 use App\Services\Report\ReportingService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportController extends Controller
 {
     public function __construct(
-        private readonly ReportingService $reportingService
+        private readonly ReportingService $reportingService,
+        private readonly ReportExportService $reportExportService,
+        private readonly ActivityLogService $activityLogService
     ) {
     }
 
@@ -4241,6 +4348,29 @@ class ReportController extends Controller
                 'total' => $rows->total(),
             ],
         ]);
+    }
+
+    public function export(ReportExportRequest $request, string $report): Response|StreamedResponse
+    {
+        $filters = $request->validated();
+
+        $this->activityLogService->record([
+            'user_id' => $request->user()?->id,
+            'outlet_id' => $filters['outlet_id'] ?? null,
+            'action' => 'export_report',
+            'module' => 'reports',
+            'reference_type' => null,
+            'reference_id' => null,
+            'description' => 'User melakukan export report.',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metadata' => [
+                'report' => $report,
+                'filters' => $filters,
+            ],
+        ]);
+
+        return $this->reportExportService->export($report, $filters);
     }
 }
 
@@ -9456,6 +9586,67 @@ class UpdateSupplierRequest extends FormRequest
             'contact_person' => ['nullable', 'string', 'max:255'],
             'is_active' => ['sometimes', 'boolean'],
         ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapireportreportexportrequestphp"></a>
+### app\Http\Requests\Api\Report\ReportExportRequest.php
+- SHA: `90d6ede68f8f`  
+- Ukuran: 2 KB  
+- Namespace: `App\Http\Requests\Api\Report`
+
+**Class `ReportExportRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Report;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ReportExportRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('reports.export') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
+            'cashier_id' => ['nullable', 'integer', 'exists:users,id'],
+            'payment_method_id' => ['nullable', 'integer', 'exists:payment_methods,id'],
+            'product_id' => ['nullable', 'integer', 'exists:products,id'],
+            'raw_material_id' => ['nullable', 'integer', 'exists:raw_materials,id'],
+            'supplier_id' => ['nullable', 'integer', 'exists:suppliers,id'],
+            'expense_category_id' => ['nullable', 'integer', 'exists:expense_categories,id'],
+            'status' => ['nullable', 'string', 'max:50'],
+            'date_from' => ['nullable', 'date'],
+            'date_until' => ['nullable', 'date', 'after_or_equal:date_from'],
+            'group_by' => ['nullable', 'string', 'in:day,week,month'],
+            'limit' => ['nullable', 'integer', 'min:1', 'max:1000'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:1000'],
+            'format' => ['nullable', 'string', 'in:csv,xls,pdf'],
+        ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'group_by' => $this->input('group_by', 'day'),
+            'limit' => $this->input('limit', 1000),
+            'per_page' => $this->input('per_page', 1000),
+            'format' => $this->input('format', 'csv'),
+        ]);
     }
 }
 
@@ -20351,6 +20542,293 @@ class SupplierService
 ```
 </details>
 
+<a id="file-appservicesreportreportexportservicephp"></a>
+### app\Services\Report\ReportExportService.php
+- SHA: `57a0e3b866c4`  
+- Ukuran: 8 KB  
+- Namespace: `App\Services\Report`
+
+**Class `ReportExportService`**
+
+Metode Publik:
+- **__construct**(private readonly ReportingService $reportingService)
+- **export**(string $report, array $filters) : *Response|StreamedResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Report;
+
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
+class ReportExportService
+{
+    public function __construct(
+        private readonly ReportingService $reportingService
+    ) {
+    }
+
+    public function export(string $report, array $filters): Response|StreamedResponse
+    {
+        $format = $filters['format'] ?? 'csv';
+
+        $payload = $this->getReportPayload($report, $filters);
+        $rows = $this->normalizeRows($payload);
+        $filename = $this->buildFilename($report, $filters);
+
+        if ($format === 'pdf') {
+            return $this->downloadPdf($report, $filters, $rows, "{$filename}.pdf");
+        }
+
+        return $this->downloadSpreadsheet($rows, "{$filename}.{$format}", $format);
+    }
+
+    private function getReportPayload(string $report, array $filters): mixed
+    {
+        $cacheKey = 'report_export:' . $report . ':' . md5(json_encode($filters));
+
+        return Cache::remember($cacheKey, now()->addMinutes(5), function () use ($report, $filters) {
+            return match ($report) {
+                'sales-summary' => $this->reportingService->salesSummary($filters),
+                'sales-trend' => $this->reportingService->salesTrend($filters),
+                'sales-by-outlet' => $this->reportingService->salesByOutlet($filters),
+                'sales-by-cashier' => $this->reportingService->salesByCashier($filters),
+                'top-products' => $this->reportingService->topProducts($filters),
+                'payment-summary' => $this->reportingService->paymentSummary($filters),
+                'promo-usage' => $this->reportingService->promoUsage($filters),
+                'void-refund' => $this->reportingService->voidRefund($filters),
+                'low-stocks' => $this->reportingService->lowStocks($filters),
+                'purchase-materials' => $this->reportingService->purchaseMaterials($filters),
+                'expenses' => $this->reportingService->expenses($filters),
+                'shift-summary' => $this->reportingService->shiftSummary($filters),
+                'order-details' => $this->reportingService->orderDetails($filters),
+                default => abort(404, 'Jenis report tidak tersedia.'),
+            };
+        });
+    }
+
+    private function normalizeRows(mixed $payload): array
+    {
+        if ($payload instanceof Collection) {
+            $payload = $payload->toArray();
+        }
+
+        if (is_object($payload) && method_exists($payload, 'toArray')) {
+            $payload = $payload->toArray();
+        }
+
+        if (!is_array($payload)) {
+            return [
+                [
+                    'value' => $payload,
+                ],
+            ];
+        }
+
+        if (array_is_list($payload)) {
+            return array_map(fn ($row) => $this->flattenRow((array) $row), $payload);
+        }
+
+        if (isset($payload['data']) && is_array($payload['data'])) {
+            return $this->normalizeRows($payload['data']);
+        }
+
+        return [
+            $this->flattenRow($payload),
+        ];
+    }
+
+    private function flattenRow(array $row, string $prefix = ''): array
+    {
+        $result = [];
+
+        foreach ($row as $key => $value) {
+            $newKey = $prefix === '' ? (string) $key : "{$prefix}.{$key}";
+
+            if (is_array($value)) {
+                if (array_is_list($value)) {
+                    $result[$newKey] = json_encode($value, JSON_UNESCAPED_UNICODE);
+                    continue;
+                }
+
+                $result = array_merge($result, $this->flattenRow($value, $newKey));
+                continue;
+            }
+
+            if ($value instanceof \DateTimeInterface) {
+                $result[$newKey] = $value->format('Y-m-d H:i:s');
+                continue;
+            }
+
+            if (is_bool($value)) {
+                $result[$newKey] = $value ? 'true' : 'false';
+                continue;
+            }
+
+            $result[$newKey] = $value;
+        }
+
+        return $result;
+    }
+
+    private function downloadSpreadsheet(array $rows, string $filename, string $format): StreamedResponse
+    {
+        $headers = $this->resolveHeaders($rows);
+
+        return response()->streamDownload(function () use ($rows, $headers) {
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, $headers);
+
+            foreach ($rows as $row) {
+                fputcsv($handle, array_map(
+                    fn ($header) => Arr::get($row, $header, $row[$header] ?? ''),
+                    $headers
+                ));
+            }
+
+            fclose($handle);
+        }, $filename, [
+            'Content-Type' => $format === 'xls'
+                ? 'application/vnd.ms-excel; charset=UTF-8'
+                : 'text/csv; charset=UTF-8',
+            'Cache-Control' => 'no-store, no-cache, must-revalidate',
+            'Pragma' => 'no-cache',
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
+    private function downloadPdf(string $report, array $filters, array $rows, string $filename): Response
+    {
+        $html = $this->buildPdfHtml($report, $filters, $rows);
+
+        return Pdf::loadHTML($html)
+            ->setPaper('a4', 'landscape')
+            ->download($filename);
+    }
+
+    private function buildPdfHtml(string $report, array $filters, array $rows): string
+    {
+        $headers = $this->resolveHeaders($rows);
+        $title = e(Str::headline($report));
+        $generatedAt = now()->timezone('Asia/Jakarta')->format('d/m/Y H:i:s');
+
+        $filterHtml = collect($filters)
+            ->except(['format'])
+            ->filter(fn ($value) => filled($value))
+            ->map(fn ($value, $key) => '<span><strong>' . e((string) $key) . ':</strong> ' . e((string) $value) . '</span>')
+            ->implode(' | ');
+
+        $headCells = collect($headers)
+            ->map(fn ($header) => '<th>' . e($header) . '</th>')
+            ->implode('');
+
+        $bodyRows = collect($rows)
+            ->map(function (array $row) use ($headers) {
+                $cells = collect($headers)
+                    ->map(fn ($header) => '<td>' . e((string) ($row[$header] ?? '')) . '</td>')
+                    ->implode('');
+
+                return "<tr>{$cells}</tr>";
+            })
+            ->implode('');
+
+        if ($bodyRows === '') {
+            $bodyRows = '<tr><td colspan="' . max(count($headers), 1) . '">Tidak ada data.</td></tr>';
+        }
+
+        return <<<HTML
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title}</title>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 10px;
+            color: #111827;
+        }
+        h1 {
+            margin: 0 0 6px;
+            font-size: 18px;
+        }
+        .meta {
+            margin-bottom: 14px;
+            font-size: 10px;
+            color: #374151;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: #f3f4f6;
+            font-weight: bold;
+        }
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            text-align: left;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <h1>{$title}</h1>
+    <div class="meta">Generated at: {$generatedAt}</div>
+    <div class="meta">{$filterHtml}</div>
+    <table>
+        <thead>
+            <tr>{$headCells}</tr>
+        </thead>
+        <tbody>
+            {$bodyRows}
+        </tbody>
+    </table>
+</body>
+</html>
+HTML;
+    }
+
+    private function resolveHeaders(array $rows): array
+    {
+        if ($rows === []) {
+            return ['message'];
+        }
+
+        $headers = [];
+
+        foreach ($rows as $row) {
+            foreach (array_keys($row) as $key) {
+                if (!in_array($key, $headers, true)) {
+                    $headers[] = $key;
+                }
+            }
+        }
+
+        return $headers;
+    }
+
+    private function buildFilename(string $report, array $filters): string
+    {
+        $dateFrom = $filters['date_from'] ?? now()->format('Y-m-d');
+        $dateUntil = $filters['date_until'] ?? now()->format('Y-m-d');
+
+        return Str::slug("chicken-alibaba-{$report}-{$dateFrom}-{$dateUntil}");
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicesreportreportingservicephp"></a>
 ### app\Services\Report\ReportingService.php
 - SHA: `067d28bc1798`  
@@ -21579,6 +22057,298 @@ class PaymentService
         $shift->update([
             'expected_cash' => (float) $shift->opening_cash + $cashSalesTotal + $cashInTotal - $cashOutTotal,
         ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicessalesreceiptprintservicephp"></a>
+### app\Services\Sales\ReceiptPrintService.php
+- SHA: `78c220c9ada9`  
+- Ukuran: 8 KB  
+- Namespace: `App\Services\Sales`
+
+**Class `ReceiptPrintService`**
+
+Metode Publik:
+- **loadOrder**(Order $order) : *Order*
+- **printableHtml**(Order $order) : *string*
+- **pdf**(Order $order) : *Response*
+- **validateReprint**(Order $order) : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Sales;
+
+use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Illuminate\Support\Number;
+use Illuminate\Support\Str;
+
+class ReceiptPrintService
+{
+    public function loadOrder(Order $order): Order
+    {
+        return $order->load([
+            'outlet.setting',
+            'cashierShift.user',
+            'customer',
+            'creator',
+            'items.product',
+            'items.variants',
+            'items.modifiers',
+            'payments.paymentMethod',
+            'payments.receiver',
+        ]);
+    }
+
+    public function printableHtml(Order $order): string
+    {
+        $order = $this->loadOrder($order);
+
+        $outlet = $order->outlet;
+        $setting = $outlet?->setting;
+        $paperSize = '58mm';
+        $currency = $setting?->currency_code ?: 'IDR';
+        $orderedAt = optional($order->ordered_at)->timezone('Asia/Jakarta')->format('d/m/Y H:i') ?: now()->timezone('Asia/Jakarta')->format('d/m/Y H:i');
+
+        $itemRows = $order->items->map(function ($item) use ($currency) {
+            $variantRows = $item->variants->map(function ($variant) {
+                return '<div class="muted">- ' . e($variant->variant_group_name_snapshot) . ': ' . e($variant->variant_option_name_snapshot) . '</div>';
+            })->implode('');
+
+            $modifierRows = $item->modifiers->map(function ($modifier) use ($currency) {
+                $price = $this->money((float) $modifier->price, $currency);
+
+                return '<div class="muted">- ' . e($modifier->modifier_option_name_snapshot) . ' x ' . e((string) $modifier->qty) . ' @ ' . e($price) . '</div>';
+            })->implode('');
+
+            $lineTotal = $this->money((float) $item->line_total, $currency);
+
+            return '
+                <div class="item">
+                    <div class="item-main">
+                        <span>' . e($item->product_name_snapshot) . '</span>
+                        <span>' . e($lineTotal) . '</span>
+                    </div>
+                    <div class="muted">' . e((string) $item->qty) . ' x ' . e($this->money((float) $item->unit_price, $currency)) . '</div>
+                    ' . $variantRows . '
+                    ' . $modifierRows . '
+                    ' . ($item->notes ? '<div class="muted">Catatan: ' . e($item->notes) . '</div>' : '') . '
+                </div>
+            ';
+        })->implode('');
+
+        $paymentRows = $order->payments->map(function ($payment) use ($currency) {
+            return '
+                <div class="line">
+                    <span>' . e($payment->paymentMethod?->name ?? 'Pembayaran') . '</span>
+                    <span>' . e($this->money((float) $payment->amount, $currency)) . '</span>
+                </div>
+            ';
+        })->implode('');
+
+        if ($paymentRows === '') {
+            $paymentRows = '
+                <div class="line">
+                    <span>Belum ada pembayaran</span>
+                    <span>0</span>
+                </div>
+            ';
+        }
+
+        $footer = e($setting?->receipt_footer ?: 'Terima kasih atas kunjungan Anda.');
+        $outletName = e($outlet?->name ?: 'Chicken Alibaba');
+        $outletAddress = e($outlet?->address ?: '');
+        $outletPhone = e($outlet?->phone ?: '');
+        $cashierName = e($order->creator?->name ?: $order->cashierShift?->user?->name ?: '-');
+
+        $subtotal = $this->money((float) $order->subtotal, $currency);
+        $discount = $this->money((float) $order->discount_amount, $currency);
+        $tax = $this->money((float) $order->tax_amount, $currency);
+        $serviceCharge = $this->money((float) $order->service_charge_amount, $currency);
+        $grandTotal = $this->money((float) $order->grand_total, $currency);
+        $paidTotal = $this->money((float) $order->paid_total, $currency);
+        $changeAmount = $this->money((float) $order->change_amount, $currency);
+
+        return <<<HTML
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Receipt {$order->order_number}</title>
+    <style>
+        @page {
+            size: {$paperSize} auto;
+            margin: 0;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 8px;
+            font-family: DejaVu Sans, monospace;
+            font-size: 11px;
+            color: #111;
+            width: {$paperSize};
+        }
+        .center {
+            text-align: center;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .muted {
+            color: #444;
+            font-size: 10px;
+            line-height: 1.35;
+        }
+        .divider {
+            border-top: 1px dashed #111;
+            margin: 8px 0;
+        }
+        .line,
+        .item-main {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .item {
+            margin-bottom: 8px;
+        }
+        .total {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+        @media print {
+            body {
+                width: {$paperSize};
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="center bold">{$outletName}</div>
+    <div class="center muted">{$outletAddress}</div>
+    <div class="center muted">{$outletPhone}</div>
+
+    <div class="divider"></div>
+
+    <div class="line">
+        <span>No</span>
+        <span>{$order->order_number}</span>
+    </div>
+    <div class="line">
+        <span>Antrian</span>
+        <span>{$order->queue_number}</span>
+    </div>
+    <div class="line">
+        <span>Tanggal</span>
+        <span>{$orderedAt}</span>
+    </div>
+    <div class="line">
+        <span>Kasir</span>
+        <span>{$cashierName}</span>
+    </div>
+    <div class="line">
+        <span>Channel</span>
+        <span>{$order->order_channel}</span>
+    </div>
+
+    <div class="divider"></div>
+
+    {$itemRows}
+
+    <div class="divider"></div>
+
+    <div class="line">
+        <span>Subtotal</span>
+        <span>{$subtotal}</span>
+    </div>
+    <div class="line">
+        <span>Diskon</span>
+        <span>{$discount}</span>
+    </div>
+    <div class="line">
+        <span>Pajak</span>
+        <span>{$tax}</span>
+    </div>
+    <div class="line">
+        <span>Service</span>
+        <span>{$serviceCharge}</span>
+    </div>
+    <div class="line total">
+        <span>Total</span>
+        <span>{$grandTotal}</span>
+    </div>
+
+    <div class="divider"></div>
+
+    {$paymentRows}
+
+    <div class="line">
+        <span>Dibayar</span>
+        <span>{$paidTotal}</span>
+    </div>
+    <div class="line">
+        <span>Kembali</span>
+        <span>{$changeAmount}</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="footer">{$footer}</div>
+
+    <script>
+        window.addEventListener('load', function () {
+            if (window.location.search.includes('auto_print=1')) {
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>
+HTML;
+    }
+
+    public function pdf(Order $order): Response
+    {
+        $order = $this->loadOrder($order);
+        $html = $this->printableHtml($order);
+        $filename = Str::slug("receipt-{$order->order_number}") . '.pdf';
+
+        return Pdf::loadHTML($html)
+            ->setPaper([0, 0, 164.41, 841.89], 'portrait')
+            ->download($filename);
+    }
+
+    public function validateReprint(Order $order): void
+    {
+        if (!in_array($order->payment_status, ['paid', 'partial'], true)) {
+            abort(422, 'Receipt hanya boleh dicetak ulang untuk order yang sudah memiliki pembayaran.');
+        }
+
+        if (in_array($order->order_status, ['draft', 'cancelled'], true)) {
+            abort(422, 'Receipt tidak boleh dicetak ulang untuk order draft atau cancelled.');
+        }
+    }
+
+    private function money(float $amount, string $currency): string
+    {
+        return Number::currency($amount, $currency, app()->getLocale());
     }
 }
 
@@ -23241,8 +24011,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `6c0b98287dbf`  
-- Ukuran: 21 KB  
+- SHA: `b9b41ea5ff99`  
+- Ukuran: 22 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -23391,6 +24161,9 @@ class SuperAdminSeeder extends Seeder
 | GET | `/orders` | `OrderController` | `index` |
 | POST | `/orders` | `OrderController` | `store` |
 | GET | `/orders/{order}` | `OrderController` | `show` |
+| GET | `/orders/{order}/receipt/print` | `ReceiptPrintController` | `print` |
+| GET | `/orders/{order}/receipt/pdf` | `ReceiptPrintController` | `pdf` |
+| POST | `/orders/{order}/receipt/reprint` | `ReceiptPrintController` | `reprint` |
 | PUT | `/orders/{order}` | `OrderController` | `update` |
 | DELETE | `/orders/{order}` | `OrderController` | `destroy` |
 | POST | `/orders/{order}/confirm` | `OrderController` | `confirm` |
@@ -23444,7 +24217,7 @@ class SuperAdminSeeder extends Seeder
 | GET | `/reports/purchase-materials` | `ReportController` | `purchaseMaterials` |
 | GET | `/reports/expenses` | `ReportController` | `expenses` |
 | GET | `/reports/shift-summary` | `ReportController` | `shiftSummary` |
-| GET | `/reports/order-details` | `ReportController` | `orderDetails` |
+| GET | `/reports/{report}/export` | `ReportController` | `export` |
 | GET | `/dashboard/overview` | `DashboardController` | `overview` |
 | GET | `/dashboard/summary` | `DashboardController` | `summary` |
 | GET | `/dashboard/sales-trend` | `DashboardController` | `salesTrend` |
@@ -23473,6 +24246,7 @@ class SuperAdminSeeder extends Seeder
 ```php
 <?php
 
+use App\Http\Controllers\Api\ActivityLogController;
 use App\Http\Controllers\Api\AlertRuleController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashierShiftController;
@@ -23512,7 +24286,7 @@ use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UnitConversionController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoucherController;
-use App\Http\Controllers\Api\ActivityLogController;
+use App\Http\Controllers\Api\ReceiptPrintController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -23689,6 +24463,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/orders', [OrderController::class, 'store']);
         Route::get('/orders/{order}', [OrderController::class, 'show']);
+        Route::get('/orders/{order}/receipt/print', [ReceiptPrintController::class, 'print']);
+        Route::get('/orders/{order}/receipt/pdf', [ReceiptPrintController::class, 'pdf']);
+        Route::post('/orders/{order}/receipt/reprint', [ReceiptPrintController::class, 'reprint']);
         Route::put('/orders/{order}', [OrderController::class, 'update']);
         Route::delete('/orders/{order}', [OrderController::class, 'destroy']);
         Route::post('/orders/{order}/confirm', [OrderController::class, 'confirm']);
@@ -23748,7 +24525,22 @@ Route::prefix('v1')->group(function () {
         Route::get('/reports/purchase-materials', [ReportController::class, 'purchaseMaterials']);
         Route::get('/reports/expenses', [ReportController::class, 'expenses']);
         Route::get('/reports/shift-summary', [ReportController::class, 'shiftSummary']);
-        Route::get('/reports/order-details', [ReportController::class, 'orderDetails']);
+        Route::get('/reports/{report}/export', [ReportController::class, 'export'])
+            ->whereIn('report', [
+                'sales-summary',
+                'sales-trend',
+                'sales-by-outlet',
+                'sales-by-cashier',
+                'top-products',
+                'payment-summary',
+                'promo-usage',
+                'void-refund',
+                'low-stocks',
+                'purchase-materials',
+                'expenses',
+                'shift-summary',
+                'order-details',
+            ]);
 
         Route::get('/dashboard/overview', [DashboardController::class, 'overview']);
         Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
@@ -23784,7 +24576,7 @@ Route::prefix('v1')->group(function () {
 
 <a id="file-bootstrapappphp"></a>
 ### bootstrap\app.php
-- SHA: `527726fe8c8b`  
+- SHA: `5fb7b8dc61f7`  
 - Ukuran: 1 KB  
 - Namespace: ``
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
@@ -23806,6 +24598,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->api(prepend: [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \App\Http\Middleware\SecurityHeaders::class,
         ]);
 
         $middleware->alias([
