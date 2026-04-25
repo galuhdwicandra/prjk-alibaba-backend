@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\PromotionController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\RawMaterialCategoryController;
 use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\StockAdjustmentController;
 use App\Http\Controllers\Api\StockMovementController;
@@ -257,5 +258,19 @@ Route::prefix('v1')->group(function () {
         Route::post('/expenses/{expense}/attachments', [ExpenseController::class, 'uploadAttachments']);
         Route::delete('/expense-attachments/{expenseAttachment}', [ExpenseController::class, 'deleteAttachment']);
         Route::delete('/expenses/{expense}', [ExpenseController::class, 'destroy']);
+
+        Route::get('/reports/sales-summary', [ReportController::class, 'salesSummary']);
+        Route::get('/reports/sales-trend', [ReportController::class, 'salesTrend']);
+        Route::get('/reports/sales-by-outlet', [ReportController::class, 'salesByOutlet']);
+        Route::get('/reports/sales-by-cashier', [ReportController::class, 'salesByCashier']);
+        Route::get('/reports/top-products', [ReportController::class, 'topProducts']);
+        Route::get('/reports/payment-summary', [ReportController::class, 'paymentSummary']);
+        Route::get('/reports/promo-usage', [ReportController::class, 'promoUsage']);
+        Route::get('/reports/void-refund', [ReportController::class, 'voidRefund']);
+        Route::get('/reports/low-stocks', [ReportController::class, 'lowStocks']);
+        Route::get('/reports/purchase-materials', [ReportController::class, 'purchaseMaterials']);
+        Route::get('/reports/expenses', [ReportController::class, 'expenses']);
+        Route::get('/reports/shift-summary', [ReportController::class, 'shiftSummary']);
+        Route::get('/reports/order-details', [ReportController::class, 'orderDetails']);
     });
 });

@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -167,6 +166,9 @@ class PermissionSeeder extends Seeder
             'orders.update',
             'orders.delete',
             'orders.cancel',
+
+            'reports.view',
+            'reports.export',
         ];
 
         foreach ($permissions as $permission) {

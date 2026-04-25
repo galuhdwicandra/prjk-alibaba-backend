@@ -191,6 +191,9 @@ class RoleSeeder extends Seeder
             'expenses.delete',
             'expenses.submit',
             'expenses.approve',
+
+            'reports.view',
+            'reports.export',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -289,6 +292,8 @@ class RoleSeeder extends Seeder
             'expenses.update',
             'expenses.delete',
             'expenses.submit',
+
+            'reports.view',
         ]);
 
         $kasir->syncPermissions([
@@ -440,6 +445,9 @@ class RoleSeeder extends Seeder
 
             'expense_categories.view',
             'expenses.view',
+
+            'reports.view',
+            'reports.export',
         ]);
     }
 }
