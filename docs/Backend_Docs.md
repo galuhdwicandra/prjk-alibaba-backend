@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-25 12:35:13_  
+_Dihasilkan otomatis: 2026-04-25 13:48:29_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -8,7 +8,11 @@ _Dihasilkan otomatis: 2026-04-25 12:35:13_
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
   - [app\Http\Controllers\Api\CashierShiftController.php](#file-apphttpcontrollersapicashiershiftcontrollerphp)
   - [app\Http\Controllers\Api\CashMovementController.php](#file-apphttpcontrollersapicashmovementcontrollerphp)
+  - [app\Http\Controllers\Api\CourierController.php](#file-apphttpcontrollersapicouriercontrollerphp)
   - [app\Http\Controllers\Api\CustomerController.php](#file-apphttpcontrollersapicustomercontrollerphp)
+  - [app\Http\Controllers\Api\DeliveryController.php](#file-apphttpcontrollersapideliverycontrollerphp)
+  - [app\Http\Controllers\Api\ExpenseCategoryController.php](#file-apphttpcontrollersapiexpensecategorycontrollerphp)
+  - [app\Http\Controllers\Api\ExpenseController.php](#file-apphttpcontrollersapiexpensecontrollerphp)
   - [app\Http\Controllers\Api\GoodsReceiptController.php](#file-apphttpcontrollersapigoodsreceiptcontrollerphp)
   - [app\Http\Controllers\Api\KitchenTicketController.php](#file-apphttpcontrollersapikitchenticketcontrollerphp)
   - [app\Http\Controllers\Api\OrderController.php](#file-apphttpcontrollersapiordercontrollerphp)
@@ -50,8 +54,21 @@ _Dihasilkan otomatis: 2026-04-25 12:35:13_
   - [app\Http\Requests\Api\CashierShift\StoreCashierShiftRequest.php](#file-apphttprequestsapicashiershiftstorecashiershiftrequestphp)
   - [app\Http\Requests\Api\CashierShift\UpdateCashierShiftRequest.php](#file-apphttprequestsapicashiershiftupdatecashiershiftrequestphp)
   - [app\Http\Requests\Api\CashMovement\StoreCashMovementRequest.php](#file-apphttprequestsapicashmovementstorecashmovementrequestphp)
+  - [app\Http\Requests\Api\Courier\StoreCourierRequest.php](#file-apphttprequestsapicourierstorecourierrequestphp)
+  - [app\Http\Requests\Api\Courier\UpdateCourierRequest.php](#file-apphttprequestsapicourierupdatecourierrequestphp)
   - [app\Http\Requests\Api\Customer\StoreCustomerRequest.php](#file-apphttprequestsapicustomerstorecustomerrequestphp)
   - [app\Http\Requests\Api\Customer\UpdateCustomerRequest.php](#file-apphttprequestsapicustomerupdatecustomerrequestphp)
+  - [app\Http\Requests\Api\Delivery\AssignCourierRequest.php](#file-apphttprequestsapideliveryassigncourierrequestphp)
+  - [app\Http\Requests\Api\Delivery\StoreDeliveryRequest.php](#file-apphttprequestsapideliverystoredeliveryrequestphp)
+  - [app\Http\Requests\Api\Delivery\UpdateDeliveryRequest.php](#file-apphttprequestsapideliveryupdatedeliveryrequestphp)
+  - [app\Http\Requests\Api\Delivery\UpdateDeliveryStatusRequest.php](#file-apphttprequestsapideliveryupdatedeliverystatusrequestphp)
+  - [app\Http\Requests\Api\Expense\ApproveExpenseRequest.php](#file-apphttprequestsapiexpenseapproveexpenserequestphp)
+  - [app\Http\Requests\Api\Expense\RejectExpenseRequest.php](#file-apphttprequestsapiexpenserejectexpenserequestphp)
+  - [app\Http\Requests\Api\Expense\StoreExpenseRequest.php](#file-apphttprequestsapiexpensestoreexpenserequestphp)
+  - [app\Http\Requests\Api\Expense\UpdateExpenseRequest.php](#file-apphttprequestsapiexpenseupdateexpenserequestphp)
+  - [app\Http\Requests\Api\Expense\UploadExpenseAttachmentRequest.php](#file-apphttprequestsapiexpenseuploadexpenseattachmentrequestphp)
+  - [app\Http\Requests\Api\ExpenseCategory\StoreExpenseCategoryRequest.php](#file-apphttprequestsapiexpensecategorystoreexpensecategoryrequestphp)
+  - [app\Http\Requests\Api\ExpenseCategory\UpdateExpenseCategoryRequest.php](#file-apphttprequestsapiexpensecategoryupdateexpensecategoryrequestphp)
   - [app\Http\Requests\Api\Inventory\OutletMaterialStock\UpsertOutletMaterialStockRequest.php](#file-apphttprequestsapiinventoryoutletmaterialstockupsertoutletmaterialstockrequestphp)
   - [app\Http\Requests\Api\Inventory\ProductBom\StoreProductBomRequest.php](#file-apphttprequestsapiinventoryproductbomstoreproductbomrequestphp)
   - [app\Http\Requests\Api\Inventory\ProductBom\UpdateProductBomRequest.php](#file-apphttprequestsapiinventoryproductbomupdateproductbomrequestphp)
@@ -112,8 +129,13 @@ _Dihasilkan otomatis: 2026-04-25 12:35:13_
 - [API Resources (app/Http/Resources)](#api-resources-app-http-resources)
   - [app\Http\Resources\CashierShiftResource.php](#file-apphttpresourcescashiershiftresourcephp)
   - [app\Http\Resources\CashMovementResource.php](#file-apphttpresourcescashmovementresourcephp)
+  - [app\Http\Resources\CourierResource.php](#file-apphttpresourcescourierresourcephp)
   - [app\Http\Resources\CustomerAddressResource.php](#file-apphttpresourcescustomeraddressresourcephp)
   - [app\Http\Resources\CustomerResource.php](#file-apphttpresourcescustomerresourcephp)
+  - [app\Http\Resources\DeliveryResource.php](#file-apphttpresourcesdeliveryresourcephp)
+  - [app\Http\Resources\ExpenseAttachmentResource.php](#file-apphttpresourcesexpenseattachmentresourcephp)
+  - [app\Http\Resources\ExpenseCategoryResource.php](#file-apphttpresourcesexpensecategoryresourcephp)
+  - [app\Http\Resources\ExpenseResource.php](#file-apphttpresourcesexpenseresourcephp)
   - [app\Http\Resources\GoodsReceiptItemResource.php](#file-apphttpresourcesgoodsreceiptitemresourcephp)
   - [app\Http\Resources\GoodsReceiptResource.php](#file-apphttpresourcesgoodsreceiptresourcephp)
   - [app\Http\Resources\KitchenTicketItemResource.php](#file-apphttpresourceskitchenticketitemresourcephp)
@@ -163,8 +185,13 @@ _Dihasilkan otomatis: 2026-04-25 12:35:13_
 - [Models (app/Models)](#models-app-models)
   - [app\Models\CashierShift.php](#file-appmodelscashiershiftphp)
   - [app\Models\CashMovement.php](#file-appmodelscashmovementphp)
+  - [app\Models\Courier.php](#file-appmodelscourierphp)
   - [app\Models\Customer.php](#file-appmodelscustomerphp)
   - [app\Models\CustomerAddress.php](#file-appmodelscustomeraddressphp)
+  - [app\Models\Delivery.php](#file-appmodelsdeliveryphp)
+  - [app\Models\Expense.php](#file-appmodelsexpensephp)
+  - [app\Models\ExpenseAttachment.php](#file-appmodelsexpenseattachmentphp)
+  - [app\Models\ExpenseCategory.php](#file-appmodelsexpensecategoryphp)
   - [app\Models\GoodsReceipt.php](#file-appmodelsgoodsreceiptphp)
   - [app\Models\GoodsReceiptItem.php](#file-appmodelsgoodsreceiptitemphp)
   - [app\Models\KitchenTicket.php](#file-appmodelskitchenticketphp)
@@ -219,6 +246,8 @@ _Dihasilkan otomatis: 2026-04-25 12:35:13_
   - [app\Services\Cashier\CashMovementService.php](#file-appservicescashiercashmovementservicephp)
   - [app\Services\Catalog\ProductService.php](#file-appservicescatalogproductservicephp)
   - [app\Services\Customer\CustomerService.php](#file-appservicescustomercustomerservicephp)
+  - [app\Services\Delivery\DeliveryService.php](#file-appservicesdeliverydeliveryservicephp)
+  - [app\Services\Expense\ExpenseService.php](#file-appservicesexpenseexpenseservicephp)
   - [app\Services\Inventory\OutletMaterialStockService.php](#file-appservicesinventoryoutletmaterialstockservicephp)
   - [app\Services\Inventory\ProductBomService.php](#file-appservicesinventoryproductbomservicephp)
   - [app\Services\Inventory\RawMaterialService.php](#file-appservicesinventoryrawmaterialservicephp)
@@ -241,6 +270,9 @@ _Dihasilkan otomatis: 2026-04-25 12:35:13_
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
+  - [database\seeders\DeliveryPermissionSeeder.php](#file-databaseseedersdeliverypermissionseederphp)
+  - [database\seeders\ExpenseCategorySeeder.php](#file-databaseseedersexpensecategoryseederphp)
+  - [database\seeders\ExpensePermissionSeeder.php](#file-databaseseedersexpensepermissionseederphp)
   - [database\seeders\KitchenPermissionSeeder.php](#file-databaseseederskitchenpermissionseederphp)
   - [database\seeders\KitchenRolePermissionSeeder.php](#file-databaseseederskitchenrolepermissionseederphp)
   - [database\seeders\PaymentMethodSeeder.php](#file-databaseseederspaymentmethodseederphp)
@@ -585,6 +617,121 @@ class CashMovementController extends Controller
 ```
 </details>
 
+<a id="file-apphttpcontrollersapicouriercontrollerphp"></a>
+### app\Http\Controllers\Api\CourierController.php
+- SHA: `c2204720ad2e`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `CourierController` extends `Controller`**
+
+Metode Publik:
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreCourierRequest $request) : *JsonResponse*
+- **show**(Request $request, Courier $courier) : *JsonResponse*
+- **update**(UpdateCourierRequest $request, Courier $courier) : *JsonResponse*
+- **destroy**(Request $request, Courier $courier) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Courier\StoreCourierRequest;
+use App\Http\Requests\Api\Courier\UpdateCourierRequest;
+use App\Http\Resources\CourierResource;
+use App\Models\Courier;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class CourierController extends Controller
+{
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('couriers.view'), 403);
+
+        $rows = Courier::query()
+            ->withCount('deliveries')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%")
+                        ->orWhere('vehicle_number', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar courier berhasil diambil.',
+            'data' => CourierResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreCourierRequest $request): JsonResponse
+    {
+        $row = Courier::query()->create($request->validated());
+
+        return response()->json([
+            'message' => 'Courier berhasil dibuat.',
+            'data' => new CourierResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, Courier $courier): JsonResponse
+    {
+        abort_unless($request->user()->can('couriers.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail courier berhasil diambil.',
+            'data' => new CourierResource($courier->loadCount('deliveries')),
+        ]);
+    }
+
+    public function update(UpdateCourierRequest $request, Courier $courier): JsonResponse
+    {
+        $courier->update($request->validated());
+
+        return response()->json([
+            'message' => 'Courier berhasil diupdate.',
+            'data' => new CourierResource($courier->fresh()->loadCount('deliveries')),
+        ]);
+    }
+
+    public function destroy(Request $request, Courier $courier): JsonResponse
+    {
+        abort_unless($request->user()->can('couriers.delete'), 403);
+
+        if ($courier->deliveries()->exists()) {
+            return response()->json([
+                'message' => 'Courier tidak bisa dihapus karena sudah dipakai delivery.',
+            ], 422);
+        }
+
+        $courier->delete();
+
+        return response()->json([
+            'message' => 'Courier berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpcontrollersapicustomercontrollerphp"></a>
 ### app\Http\Controllers\Api\CustomerController.php
 - SHA: `0041df4b4e21`  
@@ -698,6 +845,514 @@ class CustomerController extends Controller
         ]);
     }
 }
+```
+</details>
+
+<a id="file-apphttpcontrollersapideliverycontrollerphp"></a>
+### app\Http\Controllers\Api\DeliveryController.php
+- SHA: `e6541fbdae9e`  
+- Ukuran: 6 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `DeliveryController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly DeliveryService $deliveryService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreDeliveryRequest $request) : *JsonResponse*
+- **show**(Request $request, Delivery $delivery) : *JsonResponse*
+- **update**(UpdateDeliveryRequest $request, Delivery $delivery) : *JsonResponse*
+- **assignCourier**(AssignCourierRequest $request, Delivery $delivery) : *JsonResponse*
+- **updateStatus**(UpdateDeliveryStatusRequest $request, Delivery $delivery) : *JsonResponse*
+- **destroy**(Request $request, Delivery $delivery) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Delivery\AssignCourierRequest;
+use App\Http\Requests\Api\Delivery\StoreDeliveryRequest;
+use App\Http\Requests\Api\Delivery\UpdateDeliveryRequest;
+use App\Http\Requests\Api\Delivery\UpdateDeliveryStatusRequest;
+use App\Http\Resources\DeliveryResource;
+use App\Models\Delivery;
+use App\Services\Delivery\DeliveryService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class DeliveryController extends Controller
+{
+    public function __construct(
+        private readonly DeliveryService $deliveryService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('deliveries.view'), 403);
+
+        $rows = Delivery::query()
+            ->with([
+                'order.outlet',
+                'order.customer',
+                'customerAddress.customer',
+                'courier',
+            ])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->whereHas('order', function ($orderQuery) use ($search) {
+                        $orderQuery->where('order_number', 'like', "%{$search}%")
+                            ->orWhere('queue_number', 'like', "%{$search}%");
+                    })
+                        ->orWhereHas('courier', function ($courierQuery) use ($search) {
+                            $courierQuery->where('name', 'like', "%{$search}%")
+                                ->orWhere('phone', 'like', "%{$search}%");
+                        });
+                });
+            })
+            ->when($request->filled('order_id'), function ($query) use ($request) {
+                $query->where('order_id', (int) $request->input('order_id'));
+            })
+            ->when($request->filled('courier_id'), function ($query) use ($request) {
+                $query->where('courier_id', (int) $request->input('courier_id'));
+            })
+            ->when($request->filled('delivery_status'), function ($query) use ($request) {
+                $query->where('delivery_status', $request->string('delivery_status')->toString());
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->whereHas('order', function ($orderQuery) use ($request) {
+                    $orderQuery->where('outlet_id', (int) $request->input('outlet_id'));
+                });
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar delivery berhasil diambil.',
+            'data' => DeliveryResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreDeliveryRequest $request): JsonResponse
+    {
+        $row = $this->deliveryService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Delivery berhasil dibuat.',
+            'data' => new DeliveryResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, Delivery $delivery): JsonResponse
+    {
+        abort_unless($request->user()->can('deliveries.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail delivery berhasil diambil.',
+            'data' => new DeliveryResource($delivery->load([
+                'order.outlet',
+                'order.customer',
+                'customerAddress.customer',
+                'courier',
+            ])),
+        ]);
+    }
+
+    public function update(UpdateDeliveryRequest $request, Delivery $delivery): JsonResponse
+    {
+        $row = $this->deliveryService->update($delivery, $request->validated());
+
+        return response()->json([
+            'message' => 'Delivery berhasil diupdate.',
+            'data' => new DeliveryResource($row),
+        ]);
+    }
+
+    public function assignCourier(AssignCourierRequest $request, Delivery $delivery): JsonResponse
+    {
+        $row = $this->deliveryService->assignCourier(
+            delivery: $delivery,
+            courierId: (int) $request->validated('courier_id'),
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Courier berhasil di-assign ke delivery.',
+            'data' => new DeliveryResource($row),
+        ]);
+    }
+
+    public function updateStatus(UpdateDeliveryStatusRequest $request, Delivery $delivery): JsonResponse
+    {
+        $row = $this->deliveryService->changeStatus(
+            delivery: $delivery,
+            status: $request->string('delivery_status')->toString(),
+            deliveredAt: $request->input('delivered_at'),
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Status delivery berhasil diupdate.',
+            'data' => new DeliveryResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, Delivery $delivery): JsonResponse
+    {
+        abort_unless($request->user()->can('deliveries.delete'), 403);
+
+        if (!in_array($delivery->delivery_status, ['pending', 'cancelled', 'failed'], true)) {
+            return response()->json([
+                'message' => 'Hanya delivery pending, failed, atau cancelled yang boleh dihapus.',
+            ], 422);
+        }
+
+        $delivery->delete();
+
+        return response()->json([
+            'message' => 'Delivery berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapiexpensecategorycontrollerphp"></a>
+### app\Http\Controllers\Api\ExpenseCategoryController.php
+- SHA: `ef6520000055`  
+- Ukuran: 3 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `ExpenseCategoryController` extends `Controller`**
+
+Metode Publik:
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreExpenseCategoryRequest $request) : *JsonResponse*
+- **show**(Request $request, ExpenseCategory $expenseCategory) : *JsonResponse*
+- **update**(UpdateExpenseCategoryRequest $request, ExpenseCategory $expenseCategory) : *JsonResponse*
+- **destroy**(Request $request, ExpenseCategory $expenseCategory) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ExpenseCategory\StoreExpenseCategoryRequest;
+use App\Http\Requests\Api\ExpenseCategory\UpdateExpenseCategoryRequest;
+use App\Http\Resources\ExpenseCategoryResource;
+use App\Models\ExpenseCategory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class ExpenseCategoryController extends Controller
+{
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('expense_categories.view'), 403);
+
+        $rows = ExpenseCategory::query()
+            ->withCount('expenses')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar kategori expense berhasil diambil.',
+            'data' => ExpenseCategoryResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreExpenseCategoryRequest $request): JsonResponse
+    {
+        $row = ExpenseCategory::query()->create($request->validated());
+
+        return response()->json([
+            'message' => 'Kategori expense berhasil dibuat.',
+            'data' => new ExpenseCategoryResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, ExpenseCategory $expenseCategory): JsonResponse
+    {
+        abort_unless($request->user()->can('expense_categories.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail kategori expense berhasil diambil.',
+            'data' => new ExpenseCategoryResource($expenseCategory->loadCount('expenses')),
+        ]);
+    }
+
+    public function update(UpdateExpenseCategoryRequest $request, ExpenseCategory $expenseCategory): JsonResponse
+    {
+        $expenseCategory->update($request->validated());
+
+        return response()->json([
+            'message' => 'Kategori expense berhasil diupdate.',
+            'data' => new ExpenseCategoryResource($expenseCategory->fresh()->loadCount('expenses')),
+        ]);
+    }
+
+    public function destroy(Request $request, ExpenseCategory $expenseCategory): JsonResponse
+    {
+        abort_unless($request->user()->can('expense_categories.delete'), 403);
+
+        if ($expenseCategory->expenses()->exists()) {
+            return response()->json([
+                'message' => 'Kategori expense tidak bisa dihapus karena sudah dipakai expense.',
+            ], 422);
+        }
+
+        $expenseCategory->delete();
+
+        return response()->json([
+            'message' => 'Kategori expense berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapiexpensecontrollerphp"></a>
+### app\Http\Controllers\Api\ExpenseController.php
+- SHA: `93ce60f5056e`  
+- Ukuran: 6 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `ExpenseController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly ExpenseService $expenseService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreExpenseRequest $request) : *JsonResponse*
+- **show**(Request $request, Expense $expense) : *JsonResponse*
+- **update**(UpdateExpenseRequest $request, Expense $expense) : *JsonResponse*
+- **submit**(Request $request, Expense $expense) : *JsonResponse*
+- **approve**(ApproveExpenseRequest $request, Expense $expense) : *JsonResponse*
+- **reject**(RejectExpenseRequest $request, Expense $expense) : *JsonResponse*
+- **uploadAttachments**(UploadExpenseAttachmentRequest $request, Expense $expense) : *JsonResponse*
+- **deleteAttachment**(Request $request, ExpenseAttachment $expenseAttachment) : *JsonResponse*
+- **destroy**(Request $request, Expense $expense) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Expense\ApproveExpenseRequest;
+use App\Http\Requests\Api\Expense\RejectExpenseRequest;
+use App\Http\Requests\Api\Expense\StoreExpenseRequest;
+use App\Http\Requests\Api\Expense\UpdateExpenseRequest;
+use App\Http\Requests\Api\Expense\UploadExpenseAttachmentRequest;
+use App\Http\Resources\ExpenseResource;
+use App\Models\Expense;
+use App\Models\ExpenseAttachment;
+use App\Services\Expense\ExpenseService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class ExpenseController extends Controller
+{
+    public function __construct(
+        private readonly ExpenseService $expenseService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('expenses.view'), 403);
+
+        $rows = Expense::query()
+            ->with([
+                'outlet',
+                'category',
+                'creator',
+                'approver',
+                'attachments',
+            ])
+            ->withCount('attachments')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('description', 'like', "%{$search}%")
+                        ->orWhereHas('category', fn ($categoryQuery) => $categoryQuery->where('name', 'like', "%{$search}%"))
+                        ->orWhereHas('outlet', fn ($outletQuery) => $outletQuery->where('name', 'like', "%{$search}%"));
+                });
+            })
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where('outlet_id', (int) $request->input('outlet_id'));
+            })
+            ->when($request->filled('expense_category_id'), function ($query) use ($request) {
+                $query->where('expense_category_id', (int) $request->input('expense_category_id'));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->when($request->filled('expense_from'), function ($query) use ($request) {
+                $query->whereDate('expense_date', '>=', $request->input('expense_from'));
+            })
+            ->when($request->filled('expense_until'), function ($query) use ($request) {
+                $query->whereDate('expense_date', '<=', $request->input('expense_until'));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar expense berhasil diambil.',
+            'data' => ExpenseResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreExpenseRequest $request): JsonResponse
+    {
+        $row = $this->expenseService->create(
+            payload: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Expense berhasil dibuat.',
+            'data' => new ExpenseResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, Expense $expense): JsonResponse
+    {
+        abort_unless($request->user()->can('expenses.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail expense berhasil diambil.',
+            'data' => new ExpenseResource($expense->load([
+                'outlet',
+                'category',
+                'creator',
+                'approver',
+                'attachments',
+            ])->loadCount('attachments')),
+        ]);
+    }
+
+    public function update(UpdateExpenseRequest $request, Expense $expense): JsonResponse
+    {
+        $row = $this->expenseService->update($expense, $request->validated());
+
+        return response()->json([
+            'message' => 'Expense berhasil diupdate.',
+            'data' => new ExpenseResource($row),
+        ]);
+    }
+
+    public function submit(Request $request, Expense $expense): JsonResponse
+    {
+        abort_unless($request->user()->can('expenses.submit'), 403);
+
+        $row = $this->expenseService->submit($expense);
+
+        return response()->json([
+            'message' => 'Expense berhasil disubmit.',
+            'data' => new ExpenseResource($row),
+        ]);
+    }
+
+    public function approve(ApproveExpenseRequest $request, Expense $expense): JsonResponse
+    {
+        $row = $this->expenseService->approve(
+            expense: $expense,
+            payload: $request->validated(),
+            userId: $request->user()->id,
+        );
+
+        return response()->json([
+            'message' => 'Expense berhasil diapprove.',
+            'data' => new ExpenseResource($row),
+        ]);
+    }
+
+    public function reject(RejectExpenseRequest $request, Expense $expense): JsonResponse
+    {
+        $row = $this->expenseService->reject(
+            expense: $expense,
+            notes: $request->input('notes'),
+        );
+
+        return response()->json([
+            'message' => 'Expense berhasil direject.',
+            'data' => new ExpenseResource($row),
+        ]);
+    }
+
+    public function uploadAttachments(UploadExpenseAttachmentRequest $request, Expense $expense): JsonResponse
+    {
+        $row = $this->expenseService->addAttachments(
+            expense: $expense,
+            attachments: $request->file('attachments', []),
+        );
+
+        return response()->json([
+            'message' => 'Attachment expense berhasil ditambahkan.',
+            'data' => new ExpenseResource($row),
+        ]);
+    }
+
+    public function deleteAttachment(Request $request, ExpenseAttachment $expenseAttachment): JsonResponse
+    {
+        abort_unless($request->user()->can('expenses.update'), 403);
+
+        $this->expenseService->deleteAttachment($expenseAttachment);
+
+        return response()->json([
+            'message' => 'Attachment expense berhasil dihapus.',
+        ]);
+    }
+
+    public function destroy(Request $request, Expense $expense): JsonResponse
+    {
+        abort_unless($request->user()->can('expenses.delete'), 403);
+
+        $this->expenseService->delete($expense);
+
+        return response()->json([
+            'message' => 'Expense berhasil dihapus.',
+        ]);
+    }
+}
+
 ```
 </details>
 
@@ -4742,6 +5397,88 @@ class StoreCashMovementRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapicourierstorecourierrequestphp"></a>
+### app\Http\Requests\Api\Courier\StoreCourierRequest.php
+- SHA: `b83e7a56c901`  
+- Ukuran: 569 B  
+- Namespace: `App\Http\Requests\Api\Courier`
+
+**Class `StoreCourierRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Courier;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreCourierRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('couriers.create') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'vehicle_number' => ['nullable', 'string', 'max:255'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapicourierupdatecourierrequestphp"></a>
+### app\Http\Requests\Api\Courier\UpdateCourierRequest.php
+- SHA: `d85f3d0b03d5`  
+- Ukuran: 583 B  
+- Namespace: `App\Http\Requests\Api\Courier`
+
+**Class `UpdateCourierRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Courier;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateCourierRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('couriers.update') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'vehicle_number' => ['nullable', 'string', 'max:255'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapicustomerstorecustomerrequestphp"></a>
 ### app\Http\Requests\Api\Customer\StoreCustomerRequest.php
 - SHA: `ae76a38dc4b9`  
@@ -4856,6 +5593,460 @@ class UpdateCustomerRequest extends FormRequest
             'addresses.*.latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'addresses.*.longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'addresses.*.is_default' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapideliveryassigncourierrequestphp"></a>
+### app\Http\Requests\Api\Delivery\AssignCourierRequest.php
+- SHA: `f924d1219aa0`  
+- Ukuran: 460 B  
+- Namespace: `App\Http\Requests\Api\Delivery`
+
+**Class `AssignCourierRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Delivery;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class AssignCourierRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('deliveries.assign') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'courier_id' => ['required', 'integer', 'exists:couriers,id'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapideliverystoredeliveryrequestphp"></a>
+### app\Http\Requests\Api\Delivery\StoreDeliveryRequest.php
+- SHA: `ba141326d674`  
+- Ukuran: 937 B  
+- Namespace: `App\Http\Requests\Api\Delivery`
+
+**Class `StoreDeliveryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Delivery;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreDeliveryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('deliveries.create') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'order_id' => ['required', 'integer', 'exists:orders,id', 'unique:deliveries,order_id'],
+            'customer_address_id' => ['nullable', 'integer', 'exists:customer_addresses,id'],
+            'courier_id' => ['nullable', 'integer', 'exists:couriers,id'],
+            'delivery_status' => ['sometimes', Rule::in(['pending', 'assigned', 'on_the_way', 'delivered', 'failed', 'cancelled'])],
+            'delivery_fee' => ['sometimes', 'numeric', 'min:0'],
+            'delivered_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapideliveryupdatedeliveryrequestphp"></a>
+### app\Http\Requests\Api\Delivery\UpdateDeliveryRequest.php
+- SHA: `567e31545645`  
+- Ukuran: 837 B  
+- Namespace: `App\Http\Requests\Api\Delivery`
+
+**Class `UpdateDeliveryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Delivery;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateDeliveryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('deliveries.update') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'customer_address_id' => ['nullable', 'integer', 'exists:customer_addresses,id'],
+            'courier_id' => ['nullable', 'integer', 'exists:couriers,id'],
+            'delivery_status' => ['sometimes', Rule::in(['pending', 'assigned', 'on_the_way', 'delivered', 'failed', 'cancelled'])],
+            'delivery_fee' => ['sometimes', 'numeric', 'min:0'],
+            'delivered_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapideliveryupdatedeliverystatusrequestphp"></a>
+### app\Http\Requests\Api\Delivery\UpdateDeliveryStatusRequest.php
+- SHA: `fe726d70496c`  
+- Ukuran: 615 B  
+- Namespace: `App\Http\Requests\Api\Delivery`
+
+**Class `UpdateDeliveryStatusRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Delivery;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateDeliveryStatusRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('deliveries.update_status') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'delivery_status' => ['required', Rule::in(['pending', 'assigned', 'on_the_way', 'delivered', 'failed', 'cancelled'])],
+            'delivered_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiexpenseapproveexpenserequestphp"></a>
+### app\Http\Requests\Api\Expense\ApproveExpenseRequest.php
+- SHA: `32ce7866a617`  
+- Ukuran: 522 B  
+- Namespace: `App\Http\Requests\Api\Expense`
+
+**Class `ApproveExpenseRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Expense;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ApproveExpenseRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('expenses.approve') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'cashier_shift_id' => ['nullable', 'integer', 'exists:cashier_shifts,id'],
+            'approved_at' => ['nullable', 'date'],
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiexpenserejectexpenserequestphp"></a>
+### app\Http\Requests\Api\Expense\RejectExpenseRequest.php
+- SHA: `51c2e0e7f72e`  
+- Ukuran: 383 B  
+- Namespace: `App\Http\Requests\Api\Expense`
+
+**Class `RejectExpenseRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Expense;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class RejectExpenseRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('expenses.approve') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'notes' => ['nullable', 'string'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiexpensestoreexpenserequestphp"></a>
+### app\Http\Requests\Api\Expense\StoreExpenseRequest.php
+- SHA: `ec147ab53c9b`  
+- Ukuran: 904 B  
+- Namespace: `App\Http\Requests\Api\Expense`
+
+**Class `StoreExpenseRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Expense;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreExpenseRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('expenses.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['required', 'integer', 'exists:outlets,id'],
+            'expense_category_id' => ['required', 'integer', 'exists:expense_categories,id'],
+            'expense_date' => ['required', 'date'],
+            'amount' => ['required', 'numeric', 'gt:0'],
+            'description' => ['nullable', 'string'],
+            'status' => ['sometimes', Rule::in(['draft', 'submitted'])],
+            'attachments' => ['nullable', 'array'],
+            'attachments.*' => ['file', 'mimes:jpg,jpeg,png,pdf,webp', 'max:4096'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiexpenseupdateexpenserequestphp"></a>
+### app\Http\Requests\Api\Expense\UpdateExpenseRequest.php
+- SHA: `d421442c3798`  
+- Ukuran: 821 B  
+- Namespace: `App\Http\Requests\Api\Expense`
+
+**Class `UpdateExpenseRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Expense;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateExpenseRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('expenses.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['sometimes', 'required', 'integer', 'exists:outlets,id'],
+            'expense_category_id' => ['sometimes', 'required', 'integer', 'exists:expense_categories,id'],
+            'expense_date' => ['sometimes', 'required', 'date'],
+            'amount' => ['sometimes', 'required', 'numeric', 'gt:0'],
+            'description' => ['nullable', 'string'],
+            'status' => ['sometimes', Rule::in(['draft', 'submitted'])],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiexpenseuploadexpenseattachmentrequestphp"></a>
+### app\Http\Requests\Api\Expense\UploadExpenseAttachmentRequest.php
+- SHA: `e4b68d853840`  
+- Ukuran: 490 B  
+- Namespace: `App\Http\Requests\Api\Expense`
+
+**Class `UploadExpenseAttachmentRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Expense;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UploadExpenseAttachmentRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('expenses.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'attachments' => ['required', 'array', 'min:1'],
+            'attachments.*' => ['file', 'mimes:jpg,jpeg,png,pdf,webp', 'max:4096'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiexpensecategorystoreexpensecategoryrequestphp"></a>
+### app\Http\Requests\Api\ExpenseCategory\StoreExpenseCategoryRequest.php
+- SHA: `b55864161227`  
+- Ukuran: 470 B  
+- Namespace: `App\Http\Requests\Api\ExpenseCategory`
+
+**Class `StoreExpenseCategoryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\ExpenseCategory;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreExpenseCategoryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('expense_categories.create') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapiexpensecategoryupdateexpensecategoryrequestphp"></a>
+### app\Http\Requests\Api\ExpenseCategory\UpdateExpenseCategoryRequest.php
+- SHA: `065dc1c5a6e8`  
+- Ukuran: 484 B  
+- Namespace: `App\Http\Requests\Api\ExpenseCategory`
+
+**Class `UpdateExpenseCategoryRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\ExpenseCategory;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateExpenseCategoryRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('expense_categories.update') ?? false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'is_active' => ['sometimes', 'boolean'],
         ];
     }
 }
@@ -7772,6 +8963,46 @@ class CashMovementResource extends JsonResource
 ```
 </details>
 
+<a id="file-apphttpresourcescourierresourcephp"></a>
+### app\Http\Resources\CourierResource.php
+- SHA: `2846b2d5855b`  
+- Ukuran: 661 B  
+- Namespace: `App\Http\Resources`
+
+**Class `CourierResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CourierResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'vehicle_number' => $this->vehicle_number,
+            'is_active' => (bool) $this->is_active,
+            'deliveries_count' => $this->whenCounted('deliveries'),
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcescustomeraddressresourcephp"></a>
 ### app\Http\Resources\CustomerAddressResource.php
 - SHA: `dc3eab6a1caa`  
@@ -7860,6 +9091,180 @@ class CustomerResource extends JsonResource
         ];
     }
 }
+```
+</details>
+
+<a id="file-apphttpresourcesdeliveryresourcephp"></a>
+### app\Http\Resources\DeliveryResource.php
+- SHA: `8d8997b1dd36`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `DeliveryResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class DeliveryResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'order_id' => $this->order_id,
+            'customer_address_id' => $this->customer_address_id,
+            'courier_id' => $this->courier_id,
+            'delivery_status' => $this->delivery_status,
+            'delivery_fee' => $this->delivery_fee,
+            'delivered_at' => $this->delivered_at?->toISOString(),
+            'notes' => $this->notes,
+            'order' => new OrderResource($this->whenLoaded('order')),
+            'customer_address' => new CustomerAddressResource($this->whenLoaded('customerAddress')),
+            'courier' => new CourierResource($this->whenLoaded('courier')),
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesexpenseattachmentresourcephp"></a>
+### app\Http\Resources\ExpenseAttachmentResource.php
+- SHA: `990479864e73`  
+- Ukuran: 730 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ExpenseAttachmentResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
+
+class ExpenseAttachmentResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'expense_id' => $this->expense_id,
+            'file_path' => $this->file_path,
+            'file_url' => $this->file_path ? Storage::url($this->file_path) : null,
+            'file_name' => $this->file_name,
+            'mime_type' => $this->mime_type,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesexpensecategoryresourcephp"></a>
+### app\Http\Resources\ExpenseCategoryResource.php
+- SHA: `1ef40c5b968f`  
+- Ukuran: 573 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ExpenseCategoryResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ExpenseCategoryResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'is_active' => (bool) $this->is_active,
+            'expenses_count' => $this->whenCounted('expenses'),
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesexpenseresourcephp"></a>
+### app\Http\Resources\ExpenseResource.php
+- SHA: `51b668d7d7de`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `ExpenseResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ExpenseResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'expense_category_id' => $this->expense_category_id,
+            'expense_date' => $this->expense_date?->toDateString(),
+            'amount' => (float) $this->amount,
+            'description' => $this->description,
+            'status' => $this->status,
+            'created_by' => $this->created_by,
+            'approved_by' => $this->approved_by,
+            'approved_at' => $this->approved_at?->toISOString(),
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+            'category' => new ExpenseCategoryResource($this->whenLoaded('category')),
+            'creator' => new UserResource($this->whenLoaded('creator')),
+            'approver' => new UserResource($this->whenLoaded('approver')),
+            'attachments' => ExpenseAttachmentResource::collection($this->whenLoaded('attachments')),
+            'attachments_count' => $this->whenCounted('attachments'),
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
+        ];
+    }
+}
+
 ```
 </details>
 
@@ -10096,6 +11501,51 @@ class CashMovement extends Model
 ```
 </details>
 
+<a id="file-appmodelscourierphp"></a>
+### app\Models\Courier.php
+- SHA: `ed07175741a1`  
+- Ukuran: 490 B  
+- Namespace: `App\Models`
+
+**Class `Courier` extends `Model`**
+
+Metode Publik:
+- **deliveries**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Courier extends Model
+{
+    protected $fillable = [
+        'name',
+        'phone',
+        'vehicle_number',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function deliveries(): HasMany
+    {
+        return $this->hasMany(Delivery::class);
+    }
+}
+
+```
+</details>
+
 <a id="file-appmodelscustomerphp"></a>
 ### app\Models\Customer.php
 - SHA: `652c7ad531da`  
@@ -10155,24 +11605,25 @@ class Customer extends Model
 
 <a id="file-appmodelscustomeraddressphp"></a>
 ### app\Models\CustomerAddress.php
-- SHA: `009a8f5a93d9`  
-- Ukuran: 811 B  
+- SHA: `1cd97b8e15ff`  
+- Ukuran: 969 B  
 - Namespace: `App\Models`
 
 **Class `CustomerAddress` extends `Model`**
 
 Metode Publik:
 - **customer**() : *BelongsTo*
+- **deliveries**() : *HasMany*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CustomerAddress extends Model
 {
@@ -10195,8 +11646,8 @@ class CustomerAddress extends Model
     protected function casts(): array
     {
         return [
-            'latitude' => 'decimal:7',
-            'longitude' => 'decimal:7',
+            'latitude'   => 'decimal:7',
+            'longitude'  => 'decimal:7',
             'is_default' => 'boolean',
         ];
     }
@@ -10205,7 +11656,226 @@ class CustomerAddress extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function deliveries(): HasMany
+    {
+        return $this->hasMany(Delivery::class);
+    }
 }
+
+```
+</details>
+
+<a id="file-appmodelsdeliveryphp"></a>
+### app\Models\Delivery.php
+- SHA: `884082ef5a24`  
+- Ukuran: 843 B  
+- Namespace: `App\Models`
+
+**Class `Delivery` extends `Model`**
+
+Metode Publik:
+- **order**() : *BelongsTo*
+- **customerAddress**() : *BelongsTo*
+- **courier**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Delivery extends Model
+{
+    protected $fillable = [
+        'order_id',
+        'customer_address_id',
+        'courier_id',
+        'delivery_status',
+        'delivery_fee',
+        'delivered_at',
+        'notes',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'delivery_fee' => 'decimal:2',
+            'delivered_at' => 'datetime',
+        ];
+    }
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function customerAddress(): BelongsTo
+    {
+        return $this->belongsTo(CustomerAddress::class);
+    }
+
+    public function courier(): BelongsTo
+    {
+        return $this->belongsTo(Courier::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsexpensephp"></a>
+### app\Models\Expense.php
+- SHA: `7823c5a21d64`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `Expense` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **category**() : *BelongsTo*
+- **creator**() : *BelongsTo*
+- **approver**() : *BelongsTo*
+- **attachments**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Expense extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'expense_category_id',
+        'expense_date',
+        'amount',
+        'description',
+        'status',
+        'created_by',
+        'approved_by',
+        'approved_at',
+    ];
+
+    protected $casts = [
+        'expense_date' => 'date',
+        'amount' => 'decimal:2',
+        'approved_at' => 'datetime',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(ExpenseCategory::class, 'expense_category_id');
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function approver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(ExpenseAttachment::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsexpenseattachmentphp"></a>
+### app\Models\ExpenseAttachment.php
+- SHA: `8014d351e650`  
+- Ukuran: 390 B  
+- Namespace: `App\Models`
+
+**Class `ExpenseAttachment` extends `Model`**
+
+Metode Publik:
+- **expense**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ExpenseAttachment extends Model
+{
+    protected $fillable = [
+        'expense_id',
+        'file_path',
+        'file_name',
+        'mime_type',
+    ];
+
+    public function expense(): BelongsTo
+    {
+        return $this->belongsTo(Expense::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsexpensecategoryphp"></a>
+### app\Models\ExpenseCategory.php
+- SHA: `636da4401eda`  
+- Ukuran: 402 B  
+- Namespace: `App\Models`
+
+**Class `ExpenseCategory` extends `Model`**
+
+Metode Publik:
+- **expenses**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class ExpenseCategory extends Model
+{
+    protected $fillable = [
+        'name',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
+    }
+}
+
 ```
 </details>
 
@@ -10441,7 +12111,7 @@ class KitchenTicketItem extends Model
 
 <a id="file-appmodelsorderphp"></a>
 ### app\Models\Order.php
-- SHA: `d44b63b5e2aa`  
+- SHA: `a5be9dcfb5a8`  
 - Ukuran: 2 KB  
 - Namespace: `App\Models`
 
@@ -10457,15 +12127,16 @@ Metode Publik:
 - **payments**()
 - **statusHistories**()
 - **kitchenTickets**()
+- **delivery**() : *HasOne*
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -10496,16 +12167,16 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'subtotal' => 'decimal:2',
-        'discount_amount' => 'decimal:2',
-        'tax_amount' => 'decimal:2',
+        'subtotal'              => 'decimal:2',
+        'discount_amount'       => 'decimal:2',
+        'tax_amount'            => 'decimal:2',
         'service_charge_amount' => 'decimal:2',
-        'grand_total' => 'decimal:2',
-        'paid_total' => 'decimal:2',
-        'change_amount' => 'decimal:2',
-        'ordered_at' => 'datetime',
-        'completed_at' => 'datetime',
-        'cancelled_at' => 'datetime',
+        'grand_total'           => 'decimal:2',
+        'paid_total'            => 'decimal:2',
+        'change_amount'         => 'decimal:2',
+        'ordered_at'            => 'datetime',
+        'completed_at'          => 'datetime',
+        'cancelled_at'          => 'datetime',
     ];
 
     public function outlet()
@@ -10551,6 +12222,11 @@ class Order extends Model
     public function kitchenTickets()
     {
         return $this->hasMany(KitchenTicket::class);
+    }
+
+    public function delivery(): HasOne
+    {
+        return $this->hasOne(Delivery::class);
     }
 }
 
@@ -13661,6 +15337,502 @@ class CustomerService
 ```
 </details>
 
+<a id="file-appservicesdeliverydeliveryservicephp"></a>
+### app\Services\Delivery\DeliveryService.php
+- SHA: `11b3bddc8720`  
+- Ukuran: 7 KB  
+- Namespace: `App\Services\Delivery`
+
+**Class `DeliveryService`**
+
+Metode Publik:
+- **create**(array $payload) : *Delivery*
+- **update**(Delivery $delivery, array $payload) : *Delivery*
+- **assignCourier**(Delivery $delivery, int $courierId, ?string $notes = null) : *Delivery*
+- **changeStatus**(Delivery $delivery, string $status, ?string $deliveredAt = null, ?string $notes = null) : *Delivery*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+namespace App\Services\Delivery;
+
+use App\Models\Delivery;
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class DeliveryService
+{
+    public function create(array $payload): Delivery
+    {
+        return DB::transaction(function () use ($payload) {
+            $order = Order::query()->findOrFail((int) $payload['order_id']);
+
+            if (! in_array($order->order_channel, ['delivery', 'pickup', 'website'], true)) {
+                throw ValidationException::withMessages([
+                    'order_id' => ['Delivery hanya boleh dibuat untuk order channel delivery, pickup, atau website.'],
+                ]);
+            }
+
+            if (Delivery::query()->where('order_id', $order->id)->exists()) {
+                throw ValidationException::withMessages([
+                    'order_id' => ['Delivery untuk order ini sudah ada.'],
+                ]);
+            }
+
+            $status = $payload['delivery_status'] ?? 'pending';
+
+            if (! empty($payload['courier_id']) && $status === 'pending') {
+                $status = 'assigned';
+            }
+
+            $delivery = Delivery::query()->create([
+                'order_id'            => $order->id,
+                'customer_address_id' => $payload['customer_address_id'] ?? null,
+                'courier_id'          => $payload['courier_id'] ?? null,
+                'delivery_status'     => $status,
+                'delivery_fee'        => $payload['delivery_fee'] ?? 0,
+                'delivered_at'        => $payload['delivered_at'] ?? null,
+                'notes'               => $payload['notes'] ?? null,
+            ]);
+
+            if ($delivery->delivery_status === 'delivered') {
+                $this->completeOrderIfPossible($order, $payload['delivered_at'] ?? now());
+            }
+
+            return $delivery->load(['order.outlet', 'order.customer', 'customerAddress.customer', 'courier']);
+        });
+    }
+
+    public function update(Delivery $delivery, array $payload): Delivery
+    {
+        return DB::transaction(function () use ($delivery, $payload) {
+            if (in_array($delivery->delivery_status, ['delivered', 'cancelled'], true)) {
+                throw ValidationException::withMessages([
+                    'delivery_status' => ['Delivery yang sudah delivered atau cancelled tidak boleh diubah.'],
+                ]);
+            }
+
+            $delivery->update([
+                'customer_address_id' => array_key_exists('customer_address_id', $payload) ? $payload['customer_address_id'] : $delivery->customer_address_id,
+                'courier_id'          => array_key_exists('courier_id', $payload) ? $payload['courier_id'] : $delivery->courier_id,
+                'delivery_status'     => array_key_exists('delivery_status', $payload) ? $payload['delivery_status'] : $delivery->delivery_status,
+                'delivery_fee'        => array_key_exists('delivery_fee', $payload) ? $payload['delivery_fee'] : $delivery->delivery_fee,
+                'delivered_at'        => array_key_exists('delivered_at', $payload) ? $payload['delivered_at'] : $delivery->delivered_at,
+                'notes'               => array_key_exists('notes', $payload) ? $payload['notes'] : $delivery->notes,
+            ]);
+
+            if ($delivery->delivery_status === 'delivered') {
+                $this->completeOrderIfPossible($delivery->order, $delivery->delivered_at ?? now());
+            }
+
+            return $delivery->fresh()->load(['order.outlet', 'order.customer', 'customerAddress.customer', 'courier']);
+        });
+    }
+
+    public function assignCourier(Delivery $delivery, int $courierId, ?string $notes = null): Delivery
+    {
+        return DB::transaction(function () use ($delivery, $courierId, $notes) {
+            if (in_array($delivery->delivery_status, ['delivered', 'failed', 'cancelled'], true)) {
+                throw ValidationException::withMessages([
+                    'delivery_status' => ['Courier tidak bisa di-assign untuk delivery yang sudah final.'],
+                ]);
+            }
+
+            $delivery->update([
+                'courier_id'      => $courierId,
+                'delivery_status' => 'assigned',
+                'notes'           => $notes ?? $delivery->notes,
+            ]);
+
+            return $delivery->fresh()->load(['order.outlet', 'order.customer', 'customerAddress.customer', 'courier']);
+        });
+    }
+
+    public function changeStatus(Delivery $delivery, string $status, ?string $deliveredAt = null, ?string $notes = null): Delivery
+    {
+        return DB::transaction(function () use ($delivery, $status, $deliveredAt, $notes) {
+            $this->ensureValidTransition($delivery->delivery_status, $status);
+
+            $payload = [
+                'delivery_status' => $status,
+                'notes'           => $notes ?? $delivery->notes,
+            ];
+
+            if ($status === 'delivered') {
+                $payload['delivered_at'] = $deliveredAt ?? now();
+            }
+
+            $delivery->update($payload);
+
+            if ($status === 'delivered') {
+                $this->completeOrderIfPossible($delivery->order, $payload['delivered_at']);
+            }
+
+            if ($status === 'cancelled') {
+                $delivery->order?->update([
+                    'order_status' => 'cancelled',
+                    'cancelled_at' => now(),
+                ]);
+            }
+
+            return $delivery->fresh()->load(['order.outlet', 'order.customer', 'customerAddress.customer', 'courier']);
+        });
+    }
+
+    private function ensureValidTransition(string $currentStatus, string $nextStatus): void
+    {
+        if ($currentStatus === $nextStatus) {
+            return;
+        }
+
+        $allowed = [
+            'pending'    => ['assigned', 'cancelled', 'failed'],
+            'assigned'   => ['on_the_way', 'cancelled', 'failed'],
+            'on_the_way' => ['delivered', 'failed', 'cancelled'],
+            'delivered'  => [],
+            'failed'     => [],
+            'cancelled'  => [],
+        ];
+
+        if (! in_array($nextStatus, $allowed[$currentStatus] ?? [], true)) {
+            throw ValidationException::withMessages([
+                'delivery_status' => ["Perubahan status dari {$currentStatus} ke {$nextStatus} tidak valid."],
+            ]);
+        }
+    }
+
+    private function completeOrderIfPossible(?Order $order, mixed $completedAt): void
+    {
+        if (! $order) {
+            return;
+        }
+
+        if (! in_array($order->order_status, ['completed', 'cancelled'], true)) {
+            $order->update([
+                'order_status' => 'completed',
+                'completed_at' => $completedAt,
+            ]);
+
+            $order->statusHistories()->create([
+                'status'     => 'completed',
+                'changed_by' => Auth::id(),
+                'notes'      => 'Order selesai melalui delivery.',
+                'changed_at' => $completedAt,
+            ]);
+        }
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesexpenseexpenseservicephp"></a>
+### app\Services\Expense\ExpenseService.php
+- SHA: `9c8a55bbe139`  
+- Ukuran: 9 KB  
+- Namespace: `App\Services\Expense`
+
+**Class `ExpenseService`**
+
+Metode Publik:
+- **create**(array $payload, ?int $userId = null) : *Expense*
+- **update**(Expense $expense, array $payload) : *Expense*
+- **submit**(Expense $expense) : *Expense*
+- **approve**(Expense $expense, array $payload, int $userId) : *Expense*
+- **reject**(Expense $expense, ?string $notes = null) : *Expense*
+- **addAttachments**(Expense $expense, array $attachments) : *Expense*
+- **deleteAttachment**(ExpenseAttachment $attachment) : *void*
+- **delete**(Expense $expense) : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+namespace App\Services\Expense;
+
+use App\Models\CashierShift;
+use App\Models\CashMovement;
+use App\Models\Expense;
+use App\Models\ExpenseAttachment;
+use App\Models\ExpenseCategory;
+use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+
+class ExpenseService
+{
+    public function create(array $payload, ?int $userId = null): Expense
+    {
+        return DB::transaction(function () use ($payload, $userId) {
+            $this->ensureUserCanAccessOutlet($userId, (int) $payload['outlet_id']);
+            $this->ensureActiveCategory((int) $payload['expense_category_id']);
+
+            $attachments = $payload['attachments'] ?? [];
+            unset($payload['attachments']);
+
+            $expense = Expense::query()->create([
+                'outlet_id'           => $payload['outlet_id'],
+                'expense_category_id' => $payload['expense_category_id'],
+                'expense_date'        => $payload['expense_date'],
+                'amount'              => $payload['amount'],
+                'description'         => $payload['description'] ?? null,
+                'status'              => $payload['status'] ?? 'draft',
+                'created_by'          => $userId,
+            ]);
+
+            $this->storeAttachments($expense, $attachments);
+
+            return $expense->fresh()->load($this->defaultRelations())->loadCount('attachments');
+        });
+    }
+
+    public function update(Expense $expense, array $payload): Expense
+    {
+        return DB::transaction(function () use ($expense, $payload) {
+            if ($expense->status === 'approved') {
+                throw ValidationException::withMessages([
+                    'status' => ['Expense yang sudah approved tidak boleh diubah.'],
+                ]);
+            }
+
+            if (array_key_exists('outlet_id', $payload)) {
+                $this->ensureUserCanAccessOutlet(request()->user()?->id, (int) $payload['outlet_id']);
+            }
+
+            if (array_key_exists('expense_category_id', $payload)) {
+                $this->ensureActiveCategory((int) $payload['expense_category_id']);
+            }
+
+            $expense->update($payload);
+
+            return $expense->fresh()->load($this->defaultRelations())->loadCount('attachments');
+        });
+    }
+
+    public function submit(Expense $expense): Expense
+    {
+        if (! in_array($expense->status, ['draft', 'rejected'], true)) {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya expense draft atau rejected yang boleh disubmit.'],
+            ]);
+        }
+
+        $expense->update([
+            'status' => 'submitted',
+        ]);
+
+        return $expense->fresh()->load($this->defaultRelations())->loadCount('attachments');
+    }
+
+    public function approve(Expense $expense, array $payload, int $userId): Expense
+    {
+        return DB::transaction(function () use ($expense, $payload, $userId) {
+            if ($expense->status !== 'submitted') {
+                throw ValidationException::withMessages([
+                    'status' => ['Hanya expense submitted yang boleh diapprove.'],
+                ]);
+            }
+
+            $cashierShiftId = $payload['cashier_shift_id'] ?? null;
+
+            if ($cashierShiftId) {
+                $shift = CashierShift::query()->findOrFail($cashierShiftId);
+
+                if ((int) $shift->outlet_id !== (int) $expense->outlet_id) {
+                    throw ValidationException::withMessages([
+                        'cashier_shift_id' => ['Shift kasir harus berasal dari outlet yang sama dengan expense.'],
+                    ]);
+                }
+
+                if ($shift->status !== 'open') {
+                    throw ValidationException::withMessages([
+                        'cashier_shift_id' => ['Cash movement hanya bisa dibuat pada shift yang masih open.'],
+                    ]);
+                }
+
+                CashMovement::query()->create([
+                    'cashier_shift_id' => $shift->id,
+                    'movement_type'    => 'cash_out',
+                    'amount'           => $expense->amount,
+                    'reason'           => 'Expense #' . $expense->id,
+                    'notes'            => $payload['notes'] ?? $expense->description,
+                    'created_by'       => $userId,
+                ]);
+
+                $this->refreshShiftExpectedCash($shift);
+            }
+
+            $expense->update([
+                'status'      => 'approved',
+                'approved_by' => $userId,
+                'approved_at' => $payload['approved_at'] ?? now(),
+            ]);
+
+            return $expense->fresh()->load($this->defaultRelations())->loadCount('attachments');
+        });
+    }
+
+    public function reject(Expense $expense, ?string $notes = null): Expense
+    {
+        if ($expense->status !== 'submitted') {
+            throw ValidationException::withMessages([
+                'status' => ['Hanya expense submitted yang boleh direject.'],
+            ]);
+        }
+
+        $description = $expense->description;
+
+        if ($notes) {
+            $description = trim(($description ? $description . PHP_EOL : '') . 'Rejected note: ' . $notes);
+        }
+
+        $expense->update([
+            'status'      => 'rejected',
+            'description' => $description,
+            'approved_by' => null,
+            'approved_at' => null,
+        ]);
+
+        return $expense->fresh()->load($this->defaultRelations())->loadCount('attachments');
+    }
+
+    public function addAttachments(Expense $expense, array $attachments): Expense
+    {
+        if ($expense->status === 'approved') {
+            throw ValidationException::withMessages([
+                'status' => ['Attachment tidak boleh ditambahkan pada expense yang sudah approved.'],
+            ]);
+        }
+
+        $this->storeAttachments($expense, $attachments);
+
+        return $expense->fresh()->load($this->defaultRelations())->loadCount('attachments');
+    }
+
+    public function deleteAttachment(ExpenseAttachment $attachment): void
+    {
+        $expense = $attachment->expense;
+
+        if ($expense && $expense->status === 'approved') {
+            throw ValidationException::withMessages([
+                'status' => ['Attachment expense approved tidak boleh dihapus.'],
+            ]);
+        }
+
+        if ($attachment->file_path) {
+            Storage::disk('public')->delete($attachment->file_path);
+        }
+
+        $attachment->delete();
+    }
+
+    public function delete(Expense $expense): void
+    {
+        if ($expense->status === 'approved') {
+            throw ValidationException::withMessages([
+                'status' => ['Expense approved tidak boleh dihapus.'],
+            ]);
+        }
+
+        $expense->delete();
+    }
+
+    private function storeAttachments(Expense $expense, array $attachments): void
+    {
+        foreach ($attachments as $attachment) {
+            if (! $attachment instanceof UploadedFile) {
+                continue;
+            }
+
+            $path = $attachment->store('expenses/' . $expense->id, 'public');
+
+            $expense->attachments()->create([
+                'file_path' => $path,
+                'file_name' => $attachment->getClientOriginalName(),
+                'mime_type' => $attachment->getClientMimeType(),
+            ]);
+        }
+    }
+
+    private function ensureActiveCategory(int $categoryId): void
+    {
+        $exists = ExpenseCategory::query()
+            ->whereKey($categoryId)
+            ->where('is_active', true)
+            ->exists();
+
+        if (! $exists) {
+            throw ValidationException::withMessages([
+                'expense_category_id' => ['Kategori expense tidak ditemukan atau tidak aktif.'],
+            ]);
+        }
+    }
+
+    private function ensureUserCanAccessOutlet(?int $userId, int $outletId): void
+    {
+        if (! $userId) {
+            return;
+        }
+
+        $user = User::query()
+            ->with('roles', 'outletAccesses')
+            ->findOrFail($userId);
+
+        if ($user->hasRole('superadmin') || $user->hasRole('admin_pusat')) {
+            return;
+        }
+
+        $hasAccess = $user->outletAccesses
+            ->contains(fn($access) => (int) $access->outlet_id === $outletId);
+
+        if (! $hasAccess) {
+            throw ValidationException::withMessages([
+                'outlet_id' => ['User tidak memiliki akses ke outlet ini.'],
+            ]);
+        }
+    }
+
+    private function refreshShiftExpectedCash(CashierShift $shift): void
+    {
+        $cashSalesTotal = (float) $shift->orders()
+            ->whereHas('payments.paymentMethod', fn($query) => $query->where('type', 'cash'))
+            ->with('payments.paymentMethod')
+            ->get()
+            ->flatMap->payments
+            ->filter(fn($payment) => $payment->status === 'paid' && $payment->paymentMethod?->type === 'cash')
+            ->sum('amount');
+
+        $cashInTotal = (float) $shift->cashMovements()
+            ->where('movement_type', 'cash_in')
+            ->sum('amount');
+
+        $cashOutTotal = (float) $shift->cashMovements()
+            ->where('movement_type', 'cash_out')
+            ->sum('amount');
+
+        $shift->update([
+            'expected_cash' => (float) $shift->opening_cash + $cashSalesTotal + $cashInTotal - $cashOutTotal,
+        ]);
+    }
+
+    private function defaultRelations(): array
+    {
+        return [
+            'outlet',
+            'category',
+            'creator',
+            'approver',
+            'attachments',
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicesinventoryoutletmaterialstockservicephp"></a>
 ### app\Services\Inventory\OutletMaterialStockService.php
 - SHA: `812f1d318b70`  
@@ -16559,8 +18731,8 @@ class VoucherService
 
 <a id="file-databaseseedersdatabaseseederphp"></a>
 ### database\seeders\DatabaseSeeder.php
-- SHA: `2d0e8450d471`  
-- Ukuran: 424 B  
+- SHA: `2f6563cc6c3e`  
+- Ukuran: 554 B  
 - Namespace: `Database\Seeders`
 
 **Class `DatabaseSeeder` extends `Seeder`**
@@ -16571,7 +18743,6 @@ Metode Publik:
 
 ```php
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -16587,6 +18758,175 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             KitchenPermissionSeeder::class,
             KitchenRolePermissionSeeder::class,
+            DeliveryPermissionSeeder::class,
+            ExpensePermissionSeeder::class,
+            ExpenseCategorySeeder::class,
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-databaseseedersdeliverypermissionseederphp"></a>
+### database\seeders\DeliveryPermissionSeeder.php
+- SHA: `f2ace0379475`  
+- Ukuran: 686 B  
+- Namespace: `Database\Seeders`
+
+**Class `DeliveryPermissionSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+
+class DeliveryPermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $permissions = [
+            'couriers.view',
+            'couriers.create',
+            'couriers.update',
+            'couriers.delete',
+            'deliveries.view',
+            'deliveries.create',
+            'deliveries.update',
+            'deliveries.delete',
+            'deliveries.assign',
+            'deliveries.update_status',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::findOrCreate($permission, 'sanctum');
+        }
+    }
+}
+
+```
+</details>
+
+<a id="file-databaseseedersexpensecategoryseederphp"></a>
+### database\seeders\ExpenseCategorySeeder.php
+- SHA: `b3d2fec57bb8`  
+- Ukuran: 600 B  
+- Namespace: `Database\Seeders`
+
+**Class `ExpenseCategorySeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\ExpenseCategory;
+use Illuminate\Database\Seeder;
+
+class ExpenseCategorySeeder extends Seeder
+{
+    public function run(): void
+    {
+        $rows = [
+            'Gas',
+            'Listrik',
+            'Kebersihan',
+            'Transport',
+            'Pembelian Kecil',
+            'Perbaikan Outlet',
+            'Operasional Lainnya',
+        ];
+
+        foreach ($rows as $name) {
+            ExpenseCategory::query()->updateOrCreate(
+                ['name' => $name],
+                ['is_active' => true]
+            );
+        }
+    }
+}
+
+```
+</details>
+
+<a id="file-databaseseedersexpensepermissionseederphp"></a>
+### database\seeders\ExpensePermissionSeeder.php
+- SHA: `026f604d0b85`  
+- Ukuran: 2 KB  
+- Namespace: `Database\Seeders`
+
+**Class `ExpensePermissionSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class ExpensePermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $permissions = [
+            'expense_categories.view',
+            'expense_categories.create',
+            'expense_categories.update',
+            'expense_categories.delete',
+
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.delete',
+            'expenses.submit',
+            'expenses.approve',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::findOrCreate($permission, 'sanctum');
+        }
+
+        Role::findOrCreate('superadmin', 'sanctum')->givePermissionTo($permissions);
+
+        Role::findOrCreate('admin_pusat', 'sanctum')->givePermissionTo($permissions);
+
+        Role::findOrCreate('admin_outlet', 'sanctum')->givePermissionTo([
+            'expense_categories.view',
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.delete',
+            'expenses.submit',
+        ]);
+
+        Role::findOrCreate('kasir', 'sanctum')->givePermissionTo([
+            'expense_categories.view',
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.submit',
+        ]);
+
+        Role::findOrCreate('owner', 'sanctum')->givePermissionTo([
+            'expense_categories.view',
+            'expenses.view',
         ]);
     }
 }
@@ -16941,8 +19281,8 @@ class PermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `2fb62a87ba53`  
-- Ukuran: 10 KB  
+- SHA: `d28d221215d5`  
+- Ukuran: 12 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -16953,7 +19293,6 @@ Metode Publik:
 
 ```php
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -17122,6 +19461,30 @@ class RoleSeeder extends Seeder
             'orders.update',
             'orders.delete',
             'orders.cancel',
+
+            'couriers.view',
+            'couriers.create',
+            'couriers.update',
+            'couriers.delete',
+
+            'deliveries.view',
+            'deliveries.create',
+            'deliveries.update',
+            'deliveries.delete',
+            'deliveries.assign',
+            'deliveries.update_status',
+
+            'expense_categories.view',
+            'expense_categories.create',
+            'expense_categories.update',
+            'expense_categories.delete',
+
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.delete',
+            'expenses.submit',
+            'expenses.approve',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -17202,6 +19565,24 @@ class RoleSeeder extends Seeder
             'orders.create',
             'orders.update',
             'orders.cancel',
+
+            'couriers.view',
+            'couriers.create',
+            'couriers.update',
+
+            'deliveries.view',
+            'deliveries.create',
+            'deliveries.update',
+            'deliveries.assign',
+            'deliveries.update_status',
+
+            'expense_categories.view',
+
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.delete',
+            'expenses.submit',
         ]);
 
         $kasir->syncPermissions([
@@ -17237,6 +19618,21 @@ class RoleSeeder extends Seeder
             'orders.create',
             'orders.update',
             'orders.cancel',
+
+            'couriers.view',
+
+            'deliveries.view',
+            'deliveries.create',
+            'deliveries.update',
+            'deliveries.assign',
+            'deliveries.update_status',
+
+            'expense_categories.view',
+
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.submit',
         ]);
 
         $dapur->syncPermissions([
@@ -17332,6 +19728,12 @@ class RoleSeeder extends Seeder
             'cash_movements.view',
 
             'orders.view',
+
+            'couriers.view',
+            'deliveries.view',
+
+            'expense_categories.view',
+            'expenses.view',
         ]);
     }
 }
@@ -17387,8 +19789,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `5c7d1bc2ff9a`  
-- Ukuran: 15 KB  
+- SHA: `90031f5ae36e`  
+- Ukuran: 18 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -17551,6 +19953,33 @@ class SuperAdminSeeder extends Seeder
 | POST | `kitchen-tickets/{kitchenTicket}/serve` | `KitchenTicketController` | `serve` |
 | POST | `kitchen-tickets/{kitchenTicket}/cancel` | `KitchenTicketController` | `cancel` |
 | DELETE | `kitchen-tickets/{kitchenTicket}` | `KitchenTicketController` | `destroy` |
+| GET | `/couriers` | `CourierController` | `index` |
+| POST | `/couriers` | `CourierController` | `store` |
+| GET | `/couriers/{courier}` | `CourierController` | `show` |
+| PUT | `/couriers/{courier}` | `CourierController` | `update` |
+| DELETE | `/couriers/{courier}` | `CourierController` | `destroy` |
+| GET | `/deliveries` | `DeliveryController` | `index` |
+| POST | `/deliveries` | `DeliveryController` | `store` |
+| GET | `/deliveries/{delivery}` | `DeliveryController` | `show` |
+| PUT | `/deliveries/{delivery}` | `DeliveryController` | `update` |
+| DELETE | `/deliveries/{delivery}` | `DeliveryController` | `destroy` |
+| POST | `/deliveries/{delivery}/assign-courier` | `DeliveryController` | `assignCourier` |
+| POST | `/deliveries/{delivery}/status` | `DeliveryController` | `updateStatus` |
+| GET | `/expense-categories` | `ExpenseCategoryController` | `index` |
+| POST | `/expense-categories` | `ExpenseCategoryController` | `store` |
+| GET | `/expense-categories/{expenseCategory}` | `ExpenseCategoryController` | `show` |
+| PUT | `/expense-categories/{expenseCategory}` | `ExpenseCategoryController` | `update` |
+| DELETE | `/expense-categories/{expenseCategory}` | `ExpenseCategoryController` | `destroy` |
+| GET | `/expenses` | `ExpenseController` | `index` |
+| POST | `/expenses` | `ExpenseController` | `store` |
+| GET | `/expenses/{expense}` | `ExpenseController` | `show` |
+| PUT | `/expenses/{expense}` | `ExpenseController` | `update` |
+| POST | `/expenses/{expense}/submit` | `ExpenseController` | `submit` |
+| POST | `/expenses/{expense}/approve` | `ExpenseController` | `approve` |
+| POST | `/expenses/{expense}/reject` | `ExpenseController` | `reject` |
+| POST | `/expenses/{expense}/attachments` | `ExpenseController` | `uploadAttachments` |
+| DELETE | `/expense-attachments/{expenseAttachment}` | `ExpenseController` | `deleteAttachment` |
+| DELETE | `/expenses/{expense}` | `ExpenseController` | `destroy` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -17559,7 +19988,11 @@ class SuperAdminSeeder extends Seeder
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
+use App\Http\Controllers\Api\CourierController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\DeliveryController;
+use App\Http\Controllers\Api\ExpenseCategoryController;
+use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\KitchenTicketController;
 use App\Http\Controllers\Api\OrderController;
@@ -17778,6 +20211,37 @@ Route::prefix('v1')->group(function () {
         Route::post('kitchen-tickets/{kitchenTicket}/serve', [KitchenTicketController::class, 'serve']);
         Route::post('kitchen-tickets/{kitchenTicket}/cancel', [KitchenTicketController::class, 'cancel']);
         Route::delete('kitchen-tickets/{kitchenTicket}', [KitchenTicketController::class, 'destroy']);
+
+        Route::get('/couriers', [CourierController::class, 'index']);
+        Route::post('/couriers', [CourierController::class, 'store']);
+        Route::get('/couriers/{courier}', [CourierController::class, 'show']);
+        Route::put('/couriers/{courier}', [CourierController::class, 'update']);
+        Route::delete('/couriers/{courier}', [CourierController::class, 'destroy']);
+
+        Route::get('/deliveries', [DeliveryController::class, 'index']);
+        Route::post('/deliveries', [DeliveryController::class, 'store']);
+        Route::get('/deliveries/{delivery}', [DeliveryController::class, 'show']);
+        Route::put('/deliveries/{delivery}', [DeliveryController::class, 'update']);
+        Route::delete('/deliveries/{delivery}', [DeliveryController::class, 'destroy']);
+        Route::post('/deliveries/{delivery}/assign-courier', [DeliveryController::class, 'assignCourier']);
+        Route::post('/deliveries/{delivery}/status', [DeliveryController::class, 'updateStatus']);
+
+        Route::get('/expense-categories', [ExpenseCategoryController::class, 'index']);
+        Route::post('/expense-categories', [ExpenseCategoryController::class, 'store']);
+        Route::get('/expense-categories/{expenseCategory}', [ExpenseCategoryController::class, 'show']);
+        Route::put('/expense-categories/{expenseCategory}', [ExpenseCategoryController::class, 'update']);
+        Route::delete('/expense-categories/{expenseCategory}', [ExpenseCategoryController::class, 'destroy']);
+
+        Route::get('/expenses', [ExpenseController::class, 'index']);
+        Route::post('/expenses', [ExpenseController::class, 'store']);
+        Route::get('/expenses/{expense}', [ExpenseController::class, 'show']);
+        Route::put('/expenses/{expense}', [ExpenseController::class, 'update']);
+        Route::post('/expenses/{expense}/submit', [ExpenseController::class, 'submit']);
+        Route::post('/expenses/{expense}/approve', [ExpenseController::class, 'approve']);
+        Route::post('/expenses/{expense}/reject', [ExpenseController::class, 'reject']);
+        Route::post('/expenses/{expense}/attachments', [ExpenseController::class, 'uploadAttachments']);
+        Route::delete('/expense-attachments/{expenseAttachment}', [ExpenseController::class, 'deleteAttachment']);
+        Route::delete('/expenses/{expense}', [ExpenseController::class, 'destroy']);
     });
 });
 

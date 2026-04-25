@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -168,6 +167,30 @@ class RoleSeeder extends Seeder
             'orders.update',
             'orders.delete',
             'orders.cancel',
+
+            'couriers.view',
+            'couriers.create',
+            'couriers.update',
+            'couriers.delete',
+
+            'deliveries.view',
+            'deliveries.create',
+            'deliveries.update',
+            'deliveries.delete',
+            'deliveries.assign',
+            'deliveries.update_status',
+
+            'expense_categories.view',
+            'expense_categories.create',
+            'expense_categories.update',
+            'expense_categories.delete',
+
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.delete',
+            'expenses.submit',
+            'expenses.approve',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -248,6 +271,24 @@ class RoleSeeder extends Seeder
             'orders.create',
             'orders.update',
             'orders.cancel',
+
+            'couriers.view',
+            'couriers.create',
+            'couriers.update',
+
+            'deliveries.view',
+            'deliveries.create',
+            'deliveries.update',
+            'deliveries.assign',
+            'deliveries.update_status',
+
+            'expense_categories.view',
+
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.delete',
+            'expenses.submit',
         ]);
 
         $kasir->syncPermissions([
@@ -283,6 +324,21 @@ class RoleSeeder extends Seeder
             'orders.create',
             'orders.update',
             'orders.cancel',
+
+            'couriers.view',
+
+            'deliveries.view',
+            'deliveries.create',
+            'deliveries.update',
+            'deliveries.assign',
+            'deliveries.update_status',
+
+            'expense_categories.view',
+
+            'expenses.view',
+            'expenses.create',
+            'expenses.update',
+            'expenses.submit',
         ]);
 
         $dapur->syncPermissions([
@@ -378,6 +434,12 @@ class RoleSeeder extends Seeder
             'cash_movements.view',
 
             'orders.view',
+
+            'couriers.view',
+            'deliveries.view',
+
+            'expense_categories.view',
+            'expenses.view',
         ]);
     }
 }

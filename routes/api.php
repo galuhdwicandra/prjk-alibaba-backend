@@ -3,7 +3,11 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
+use App\Http\Controllers\Api\CourierController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\DeliveryController;
+use App\Http\Controllers\Api\ExpenseCategoryController;
+use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\KitchenTicketController;
 use App\Http\Controllers\Api\OrderController;
@@ -222,5 +226,36 @@ Route::prefix('v1')->group(function () {
         Route::post('kitchen-tickets/{kitchenTicket}/serve', [KitchenTicketController::class, 'serve']);
         Route::post('kitchen-tickets/{kitchenTicket}/cancel', [KitchenTicketController::class, 'cancel']);
         Route::delete('kitchen-tickets/{kitchenTicket}', [KitchenTicketController::class, 'destroy']);
+
+        Route::get('/couriers', [CourierController::class, 'index']);
+        Route::post('/couriers', [CourierController::class, 'store']);
+        Route::get('/couriers/{courier}', [CourierController::class, 'show']);
+        Route::put('/couriers/{courier}', [CourierController::class, 'update']);
+        Route::delete('/couriers/{courier}', [CourierController::class, 'destroy']);
+
+        Route::get('/deliveries', [DeliveryController::class, 'index']);
+        Route::post('/deliveries', [DeliveryController::class, 'store']);
+        Route::get('/deliveries/{delivery}', [DeliveryController::class, 'show']);
+        Route::put('/deliveries/{delivery}', [DeliveryController::class, 'update']);
+        Route::delete('/deliveries/{delivery}', [DeliveryController::class, 'destroy']);
+        Route::post('/deliveries/{delivery}/assign-courier', [DeliveryController::class, 'assignCourier']);
+        Route::post('/deliveries/{delivery}/status', [DeliveryController::class, 'updateStatus']);
+
+        Route::get('/expense-categories', [ExpenseCategoryController::class, 'index']);
+        Route::post('/expense-categories', [ExpenseCategoryController::class, 'store']);
+        Route::get('/expense-categories/{expenseCategory}', [ExpenseCategoryController::class, 'show']);
+        Route::put('/expense-categories/{expenseCategory}', [ExpenseCategoryController::class, 'update']);
+        Route::delete('/expense-categories/{expenseCategory}', [ExpenseCategoryController::class, 'destroy']);
+
+        Route::get('/expenses', [ExpenseController::class, 'index']);
+        Route::post('/expenses', [ExpenseController::class, 'store']);
+        Route::get('/expenses/{expense}', [ExpenseController::class, 'show']);
+        Route::put('/expenses/{expense}', [ExpenseController::class, 'update']);
+        Route::post('/expenses/{expense}/submit', [ExpenseController::class, 'submit']);
+        Route::post('/expenses/{expense}/approve', [ExpenseController::class, 'approve']);
+        Route::post('/expenses/{expense}/reject', [ExpenseController::class, 'reject']);
+        Route::post('/expenses/{expense}/attachments', [ExpenseController::class, 'uploadAttachments']);
+        Route::delete('/expense-attachments/{expenseAttachment}', [ExpenseController::class, 'deleteAttachment']);
+        Route::delete('/expenses/{expense}', [ExpenseController::class, 'destroy']);
     });
 });

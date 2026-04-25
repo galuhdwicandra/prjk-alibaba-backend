@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -34,16 +34,16 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'subtotal' => 'decimal:2',
-        'discount_amount' => 'decimal:2',
-        'tax_amount' => 'decimal:2',
+        'subtotal'              => 'decimal:2',
+        'discount_amount'       => 'decimal:2',
+        'tax_amount'            => 'decimal:2',
         'service_charge_amount' => 'decimal:2',
-        'grand_total' => 'decimal:2',
-        'paid_total' => 'decimal:2',
-        'change_amount' => 'decimal:2',
-        'ordered_at' => 'datetime',
-        'completed_at' => 'datetime',
-        'cancelled_at' => 'datetime',
+        'grand_total'           => 'decimal:2',
+        'paid_total'            => 'decimal:2',
+        'change_amount'         => 'decimal:2',
+        'ordered_at'            => 'datetime',
+        'completed_at'          => 'datetime',
+        'cancelled_at'          => 'datetime',
     ];
 
     public function outlet()
@@ -89,5 +89,10 @@ class Order extends Model
     public function kitchenTickets()
     {
         return $this->hasMany(KitchenTicket::class);
+    }
+
+    public function delivery(): HasOne
+    {
+        return $this->hasOne(Delivery::class);
     }
 }

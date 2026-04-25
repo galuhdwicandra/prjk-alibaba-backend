@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -15,6 +14,9 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             KitchenPermissionSeeder::class,
             KitchenRolePermissionSeeder::class,
+            DeliveryPermissionSeeder::class,
+            ExpensePermissionSeeder::class,
+            ExpenseCategorySeeder::class,
         ]);
     }
 }
