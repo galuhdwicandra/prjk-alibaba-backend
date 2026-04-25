@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoodsReceiptController;
+use App\Http\Controllers\Api\KitchenTicketController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
@@ -211,5 +212,15 @@ Route::prefix('v1')->group(function () {
         Route::post('/orders/{order}/confirm', [OrderController::class, 'confirm']);
         Route::post('/orders/{order}/complete', [OrderController::class, 'complete']);
         Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
+
+        Route::get('kitchen-tickets', [KitchenTicketController::class, 'index']);
+        Route::post('kitchen-tickets', [KitchenTicketController::class, 'store']);
+        Route::get('kitchen-tickets/{kitchenTicket}', [KitchenTicketController::class, 'show']);
+        Route::post('kitchen-tickets/{kitchenTicket}/print', [KitchenTicketController::class, 'print']);
+        Route::post('kitchen-tickets/{kitchenTicket}/start-preparing', [KitchenTicketController::class, 'startPreparing']);
+        Route::post('kitchen-tickets/{kitchenTicket}/ready', [KitchenTicketController::class, 'markReady']);
+        Route::post('kitchen-tickets/{kitchenTicket}/serve', [KitchenTicketController::class, 'serve']);
+        Route::post('kitchen-tickets/{kitchenTicket}/cancel', [KitchenTicketController::class, 'cancel']);
+        Route::delete('kitchen-tickets/{kitchenTicket}', [KitchenTicketController::class, 'destroy']);
     });
 });

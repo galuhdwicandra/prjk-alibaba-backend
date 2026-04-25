@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrderItem extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'order_id',
         'product_id',
@@ -27,23 +28,28 @@ class OrderItem extends Model
         'line_total' => 'decimal:2',
     ];
 
-    public function order(): BelongsTo
+    public function order()
     {
         return $this->belongsTo(Order::class);
     }
 
-    public function product(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function variants(): HasMany
+    public function variants()
     {
         return $this->hasMany(OrderItemVariant::class);
     }
 
-    public function modifiers(): HasMany
+    public function modifiers()
     {
         return $this->hasMany(OrderItemModifier::class);
+    }
+
+    public function kitchenTicketItems()
+    {
+        return $this->hasMany(KitchenTicketItem::class);
     }
 }

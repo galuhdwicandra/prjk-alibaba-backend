@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SuperAdminSeeder::class,
             PaymentMethodSeeder::class,
+            KitchenPermissionSeeder::class,
+            KitchenRolePermissionSeeder::class,
         ]);
     }
 }

@@ -4,9 +4,10 @@ namespace App\Services\Sales;
 
 use App\Models\CashierShift;
 use App\Models\Order;
+use App\Models\OrderStatusHistory;
 use App\Models\Product;
-// use App\Models\ProductOutletStatus;
 use App\Models\ProductPrice;
+use App\Services\Kitchen\KitchenTicketService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -19,24 +20,28 @@ class OrderService
             $items = $payload['items'];
             unset($payload['items']);
 
-            $this->validateCashierShift($payload['cashier_shift_id'] ?? null, (int) $payload['outlet_id']);
+            $outletId = (int) $payload['outlet_id'];
+
+            $this->validateCashierShift(
+                cashierShiftId: $payload['cashier_shift_id'] ?? null,
+                outletId: $outletId,
+            );
+
             [$subtotal, $normalizedItems] = $this->prepareItemsAndTotals(
-                outletId: (int) $payload['outlet_id'],
+                outletId: $outletId,
                 items: $items,
             );
 
             $discountAmount = (float) ($payload['discount_amount'] ?? 0);
             $taxAmount = (float) ($payload['tax_amount'] ?? 0);
             $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? 0);
-            $paidTotal = (float) ($payload['paid_total'] ?? 0);
             $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
-            $changeAmount = (float) ($payload['change_amount'] ?? max(0, $paidTotal - $grandTotal));
 
-            $order = Order::create([
-                'outlet_id' => $payload['outlet_id'],
+            $order = Order::query()->create([
+                'outlet_id' => $outletId,
                 'cashier_shift_id' => $payload['cashier_shift_id'] ?? null,
                 'customer_id' => $payload['customer_id'] ?? null,
-                'order_number' => $payload['order_number'] ?? $this->generateOrderNumber((int) $payload['outlet_id']),
+                'order_number' => $this->generateOrderNumber($outletId),
                 'queue_number' => $payload['queue_number'] ?? null,
                 'order_channel' => $payload['order_channel'] ?? 'pos',
                 'order_status' => $payload['order_status'] ?? 'draft',
@@ -46,35 +51,53 @@ class OrderService
                 'tax_amount' => $taxAmount,
                 'service_charge_amount' => $serviceChargeAmount,
                 'grand_total' => $grandTotal,
-                'paid_total' => $paidTotal,
-                'change_amount' => $changeAmount,
+                'paid_total' => 0,
+                'change_amount' => 0,
                 'notes' => $payload['notes'] ?? null,
                 'ordered_at' => $payload['ordered_at'] ?? now(),
                 'created_by' => $userId,
             ]);
 
             foreach ($normalizedItems as $item) {
-                $variants = $item['variants'];
-                $modifiers = $item['modifiers'];
-                unset($item['variants'], $item['modifiers']);
+                $orderItem = $order->items()->create([
+                    'product_id' => $item['product_id'],
+                    'product_name_snapshot' => $item['product_name_snapshot'],
+                    'sku_snapshot' => $item['sku_snapshot'],
+                    'qty' => $item['qty'],
+                    'unit_price' => $item['unit_price'],
+                    'discount_amount' => $item['discount_amount'],
+                    'line_total' => $item['line_total'],
+                    'notes' => $item['notes'],
+                ]);
 
-                $orderItem = $order->items()->create($item);
-
-                foreach ($variants as $variant) {
-                    $orderItem->variants()->create($variant);
+                foreach ($item['variants'] as $variant) {
+                    $orderItem->variants()->create([
+                        'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'],
+                        'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'],
+                        'price_adjustment' => $variant['price_adjustment'],
+                    ]);
                 }
 
-                foreach ($modifiers as $modifier) {
-                    $orderItem->modifiers()->create($modifier);
+                foreach ($item['modifiers'] as $modifier) {
+                    $orderItem->modifiers()->create([
+                        'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'],
+                        'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'],
+                        'qty' => $modifier['qty'],
+                        'price' => $modifier['price'],
+                    ]);
                 }
             }
 
-            $this->recordStatusHistory(
-                order: $order,
+            $this->createStatusHistory(
+                orderId: $order->id,
                 status: $order->order_status,
                 userId: $userId,
                 notes: 'Order dibuat.',
             );
+
+            $order = $order->fresh()->load($this->defaultRelations());
+
+            $this->syncKitchenTicketByOrderStatus($order);
 
             return $order->fresh()->load($this->defaultRelations());
         });
@@ -83,9 +106,9 @@ class OrderService
     public function update(Order $order, array $payload): Order
     {
         return DB::transaction(function () use ($order, $payload) {
-            if (in_array($order->order_status, ['completed', 'cancelled'], true)) {
+            if ($order->order_status !== 'draft') {
                 throw ValidationException::withMessages([
-                    'order_status' => ['Order dengan status ini tidak bisa diubah.'],
+                    'order_status' => ['Hanya order draft yang boleh diupdate.'],
                 ]);
             }
 
@@ -95,78 +118,58 @@ class OrderService
             $outletId = (int) ($payload['outlet_id'] ?? $order->outlet_id);
 
             $this->validateCashierShift(
-                $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
-                $outletId
+                cashierShiftId: $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
+                outletId: $outletId,
             );
 
-            if (is_array($items)) {
+            if ($items !== null) {
                 [$subtotal, $normalizedItems] = $this->prepareItemsAndTotals(
                     outletId: $outletId,
                     items: $items,
                 );
-            } else {
-                $subtotal = (float) $order->subtotal;
-                $normalizedItems = null;
-            }
 
-            $discountAmount = (float) ($payload['discount_amount'] ?? $order->discount_amount);
-            $taxAmount = (float) ($payload['tax_amount'] ?? $order->tax_amount);
-            $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? $order->service_charge_amount);
-            $paidTotal = (float) ($payload['paid_total'] ?? $order->paid_total);
-            $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
-            $changeAmount = array_key_exists('change_amount', $payload)
-                ? (float) $payload['change_amount']
-                : max(0, $paidTotal - $grandTotal);
+                $discountAmount = (float) ($payload['discount_amount'] ?? $order->discount_amount);
+                $taxAmount = (float) ($payload['tax_amount'] ?? $order->tax_amount);
+                $serviceChargeAmount = (float) ($payload['service_charge_amount'] ?? $order->service_charge_amount);
+                $grandTotal = $subtotal - $discountAmount + $taxAmount + $serviceChargeAmount;
 
-            $oldStatus = $order->order_status;
-
-            $order->update([
-                'outlet_id' => $outletId,
-                'cashier_shift_id' => $payload['cashier_shift_id'] ?? $order->cashier_shift_id,
-                'customer_id' => $payload['customer_id'] ?? $order->customer_id,
-                'queue_number' => $payload['queue_number'] ?? $order->queue_number,
-                'order_channel' => $payload['order_channel'] ?? $order->order_channel,
-                'order_status' => $payload['order_status'] ?? $order->order_status,
-                'payment_status' => $payload['payment_status'] ?? $order->payment_status,
-                'subtotal' => $subtotal,
-                'discount_amount' => $discountAmount,
-                'tax_amount' => $taxAmount,
-                'service_charge_amount' => $serviceChargeAmount,
-                'grand_total' => $grandTotal,
-                'paid_total' => $paidTotal,
-                'change_amount' => $changeAmount,
-                'notes' => array_key_exists('notes', $payload) ? $payload['notes'] : $order->notes,
-                'ordered_at' => $payload['ordered_at'] ?? $order->ordered_at,
-            ]);
-
-            if (is_array($normalizedItems)) {
                 $order->items()->delete();
 
                 foreach ($normalizedItems as $item) {
-                    $variants = $item['variants'];
-                    $modifiers = $item['modifiers'];
-                    unset($item['variants'], $item['modifiers']);
+                    $orderItem = $order->items()->create([
+                        'product_id' => $item['product_id'],
+                        'product_name_snapshot' => $item['product_name_snapshot'],
+                        'sku_snapshot' => $item['sku_snapshot'],
+                        'qty' => $item['qty'],
+                        'unit_price' => $item['unit_price'],
+                        'discount_amount' => $item['discount_amount'],
+                        'line_total' => $item['line_total'],
+                        'notes' => $item['notes'],
+                    ]);
 
-                    $orderItem = $order->items()->create($item);
-
-                    foreach ($variants as $variant) {
-                        $orderItem->variants()->create($variant);
+                    foreach ($item['variants'] as $variant) {
+                        $orderItem->variants()->create([
+                            'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'],
+                            'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'],
+                            'price_adjustment' => $variant['price_adjustment'],
+                        ]);
                     }
 
-                    foreach ($modifiers as $modifier) {
-                        $orderItem->modifiers()->create($modifier);
+                    foreach ($item['modifiers'] as $modifier) {
+                        $orderItem->modifiers()->create([
+                            'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'],
+                            'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'],
+                            'qty' => $modifier['qty'],
+                            'price' => $modifier['price'],
+                        ]);
                     }
                 }
+
+                $payload['subtotal'] = $subtotal;
+                $payload['grand_total'] = $grandTotal;
             }
 
-            if (($payload['order_status'] ?? $oldStatus) !== $oldStatus) {
-                $this->recordStatusHistory(
-                    order: $order,
-                    status: $order->order_status,
-                    userId: null,
-                    notes: 'Status order diubah lewat update.',
-                );
-            }
+            $order->update($payload);
 
             return $order->fresh()->load($this->defaultRelations());
         });
@@ -175,32 +178,17 @@ class OrderService
     public function changeStatus(Order $order, string $newStatus, int $userId, ?string $notes = null): Order
     {
         return DB::transaction(function () use ($order, $newStatus, $userId, $notes) {
+            $allowedStatuses = ['draft', 'pending', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
+
+            if (!in_array($newStatus, $allowedStatuses, true)) {
+                throw ValidationException::withMessages([
+                    'status' => ['Status order tidak valid.'],
+                ]);
+            }
+
             if ($order->order_status === 'cancelled') {
                 throw ValidationException::withMessages([
-                    'order_status' => ['Order yang sudah dibatalkan tidak bisa diubah statusnya.'],
-                ]);
-            }
-
-            if ($order->order_status === 'completed') {
-                throw ValidationException::withMessages([
-                    'order_status' => ['Order yang sudah selesai tidak bisa diubah statusnya.'],
-                ]);
-            }
-
-            $allowedMap = [
-                'draft' => ['pending', 'confirmed', 'cancelled'],
-                'pending' => ['confirmed', 'cancelled'],
-                'confirmed' => ['preparing', 'ready', 'completed', 'cancelled'],
-                'preparing' => ['ready', 'completed', 'cancelled'],
-                'ready' => ['completed', 'cancelled'],
-            ];
-
-            $currentStatus = $order->order_status;
-            $allowedNextStatuses = $allowedMap[$currentStatus] ?? [];
-
-            if (!in_array($newStatus, $allowedNextStatuses, true)) {
-                throw ValidationException::withMessages([
-                    'order_status' => ["Transisi status dari {$currentStatus} ke {$newStatus} tidak diizinkan."],
+                    'status' => ['Order yang sudah cancelled tidak bisa diubah lagi.'],
                 ]);
             }
 
@@ -214,12 +202,16 @@ class OrderService
 
             $order->update($updatePayload);
 
-            $this->recordStatusHistory(
-                order: $order,
+            $this->createStatusHistory(
+                orderId: $order->id,
                 status: $newStatus,
                 userId: $userId,
                 notes: $notes,
             );
+
+            $order = $order->fresh()->load($this->defaultRelations());
+
+            $this->syncKitchenTicketByOrderStatus($order);
 
             return $order->fresh()->load($this->defaultRelations());
         });
@@ -234,107 +226,133 @@ class OrderService
                 ]);
             }
 
-            if ($order->order_status === 'cancelled') {
-                throw ValidationException::withMessages([
-                    'order_status' => ['Order sudah berstatus cancelled.'],
-                ]);
-            }
-
             $order->update([
                 'order_status' => 'cancelled',
-                'payment_status' => $order->payment_status === 'paid' ? 'refunded' : 'cancelled',
+                'payment_status' => $order->payment_status === 'paid' ? $order->payment_status : 'cancelled',
                 'cancelled_at' => now(),
                 'cancelled_by' => $userId,
             ]);
 
-            $this->recordStatusHistory(
-                order: $order,
+            $this->createStatusHistory(
+                orderId: $order->id,
                 status: 'cancelled',
                 userId: $userId,
                 notes: $notes,
             );
 
+            $order = $order->fresh()->load($this->defaultRelations());
+
+            $this->syncKitchenTicketByOrderStatus($order);
+
             return $order->fresh()->load($this->defaultRelations());
         });
     }
 
+    private function validateCashierShift(?int $cashierShiftId, int $outletId): void
+    {
+        if (!$cashierShiftId) {
+            return;
+        }
+
+        $cashierShift = CashierShift::query()
+            ->whereKey($cashierShiftId)
+            ->where('outlet_id', $outletId)
+            ->first();
+
+        if (!$cashierShift) {
+            throw ValidationException::withMessages([
+                'cashier_shift_id' => ['Shift kasir tidak ditemukan untuk outlet tersebut.'],
+            ]);
+        }
+
+        if ($cashierShift->status !== 'open') {
+            throw ValidationException::withMessages([
+                'cashier_shift_id' => ['Shift kasir harus dalam status open.'],
+            ]);
+        }
+    }
+
     private function prepareItemsAndTotals(int $outletId, array $items): array
     {
-        $normalizedItems = [];
+        if (empty($items)) {
+            throw ValidationException::withMessages([
+                'items' => ['Minimal harus ada 1 item order.'],
+            ]);
+        }
+
         $subtotal = 0;
+        $normalizedItems = [];
 
-        foreach ($items as $item) {
+        foreach ($items as $index => $item) {
+            $productId = (int) ($item['product_id'] ?? 0);
+            $qty = (float) ($item['qty'] ?? 0);
+
+            if ($productId <= 0 || $qty <= 0) {
+                throw ValidationException::withMessages([
+                    "items.{$index}.product_id" => ['Produk item tidak valid.'],
+                    "items.{$index}.qty" => ['Qty item harus lebih dari 0.'],
+                ]);
+            }
+
             $product = Product::query()
-                ->with([
-                    'prices' => function ($query) use ($outletId) {
-                        $query->where('outlet_id', $outletId)
-                            ->where('is_active', true)
-                            ->orderByDesc('starts_at')
-                            ->orderByDesc('id');
-                    },
-                    'outletStatuses' => function ($query) use ($outletId) {
-                        $query->where('outlet_id', $outletId);
-                    },
-                ])
-                ->findOrFail((int) $item['product_id']);
+                ->whereKey($productId)
+                ->where('is_active', true)
+                ->first();
 
-            if (!$product->is_active) {
+            if (!$product) {
                 throw ValidationException::withMessages([
-                    'items' => ["Produk {$product->name} tidak aktif."],
+                    "items.{$index}.product_id" => ['Produk tidak ditemukan atau tidak aktif.'],
                 ]);
             }
 
-            $outletStatus = $product->outletStatuses->first();
+            $productPrice = ProductPrice::query()
+                ->where('product_id', $productId)
+                ->where('outlet_id', $outletId)
+                ->where('is_active', true)
+                ->latest('id')
+                ->first();
 
-            if ($outletStatus && (!$outletStatus->is_available || $outletStatus->is_hidden)) {
-                throw ValidationException::withMessages([
-                    'items' => ["Produk {$product->name} tidak tersedia di outlet ini."],
-                ]);
+            $baseUnitPrice = (float) ($productPrice?->price ?? $product->base_price);
+
+            $variants = [];
+            $variantAdjustmentTotal = 0;
+
+            foreach (($item['variants'] ?? []) as $variant) {
+                $adjustment = (float) ($variant['price_adjustment'] ?? 0);
+
+                $variants[] = [
+                    'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'] ?? ($variant['group_name'] ?? '-'),
+                    'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'] ?? ($variant['option_name'] ?? '-'),
+                    'price_adjustment' => $adjustment,
+                ];
+
+                $variantAdjustmentTotal += $adjustment;
             }
 
-            $priceRow = $product->prices->first();
+            $modifiers = [];
+            $modifierTotalPerUnit = 0;
 
-            if (!$priceRow) {
-                $priceRow = ProductPrice::query()
-                    ->where('product_id', $product->id)
-                    ->where('outlet_id', $outletId)
-                    ->where('is_active', true)
-                    ->latest('id')
-                    ->first();
+            foreach (($item['modifiers'] ?? []) as $modifier) {
+                $modifierQty = (float) ($modifier['qty'] ?? 1);
+                $modifierPrice = (float) ($modifier['price'] ?? 0);
+
+                $modifiers[] = [
+                    'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'] ?? ($modifier['group_name'] ?? '-'),
+                    'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'] ?? ($modifier['option_name'] ?? '-'),
+                    'qty' => $modifierQty,
+                    'price' => $modifierPrice,
+                ];
+
+                $modifierTotalPerUnit += ($modifierQty * $modifierPrice);
             }
 
-            $baseUnitPrice = $priceRow?->price ?? $product->base_price;
-
-            $variants = collect($item['variants'] ?? [])->map(function ($variant) {
-                return [
-                    'variant_group_name_snapshot' => $variant['variant_group_name_snapshot'],
-                    'variant_option_name_snapshot' => $variant['variant_option_name_snapshot'],
-                    'price_adjustment' => (float) ($variant['price_adjustment'] ?? 0),
-                ];
-            })->values()->all();
-
-            $modifiers = collect($item['modifiers'] ?? [])->map(function ($modifier) {
-                return [
-                    'modifier_group_name_snapshot' => $modifier['modifier_group_name_snapshot'],
-                    'modifier_option_name_snapshot' => $modifier['modifier_option_name_snapshot'],
-                    'qty' => (float) ($modifier['qty'] ?? 1),
-                    'price' => (float) ($modifier['price'] ?? 0),
-                ];
-            })->values()->all();
-
-            $variantAdjustmentTotal = collect($variants)->sum('price_adjustment');
-            $modifierTotal = collect($modifiers)->sum(function ($modifier) {
-                return ((float) $modifier['qty']) * ((float) $modifier['price']);
-            });
-
-            $qty = (float) $item['qty'];
             $discountAmount = (float) ($item['discount_amount'] ?? 0);
-            $effectiveUnitPrice = (float) $baseUnitPrice + (float) $variantAdjustmentTotal + (float) $modifierTotal;
-            $lineTotal = ($qty * $effectiveUnitPrice) - $discountAmount;
+            $unitPrice = $baseUnitPrice + $variantAdjustmentTotal + $modifierTotalPerUnit;
+            $lineTotal = ($unitPrice * $qty) - $discountAmount;
 
             if ($lineTotal < 0) {
                 throw ValidationException::withMessages([
-                    'items' => ["Line total produk {$product->name} tidak valid."],
+                    "items.{$index}.discount_amount" => ['Discount item tidak boleh melebihi total item.'],
                 ]);
             }
 
@@ -343,7 +361,7 @@ class OrderService
                 'product_name_snapshot' => $product->name,
                 'sku_snapshot' => $product->sku,
                 'qty' => $qty,
-                'unit_price' => $effectiveUnitPrice,
+                'unit_price' => $unitPrice,
                 'discount_amount' => $discountAmount,
                 'line_total' => $lineTotal,
                 'notes' => $item['notes'] ?? null,
@@ -357,30 +375,10 @@ class OrderService
         return [$subtotal, $normalizedItems];
     }
 
-    private function validateCashierShift(?int $cashierShiftId, int $outletId): void
+    private function createStatusHistory(int $orderId, string $status, ?int $userId = null, ?string $notes = null): void
     {
-        if (!$cashierShiftId) {
-            return;
-        }
-
-        $shift = CashierShift::query()->findOrFail($cashierShiftId);
-
-        if ((int) $shift->outlet_id !== $outletId) {
-            throw ValidationException::withMessages([
-                'cashier_shift_id' => ['Shift kasir harus berasal dari outlet yang sama dengan order.'],
-            ]);
-        }
-
-        if ($shift->status !== 'open') {
-            throw ValidationException::withMessages([
-                'cashier_shift_id' => ['Shift kasir harus dalam status open.'],
-            ]);
-        }
-    }
-
-    private function recordStatusHistory(Order $order, string $status, ?int $userId = null, ?string $notes = null): void
-    {
-        $order->statusHistories()->create([
+        OrderStatusHistory::query()->create([
+            'order_id' => $orderId,
             'status' => $status,
             'changed_by' => $userId,
             'notes' => $notes,
@@ -390,19 +388,30 @@ class OrderService
 
     private function generateOrderNumber(int $outletId): string
     {
-        $datePart = now()->format('Ymd');
-        $randomPart = strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'));
-
         do {
-            $orderNumber = "ORD-{$outletId}-{$datePart}-{$randomPart}";
+            $orderNumber = sprintf(
+                'ORD-%d-%s-%s',
+                $outletId,
+                now()->format('Ymd'),
+                strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'))
+            );
+
             $exists = Order::query()->where('order_number', $orderNumber)->exists();
 
             if (!$exists) {
                 return $orderNumber;
             }
-
-            $randomPart = strtoupper(Str::padLeft((string) random_int(1, 9999), 4, '0'));
         } while (true);
+    }
+
+    private function syncKitchenTicketByOrderStatus(Order $order): void
+    {
+        /** @var KitchenTicketService $kitchenTicketService */
+        $kitchenTicketService = app(KitchenTicketService::class);
+
+        if (in_array($order->order_status, ['confirmed', 'preparing', 'ready', 'completed', 'cancelled'], true)) {
+            $kitchenTicketService->syncFromOrder($order);
+        }
     }
 
     private function defaultRelations(): array
@@ -417,6 +426,7 @@ class OrderService
             'items.variants',
             'items.modifiers',
             'statusHistories.changer',
+            'kitchenTickets.items.orderItem',
         ];
     }
 }

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'outlet_id',
         'cashier_shift_id',
@@ -45,43 +46,48 @@ class Order extends Model
         'cancelled_at' => 'datetime',
     ];
 
-    public function outlet(): BelongsTo
+    public function outlet()
     {
         return $this->belongsTo(Outlet::class);
     }
 
-    public function cashierShift(): BelongsTo
+    public function cashierShift()
     {
         return $this->belongsTo(CashierShift::class);
     }
 
-    public function customer(): BelongsTo
+    public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
 
-    public function canceller(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'cancelled_by');
-    }
-
-    public function creator(): BelongsTo
+    public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function items(): HasMany
+    public function canceller()
+    {
+        return $this->belongsTo(User::class, 'cancelled_by');
+    }
+
+    public function items()
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function statusHistories(): HasMany
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function statusHistories()
     {
         return $this->hasMany(OrderStatusHistory::class);
     }
 
-    public function payments(): HasMany
+    public function kitchenTickets()
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(KitchenTicket::class);
     }
 }
