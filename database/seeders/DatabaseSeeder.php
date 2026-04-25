@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             DashboardPermissionSeeder::class,
             NotificationPermissionSeeder::class,
             AlertRuleSeeder::class,
+            ActivityLogPermissionSeeder::class,
         ]);
     }
 }

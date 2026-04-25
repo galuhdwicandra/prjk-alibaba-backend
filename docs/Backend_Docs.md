@@ -1,10 +1,11 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-25 15:55:08_  
+_Dihasilkan otomatis: 2026-04-25 16:11:19_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
 - [Controllers (app/Http/Controllers)](#controllers-app-http-controllers)
+  - [app\Http\Controllers\Api\ActivityLogController.php](#file-apphttpcontrollersapiactivitylogcontrollerphp)
   - [app\Http\Controllers\Api\AlertRuleController.php](#file-apphttpcontrollersapialertrulecontrollerphp)
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
   - [app\Http\Controllers\Api\CashierShiftController.php](#file-apphttpcontrollersapicashiershiftcontrollerphp)
@@ -52,6 +53,7 @@ _Dihasilkan otomatis: 2026-04-25 15:55:08_
   - [app\Http\Controllers\Auth\VerifyEmailController.php](#file-apphttpcontrollersauthverifyemailcontrollerphp)
   - [app\Http\Controllers\Controller.php](#file-apphttpcontrollerscontrollerphp)
 - [Form Requests (app/Http/Requests)](#form-requests-app-http-requests)
+  - [app\Http\Requests\Api\Audit\ActivityLogFilterRequest.php](#file-apphttprequestsapiauditactivitylogfilterrequestphp)
   - [app\Http\Requests\Api\Auth\ChangePasswordRequest.php](#file-apphttprequestsapiauthchangepasswordrequestphp)
   - [app\Http\Requests\Api\Auth\LoginRequest.php](#file-apphttprequestsapiauthloginrequestphp)
   - [app\Http\Requests\Api\CashierShift\CloseCashierShiftRequest.php](#file-apphttprequestsapicashiershiftclosecashiershiftrequestphp)
@@ -136,6 +138,7 @@ _Dihasilkan otomatis: 2026-04-25 15:55:08_
   - [app\Http\Requests\Api\Voucher\StoreVoucherRequest.php](#file-apphttprequestsapivoucherstorevoucherrequestphp)
   - [app\Http\Requests\Api\Voucher\UpdateVoucherRequest.php](#file-apphttprequestsapivoucherupdatevoucherrequestphp)
 - [API Resources (app/Http/Resources)](#api-resources-app-http-resources)
+  - [app\Http\Resources\ActivityLogResource.php](#file-apphttpresourcesactivitylogresourcephp)
   - [app\Http\Resources\AlertRuleResource.php](#file-apphttpresourcesalertruleresourcephp)
   - [app\Http\Resources\CashierShiftResource.php](#file-apphttpresourcescashiershiftresourcephp)
   - [app\Http\Resources\CashMovementResource.php](#file-apphttpresourcescashmovementresourcephp)
@@ -195,6 +198,7 @@ _Dihasilkan otomatis: 2026-04-25 15:55:08_
   - [app\Http\Resources\UserResource.php](#file-apphttpresourcesuserresourcephp)
   - [app\Http\Resources\VoucherResource.php](#file-apphttpresourcesvoucherresourcephp)
 - [Models (app/Models)](#models-app-models)
+  - [app\Models\ActivityLog.php](#file-appmodelsactivitylogphp)
   - [app\Models\AlertRule.php](#file-appmodelsalertrulephp)
   - [app\Models\CashierShift.php](#file-appmodelscashiershiftphp)
   - [app\Models\CashMovement.php](#file-appmodelscashmovementphp)
@@ -256,6 +260,7 @@ _Dihasilkan otomatis: 2026-04-25 15:55:08_
 - [Providers (app/Providers)](#providers-app-providers)
   - [app\Providers\AppServiceProvider.php](#file-appprovidersappserviceproviderphp)
 - [Services (app/Services)](#services-app-services)
+  - [app\Services\Audit\ActivityLogService.php](#file-appservicesauditactivitylogservicephp)
   - [app\Services\Auth\AuthService.php](#file-appservicesauthauthservicephp)
   - [app\Services\Cashier\CashierShiftService.php](#file-appservicescashiercashiershiftservicephp)
   - [app\Services\Cashier\CashMovementService.php](#file-appservicescashiercashmovementservicephp)
@@ -288,6 +293,7 @@ _Dihasilkan otomatis: 2026-04-25 15:55:08_
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
+  - [database\seeders\ActivityLogPermissionSeeder.php](#file-databaseseedersactivitylogpermissionseederphp)
   - [database\seeders\AlertRuleSeeder.php](#file-databaseseedersalertruleseederphp)
   - [database\seeders\DashboardPermissionSeeder.php](#file-databaseseedersdashboardpermissionseederphp)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
@@ -308,6 +314,70 @@ _Dihasilkan otomatis: 2026-04-25 15:55:08_
   - [app\Providers\AppServiceProvider.php](#file-appprovidersappserviceproviderphp)
 
 ## Controllers (app/Http/Controllers)
+
+<a id="file-apphttpcontrollersapiactivitylogcontrollerphp"></a>
+### app\Http\Controllers\Api\ActivityLogController.php
+- SHA: `d52ed18a659b`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `ActivityLogController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly ActivityLogService $activityLogService)
+- **index**(ActivityLogFilterRequest $request) : *JsonResponse*
+- **show**(Request $request, ActivityLog $activityLog) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Audit\ActivityLogFilterRequest;
+use App\Http\Resources\ActivityLogResource;
+use App\Models\ActivityLog;
+use App\Services\Audit\ActivityLogService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class ActivityLogController extends Controller
+{
+    public function __construct(
+        private readonly ActivityLogService $activityLogService
+    ) {
+    }
+
+    public function index(ActivityLogFilterRequest $request): JsonResponse
+    {
+        $rows = $this->activityLogService->paginate($request->validated());
+
+        return response()->json([
+            'message' => 'Daftar activity log berhasil diambil.',
+            'data' => ActivityLogResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function show(Request $request, ActivityLog $activityLog): JsonResponse
+    {
+        abort_unless($request->user()->can('activity_logs.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail activity log berhasil diambil.',
+            'data' => new ActivityLogResource($activityLog->load(['user', 'outlet'])),
+        ]);
+    }
+}
+
+```
+</details>
 
 <a id="file-apphttpcontrollersapialertrulecontrollerphp"></a>
 ### app\Http\Controllers\Api\AlertRuleController.php
@@ -436,14 +506,14 @@ class AlertRuleController extends Controller
 
 <a id="file-apphttpcontrollersapiauthcontrollerphp"></a>
 ### app\Http\Controllers\Api\AuthController.php
-- SHA: `514e60f79401`  
-- Ukuran: 2 KB  
+- SHA: `4e1e015a35dd`  
+- Ukuran: 4 KB  
 - Namespace: `App\Http\Controllers\Api`
 
 **Class `AuthController` extends `Controller`**
 
 Metode Publik:
-- **__construct**(private readonly AuthService $authService)
+- **__construct**(private readonly AuthService $authService, private readonly ActivityLogService $activityLogService)
 - **login**(LoginRequest $request) : *JsonResponse*
 - **me**(Request $request) : *JsonResponse*
 - **logout**(Request $request) : *JsonResponse*
@@ -459,6 +529,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
+use App\Services\Audit\ActivityLogService;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -466,7 +537,8 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     public function __construct(
-        private readonly AuthService $authService
+        private readonly AuthService $authService,
+        private readonly ActivityLogService $activityLogService
     ) {
     }
 
@@ -479,6 +551,22 @@ class AuthController extends Controller
         );
 
         $user = $result['user']->load('roles', 'permissions', 'outletAccesses.outlet');
+
+        $this->activityLogService->record([
+            'user_id' => $user->id,
+            'outlet_id' => $user->outletAccesses->firstWhere('is_default', true)?->outlet_id,
+            'action' => 'login',
+            'module' => 'auth',
+            'reference_type' => $user::class,
+            'reference_id' => $user->id,
+            'description' => 'User berhasil login.',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metadata' => [
+                'login' => $request->string('login')->toString(),
+                'device_name' => $request->string('device_name')->toString() ?: 'api-token',
+            ],
+        ]);
 
         return response()->json([
             'message' => 'Login berhasil.',
@@ -499,7 +587,24 @@ class AuthController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()?->currentAccessToken()?->delete();
+        $user = $request->user();
+
+        $this->activityLogService->record([
+            'user_id' => $user?->id,
+            'outlet_id' => $user?->outletAccesses()->where('is_default', true)->value('outlet_id'),
+            'action' => 'logout',
+            'module' => 'auth',
+            'reference_type' => $user ? $user::class : null,
+            'reference_id' => $user?->id,
+            'description' => 'User berhasil logout.',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metadata' => [
+                'token_id' => $user?->currentAccessToken()?->id,
+            ],
+        ]);
+
+        $user?->currentAccessToken()?->delete();
 
         return response()->json([
             'message' => 'Logout berhasil.',
@@ -510,6 +615,19 @@ class AuthController extends Controller
     {
         $request->user()->update([
             'password' => $request->string('password')->toString(),
+        ]);
+
+        $this->activityLogService->record([
+            'user_id' => $request->user()->id,
+            'outlet_id' => $request->user()->outletAccesses()->where('is_default', true)->value('outlet_id'),
+            'action' => 'change_password',
+            'module' => 'auth',
+            'reference_type' => $request->user()::class,
+            'reference_id' => $request->user()->id,
+            'description' => 'User mengganti password.',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metadata' => null,
         ]);
 
         $request->user()->tokens()->delete();
@@ -5769,6 +5887,53 @@ abstract class Controller
 
 ## Form Requests (app/Http/Requests)
 
+<a id="file-apphttprequestsapiauditactivitylogfilterrequestphp"></a>
+### app\Http\Requests\Api\Audit\ActivityLogFilterRequest.php
+- SHA: `49d50c647c7e`  
+- Ukuran: 957 B  
+- Namespace: `App\Http\Requests\Api\Audit`
+
+**Class `ActivityLogFilterRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Audit;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ActivityLogFilterRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('activity_logs.view') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'search' => ['nullable', 'string', 'max:255'],
+            'user_id' => ['nullable', 'integer', 'exists:users,id'],
+            'outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
+            'action' => ['nullable', 'string', 'max:100'],
+            'module' => ['nullable', 'string', 'max:100'],
+            'reference_type' => ['nullable', 'string', 'max:255'],
+            'reference_id' => ['nullable', 'integer'],
+            'created_from' => ['nullable', 'date'],
+            'created_until' => ['nullable', 'date'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapiauthchangepasswordrequestphp"></a>
 ### app\Http\Requests\Api\Auth\ChangePasswordRequest.php
 - SHA: `73040a18a2b1`  
@@ -9691,6 +9856,53 @@ class UpdateVoucherRequest extends FormRequest
 
 ## API Resources (app/Http/Resources)
 
+<a id="file-apphttpresourcesactivitylogresourcephp"></a>
+### app\Http\Resources\ActivityLogResource.php
+- SHA: `e5265cdb31bf`  
+- Ukuran: 982 B  
+- Namespace: `App\Http\Resources`
+
+**Class `ActivityLogResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ActivityLogResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'outlet_id' => $this->outlet_id,
+            'action' => $this->action,
+            'module' => $this->module,
+            'reference_type' => $this->reference_type,
+            'reference_id' => $this->reference_id,
+            'description' => $this->description,
+            'ip_address' => $this->ip_address,
+            'user_agent' => $this->user_agent,
+            'metadata' => $this->metadata,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcesalertruleresourcephp"></a>
 ### app\Http\Resources\AlertRuleResource.php
 - SHA: `2b0303ac35b7`  
@@ -12394,6 +12606,60 @@ class VoucherResource extends JsonResource
 
 
 ## Models (app/Models)
+
+<a id="file-appmodelsactivitylogphp"></a>
+### app\Models\ActivityLog.php
+- SHA: `2ed6b09188b0`  
+- Ukuran: 671 B  
+- Namespace: `App\Models`
+
+**Class `ActivityLog` extends `Model`**
+
+Metode Publik:
+- **user**() : *BelongsTo*
+- **outlet**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ActivityLog extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'outlet_id',
+        'action',
+        'module',
+        'reference_type',
+        'reference_id',
+        'description',
+        'ip_address',
+        'user_agent',
+        'metadata',
+    ];
+
+    protected $casts = [
+        'metadata' => 'array',
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+}
+
+```
+</details>
 
 <a id="file-appmodelsalertrulephp"></a>
 ### app\Models\AlertRule.php
@@ -15892,6 +16158,111 @@ class AppServiceProvider extends ServiceProvider
 
 
 ## Services (app/Services)
+
+<a id="file-appservicesauditactivitylogservicephp"></a>
+### app\Services\Audit\ActivityLogService.php
+- SHA: `73df1274e399`  
+- Ukuran: 4 KB  
+- Namespace: `App\Services\Audit`
+
+**Class `ActivityLogService`**
+
+Metode Publik:
+- **paginate**(array $filters = []) : *LengthAwarePaginator*
+- **record**(array $payload) : *ActivityLog*
+- **recordFromRequest**(Request $request, string $action, string $module, ?Model $reference = null, ?string $description = null, array $metadata = [], ?int $outletId = null) : *ActivityLog*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Audit;
+
+use App\Models\ActivityLog;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
+class ActivityLogService
+{
+    public function paginate(array $filters = []): LengthAwarePaginator
+    {
+        return ActivityLog::query()
+            ->with(['user', 'outlet'])
+            ->when(!empty($filters['search']), function ($query) use ($filters) {
+                $search = $filters['search'];
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('action', 'like', "%{$search}%")
+                        ->orWhere('module', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%")
+                        ->orWhere('reference_type', 'like', "%{$search}%")
+                        ->orWhereHas('user', function ($userQuery) use ($search) {
+                            $userQuery->where('name', 'like', "%{$search}%")
+                                ->orWhere('email', 'like', "%{$search}%")
+                                ->orWhere('username', 'like', "%{$search}%")
+                                ->orWhere('phone', 'like', "%{$search}%");
+                        })
+                        ->orWhereHas('outlet', function ($outletQuery) use ($search) {
+                            $outletQuery->where('name', 'like', "%{$search}%")
+                                ->orWhere('code', 'like', "%{$search}%");
+                        });
+                });
+            })
+            ->when(!empty($filters['user_id']), fn ($query) => $query->where('user_id', (int) $filters['user_id']))
+            ->when(!empty($filters['outlet_id']), fn ($query) => $query->where('outlet_id', (int) $filters['outlet_id']))
+            ->when(!empty($filters['action']), fn ($query) => $query->where('action', $filters['action']))
+            ->when(!empty($filters['module']), fn ($query) => $query->where('module', $filters['module']))
+            ->when(!empty($filters['reference_type']), fn ($query) => $query->where('reference_type', $filters['reference_type']))
+            ->when(!empty($filters['reference_id']), fn ($query) => $query->where('reference_id', (int) $filters['reference_id']))
+            ->when(!empty($filters['created_from']), fn ($query) => $query->where('created_at', '>=', $filters['created_from']))
+            ->when(!empty($filters['created_until']), fn ($query) => $query->where('created_at', '<=', $filters['created_until']))
+            ->latest('id')
+            ->paginate((int) ($filters['per_page'] ?? 10));
+    }
+
+    public function record(array $payload): ActivityLog
+    {
+        return ActivityLog::query()->create([
+            'user_id' => $payload['user_id'] ?? null,
+            'outlet_id' => $payload['outlet_id'] ?? null,
+            'action' => $payload['action'],
+            'module' => $payload['module'],
+            'reference_type' => $payload['reference_type'] ?? null,
+            'reference_id' => $payload['reference_id'] ?? null,
+            'description' => $payload['description'] ?? null,
+            'ip_address' => $payload['ip_address'] ?? null,
+            'user_agent' => $payload['user_agent'] ?? null,
+            'metadata' => $payload['metadata'] ?? null,
+        ]);
+    }
+
+    public function recordFromRequest(
+        Request $request,
+        string $action,
+        string $module,
+        ?Model $reference = null,
+        ?string $description = null,
+        array $metadata = [],
+        ?int $outletId = null
+    ): ActivityLog {
+        return $this->record([
+            'user_id' => $request->user()?->id,
+            'outlet_id' => $outletId,
+            'action' => $action,
+            'module' => $module,
+            'reference_type' => $reference ? $reference::class : null,
+            'reference_id' => $reference?->getKey(),
+            'description' => $description,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metadata' => $metadata,
+        ]);
+    }
+}
+
+```
+</details>
 
 <a id="file-appservicesauthauthservicephp"></a>
 ### app\Services\Auth\AuthService.php
@@ -21475,6 +21846,48 @@ class VoucherService
 
 ## Database Seeders (database/seeders)
 
+<a id="file-databaseseedersactivitylogpermissionseederphp"></a>
+### database\seeders\ActivityLogPermissionSeeder.php
+- SHA: `036163b6abb5`  
+- Ukuran: 602 B  
+- Namespace: `Database\Seeders`
+
+**Class `ActivityLogPermissionSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class ActivityLogPermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $permissions = [
+            'activity_logs.view',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::findOrCreate($permission, 'sanctum');
+        }
+
+        foreach (['superadmin', 'admin_pusat', 'owner'] as $roleName) {
+            Role::findOrCreate($roleName, 'sanctum')->givePermissionTo($permissions);
+        }
+    }
+}
+
+```
+</details>
+
 <a id="file-databaseseedersalertruleseederphp"></a>
 ### database\seeders\AlertRuleSeeder.php
 - SHA: `4986e3f529ef`  
@@ -21617,8 +22030,8 @@ class DashboardPermissionSeeder extends Seeder
 
 <a id="file-databaseseedersdatabaseseederphp"></a>
 ### database\seeders\DatabaseSeeder.php
-- SHA: `718df31015a8`  
-- Ukuran: 728 B  
+- SHA: `2d6f5cd7d8d0`  
+- Ukuran: 776 B  
 - Namespace: `Database\Seeders`
 
 **Class `DatabaseSeeder` extends `Seeder`**
@@ -21651,6 +22064,7 @@ class DatabaseSeeder extends Seeder
             DashboardPermissionSeeder::class,
             NotificationPermissionSeeder::class,
             AlertRuleSeeder::class,
+            ActivityLogPermissionSeeder::class,
         ]);
     }
 }
@@ -22827,7 +23241,7 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `8b5ce2c0827d`  
+- SHA: `6c0b98287dbf`  
 - Ukuran: 21 KB  
 - Namespace: ``
 
@@ -23052,6 +23466,8 @@ class SuperAdminSeeder extends Seeder
 | GET | `/alert-rules/{alertRule}` | `AlertRuleController` | `show` |
 | PUT | `/alert-rules/{alertRule}` | `AlertRuleController` | `update` |
 | DELETE | `/alert-rules/{alertRule}` | `AlertRuleController` | `destroy` |
+| GET | `/activity-logs` | `ActivityLogController` | `index` |
+| GET | `/activity-logs/{activityLog}` | `ActivityLogController` | `show` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
@@ -23096,12 +23512,13 @@ use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UnitConversionController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoucherController;
+use App\Http\Controllers\Api\ActivityLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
 
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware(['auth:sanctum', 'activity.log'])->group(function () {
         Route::get('/auth/me', [AuthController::class, 'me']);
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::patch('/auth/change-password', [AuthController::class, 'changePassword']);
@@ -23356,6 +23773,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/alert-rules/{alertRule}', [AlertRuleController::class, 'show']);
         Route::put('/alert-rules/{alertRule}', [AlertRuleController::class, 'update']);
         Route::delete('/alert-rules/{alertRule}', [AlertRuleController::class, 'destroy']);
+
+        Route::get('/activity-logs', [ActivityLogController::class, 'index']);
+        Route::get('/activity-logs/{activityLog}', [ActivityLogController::class, 'show']);
     });
 });
 
@@ -23364,7 +23784,7 @@ Route::prefix('v1')->group(function () {
 
 <a id="file-bootstrapappphp"></a>
 ### bootstrap\app.php
-- SHA: `2df0e8614957`  
+- SHA: `527726fe8c8b`  
 - Ukuran: 1 KB  
 - Namespace: ``
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
@@ -23393,6 +23813,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+            'activity.log' => \App\Http\Middleware\RecordActivityLog::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
