@@ -196,6 +196,17 @@ class RoleSeeder extends Seeder
             'reports.export',
 
             'dashboard.view',
+
+            'notifications.view',
+            'notifications.update',
+            'notifications.delete',
+            'notifications.resolve',
+            'notifications.scan',
+
+            'alert_rules.view',
+            'alert_rules.create',
+            'alert_rules.update',
+            'alert_rules.delete',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -298,6 +309,17 @@ class RoleSeeder extends Seeder
             'reports.view',
 
             'dashboard.view',
+
+            'notifications.view',
+            'notifications.update',
+            'notifications.delete',
+            'notifications.resolve',
+            'notifications.scan',
+
+            'alert_rules.view',
+            'alert_rules.create',
+            'alert_rules.update',
+            'alert_rules.delete',
         ]);
 
         $kasir->syncPermissions([
@@ -452,8 +474,11 @@ class RoleSeeder extends Seeder
 
             'reports.view',
             'reports.export',
-            
+
             'dashboard.view',
+
+            'notifications.view',
+            'alert_rules.view',
         ]);
     }
 }

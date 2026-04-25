@@ -171,6 +171,17 @@ class PermissionSeeder extends Seeder
             'reports.export',
 
             'dashboard.view',
+
+            'notifications.view',
+            'notifications.update',
+            'notifications.delete',
+            'notifications.resolve',
+            'notifications.scan',
+
+            'alert_rules.view',
+            'alert_rules.create',
+            'alert_rules.update',
+            'alert_rules.delete',
         ];
 
         foreach ($permissions as $permission) {

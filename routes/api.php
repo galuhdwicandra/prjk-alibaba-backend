@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AlertRuleController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\KitchenTicketController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
@@ -283,5 +285,19 @@ Route::prefix('v1')->group(function () {
         Route::get('/dashboard/pending-orders', [DashboardController::class, 'pendingOrders']);
         Route::get('/dashboard/overdue-orders', [DashboardController::class, 'overdueOrders']);
         Route::get('/dashboard/cash-discrepancies', [DashboardController::class, 'cashDiscrepancies']);
+
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::get('/notifications/{notification}', [NotificationController::class, 'show']);
+        Route::post('/notifications/scan', [NotificationController::class, 'scan']);
+        Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+        Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead']);
+        Route::post('/notifications/{notification}/resolve', [NotificationController::class, 'resolve']);
+        Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy']);
+
+        Route::get('/alert-rules', [AlertRuleController::class, 'index']);
+        Route::post('/alert-rules', [AlertRuleController::class, 'store']);
+        Route::get('/alert-rules/{alertRule}', [AlertRuleController::class, 'show']);
+        Route::put('/alert-rules/{alertRule}', [AlertRuleController::class, 'update']);
+        Route::delete('/alert-rules/{alertRule}', [AlertRuleController::class, 'destroy']);
     });
 });

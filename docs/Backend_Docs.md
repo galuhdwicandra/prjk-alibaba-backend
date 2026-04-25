@@ -1,10 +1,11 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-25 14:36:29_  
+_Dihasilkan otomatis: 2026-04-25 15:55:08_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
 - [Controllers (app/Http/Controllers)](#controllers-app-http-controllers)
+  - [app\Http\Controllers\Api\AlertRuleController.php](#file-apphttpcontrollersapialertrulecontrollerphp)
   - [app\Http\Controllers\Api\AuthController.php](#file-apphttpcontrollersapiauthcontrollerphp)
   - [app\Http\Controllers\Api\CashierShiftController.php](#file-apphttpcontrollersapicashiershiftcontrollerphp)
   - [app\Http\Controllers\Api\CashMovementController.php](#file-apphttpcontrollersapicashmovementcontrollerphp)
@@ -16,6 +17,7 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Http\Controllers\Api\ExpenseController.php](#file-apphttpcontrollersapiexpensecontrollerphp)
   - [app\Http\Controllers\Api\GoodsReceiptController.php](#file-apphttpcontrollersapigoodsreceiptcontrollerphp)
   - [app\Http\Controllers\Api\KitchenTicketController.php](#file-apphttpcontrollersapikitchenticketcontrollerphp)
+  - [app\Http\Controllers\Api\NotificationController.php](#file-apphttpcontrollersapinotificationcontrollerphp)
   - [app\Http\Controllers\Api\OrderController.php](#file-apphttpcontrollersapiordercontrollerphp)
   - [app\Http\Controllers\Api\OutletController.php](#file-apphttpcontrollersapioutletcontrollerphp)
   - [app\Http\Controllers\Api\OutletMaterialStockController.php](#file-apphttpcontrollersapioutletmaterialstockcontrollerphp)
@@ -98,6 +100,9 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Http\Requests\Api\Kitchen\ServeKitchenTicketRequest.php](#file-apphttprequestsapikitchenservekitchenticketrequestphp)
   - [app\Http\Requests\Api\Kitchen\StartPreparingKitchenTicketRequest.php](#file-apphttprequestsapikitchenstartpreparingkitchenticketrequestphp)
   - [app\Http\Requests\Api\Kitchen\StoreKitchenTicketRequest.php](#file-apphttprequestsapikitchenstorekitchenticketrequestphp)
+  - [app\Http\Requests\Api\Notification\ScanAlertRequest.php](#file-apphttprequestsapinotificationscanalertrequestphp)
+  - [app\Http\Requests\Api\Notification\StoreAlertRuleRequest.php](#file-apphttprequestsapinotificationstorealertrulerequestphp)
+  - [app\Http\Requests\Api\Notification\UpdateAlertRuleRequest.php](#file-apphttprequestsapinotificationupdatealertrulerequestphp)
   - [app\Http\Requests\Api\Order\StoreOrderRequest.php](#file-apphttprequestsapiorderstoreorderrequestphp)
   - [app\Http\Requests\Api\Order\UpdateOrderRequest.php](#file-apphttprequestsapiorderupdateorderrequestphp)
   - [app\Http\Requests\Api\Outlet\StoreOutletRequest.php](#file-apphttprequestsapioutletstoreoutletrequestphp)
@@ -131,6 +136,7 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Http\Requests\Api\Voucher\StoreVoucherRequest.php](#file-apphttprequestsapivoucherstorevoucherrequestphp)
   - [app\Http\Requests\Api\Voucher\UpdateVoucherRequest.php](#file-apphttprequestsapivoucherupdatevoucherrequestphp)
 - [API Resources (app/Http/Resources)](#api-resources-app-http-resources)
+  - [app\Http\Resources\AlertRuleResource.php](#file-apphttpresourcesalertruleresourcephp)
   - [app\Http\Resources\CashierShiftResource.php](#file-apphttpresourcescashiershiftresourcephp)
   - [app\Http\Resources\CashMovementResource.php](#file-apphttpresourcescashmovementresourcephp)
   - [app\Http\Resources\CourierResource.php](#file-apphttpresourcescourierresourcephp)
@@ -144,6 +150,8 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Http\Resources\GoodsReceiptResource.php](#file-apphttpresourcesgoodsreceiptresourcephp)
   - [app\Http\Resources\KitchenTicketItemResource.php](#file-apphttpresourceskitchenticketitemresourcephp)
   - [app\Http\Resources\KitchenTicketResource.php](#file-apphttpresourceskitchenticketresourcephp)
+  - [app\Http\Resources\NotificationLogResource.php](#file-apphttpresourcesnotificationlogresourcephp)
+  - [app\Http\Resources\NotificationResource.php](#file-apphttpresourcesnotificationresourcephp)
   - [app\Http\Resources\OrderItemModifierResource.php](#file-apphttpresourcesorderitemmodifierresourcephp)
   - [app\Http\Resources\OrderItemResource.php](#file-apphttpresourcesorderitemresourcephp)
   - [app\Http\Resources\OrderItemVariantResource.php](#file-apphttpresourcesorderitemvariantresourcephp)
@@ -187,6 +195,7 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Http\Resources\UserResource.php](#file-apphttpresourcesuserresourcephp)
   - [app\Http\Resources\VoucherResource.php](#file-apphttpresourcesvoucherresourcephp)
 - [Models (app/Models)](#models-app-models)
+  - [app\Models\AlertRule.php](#file-appmodelsalertrulephp)
   - [app\Models\CashierShift.php](#file-appmodelscashiershiftphp)
   - [app\Models\CashMovement.php](#file-appmodelscashmovementphp)
   - [app\Models\Courier.php](#file-appmodelscourierphp)
@@ -200,6 +209,8 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Models\GoodsReceiptItem.php](#file-appmodelsgoodsreceiptitemphp)
   - [app\Models\KitchenTicket.php](#file-appmodelskitchenticketphp)
   - [app\Models\KitchenTicketItem.php](#file-appmodelskitchenticketitemphp)
+  - [app\Models\Notification.php](#file-appmodelsnotificationphp)
+  - [app\Models\NotificationLog.php](#file-appmodelsnotificationlogphp)
   - [app\Models\Order.php](#file-appmodelsorderphp)
   - [app\Models\OrderItem.php](#file-appmodelsorderitemphp)
   - [app\Models\OrderItemModifier.php](#file-appmodelsorderitemmodifierphp)
@@ -263,6 +274,8 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Services\Inventory\UnitConversionService.php](#file-appservicesinventoryunitconversionservicephp)
   - [app\Services\Inventory\UnitService.php](#file-appservicesinventoryunitservicephp)
   - [app\Services\Kitchen\KitchenTicketService.php](#file-appserviceskitchenkitchenticketservicephp)
+  - [app\Services\Notification\AlertRuleService.php](#file-appservicesnotificationalertruleservicephp)
+  - [app\Services\Notification\NotificationService.php](#file-appservicesnotificationnotificationservicephp)
   - [app\Services\Outlet\OutletService.php](#file-appservicesoutletoutletservicephp)
   - [app\Services\Promotion\PromotionService.php](#file-appservicespromotionpromotionservicephp)
   - [app\Services\Purchasing\GoodsReceiptService.php](#file-appservicespurchasinggoodsreceiptservicephp)
@@ -275,6 +288,7 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Services\User\UserService.php](#file-appservicesuseruserservicephp)
   - [app\Services\Voucher\VoucherService.php](#file-appservicesvouchervoucherservicephp)
 - [Database Seeders (database/seeders)](#database-seeders-database-seeders)
+  - [database\seeders\AlertRuleSeeder.php](#file-databaseseedersalertruleseederphp)
   - [database\seeders\DashboardPermissionSeeder.php](#file-databaseseedersdashboardpermissionseederphp)
   - [database\seeders\DatabaseSeeder.php](#file-databaseseedersdatabaseseederphp)
   - [database\seeders\DeliveryPermissionSeeder.php](#file-databaseseedersdeliverypermissionseederphp)
@@ -282,6 +296,7 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [database\seeders\ExpensePermissionSeeder.php](#file-databaseseedersexpensepermissionseederphp)
   - [database\seeders\KitchenPermissionSeeder.php](#file-databaseseederskitchenpermissionseederphp)
   - [database\seeders\KitchenRolePermissionSeeder.php](#file-databaseseederskitchenrolepermissionseederphp)
+  - [database\seeders\NotificationPermissionSeeder.php](#file-databaseseedersnotificationpermissionseederphp)
   - [database\seeders\PaymentMethodSeeder.php](#file-databaseseederspaymentmethodseederphp)
   - [database\seeders\PermissionSeeder.php](#file-databaseseederspermissionseederphp)
   - [database\seeders\ReportPermissionSeeder.php](#file-databaseseedersreportpermissionseederphp)
@@ -293,6 +308,131 @@ _Dihasilkan otomatis: 2026-04-25 14:36:29_
   - [app\Providers\AppServiceProvider.php](#file-appprovidersappserviceproviderphp)
 
 ## Controllers (app/Http/Controllers)
+
+<a id="file-apphttpcontrollersapialertrulecontrollerphp"></a>
+### app\Http\Controllers\Api\AlertRuleController.php
+- SHA: `7e13ad447ec6`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `AlertRuleController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly AlertRuleService $alertRuleService)
+- **index**(Request $request) : *JsonResponse*
+- **store**(StoreAlertRuleRequest $request) : *JsonResponse*
+- **show**(Request $request, AlertRule $alertRule) : *JsonResponse*
+- **update**(UpdateAlertRuleRequest $request, AlertRule $alertRule) : *JsonResponse*
+- **destroy**(Request $request, AlertRule $alertRule) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Notification\StoreAlertRuleRequest;
+use App\Http\Requests\Api\Notification\UpdateAlertRuleRequest;
+use App\Http\Resources\AlertRuleResource;
+use App\Models\AlertRule;
+use App\Services\Notification\AlertRuleService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class AlertRuleController extends Controller
+{
+    public function __construct(
+        private readonly AlertRuleService $alertRuleService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('alert_rules.view'), 403);
+
+        $rows = AlertRule::query()
+            ->with('outlet')
+            ->when($request->filled('outlet_id'), function ($query) use ($request) {
+                $query->where(function ($ruleQuery) use ($request) {
+                    $ruleQuery->whereNull('outlet_id')
+                        ->orWhere('outlet_id', (int) $request->input('outlet_id'));
+                });
+            })
+            ->when($request->filled('alert_type'), function ($query) use ($request) {
+                $query->where('alert_type', $request->string('alert_type')->toString());
+            })
+            ->when($request->filled('severity'), function ($query) use ($request) {
+                $query->where('severity', $request->string('severity')->toString());
+            })
+            ->when($request->filled('is_active'), function ($query) use ($request) {
+                $query->where('is_active', filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN));
+            })
+            ->latest('id')
+            ->paginate((int) $request->input('per_page', 10));
+
+        return response()->json([
+            'message' => 'Daftar alert rule berhasil diambil.',
+            'data' => AlertRuleResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function store(StoreAlertRuleRequest $request): JsonResponse
+    {
+        $row = $this->alertRuleService->create($request->validated());
+
+        return response()->json([
+            'message' => 'Alert rule berhasil dibuat.',
+            'data' => new AlertRuleResource($row),
+        ], 201);
+    }
+
+    public function show(Request $request, AlertRule $alertRule): JsonResponse
+    {
+        abort_unless($request->user()->can('alert_rules.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail alert rule berhasil diambil.',
+            'data' => new AlertRuleResource($alertRule->load('outlet')),
+        ]);
+    }
+
+    public function update(UpdateAlertRuleRequest $request, AlertRule $alertRule): JsonResponse
+    {
+        $row = $this->alertRuleService->update($alertRule, $request->validated());
+
+        return response()->json([
+            'message' => 'Alert rule berhasil diupdate.',
+            'data' => new AlertRuleResource($row),
+        ]);
+    }
+
+    public function destroy(Request $request, AlertRule $alertRule): JsonResponse
+    {
+        abort_unless($request->user()->can('alert_rules.delete'), 403);
+
+        if ($alertRule->notificationLogs()->exists()) {
+            return response()->json([
+                'message' => 'Alert rule tidak bisa dihapus karena sudah memiliki notification log.',
+            ], 422);
+        }
+
+        $alertRule->delete();
+
+        return response()->json([
+            'message' => 'Alert rule berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
 
 <a id="file-apphttpcontrollersapiauthcontrollerphp"></a>
 ### app\Http\Controllers\Api\AuthController.php
@@ -1899,6 +2039,166 @@ class KitchenTicketController extends Controller
 
         return response()->json([
             'message' => 'Kitchen ticket berhasil dihapus.',
+        ]);
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpcontrollersapinotificationcontrollerphp"></a>
+### app\Http\Controllers\Api\NotificationController.php
+- SHA: `6db36f146302`  
+- Ukuran: 4 KB  
+- Namespace: `App\Http\Controllers\Api`
+
+**Class `NotificationController` extends `Controller`**
+
+Metode Publik:
+- **__construct**(private readonly NotificationService $notificationService)
+- **index**(Request $request) : *JsonResponse*
+- **show**(Request $request, Notification $notification) : *JsonResponse*
+- **markAsRead**(Request $request, Notification $notification) : *JsonResponse*
+- **markAllAsRead**(Request $request) : *JsonResponse*
+- **resolve**(Request $request, Notification $notification) : *JsonResponse*
+- **scan**(ScanAlertRequest $request) : *JsonResponse*
+- **destroy**(Request $request, Notification $notification) : *JsonResponse*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Notification\ScanAlertRequest;
+use App\Http\Resources\NotificationResource;
+use App\Models\Notification;
+use App\Services\Notification\NotificationService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class NotificationController extends Controller
+{
+    public function __construct(
+        private readonly NotificationService $notificationService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('notifications.view'), 403);
+
+        $rows = $this->notificationService->paginate($request->all());
+
+        return response()->json([
+            'message' => 'Daftar notification berhasil diambil.',
+            'data' => NotificationResource::collection($rows),
+            'meta' => [
+                'current_page' => $rows->currentPage(),
+                'last_page' => $rows->lastPage(),
+                'per_page' => $rows->perPage(),
+                'total' => $rows->total(),
+            ],
+        ]);
+    }
+
+    public function show(Request $request, Notification $notification): JsonResponse
+    {
+        abort_unless($request->user()->can('notifications.view'), 403);
+
+        return response()->json([
+            'message' => 'Detail notification berhasil diambil.',
+            'data' => new NotificationResource($notification->load([
+                'outlet',
+                'user',
+                'logs.alertRule',
+                'logs.user',
+            ])),
+        ]);
+    }
+
+    public function markAsRead(Request $request, Notification $notification): JsonResponse
+    {
+        abort_unless($request->user()->can('notifications.update'), 403);
+
+        $row = $this->notificationService->markAsRead(
+            notification: $notification,
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Notification berhasil ditandai sudah dibaca.',
+            'data' => new NotificationResource($row),
+        ]);
+    }
+
+    public function markAllAsRead(Request $request): JsonResponse
+    {
+        abort_unless($request->user()->can('notifications.update'), 403);
+
+        $count = $this->notificationService->markAllAsRead(
+            outletId: $request->filled('outlet_id') ? (int) $request->input('outlet_id') : null,
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Semua notification berhasil ditandai sudah dibaca.',
+            'data' => [
+                'updated_count' => $count,
+            ],
+        ]);
+    }
+
+    public function resolve(Request $request, Notification $notification): JsonResponse
+    {
+        abort_unless($request->user()->can('notifications.resolve'), 403);
+
+        $row = $this->notificationService->resolve(
+            notification: $notification,
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Notification berhasil diresolve.',
+            'data' => new NotificationResource($row),
+        ]);
+    }
+
+    public function scan(ScanAlertRequest $request): JsonResponse
+    {
+        $result = $this->notificationService->scan(
+            filters: $request->validated(),
+            userId: $request->user()?->id,
+        );
+
+        return response()->json([
+            'message' => 'Scan alert berhasil dijalankan.',
+            'data' => $result,
+        ]);
+    }
+
+    public function destroy(Request $request, Notification $notification): JsonResponse
+    {
+        abort_unless($request->user()->can('notifications.delete'), 403);
+
+        $notification->logs()->create([
+            'outlet_id' => $notification->outlet_id,
+            'user_id' => $request->user()?->id,
+            'action' => 'deleted',
+            'status' => 'success',
+            'channel' => 'database',
+            'message' => 'Notification dihapus.',
+            'payload' => [
+                'notification_id' => $notification->id,
+            ],
+            'logged_at' => now(),
+        ]);
+
+        $notification->delete();
+
+        return response()->json([
+            'message' => 'Notification berhasil dihapus.',
         ]);
     }
 }
@@ -7555,6 +7855,159 @@ class StoreKitchenTicketRequest extends FormRequest
 ```
 </details>
 
+<a id="file-apphttprequestsapinotificationscanalertrequestphp"></a>
+### app\Http\Requests\Api\Notification\ScanAlertRequest.php
+- SHA: `f95581653e1b`  
+- Ukuran: 526 B  
+- Namespace: `App\Http\Requests\Api\Notification`
+
+**Class `ScanAlertRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Notification;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ScanAlertRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('notifications.scan') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
+            'alert_type' => ['nullable', 'string', 'in:low_stock,shift_not_closed,promo_expiring,order_overdue'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapinotificationstorealertrulerequestphp"></a>
+### app\Http\Requests\Api\Notification\StoreAlertRuleRequest.php
+- SHA: `6479244b65ff`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Notification`
+
+**Class `StoreAlertRuleRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Notification;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class StoreAlertRuleRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('alert_rules.create') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'alert_type' => ['required', Rule::in([
+                'low_stock',
+                'shift_not_closed',
+                'promo_expiring',
+                'order_overdue',
+            ])],
+            'severity' => ['required', Rule::in(['low', 'medium', 'high', 'critical'])],
+            'threshold_minutes' => ['nullable', 'integer', 'min:1'],
+            'days_before' => ['nullable', 'integer', 'min:1'],
+            'threshold_value' => ['nullable', 'numeric', 'min:0'],
+            'threshold_unit' => ['nullable', Rule::in(['qty', 'minutes', 'days'])],
+            'recipient_roles' => ['nullable', 'array'],
+            'recipient_roles.*' => ['required', 'string', 'max:255'],
+            'channels' => ['nullable', 'array'],
+            'channels.*' => ['required', 'string', 'max:255'],
+            'metadata' => ['nullable', 'array'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttprequestsapinotificationupdatealertrulerequestphp"></a>
+### app\Http\Requests\Api\Notification\UpdateAlertRuleRequest.php
+- SHA: `9e9bb4a68555`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Requests\Api\Notification`
+
+**Class `UpdateAlertRuleRequest` extends `FormRequest`**
+
+Metode Publik:
+- **authorize**() : *bool*
+- **rules**() : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Requests\Api\Notification;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateAlertRuleRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()?->can('alert_rules.update') === true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'outlet_id' => ['nullable', 'integer', 'exists:outlets,id'],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'alert_type' => ['sometimes', 'required', Rule::in([
+                'low_stock',
+                'shift_not_closed',
+                'promo_expiring',
+                'order_overdue',
+            ])],
+            'severity' => ['sometimes', 'required', Rule::in(['low', 'medium', 'high', 'critical'])],
+            'threshold_minutes' => ['nullable', 'integer', 'min:1'],
+            'days_before' => ['nullable', 'integer', 'min:1'],
+            'threshold_value' => ['nullable', 'numeric', 'min:0'],
+            'threshold_unit' => ['nullable', Rule::in(['qty', 'minutes', 'days'])],
+            'recipient_roles' => ['nullable', 'array'],
+            'recipient_roles.*' => ['required', 'string', 'max:255'],
+            'channels' => ['nullable', 'array'],
+            'channels.*' => ['required', 'string', 'max:255'],
+            'metadata' => ['nullable', 'array'],
+            'is_active' => ['sometimes', 'boolean'],
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttprequestsapiorderstoreorderrequestphp"></a>
 ### app\Http\Requests\Api\Order\StoreOrderRequest.php
 - SHA: `234f8fd5d683`  
@@ -9238,6 +9691,55 @@ class UpdateVoucherRequest extends FormRequest
 
 ## API Resources (app/Http/Resources)
 
+<a id="file-apphttpresourcesalertruleresourcephp"></a>
+### app\Http\Resources\AlertRuleResource.php
+- SHA: `2b0303ac35b7`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `AlertRuleResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class AlertRuleResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'name' => $this->name,
+            'alert_type' => $this->alert_type,
+            'severity' => $this->severity,
+            'threshold_minutes' => $this->threshold_minutes,
+            'days_before' => $this->days_before,
+            'threshold_value' => $this->threshold_value !== null ? (float) $this->threshold_value : null,
+            'threshold_unit' => $this->threshold_unit,
+            'recipient_roles' => $this->recipient_roles,
+            'channels' => $this->channels,
+            'metadata' => $this->metadata,
+            'is_active' => (bool) $this->is_active,
+            'last_run_at' => $this->last_run_at?->toDateTimeString(),
+            'created_at' => $this->created_at?->toDateTimeString(),
+            'updated_at' => $this->updated_at?->toDateTimeString(),
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+        ];
+    }
+}
+
+```
+</details>
+
 <a id="file-apphttpresourcescashiershiftresourcephp"></a>
 ### app\Http\Resources\CashierShiftResource.php
 - SHA: `f9427b914876`  
@@ -9888,6 +10390,106 @@ class KitchenTicketResource extends JsonResource
             'items' => KitchenTicketItemResource::collection($this->whenLoaded('items')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesnotificationlogresourcephp"></a>
+### app\Http\Resources\NotificationLogResource.php
+- SHA: `ad34b9bcc8cf`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `NotificationLogResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class NotificationLogResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'notification_id' => $this->notification_id,
+            'alert_rule_id' => $this->alert_rule_id,
+            'outlet_id' => $this->outlet_id,
+            'user_id' => $this->user_id,
+            'action' => $this->action,
+            'status' => $this->status,
+            'channel' => $this->channel,
+            'message' => $this->message,
+            'payload' => $this->payload,
+            'logged_at' => $this->logged_at?->toDateTimeString(),
+            'created_at' => $this->created_at?->toDateTimeString(),
+            'updated_at' => $this->updated_at?->toDateTimeString(),
+            'notification' => new NotificationResource($this->whenLoaded('notification')),
+            'alert_rule' => new AlertRuleResource($this->whenLoaded('alertRule')),
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+            'user' => new UserResource($this->whenLoaded('user')),
+        ];
+    }
+}
+
+```
+</details>
+
+<a id="file-apphttpresourcesnotificationresourcephp"></a>
+### app\Http\Resources\NotificationResource.php
+- SHA: `1f6374cb5d46`  
+- Ukuran: 1 KB  
+- Namespace: `App\Http\Resources`
+
+**Class `NotificationResource` extends `JsonResource`**
+
+Metode Publik:
+- **toArray**(Request $request) : *array*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class NotificationResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'outlet_id' => $this->outlet_id,
+            'user_id' => $this->user_id,
+            'type' => $this->type,
+            'severity' => $this->severity,
+            'status' => $this->status,
+            'title' => $this->title,
+            'message' => $this->message,
+            'source_type' => $this->source_type,
+            'source_id' => $this->source_id,
+            'data' => $this->data,
+            'read_at' => $this->read_at?->toDateTimeString(),
+            'resolved_at' => $this->resolved_at?->toDateTimeString(),
+            'created_at' => $this->created_at?->toDateTimeString(),
+            'updated_at' => $this->updated_at?->toDateTimeString(),
+            'outlet' => new OutletResource($this->whenLoaded('outlet')),
+            'user' => new UserResource($this->whenLoaded('user')),
+            'logs' => NotificationLogResource::collection($this->whenLoaded('logs')),
+            'logs_count' => $this->whenCounted('logs'),
         ];
     }
 }
@@ -11793,6 +12395,71 @@ class VoucherResource extends JsonResource
 
 ## Models (app/Models)
 
+<a id="file-appmodelsalertrulephp"></a>
+### app\Models\AlertRule.php
+- SHA: `aadbd8a77916`  
+- Ukuran: 1 KB  
+- Namespace: `App\Models`
+
+**Class `AlertRule` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **notificationLogs**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class AlertRule extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'name',
+        'alert_type',
+        'severity',
+        'threshold_minutes',
+        'days_before',
+        'threshold_value',
+        'threshold_unit',
+        'recipient_roles',
+        'channels',
+        'metadata',
+        'is_active',
+        'last_run_at',
+    ];
+
+    protected $casts = [
+        'threshold_minutes' => 'integer',
+        'days_before' => 'integer',
+        'threshold_value' => 'decimal:3',
+        'recipient_roles' => 'array',
+        'channels' => 'array',
+        'metadata' => 'array',
+        'is_active' => 'boolean',
+        'last_run_at' => 'datetime',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function notificationLogs(): HasMany
+    {
+        return $this->hasMany(NotificationLog::class);
+    }
+}
+
+```
+</details>
+
 <a id="file-appmodelscashiershiftphp"></a>
 ### app\Models\CashierShift.php
 - SHA: `8520b849de9f`  
@@ -12518,6 +13185,138 @@ class KitchenTicketItem extends Model
     public function orderItem()
     {
         return $this->belongsTo(OrderItem::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsnotificationphp"></a>
+### app\Models\Notification.php
+- SHA: `e4933e77b7f5`  
+- Ukuran: 913 B  
+- Namespace: `App\Models`
+
+**Class `Notification` extends `Model`**
+
+Metode Publik:
+- **outlet**() : *BelongsTo*
+- **user**() : *BelongsTo*
+- **logs**() : *HasMany*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Notification extends Model
+{
+    protected $fillable = [
+        'outlet_id',
+        'user_id',
+        'type',
+        'severity',
+        'status',
+        'title',
+        'message',
+        'source_type',
+        'source_id',
+        'data',
+        'read_at',
+        'resolved_at',
+    ];
+
+    protected $casts = [
+        'data' => 'array',
+        'read_at' => 'datetime',
+        'resolved_at' => 'datetime',
+    ];
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function logs(): HasMany
+    {
+        return $this->hasMany(NotificationLog::class);
+    }
+}
+
+```
+</details>
+
+<a id="file-appmodelsnotificationlogphp"></a>
+### app\Models\NotificationLog.php
+- SHA: `3e015871ce74`  
+- Ukuran: 922 B  
+- Namespace: `App\Models`
+
+**Class `NotificationLog` extends `Model`**
+
+Metode Publik:
+- **notification**() : *BelongsTo*
+- **alertRule**() : *BelongsTo*
+- **outlet**() : *BelongsTo*
+- **user**() : *BelongsTo*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class NotificationLog extends Model
+{
+    protected $fillable = [
+        'notification_id',
+        'alert_rule_id',
+        'outlet_id',
+        'user_id',
+        'action',
+        'status',
+        'channel',
+        'message',
+        'payload',
+        'logged_at',
+    ];
+
+    protected $casts = [
+        'payload' => 'array',
+        'logged_at' => 'datetime',
+    ];
+
+    public function notification(): BelongsTo
+    {
+        return $this->belongsTo(Notification::class);
+    }
+
+    public function alertRule(): BelongsTo
+    {
+        return $this->belongsTo(AlertRule::class);
+    }
+
+    public function outlet(): BelongsTo
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
 
@@ -17927,6 +18726,519 @@ class KitchenTicketService
 ```
 </details>
 
+<a id="file-appservicesnotificationalertruleservicephp"></a>
+### app\Services\Notification\AlertRuleService.php
+- SHA: `9446a2c758a1`  
+- Ukuran: 645 B  
+- Namespace: `App\Services\Notification`
+
+**Class `AlertRuleService`**
+
+Metode Publik:
+- **create**(array $payload) : *AlertRule*
+- **update**(AlertRule $alertRule, array $payload) : *AlertRule*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace App\Services\Notification;
+
+use App\Models\AlertRule;
+use Illuminate\Support\Facades\DB;
+
+class AlertRuleService
+{
+    public function create(array $payload): AlertRule
+    {
+        return DB::transaction(function () use ($payload) {
+            $rule = AlertRule::query()->create($payload);
+
+            return $rule->load('outlet');
+        });
+    }
+
+    public function update(AlertRule $alertRule, array $payload): AlertRule
+    {
+        return DB::transaction(function () use ($alertRule, $payload) {
+            $alertRule->update($payload);
+
+            return $alertRule->fresh()->load('outlet');
+        });
+    }
+}
+
+```
+</details>
+
+<a id="file-appservicesnotificationnotificationservicephp"></a>
+### app\Services\Notification\NotificationService.php
+- SHA: `c0a92858358f`  
+- Ukuran: 19 KB  
+- Namespace: `App\Services\Notification`
+
+**Class `NotificationService`**
+
+Metode Publik:
+- **paginate**(array $filters = []) : *LengthAwarePaginator*
+- **markAsRead**(Notification $notification, ?int $userId = null) : *Notification*
+- **markAllAsRead**(?int $outletId = null, ?int $userId = null) : *int*
+- **resolve**(Notification $notification, ?int $userId = null) : *Notification* — @var Collection<int, Notification> $notifications
+- **scan**(array $filters = [], ?int $userId = null) : *array* — @var Collection<int, Notification> $notifications
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+namespace App\Services\Notification;
+
+use App\Models\AlertRule;
+use App\Models\CashierShift;
+use App\Models\Notification;
+use App\Models\NotificationLog;
+use App\Models\Order;
+use App\Models\OutletMaterialStock;
+use App\Models\Voucher;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+
+class NotificationService
+{
+    public function paginate(array $filters = []): LengthAwarePaginator
+    {
+        return Notification::query()
+            ->with(['outlet', 'user'])
+            ->withCount('logs')
+            ->when(! empty($filters['outlet_id']), function (Builder $query) use ($filters) {
+                $query->where('outlet_id', (int) $filters['outlet_id']);
+            })
+            ->when(! empty($filters['user_id']), function (Builder $query) use ($filters) {
+                $query->where('user_id', (int) $filters['user_id']);
+            })
+            ->when(! empty($filters['type']), function (Builder $query) use ($filters) {
+                $query->where('type', (string) $filters['type']);
+            })
+            ->when(! empty($filters['severity']), function (Builder $query) use ($filters) {
+                $query->where('severity', (string) $filters['severity']);
+            })
+            ->when(! empty($filters['status']), function (Builder $query) use ($filters) {
+                $query->where('status', (string) $filters['status']);
+            })
+            ->latest('id')
+            ->paginate((int) ($filters['per_page'] ?? 10));
+    }
+
+    public function markAsRead(Notification $notification, ?int $userId = null): Notification
+    {
+        return DB::transaction(function () use ($notification, $userId) {
+            if ($notification->status === 'unread') {
+                $notification->update([
+                    'status'  => 'read',
+                    'read_at' => now(),
+                ]);
+
+                $this->log([
+                    'notification_id' => $notification->id,
+                    'outlet_id'       => $notification->outlet_id,
+                    'user_id'         => $userId,
+                    'action'          => 'read',
+                    'status'          => 'success',
+                    'channel'         => 'database',
+                    'message'         => 'Notification ditandai sudah dibaca.',
+                    'payload'         => [
+                        'notification_id' => $notification->id,
+                    ],
+                ]);
+            }
+
+            return $notification->fresh(['outlet', 'user', 'logs']);
+        });
+    }
+
+    public function markAllAsRead(?int $outletId = null, ?int $userId = null): int
+    {
+        $query = Notification::query()
+            ->where('status', 'unread')
+            ->when($outletId, fn(Builder $builder) => $builder->where('outlet_id', $outletId));
+
+        /** @var Collection<int, Notification> $notifications */
+        $notifications = $query->get();
+
+        $count = 0;
+
+        DB::transaction(function () use ($notifications, $userId, &$count) {
+            foreach ($notifications as $notification) {
+                $notification->update([
+                    'status'  => 'read',
+                    'read_at' => now(),
+                ]);
+
+                $this->log([
+                    'notification_id' => $notification->id,
+                    'outlet_id'       => $notification->outlet_id,
+                    'user_id'         => $userId,
+                    'action'          => 'read',
+                    'status'          => 'success',
+                    'channel'         => 'database',
+                    'message'         => 'Notification ditandai sudah dibaca.',
+                    'payload'         => [
+                        'notification_id' => $notification->id,
+                    ],
+                ]);
+
+                $count++;
+            }
+        });
+
+        return $count;
+    }
+
+    public function resolve(Notification $notification, ?int $userId = null): Notification
+    {
+        return DB::transaction(function () use ($notification, $userId) {
+            $notification->update([
+                'status'      => 'resolved',
+                'resolved_at' => now(),
+                'read_at'     => $notification->read_at ?: now(),
+            ]);
+
+            $this->log([
+                'notification_id' => $notification->id,
+                'outlet_id'       => $notification->outlet_id,
+                'user_id'         => $userId,
+                'action'          => 'resolved',
+                'status'          => 'success',
+                'channel'         => 'database',
+                'message'         => 'Notification diresolve.',
+                'payload'         => [
+                    'notification_id' => $notification->id,
+                ],
+            ]);
+
+            return $notification->fresh(['outlet', 'user', 'logs']);
+        });
+    }
+
+    public function scan(array $filters = [], ?int $userId = null): array
+    {
+        $rules = AlertRule::query()
+            ->where('is_active', true)
+            ->when(! empty($filters['outlet_id']), function (Builder $query) use ($filters) {
+                $query->where(function (Builder $ruleQuery) use ($filters) {
+                    $ruleQuery->whereNull('outlet_id')
+                        ->orWhere('outlet_id', (int) $filters['outlet_id']);
+                });
+            })
+            ->when(! empty($filters['alert_type']), function (Builder $query) use ($filters) {
+                $query->where('alert_type', (string) $filters['alert_type']);
+            })
+            ->get();
+
+        /** @var Collection<int, AlertRule> $rules */
+        $rules = AlertRule::query()
+            ->where('is_active', true)
+            ->when(! empty($filters['outlet_id']), function (Builder $query) use ($filters) {
+                $query->where(function (Builder $ruleQuery) use ($filters) {
+                    $ruleQuery->whereNull('outlet_id')
+                        ->orWhere('outlet_id', (int) $filters['outlet_id']);
+                });
+            })
+            ->when(! empty($filters['alert_type']), function (Builder $query) use ($filters) {
+                $query->where('alert_type', (string) $filters['alert_type']);
+            })
+            ->get();
+
+        $created = [
+            'low_stock'        => 0,
+            'shift_not_closed' => 0,
+            'promo_expiring'   => 0,
+            'order_overdue'    => 0,
+        ];
+
+        foreach ($rules as $rule) {
+            $count = match ($rule->alert_type) {
+                'low_stock'        => $this->scanLowStock($rule, $userId),
+                'shift_not_closed' => $this->scanShiftNotClosed($rule, $userId),
+                'promo_expiring'   => $this->scanPromoExpiring($rule, $userId),
+                'order_overdue'    => $this->scanOrderOverdue($rule, $userId),
+                default            => 0,
+            };
+
+            $created[$rule->alert_type] += $count;
+
+            $rule->update([
+                'last_run_at' => now(),
+            ]);
+        }
+
+        return [
+            'created'       => $created,
+            'total_created' => array_sum($created),
+            'scanned_at'    => now()->toDateTimeString(),
+            'scanned_by'    => $userId,
+        ];
+    }
+
+    private function scanLowStock(AlertRule $rule, ?int $userId = null): int
+    {
+        $count = 0;
+
+        OutletMaterialStock::query()
+            ->with(['outlet', 'rawMaterial.unit'])
+            ->whereHas('rawMaterial', fn(Builder $query) => $query->where('is_active', true))
+            ->when($rule->outlet_id, fn(Builder $query) => $query->where('outlet_id', $rule->outlet_id))
+            ->chunkById(100, function ($stocks) use ($rule, $userId, &$count) {
+                foreach ($stocks as $stock) {
+                    if (! $stock->rawMaterial) {
+                        continue;
+                    }
+
+                    $limit = $rule->threshold_value !== null
+                        ? (float) $rule->threshold_value
+                        : (float) $stock->rawMaterial->minimum_stock;
+
+                    $qtyOnHand = (float) $stock->qty_on_hand;
+
+                    if ($limit <= 0 || $qtyOnHand > $limit) {
+                        continue;
+                    }
+
+                    if ($this->createOnce([
+                        'notification' => [
+                            'outlet_id' => $stock->outlet_id,
+                            'user_id'   => null,
+                            'type'      => 'low_stock',
+                            'severity'  => $this->mapSeverity($rule->severity),
+                            'status'    => 'unread',
+                            'title'     => 'Stok bahan baku menipis',
+                            'message'   => "{$stock->rawMaterial->name} di {$stock->outlet?->name} tersisa {$qtyOnHand}, batas minimum {$limit}.",
+                            'source_type' => OutletMaterialStock::class,
+                            'source_id'   => $stock->id,
+                            'data'        => [
+                                'alert_rule_id'     => $rule->id,
+                                'raw_material_id'   => $stock->rawMaterial->id,
+                                'raw_material_name' => $stock->rawMaterial->name,
+                                'qty_on_hand'       => $qtyOnHand,
+                                'threshold'         => $limit,
+                                'unit'              => $stock->rawMaterial->unit?->code,
+                            ],
+                        ],
+                        'alert_rule_id' => $rule->id,
+                        'user_id'       => $userId,
+                    ])) {
+                        $count++;
+                    }
+                }
+            });
+
+        return $count;
+    }
+
+    private function scanShiftNotClosed(AlertRule $rule, ?int $userId = null): int
+    {
+        $count   = 0;
+        $minutes = (int) ($rule->threshold_minutes ?: $rule->threshold_value ?: 720);
+        $limit   = now()->subMinutes($minutes);
+
+        CashierShift::query()
+            ->with(['outlet', 'user'])
+            ->where('status', 'open')
+            ->where('opened_at', '<=', $limit)
+            ->when($rule->outlet_id, fn(Builder $query) => $query->where('outlet_id', $rule->outlet_id))
+            ->chunkById(100, function ($shifts) use ($rule, $userId, $minutes, &$count) {
+                foreach ($shifts as $shift) {
+                    if ($this->createOnce([
+                        'notification' => [
+                            'outlet_id' => $shift->outlet_id,
+                            'user_id'   => $shift->user_id,
+                            'type'      => 'shift_not_closed',
+                            'severity'  => $this->mapSeverity($rule->severity),
+                            'status'    => 'unread',
+                            'title'     => 'Shift kasir belum ditutup',
+                            'message'   => "Shift {$shift->shift_number} milik {$shift->user?->name} di {$shift->outlet?->name} belum ditutup lebih dari {$minutes} menit.",
+                            'source_type' => CashierShift::class,
+                            'source_id'   => $shift->id,
+                            'data'        => [
+                                'alert_rule_id'     => $rule->id,
+                                'shift_number'      => $shift->shift_number,
+                                'opened_at'         => $shift->opened_at?->toDateTimeString(),
+                                'threshold_minutes' => $minutes,
+                            ],
+                        ],
+                        'alert_rule_id' => $rule->id,
+                        'user_id'       => $userId,
+                    ])) {
+                        $count++;
+                    }
+                }
+            });
+
+        return $count;
+    }
+
+    private function scanPromoExpiring(AlertRule $rule, ?int $userId = null): int
+    {
+        $count = 0;
+        $days  = (int) ($rule->days_before ?: $rule->threshold_value ?: 3);
+        $until = now()->addDays($days)->endOfDay();
+
+        Voucher::query()
+            ->where('is_active', true)
+            ->whereNotNull('ends_at')
+            ->whereBetween('ends_at', [now(), $until])
+            ->chunkById(100, function ($vouchers) use ($rule, $userId, $days, &$count) {
+                foreach ($vouchers as $voucher) {
+                    if ($this->createOnce([
+                        'notification' => [
+                            'outlet_id' => $rule->outlet_id,
+                            'user_id'   => null,
+                            'type'      => 'promo_expiring',
+                            'severity'  => $this->mapSeverity($rule->severity),
+                            'status'    => 'unread',
+                            'title'     => 'Voucher segera berakhir',
+                            'message'   => "Voucher {$voucher->code} - {$voucher->name} akan berakhir pada {$voucher->ends_at?->toDateTimeString()}.",
+                            'source_type' => Voucher::class,
+                            'source_id'   => $voucher->id,
+                            'data'        => [
+                                'alert_rule_id' => $rule->id,
+                                'voucher_code'  => $voucher->code,
+                                'voucher_name'  => $voucher->name,
+                                'ends_at'       => $voucher->ends_at?->toDateTimeString(),
+                                'days_before'   => $days,
+                            ],
+                        ],
+                        'alert_rule_id' => $rule->id,
+                        'user_id'       => $userId,
+                    ])) {
+                        $count++;
+                    }
+                }
+            });
+
+        return $count;
+    }
+
+    private function scanOrderOverdue(AlertRule $rule, ?int $userId = null): int
+    {
+        $count   = 0;
+        $minutes = (int) ($rule->threshold_minutes ?: $rule->threshold_value ?: 30);
+        $limit   = now()->subMinutes($minutes);
+
+        Order::query()
+            ->with(['outlet', 'customer'])
+            ->whereIn('order_status', ['pending', 'confirmed', 'preparing'])
+            ->where('ordered_at', '<=', $limit)
+            ->when($rule->outlet_id, fn(Builder $query) => $query->where('outlet_id', $rule->outlet_id))
+            ->chunkById(100, function ($orders) use ($rule, $userId, $minutes, &$count) {
+                foreach ($orders as $order) {
+                    if ($this->createOnce([
+                        'notification' => [
+                            'outlet_id' => $order->outlet_id,
+                            'user_id'   => $order->created_by,
+                            'type'      => 'order_overdue',
+                            'severity'  => $this->mapSeverity($rule->severity),
+                            'status'    => 'unread',
+                            'title'     => 'Order terlambat diproses',
+                            'message'   => "Order {$order->order_number} di {$order->outlet?->name} masih berstatus {$order->order_status} lebih dari {$minutes} menit.",
+                            'source_type' => Order::class,
+                            'source_id'   => $order->id,
+                            'data'        => [
+                                'alert_rule_id'     => $rule->id,
+                                'order_number'      => $order->order_number,
+                                'queue_number'      => $order->queue_number,
+                                'order_status'      => $order->order_status,
+                                'ordered_at'        => $order->ordered_at?->toDateTimeString(),
+                                'threshold_minutes' => $minutes,
+                            ],
+                        ],
+                        'alert_rule_id' => $rule->id,
+                        'user_id'       => $userId,
+                    ])) {
+                        $count++;
+                    }
+                }
+            });
+
+        return $count;
+    }
+
+    private function createOnce(array $payload): bool
+    {
+        $notificationPayload = $payload['notification'];
+
+        $exists = Notification::query()
+            ->where('type', $notificationPayload['type'])
+            ->where('source_type', $notificationPayload['source_type'])
+            ->where('source_id', $notificationPayload['source_id'])
+            ->whereIn('status', ['unread', 'read'])
+            ->exists();
+
+        if ($exists) {
+            $this->log([
+                'notification_id' => null,
+                'alert_rule_id'   => $payload['alert_rule_id'],
+                'outlet_id'       => $notificationPayload['outlet_id'],
+                'user_id'         => $payload['user_id'] ?? null,
+                'action'          => 'skipped',
+                'status'          => 'skipped',
+                'channel'         => 'database',
+                'message'         => 'Notification aktif dengan source yang sama sudah ada.',
+                'payload'         => $notificationPayload,
+            ]);
+
+            return false;
+        }
+
+        DB::transaction(function () use ($notificationPayload, $payload) {
+            $notification = Notification::query()->create($notificationPayload);
+
+            $this->log([
+                'notification_id' => $notification->id,
+                'alert_rule_id'   => $payload['alert_rule_id'],
+                'outlet_id'       => $notification->outlet_id,
+                'user_id'         => $payload['user_id'] ?? null,
+                'action'          => 'generated',
+                'status'          => 'success',
+                'channel'         => 'database',
+                'message'         => $notification->message,
+                'payload'         => $notificationPayload,
+            ]);
+        });
+
+        return true;
+    }
+
+    private function log(array $payload): NotificationLog
+    {
+        return NotificationLog::query()->create([
+            'notification_id' => $payload['notification_id'] ?? null,
+            'alert_rule_id'   => $payload['alert_rule_id'] ?? null,
+            'outlet_id'       => $payload['outlet_id'] ?? null,
+            'user_id'         => $payload['user_id'] ?? null,
+            'action'          => $payload['action'],
+            'status'          => $payload['status'] ?? 'success',
+            'channel'         => $payload['channel'] ?? 'database',
+            'message'         => $payload['message'] ?? null,
+            'payload'         => $payload['payload'] ?? null,
+            'logged_at'       => now(),
+        ]);
+    }
+
+    private function mapSeverity(string $severity): string
+    {
+        return match ($severity) {
+            'low'    => 'info',
+            'medium' => 'warning',
+            'high', 'critical' => 'danger',
+            default  => 'warning',
+        };
+    }
+}
+
+```
+</details>
+
 <a id="file-appservicesoutletoutletservicephp"></a>
 ### app\Services\Outlet\OutletService.php
 - SHA: `7b229eac14f4`  
@@ -20163,6 +21475,104 @@ class VoucherService
 
 ## Database Seeders (database/seeders)
 
+<a id="file-databaseseedersalertruleseederphp"></a>
+### database\seeders\AlertRuleSeeder.php
+- SHA: `4986e3f529ef`  
+- Ukuran: 3 KB  
+- Namespace: `Database\Seeders`
+
+**Class `AlertRuleSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\AlertRule;
+use Illuminate\Database\Seeder;
+
+class AlertRuleSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $rows = [
+            [
+                'outlet_id' => null,
+                'name' => 'Stok bahan baku menipis',
+                'alert_type' => 'low_stock',
+                'severity' => 'high',
+                'threshold_minutes' => null,
+                'days_before' => null,
+                'threshold_value' => null,
+                'threshold_unit' => 'qty',
+                'recipient_roles' => null,
+                'channels' => ['database'],
+                'metadata' => null,
+                'is_active' => true,
+            ],
+            [
+                'outlet_id' => null,
+                'name' => 'Shift kasir belum ditutup',
+                'alert_type' => 'shift_not_closed',
+                'severity' => 'high',
+                'threshold_minutes' => 720,
+                'days_before' => null,
+                'threshold_value' => 720,
+                'threshold_unit' => 'minutes',
+                'recipient_roles' => null,
+                'channels' => ['database'],
+                'metadata' => null,
+                'is_active' => true,
+            ],
+            [
+                'outlet_id' => null,
+                'name' => 'Voucher segera berakhir',
+                'alert_type' => 'promo_expiring',
+                'severity' => 'medium',
+                'threshold_minutes' => null,
+                'days_before' => 3,
+                'threshold_value' => 3,
+                'threshold_unit' => 'days',
+                'recipient_roles' => null,
+                'channels' => ['database'],
+                'metadata' => null,
+                'is_active' => true,
+            ],
+            [
+                'outlet_id' => null,
+                'name' => 'Order terlambat diproses',
+                'alert_type' => 'order_overdue',
+                'severity' => 'critical',
+                'threshold_minutes' => 30,
+                'days_before' => null,
+                'threshold_value' => 30,
+                'threshold_unit' => 'minutes',
+                'recipient_roles' => null,
+                'channels' => ['database'],
+                'metadata' => null,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($rows as $row) {
+            AlertRule::query()->updateOrCreate(
+                [
+                    'outlet_id' => $row['outlet_id'],
+                    'alert_type' => $row['alert_type'],
+                ],
+                $row
+            );
+        }
+    }
+}
+
+```
+</details>
+
 <a id="file-databaseseedersdashboardpermissionseederphp"></a>
 ### database\seeders\DashboardPermissionSeeder.php
 - SHA: `192a487659df`  
@@ -20207,8 +21617,8 @@ class DashboardPermissionSeeder extends Seeder
 
 <a id="file-databaseseedersdatabaseseederphp"></a>
 ### database\seeders\DatabaseSeeder.php
-- SHA: `8f854e77d3c5`  
-- Ukuran: 643 B  
+- SHA: `718df31015a8`  
+- Ukuran: 728 B  
 - Namespace: `Database\Seeders`
 
 **Class `DatabaseSeeder` extends `Seeder`**
@@ -20239,6 +21649,8 @@ class DatabaseSeeder extends Seeder
             ExpenseCategorySeeder::class,
             ReportPermissionSeeder::class,
             DashboardPermissionSeeder::class,
+            NotificationPermissionSeeder::class,
+            AlertRuleSeeder::class,
         ]);
     }
 }
@@ -20507,6 +21919,57 @@ class KitchenRolePermissionSeeder extends Seeder
 ```
 </details>
 
+<a id="file-databaseseedersnotificationpermissionseederphp"></a>
+### database\seeders\NotificationPermissionSeeder.php
+- SHA: `8ab4da3054b2`  
+- Ukuran: 897 B  
+- Namespace: `Database\Seeders`
+
+**Class `NotificationPermissionSeeder` extends `Seeder`**
+
+Metode Publik:
+- **run**() : *void*
+<details><summary><strong>Lihat Kode Lengkap</strong></summary>
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class NotificationPermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $permissions = [
+            'notifications.view',
+            'notifications.update',
+            'notifications.delete',
+            'notifications.resolve',
+            'notifications.scan',
+
+            'alert_rules.view',
+            'alert_rules.create',
+            'alert_rules.update',
+            'alert_rules.delete',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::findOrCreate($permission, 'sanctum');
+        }
+
+        foreach (['superadmin', 'admin_pusat', 'admin_outlet', 'owner'] as $roleName) {
+            Role::findOrCreate($roleName, 'sanctum')->givePermissionTo($permissions);
+        }
+    }
+}
+
+```
+</details>
+
 <a id="file-databaseseederspaymentmethodseederphp"></a>
 ### database\seeders\PaymentMethodSeeder.php
 - SHA: `4b8039c83587`  
@@ -20566,7 +22029,7 @@ class PaymentMethodSeeder extends Seeder
 
 <a id="file-databaseseederspermissionseederphp"></a>
 ### database\seeders\PermissionSeeder.php
-- SHA: `ffe222ffe6f9`  
+- SHA: `4b5582c131a3`  
 - Ukuran: 5 KB  
 - Namespace: `Database\Seeders`
 
@@ -20750,6 +22213,17 @@ class PermissionSeeder extends Seeder
             'reports.export',
 
             'dashboard.view',
+
+            'notifications.view',
+            'notifications.update',
+            'notifications.delete',
+            'notifications.resolve',
+            'notifications.scan',
+
+            'alert_rules.view',
+            'alert_rules.create',
+            'alert_rules.update',
+            'alert_rules.delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -20806,8 +22280,8 @@ class ReportPermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `f0557698acda`  
-- Ukuran: 12 KB  
+- SHA: `70596356c09a`  
+- Ukuran: 13 KB  
 - Namespace: `Database\Seeders`
 
 **Class `RoleSeeder` extends `Seeder`**
@@ -21015,6 +22489,17 @@ class RoleSeeder extends Seeder
             'reports.export',
 
             'dashboard.view',
+
+            'notifications.view',
+            'notifications.update',
+            'notifications.delete',
+            'notifications.resolve',
+            'notifications.scan',
+
+            'alert_rules.view',
+            'alert_rules.create',
+            'alert_rules.update',
+            'alert_rules.delete',
         ]);
 
         $adminOutlet->syncPermissions([
@@ -21117,6 +22602,17 @@ class RoleSeeder extends Seeder
             'reports.view',
 
             'dashboard.view',
+
+            'notifications.view',
+            'notifications.update',
+            'notifications.delete',
+            'notifications.resolve',
+            'notifications.scan',
+
+            'alert_rules.view',
+            'alert_rules.create',
+            'alert_rules.update',
+            'alert_rules.delete',
         ]);
 
         $kasir->syncPermissions([
@@ -21271,8 +22767,11 @@ class RoleSeeder extends Seeder
 
             'reports.view',
             'reports.export',
-            
+
             'dashboard.view',
+
+            'notifications.view',
+            'alert_rules.view',
         ]);
     }
 }
@@ -21328,8 +22827,8 @@ class SuperAdminSeeder extends Seeder
 
 <a id="file-routesapiphp"></a>
 ### routes\api.php
-- SHA: `4be3f890f934`  
-- Ukuran: 20 KB  
+- SHA: `8b5ce2c0827d`  
+- Ukuran: 21 KB  
 - Namespace: ``
 
 **Ringkasan Routes (deteksi heuristik):**
@@ -21541,11 +23040,24 @@ class SuperAdminSeeder extends Seeder
 | GET | `/dashboard/pending-orders` | `DashboardController` | `pendingOrders` |
 | GET | `/dashboard/overdue-orders` | `DashboardController` | `overdueOrders` |
 | GET | `/dashboard/cash-discrepancies` | `DashboardController` | `cashDiscrepancies` |
+| GET | `/notifications` | `NotificationController` | `index` |
+| GET | `/notifications/{notification}` | `NotificationController` | `show` |
+| POST | `/notifications/scan` | `NotificationController` | `scan` |
+| POST | `/notifications/mark-all-read` | `NotificationController` | `markAllAsRead` |
+| POST | `/notifications/{notification}/read` | `NotificationController` | `markAsRead` |
+| POST | `/notifications/{notification}/resolve` | `NotificationController` | `resolve` |
+| DELETE | `/notifications/{notification}` | `NotificationController` | `destroy` |
+| GET | `/alert-rules` | `AlertRuleController` | `index` |
+| POST | `/alert-rules` | `AlertRuleController` | `store` |
+| GET | `/alert-rules/{alertRule}` | `AlertRuleController` | `show` |
+| PUT | `/alert-rules/{alertRule}` | `AlertRuleController` | `update` |
+| DELETE | `/alert-rules/{alertRule}` | `AlertRuleController` | `destroy` |
 <details><summary><strong>Lihat Kode Lengkap</strong></summary>
 
 ```php
 <?php
 
+use App\Http\Controllers\Api\AlertRuleController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashierShiftController;
 use App\Http\Controllers\Api\CashMovementController;
@@ -21557,6 +23069,7 @@ use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\GoodsReceiptController;
 use App\Http\Controllers\Api\KitchenTicketController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\OutletMaterialStockController;
@@ -21829,6 +23342,20 @@ Route::prefix('v1')->group(function () {
         Route::get('/dashboard/pending-orders', [DashboardController::class, 'pendingOrders']);
         Route::get('/dashboard/overdue-orders', [DashboardController::class, 'overdueOrders']);
         Route::get('/dashboard/cash-discrepancies', [DashboardController::class, 'cashDiscrepancies']);
+
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::get('/notifications/{notification}', [NotificationController::class, 'show']);
+        Route::post('/notifications/scan', [NotificationController::class, 'scan']);
+        Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+        Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead']);
+        Route::post('/notifications/{notification}/resolve', [NotificationController::class, 'resolve']);
+        Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy']);
+
+        Route::get('/alert-rules', [AlertRuleController::class, 'index']);
+        Route::post('/alert-rules', [AlertRuleController::class, 'store']);
+        Route::get('/alert-rules/{alertRule}', [AlertRuleController::class, 'show']);
+        Route::put('/alert-rules/{alertRule}', [AlertRuleController::class, 'update']);
+        Route::delete('/alert-rules/{alertRule}', [AlertRuleController::class, 'destroy']);
     });
 });
 
