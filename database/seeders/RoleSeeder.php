@@ -356,6 +356,9 @@ class RoleSeeder extends Seeder
             'orders.update',
             'orders.cancel',
 
+            'kitchen_tickets.view',
+            'kitchen_tickets.create',
+
             'couriers.view',
 
             'deliveries.view',
@@ -374,6 +377,14 @@ class RoleSeeder extends Seeder
 
         $dapur->syncPermissions([
             'orders.view',
+
+            'kitchen_tickets.view',
+            'kitchen_tickets.update',
+            'kitchen_tickets.print',
+            'kitchen_tickets.start_preparing',
+            'kitchen_tickets.mark_ready',
+            'kitchen_tickets.serve',
+            'kitchen_tickets.cancel',
         ]);
 
         $gudang->syncPermissions([

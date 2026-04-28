@@ -1,6 +1,6 @@
 # Dokumentasi Backend (FULL Source)
 
-_Dihasilkan otomatis: 2026-04-25 16:35:30_  
+_Dihasilkan otomatis: 2026-04-28 12:15:04_  
 **Root:** `G:\.galuh\latihanlaravel\A-Portfolio-Project\2026\alibaba\backend`
 
 ## Daftar Isi
@@ -23464,7 +23464,7 @@ class ReportPermissionSeeder extends Seeder
 
 <a id="file-databaseseedersroleseederphp"></a>
 ### database\seeders\RoleSeeder.php
-- SHA: `70596356c09a`  
+- SHA: `1abf9257763d`  
 - Ukuran: 13 KB  
 - Namespace: `Database\Seeders`
 
@@ -23833,6 +23833,9 @@ class RoleSeeder extends Seeder
             'orders.update',
             'orders.cancel',
 
+            'kitchen_tickets.view',
+            'kitchen_tickets.create',
+
             'couriers.view',
 
             'deliveries.view',
@@ -23851,6 +23854,14 @@ class RoleSeeder extends Seeder
 
         $dapur->syncPermissions([
             'orders.view',
+
+            'kitchen_tickets.view',
+            'kitchen_tickets.update',
+            'kitchen_tickets.print',
+            'kitchen_tickets.start_preparing',
+            'kitchen_tickets.mark_ready',
+            'kitchen_tickets.serve',
+            'kitchen_tickets.cancel',
         ]);
 
         $gudang->syncPermissions([
